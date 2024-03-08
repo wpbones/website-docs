@@ -1,17 +1,20 @@
+import { Callout, FileTree } from 'nextra/components'
+import { FileTreeLabel } from '@components/FileTreeLabel'
+
+# Options View
+
 Of course, you will need to display your options in order to edit them. Let's have a look at a complete sample of options view. First, let's assume we have the following routes defined in our `config/menus.php` file:
 
-```php
-...
+```php filename="config/menus.php" copy
   'route' => [
     'get'  => 'Dashboard\DashboardController@optionsView',
     'post' => 'Dashboard\DashboardController@saveOptions'
   ]
-...  
 ```
 
 In the `DashboardController` view controller we will create the `optionView` method so as to display the form:
 
-```php
+```php filename="plugin/Controllers/DashboardController.php" copy
 public function optionView() {
   return WPKirk()->view( 'dashboard.optionsview' );
 }
@@ -19,7 +22,7 @@ public function optionView() {
 
 Now, we will create a file `optionview.php` in the `resources/views/dashboard/` folder: 
 
-```html
+```html filename="resources/views/dashboard/optionsview.php" copy
 <form action="" method="post">
 
   <label>Special.Name</label>
@@ -32,13 +35,13 @@ Now, we will create a file `optionview.php` in the `resources/views/dashboard/` 
 </form>
 ```
 
-> 📌 
->
-> **Note**: You can't use the dot (`.`) in the name of the field, because it will be replaced by an underscore (`_`) char. Instead, use a slash in order to separate the options branch.
+<Callout>
+You can't use the dot (`.`) in the name of the field, because it will be replaced by an underscore (`_`) char. Instead, use a slash in order to separate the options branch.
+</Callout>
 
 Next, in the updating method we'll use:
 
-```php
+```php filename="plugin/Controllers/DashboardController.php" copy
 public function saveOptions()
 {
   WPKirk()->options
@@ -50,15 +53,16 @@ public function saveOptions()
 
 That's all.
 
-> 📌 
->
-> **Note**: You may use the dot notation as well as slash notation when getting a post value by `request` property. For example, you may use `$this->request->get( 'Special.Name' )` or `$this->request->get( 'Special/Name' )`
+<Callout>
+You may use the dot notation as well as slash notation when getting a post value by `request` property. For example, you may use `$this->request->get( 'Special.Name' )` or `$this->request->get( 'Special/Name' )`
+</Callout>
+
 
 ## Massive update
 
 Instead of specifing each single option, you may use `$this->request->getAsOptions` method in order to get all options post fields:
 
-```php
+```php filename="plugin/Controllers/DashboardController.php" copy
 public function saveOptions()
 {
   WPKirk()->options
@@ -68,17 +72,16 @@ public function saveOptions()
 }
 ```
 
-> 📌
->
-> **Note**: The method `$this->request->getAsOptions` will get only the POST keys formatted as `Branch/subbranch`.
-
+<Callout>
+The method `$this->request->getAsOptions` will get only the POST keys formatted as `Branch/subbranch`.
+</Callout>
 
 
 ## Checkbox workaround
 
 When you are using the massive update by `update( $this->request->getAsOptions() )`, remember that any checkbox input fields cannot be sent if unchecked. Anyway, you may use a workaround in order to send an unchecked value even when the checkboxes are unchecked. You can do this by adding a **hidden input field** with the same name of the input checkbox and set the value to negative or null value:
 
-```html
+```html copy
 <form action="" method="post">
 
   <label>General.option_1</label>
@@ -101,20 +104,20 @@ As you can see from the above code, the second "real" input checkbox will overwr
 
 Alternatively, instead of using the HTML markup, you may use the `Html` class to create a checkbox input control:
 
-```php
+```php copy
 echo WPKirk\Html::checkbox()->name( 'myname')->value( 'on');
 ```
 
 Then you'll get:
 
-```html
+```html 
 <input type="hidden" name="myname" value="off" />
 <input type="checkbox" name="myname" value="on" />
 ```
 
 Currently, you'll get an `off` as unchecked value. You can also use:
 
-```php
+```php copy
 echo WPKirk\Html::checkbox()
   ->name( 'myname')
   ->checked( $plugin->options->get( 'options.value' ) )
@@ -127,7 +130,7 @@ If `options.value` is `empty`, `false`, `null` or `off` then the checkbox will b
 
 If you prefer to display a message after updating, you may use the `with` fluent method:
 
-```php
+```php copy
 public function saveOptions()
 {
   WPKirk()->options
@@ -140,7 +143,7 @@ public function saveOptions()
 
 And get it in the view:
 
-```HTML
+```html copy
 <?php if ( isset( $feedback ) ) : ?>
   <h3><?php echo $feedback ?></h3>
 <?php endif; ?>
@@ -161,7 +164,7 @@ And get it in the view:
 
 You wish to use the WordPress nonce function to prevent CSRF attacks. You can do this by adding the `wp_nonce_field` WordPress function in your HTML form:
 
-```HTML
+```html copy
 <?php if ( isset( $feedback ) ) : ?>
   <h3><?php echo $feedback ?></h3>
 <?php endif; ?>
@@ -182,7 +185,7 @@ You wish to use the WordPress nonce function to prevent CSRF attacks. You can do
 
 Next, in the `saveOptions` you may use `wp_verify_nonce` WordPress function or the more useful `$this->request->verifyNonce` WP Bones method:
 
-```php
+```php copy
 public function saveOptions()
 {
   if ( $this->request->verifyNonce( 'Options' ) ) {

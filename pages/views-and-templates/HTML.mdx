@@ -1,22 +1,29 @@
+import { Callout, FileTree } from 'nextra/components'
+import { FileTreeLabel } from '@components/FileTreeLabel'
+
+# HTML
+
 WP Bones provides a great alternative to HTML markup writing in your view. If you wish to use objects programming, then the `Html` class is for you. Inside a view file, you may use the `Html` class to create, manage and display Html Tag. 
 
-> **Note:** Due to WordPress plugins architecture, your plugin namespace will be prefixed to the *aliased* class. So, if your namespace is `MyAwesomePlugin` then you should use `MyAwesomePlugin\Html` to get the `Html` facade.
+<Callout type="info">
+Due to WordPress plugins architecture, your plugin namespace will be prefixed to the *aliased* class. So, if your namespace is `MyAwesomePlugin` then you should use `MyAwesomePlugin\Html` to get the `Html` facade.
+</Callout>
 
 For example, if you would like to display a button, you may use a code such as:
 
-```html
+```html copy
 <div class="wrap">
   <?php echo WPKirk\Html::button( "Hello, world!" ) ?>
 </div>
 ```
 
-> 📌
->
-> **Note**: The `Html` class is designed for WordPress. This means that you'll find several advantages while working with Html.
+<Callout type="info">
+The `Html` class is designed for WordPress. This means that you'll find several advantages while working with Html.
+</Callout>
 
 Also, the `Html` class works like a facade and provides a fluent behavior. For example, the above code can be written as:
 
-```html
+```html copy
 <div class="wrap">
   <?php WPKirk\Html::button( "Hello, world!" )->html() ?>
 </div>
@@ -24,7 +31,7 @@ Also, the `Html` class works like a facade and provides a fluent behavior. For e
 
 or
 
-```html
+```html copy
 <div class="wrap">
   <?php 
      $button = WPKirk\Html::button( "Hello, world!" );
@@ -33,9 +40,9 @@ or
 </div>
 ```
 
-> 📌
->
-> **Note**: If you prefer to get the HTML markup, please use `$button->html()`.
+<Callout>
+If you prefer to get the HTML markup, please use `$button->html()`.
+</Callout>
 
 Every Html tag provides its Html interface in order to set the attributes. For example, let's see how to set some button attributes:
 
@@ -59,13 +66,13 @@ Every Html tag provides its Html interface in order to set the attributes. For e
 
 Of course, there are some attributes with dash char like `accept-charset`. In this case you have to use a camel version of attributes in order to set it through fluently:
 
-```html
+```php copy
 <?php echo WPKirk\Html::form()->acceptcharset( 'ISO-8859-1' ) ?>
 ```
 
 If you prefer an array, then you can use the original attribute name:
 
-```html
+```php   
 <?php echo WPKirk\Html::form( [ 'accept-charset' => 'ISO-8859-1'] ) ?>
 ```
 
@@ -73,14 +80,15 @@ If you prefer an array, then you can use the original attribute name:
 
 Of course, you may wish to add your own custom attribute. You can do this by using `attributes` method. For example:
 
-```html
+```php copy
 <?php echo WPKirk\Html::button( 'Click me!' )->attributes( 'hello', 'world' ) ?>
-
-<!-- You'll see looks like -->
-<button hello="world">Click me!</button>
 ```
 
+You'll see looks like
 
+```html
+<button hello="world">Click me!</button>
+```
 
 ## Currently Html tags
 
