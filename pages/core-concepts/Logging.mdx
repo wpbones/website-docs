@@ -1,7 +1,11 @@
+import { Callout, FileTree } from 'nextra/components'
+import { FileTreeLabel } from '@components/FileTreeLabel'
+
+# Logging
+
 To help you learn more about what's happening within your plugin, you can use the `error_log()` function. As you know, within WordPress you can enable the loggin by adding the following lines in the `wp-config.php` file:
 
-```php
-...
+```php filename="wp_config.php" copy
 /**
  * For developers: WordPress debugging mode.
  *
@@ -13,7 +17,6 @@ To help you learn more about what's happening within your plugin, you can use th
  define('WP_DEBUG_LOG', true );
  define('WP_DEBUG_DISPLAY', false );
  ini_set('display_errors', 0 );
- ...
 ```
 
 Anyway, WPBones provides addition configuration that allow you to log messages to files, in a easy a beatiful way.
@@ -22,24 +25,23 @@ Anyway, WPBones provides addition configuration that allow you to log messages t
 
 You can find the configuration for your plugin's logging in the `config/plugin.php`:
 
-```php
-...
-    /*
-    |--------------------------------------------------------------------------
-    | Logging Configuration
-    |--------------------------------------------------------------------------
-    |
-    | Here you may configure the log settings for your plugin.
-    |
-    | Available Settings: "single", "daily", "errorlog".
-    |
-    | Set to false or 'none' to stop logging.
-    |
-    */
+```php filename="config/plugin.php" copy
+/*
+|--------------------------------------------------------------------------
+| Logging Configuration
+|--------------------------------------------------------------------------
+|
+| Here you may configure the log settings for your plugin.
+|
+| Available Settings: "single", "daily", "errorlog".
+|
+| Set to false or 'none' to stop logging.
+|
+*/
 
-    'log' => 'errorlog',
+'log' => 'errorlog',
 
-    'log_level' => 'debug',
+'log_level' => 'debug',
 ```
 
 ### Configuring the loggin type
@@ -54,8 +56,7 @@ The `daily` channel driver will create a daily log file in `/storage/logs/201804
 You may write information to the logs using the `Log` class or the `log()` method from you plugin instance.
 The logger provides the eight logging levels defined in the [RFC 5424 specification](https://tools.ietf.org/html/rfc5424): emergency, alert, critical, error, warning, notice, info and debug:
 
-```php
-
+```php copy
 use YourNamespace\WPBones\Foundation\Log\Log;
 
 class MyClass {
@@ -64,20 +65,15 @@ class MyClass {
   {
     Log::debug( 'info', [ 'context' => 'any' ] );
   }
-
 }
-
 ```
 
-<p align="center">
-  <img src="/wpbones/WPBones/wiki/images/logging.png" alt="Logging" />
-</p>
+![Logging](./logging.png)
 
 As you can see, the log row will be rendered with color console. In this way, will be easy to find your logs.
-
 As mentioned, you may use the global plugin instance function to access to log provider.
 
-```php
+```php copy
 use YourNamespace\WPBones\Foundation\Log\Log;
 
 class MyClass {
@@ -87,12 +83,11 @@ class MyClass {
     Plugin()->log()->debug( 'info', [ 'context' => 'any' ] );
   }
 }
-
 ```
 
 Of course, in the Service Provider you may use:
 
-```php
+```php copy
 use YourNamespace\WPBones\Foundation\Log\Log;
 use YourNamespace\WPBones\Support\ServiceProvider;
 
@@ -103,22 +98,20 @@ class MyServiceProvider extends ServiceProvider {
     $this->plugin->log()->debug( 'info', [ 'context' => 'any' ] );
   }
 }
-
 ```
 
 ## Helper functions
 
 You may use also the `logger()` function
 
-```php
+```php copy
 logger()->debug('Hello, World');
 logger()->info('Hello, World');
 ```
 
 As `logger()` is a common function name, if you get any issues, for instance conflict, you can use `wpbones_logger()` instead. In fact, `logger()` is just an alias of `wpbones_logger()`
 
-```php
+```php copy
 wpbones_logger()->debug('Hello, World');
 wpbones_logger()->info('Hello, World');
 ```
-

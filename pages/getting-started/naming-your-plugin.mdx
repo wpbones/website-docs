@@ -1,10 +1,12 @@
+import { Callout, FileTree } from 'nextra/components'
+
 # Naming Your Plugin
 
 When you install **your plugin**, you may wish to change the plugin name. This is a common practice when you are using **bones** as a starting point for your plugin development.
 
 Let's rename the plugin name and the namespace:
 
-```shell
+```shell copy
 php bones rename '<your plugin name>' '<your namespace>'
 ```
 
@@ -22,13 +24,14 @@ my-wp-plugin          Internal id used for css, js and less files
 
 After installing **your plugin**, you may wish to change the plugin name again.
 
-> :pushpin:
->
-> **Note**: Remember that a plugin name is bound to PHP namespace. This because WordPress doesn't support namespace in current plugin architecture.
+<Callout type="warning">
+Remember that a plugin name is bound to PHP namespace. This because WordPress doesn't support namespace in current plugin architecture.
+</Callout>
+
 
 You can do this, by using the `rename` command in bones command line:
 
-```shell
+```shell copy
 php bones rename 'WP My Awesome Plugin'
 ```
 
@@ -46,19 +49,22 @@ wp-my-awesome_plugin          Internal id used for css, js and less files
 
 You may also reset the plugin name and the namespace to the orginal version.
 
-```shell
+```shell copy
 php bones rename --reset
 ```
 
 In addition to that, you may also update the namespace after a composer update.
 
-```shell
+```shell copy
 php bones rename --update
 ```
 
-> NOTE: Probably, you won't need to that as the update flow is already in the composer file
+<Callout type="info">
+Probably, you won't need to that as the update flow is already in the composer file
+</Callout>
 
-```json
+
+```json copy
 ...
   "scripts": {
     "post-autoload-dump": [

@@ -1,118 +1,129 @@
+import { Callout, Steps } from 'nextra/components'
+
+# Typical workflow
+
 Let's see a typical workflow in order to develop a WordPress Plugin.
 
-## 1. Start your Vagrant / Valet environment
+<Steps>
+### Start your Vagrant / Valet environment
 
 Before starting, you have to prepare your developing and testing environment. To do this, you can use a [Vagrant WordPress](https://github.com/gfazioli/VagrantUbuntu) or the [Valet](https://laravel.com/docs/5.2/valet) solution.
 We call this environment **WordPress Host**.
 
-## 2. Client Host
+### Client Host
 
 If you are on Mac, Window or Linux, I'll assume you have access to **WordPress Host** `plugins` folder by your **Client Host**.
 You can install [npm](https://www.npmjs.com/) on either **WordPress Host** or **Client Host** environment or eventually both.
 
-## 3. Clone WP Kirk boilerplate into WordPress plugin
+### Clone WP Kirk boilerplate into WordPress plugin
 
 You can clone the WP Kirk boilerplate on both **WordPress Host** and **Client Host** environment.
 
-```shell
+```shell copy
 cd wp-content/plugins
 git clone -b boilerplate https://github.com/wpbones/WPKirk.git <your plugin folder>
 ```
 
 Don't forget
 
-```shell
+```shell copy
 cd <your plugin folder>
 rm -rf .git
 ```
 
-## 4. Check Bones
+### Check Bones
 
 From **WordPress Host** execute:
 
-```shell
+```shell copy
 php bones
 ```
 
 You **must** use `php bones` from **WordPress Host**, because it needs to load WordPress environment.
 
-## 5. Naming your plugin
+### Naming your plugin
 
 From the **WordPress Host** execute:
 
-```shell
+```shell copy
 php bones install
 ```
 
 Next, set the plugin name and the plugin namespace.
 
-```shell
+```shell copy
 php bones rename <your-plugin-name> <your-plugin-namespace>
 ```
 
-## 6. Start developing
+### Start developing
 
 Well, now you can go to WordPress backend admin area and activate your plugin and start developing.
 Also, review the `readme.txt` file and the `index.php` in order to complete the plugin information.
 
 Remember to review the [WordPress guide lines](before-submit-to-wordpress-repository) and check periodically any WP Bones update, by using:
 
-```shell
+```shell copy
 php bones update
 ```
 
 Of course, you can start `gulp` in order to compile **less** and **Javascript** files.
 To do this, remember to execute:
 
-```shell
+```shell copy
 npm install
 ```
 
 Or
 
-```shell
+```shell copy
 yarn
 ```
 
 You may install **npm** in the **WordPress Host** or in the **Client Host**. Next, run:
 
-```shell
+```shell copy
 gulp default
 ```
 
 In the root folder, you'll find the default `gulp.js` file. WP Bones provides a set of default gulp tasks.
 However, feel free to add your own ones.
 
-## 7. Plugin Version
+### Plugin Version
 
 Before creating your plugin deploy version, probably you would update the plugin version. You may use
 
-```shell
+```shell copy
 php bones version
 ```
 
 You may use a specific version
 
-```shell
+```shell copy
 php bones version v3
 ```
 
 or auto-increment one of major.minor.patch value
 
-```shell
+```shell copy
 php bones version --patch
 ```
 
-> [Here](https://semver.org/) you may found more information about [SemVer](https://semver.org/)
+<Callout type="info">
+Remember to follow [SemVer](https://semver.org/) rules.
+Here](https://semver.org/) you may found more information about [SemVer](https://semver.org/)
+</Callout>
 
-## 8. Before submitting
+
+### Before submitting
 
 When your plugin is ready and you are satisfied with it, you can prepare a deploy version, by using:
 
-```shell
+```shell copy
 php bones deploy ../deploy-version
 ```
 
-## 8. Submit to WordPress repository
+### Submit to WordPress repository
 
 You can copy the `deploy-version` content in the WordPress **trunk** subversion folder. Add and commit your files.
+
+</Steps>

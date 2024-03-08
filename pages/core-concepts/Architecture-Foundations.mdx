@@ -1,10 +1,17 @@
+import { Callout, FileTree } from 'nextra/components'
+import {FileTreeLabel} from '@components/FileTreeLabel'
+
+# Architecture Foundations
+
+<Callout>
 Don't forget that we are working using a WordPress plugin.
+</Callout>
 
 ## Request Lifecycle
 
 The entry point is the `<plugin name>/index.php`. The `index.php` contains the WordPress comments used to identify the plugin:
 
-```php
+```php copy
 <?php
 
 /**
@@ -34,95 +41,96 @@ The default WP Bones plugin structure is intended to provide a great starting po
 
 Let's see a default standard WP Bones plugin folder tree:
 
-- `myPlugin/`
-  - `bootstrap/`
-  - `config/`
-  - `database/`
-  - `localization/`
-  - `plugin/`
-  - `public/`
-  - `resources/`
-
-The root directory of a fresh WP Bones plugin contains a variety of directories:
-
-The `bootstrap` directory contains a few files that bootstrap the framework and configure autoloading.
-
-The `config` directory, as the name implies, contains all of your configuration plugin's files.
-
-The `database` directory contains your database migration. If you wish, you may also use this directory to hold a SQLite database.
-
-The `localization` directory contains the `.mo` and `.pot` files used by WordPress in order to localize your plugin.
-
-The `plugin` directory, as you might expect, contains the core code of your plugin. We'll explore this directory in more details soon.
-
-The `public` directory contains the front controller and your assets (images, JavaScript, CSS, etc.).
-
-The `resources` directory contains your views, raw assets (LESS, SASS, CoffeeScript), and localization files.
-
-The `vendor` directory contains (at this moment) the WP Bones Framework.
+<FileTree>
+  <FileTree.Folder name="myPlugin" defaultOpen>
+    <FileTree.Folder label={<FileTreeLabel name="bootstrap" color="yellow">bootstrapping framework and autoloading</FileTreeLabel>} />
+    <FileTree.Folder label={<FileTreeLabel name="config">contains all of your configuration plugin's files</FileTreeLabel>} />
+    <FileTree.Folder label={<FileTreeLabel name="database">contains your database migration</FileTreeLabel>} />
+    <FileTree.Folder label={<FileTreeLabel name="localization">contains the `.mo` and `.pot` to localize your plugin</FileTreeLabel>} />
+    <FileTree.Folder label={<FileTreeLabel name="plugin">contains the core code of your plugin</FileTreeLabel>} />
+    <FileTree.Folder label={<FileTreeLabel name="public">contains the front controller and your assets</FileTreeLabel>} />
+    <FileTree.Folder label={<FileTreeLabel name="resources">contains your views, raw assets</FileTreeLabel>} />
+    <FileTree.Folder label={<FileTreeLabel name="vendor" color="red">contains (at this moment) the WP Bones Framework</FileTreeLabel>} />
+  </FileTree.Folder>
+</FileTree>
 
 ### Additional directories
 
 You may use the following additional directories:
 
-The `api` directory contains your [REST API](restapi) endpoints.
+<FileTree>
+  <FileTree.Folder name="myPlugin" defaultOpen>
+    <FileTree.Folder label={<FileTreeLabel name="api">contains your REST api endpoints</FileTreeLabel>} />
+    <FileTree.Folder label={<FileTreeLabel name="pages">contains your plugin's custom page</FileTreeLabel>} />
+  </FileTree.Folder>
+</FileTree>
 
-The `pages` directory contains your plugin's [custom pages](pages-routing#custom-admin-pages-folder).
+<Callout type="info">
+Check out [REST API](restapi) and [custom pages](pages-routing#custom-admin-pages-folder) for more information.
+</Callout>
 
 ### The root files
 
 Also, you'll find a set of files in the root of plugin:
 
-- `bones`
-- `composer.json`
-- `composer.lock`
-- `gulpfile.js`
-- `index.php`
-- `namespace`
-- `package.json`
-- `readme.txt`
 
-The `bones` file is the command line PHP script, likewise `artisan` in Laravel environment.
+<FileTree>
+  <FileTree.Folder name="myPlugin" defaultOpen >
+    <FileTree.File label={<FileTreeLabel type="file" name="bones" color="orange">command line PHP script</FileTreeLabel>} />
+    <FileTree.File label={<FileTreeLabel type="file" name="composer.json" color="yellow">used by composer</FileTreeLabel>} />
+    <FileTree.File label={<FileTreeLabel type="file" name="composer.lock" color="red">used by composer</FileTreeLabel>} />
+    <FileTree.File label={<FileTreeLabel type="file" name="gulpfile.js">script used by Gulp</FileTreeLabel>} />
+    <FileTree.File label={<FileTreeLabel type="file" name="index.php">entry point of plugin</FileTreeLabel>} />
+    <FileTree.File label={<FileTreeLabel type="file" name="namespace" color="red">used by bones command</FileTreeLabel>} />
+    <FileTree.File label={<FileTreeLabel type="file" name="package.json">used by npm</FileTreeLabel>} />
+    <FileTree.File label={<FileTreeLabel type="file" name="readme.txt">WordPress readme file</FileTreeLabel>} />
+  </FileTree.Folder>
+</FileTree>
 
-The `composer.json` and `composer.lock` are used by composer.
-
-The `gulpfile.js` is the script used by Gulp. This file is prepared with the main tasks to process styles and scripts. Before using it, you should install gulp and npm.
-
-The `index.php` is the entry point of plugin.
-
-The `namespace` is a file used by bones command. You can ignore it.
-
-The `package.json` is used by npm. Feel free to add your own packages.
-
-The `readme.txt` is the WordPress readme file to be used when you'll submit your plugin to the WordPress repository.
+- The `bones` file is the command line PHP script, likewise `artisan` in Laravel environment.
+- The `composer.json` and `composer.lock` are used by composer.
+- The `gulpfile.js` is the script used by Gulp. This file is prepared with the main tasks to process styles and scripts. Before using it, you should install gulp and npm.
+- The `index.php` is the entry point of plugin.
+- The `namespace` is a file used by bones command. You can ignore it.
+- The `package.json` is used by npm. Feel free to add your own packages.
+- The `readme.txt` is the WordPress readme file to be used when you'll submit your plugin to the WordPress repository.
 
 ### The plugin directory
 
 However, the most important folder is `/plugin/`. In this folder, you will find the main controllers of your plugin:
 
-- `myPlugin/`
-  - `plugin/`
-    - `Ajax/`
-    - `CustomPostTypes/`
-    - `CustomTaxonomyTypes/`
-    - `Http/`
-    - `Shortcodes/`
-    - `activation.php`
-    - `deactivation.php`
+<FileTree>
+  <FileTree.Folder name="myPlugin" defaultOpen>
+    <FileTree.Folder name="plugin" defaultOpen>
+      <FileTree.Folder name="Ajax" />
+      <FileTree.Folder name="CustomPostTypes" />
+      <FileTree.Folder name="CustomTaxonomyTypes" />
+      <FileTree.Folder name="Http" />
+      <FileTree.Folder name="Shortcodes" />
+      <FileTree.File name="activation.php" />
+      <FileTree.File name="deactivation.php" />
+    </FileTree.Folder>
+  </FileTree.Folder>
+</FileTree>
+
 
 ### The config directory
 
 All of the configuration files for the Plugin are stored in the `config/` directory. Each option is self-documented, so feel free to look through the files and get familiar with the options available to you.
 
-- `myPlugin/`
-  - `config/`
-    - `plugin.php`
-    - `menus.php`
-    - ...
+<FileTree>
+  <FileTree.Folder name="myPlugin" defaultOpen>
+    <FileTree.Folder name="config" defaultOpen>
+      <FileTree.File name="menus.php" />
+      <FileTree.File name="plugin.php" />
+      <div>...</div>
+    </FileTree.Folder>
+  </FileTree.Folder>
+</FileTree>
 
 In the WP Kirk boilerplate plugin, you'll find a sample `custom.php` file. This file contains:
 
-```php
+```php copy
 <?php
 
 /*
@@ -148,7 +156,7 @@ It's very easy to get a custom configuration by using `$pluginInstance->config( 
 The plugin instance is the most important object in WP Bones.
 You will be able to get the plugin instance by using either `WPKirk()` function or the global static class `WPKirk`.
 
-```php
+```php copy
 // plugin instance by global unique function
 echo WPKirk()->Author;
 
@@ -163,7 +171,7 @@ Of course, if your plugin is named `MyPlugin` you will use `MyPlugin()` to get t
 
 In the `index.php` file you may use the comment to insert some plugin information:
 
-```php
+```php copy
 <?php
 
 /**
@@ -181,7 +189,7 @@ In the `index.php` file you may use the comment to insert some plugin informatio
 
 You can get this information by using the **plugin instance**:
 
-```php
+```php copy
 echo $plugin->Author;
 echo $plugin->TextDomain;
 ```

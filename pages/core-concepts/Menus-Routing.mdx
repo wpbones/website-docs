@@ -1,3 +1,8 @@
+import { Callout, FileTree } from 'nextra/components'
+import { FileTreeLabel } from '@components/FileTreeLabel'
+
+# Menus Routing
+
 In the WordPress as well as WP Bones architecture, the routing is pretty different from Laravel. We haven't got a true routing but a menu routing. Anyway, you may handle the basic HTTP verb such as GET, POST, PUT, PATCH and DELETE. In the above sample, we have used `get` verb in `route` key. If your view has a form with a POST method you may use:
 
 ```php
@@ -15,7 +20,7 @@ In this case, when an HTTP POST request is made, the method `updateValues` in `D
 
 HTML forms do not support `PUT`, `PATCH` or `DELETE` actions. So, when defining `PUT`, `PATCH` or`DELETE` routes that are called from an HTML form, you will need to add a hidden `_method` field to the form. The value sent with the `_method` field will be used in the HTTP request:
 
-```HTML
+```html copy
 <form action="" method="POST">
     <input type="hidden" name="_method" value="PUT">
 </form>
@@ -35,7 +40,7 @@ Alternatively, instead of specifying each single HTTP verb, you may use the `res
 
 Once you have assigned the view controller to a given route resource, you may use the standard methods instead:
 
-```php
+```php copy
 class DashboardResourceController extends Controller {
   
   // GET
@@ -62,25 +67,26 @@ class DashboardResourceController extends Controller {
 
 You can use `php bones` command to create a controller:
 
-```sh
+```sh copy
 php bones make:controller MyController
-
-# create the folder and namespace
-php bones make:controller Billing/Market/MyController
 ```
 
+create the folder and namespace
 
+```sh copy
+php bones make:controller Billing/Market/MyController
+```
 
 ## Redirect in load
 
 When a submenu is clicked, your controller's methods are executed inside of the admin view. This means that the HTTP headers are already sent. So, you can't execute any HTTP redirect but only a script - workaround - redirect. Anyway, WP Bones provides a redirect method that you may use. If the headers are already sent, a Javascript script redirect will be done:
 
-```php
-  // POST
-  public function store() {
-    // your store command
-    $this->redirect( 'some url' );
-  }
+```php copy
+// POST
+public function store() {
+  // your store command
+  $this->redirect( 'some url' );
+}
 ```
 
 Also, WP Bones provides a special ruote called `load`. It is executed before the page is rendered:
@@ -91,12 +97,13 @@ Also, WP Bones provides a special ruote called `load`. It is executed before the
 ...
 ```
 
+<Callout>
+You will need to use this method to add meta boxes.
+</Callout>
 
-> :pushpin: 
->
-> **Note**: You will need to use thid method to add meta boxes.
 
-```php
+
+```php copy
 public function load()
 {
     wp_enqueue_script( 'common' );
@@ -110,20 +117,20 @@ public function load()
 This route will be called on the `load-{hook}` action. Here you can use `wp_redirect()` or the WP Bones redirect method. Let's see an example:
 
 ```html
-  <form action="" method="post">
-    <input type="hidden" name="_redirect" value="http://undolog.com">
-    <button class="button">POST with redirect</button>
-  </form>
+<form action="" method="post">
+  <input type="hidden" name="_redirect" value="http://undolog.com">
+  <button class="button">POST with redirect</button>
+</form>
 ```
 
 In the `load` method of the controller:
 
-```php
-  public function load()
-  {
-    if( $this->request->get( '_redirect' ) ) {
-      // the wp_redirect() will be done
-      $this->redirect( $this->request->get( '_redirect' ) );
-    }
+```php copy
+public function load()
+{
+  if( $this->request->get( '_redirect' ) ) {
+    // the wp_redirect() will be done
+    $this->redirect( $this->request->get( '_redirect' ) );
   }
+}
 ```

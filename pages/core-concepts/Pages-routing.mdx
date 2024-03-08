@@ -1,6 +1,13 @@
-In addition to Menus Routing, you may add a page routing without creating a menu. In the `config/routes.php` you'll find an array with the page routing settings:
+import { Callout, FileTree } from 'nextra/components'
+import { FileTreeLabel } from '@components/FileTreeLabel'
 
-```php
+# Pages Routing
+
+In addition to [Menus Routing](menus-routing), you may add a page routing without creating a menu. 
+
+In the `config/routes.php` you'll find an array with the page routing settings:
+
+```php copy
 <?php
 
 /*
@@ -28,7 +35,7 @@ return [
 
 As you can see, a page route is very similar to a menu. Also, the `route` key works like the `route` menu. You can get the URL of a page by using `$plugin->getPageUrl` method. For example, to get the URL of the above custom page, please use:
 
-```php
+```php copy
 $url = $plugin->getPageUrl( 'custom_page');
 // you'll get something like
 // http://domain.com/wp-admin/admin.php?page=custom_page
@@ -39,7 +46,7 @@ $url = $plugin->getPageUrl( 'custom_page');
 You may also create a custom page by creating a file in the folder `pages`.
 Let's say you want to create a custom page called `custom_page`. You have to create a file called `custom_page.php` in the `pages` folder.
 
-```php
+```php copy
 <?php
 
 use WPKirk\WPBones\Routing\Pages\Support\Page;
@@ -58,10 +65,12 @@ class CustomPage extends Page
 }
 ```
 
-> ⚠️ 📌 The class name is not important. You can use any name you want. The most important thing is the name of the file. In this case, the file name is `custom_page.php`. This means that the slug of the page will be `custom_page`.
+<Callout >
+The class name is not important. You can use any name you want. The most important thing is the name of the file. In this case, the file name is `custom_page.php`. This means that the slug of the page will be `custom_page`.
+</Callout>
 
 You will be able to get the URL of the custom page by using `$plugin->getPageUrl` method. For example, to get the URL of the above custom page, please use:
 
-```php
+```php copy
 <?php $plugin->getPageUrl('custom_page'); ?>
 ```

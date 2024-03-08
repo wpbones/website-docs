@@ -1,6 +1,11 @@
+import { Callout, FileTree } from 'nextra/components'
+import { FileTreeLabel } from '@components/FileTreeLabel'
+
+# Options
+
 All plugins need some options. You may put your options model array in `config/options.php`:
 
-```php
+```php copy
 <?php
 
 /*
@@ -33,79 +38,75 @@ return [
 ];
 ```
 
-> :pushpin:
->
-> **Note**: The options are subjected to case sensitive. So, have a look to first key `General`. You should get it by using `$plugin->options->get('General.option_1')` for instance.
+<Callout>
+The options are subjected to case sensitive. So, have a look to first key `General`. You should get it by using `$plugin->options->get('General.option_1')` for instance.
+</Callout>  
 
 The plugin options are created on the **first activation** of the plugin into the `wp_options` database table. The name of option (`option_name`) will be the plugin slug. The options array will be converted in JSON and stored in `option_value`.
-
-
 
 ### Get options
 
 To acquire an option from your model, simply call the `get` method:
 
-```php
+```php copy
 echo $plugin->options->get( 'General.option_1');
 ```
 
 Secondly, you may access the options like an array, since it implements PHP's `ArrayAccess` interface:
 
-```php
+```php copy
 echo $plugin->options[ 'General.option_1' ];
 ```
 
 Of course, you may get a branch from your model by using:
 
-```php
+```php copy
 echo $plugin->options->get( 'General.options_4');
-
-// That will return an array [ "sub_options_of_3" => 'Hello' ]
 ```
+
+That will return an array `[ "sub_options_of_3" => 'Hello' ]`.
 
 Whether the option doesn't exist, you may define a default value:
 
-```php
+```php copy
 echo $plugin->options->get( 'General.doNotExists', 'default');
 ```
-
-
 
 ### Update options
 
 To update a single or branch option, simply call the `set` method:
 
-```php
+```php copy
 $plugin->options->set( 'General.options_2', false );
 ```
 
 or by using the array access:
 
-```php
+```php copy
 $plugin->options[ 'General.options_2' ] = false;
 ```
 
 The `set` method is also used to create a new option:
 
-```php
+```php copy
 $plugin->options->set( 'Special.time', time() );
 ```
 
 The value set may be a mixed value:
 
-```php
+```php copy
 $plugin->options->set( 'Special.Name', [ 'John', 'Good' ] );
 ```
 
 or by using the array access:
 
-```php
+```php copy
 $plugin->options[ 'Special.Name' ] = [ 'Robin', 'Hood' ];
 ```
 
 You may also use the `update` method to update a set of options:
 
-```php
+```php copy
 $plugin->options->update(
     [
       'General' => [
@@ -120,7 +121,7 @@ $plugin->options->update(
 
 Or **insert** a set of options:
 
-```php
+```php copy
 $plugin->options->update(
     [
       'General' => [
@@ -135,52 +136,47 @@ $plugin->options->update(
 
 If you wish to delete an option, you may also use:
 
-```php
+```php copy
 $plugin->options->set( 'Special.Name', null );
-// or
+```
+or
+
+```php copy
 $plugin->options->set( 'Special.Name' );
 ```
-
-
 
 ### Delete options
 
 To delete a single option use:
 
-```php
+```php copy
 $plugin->options->delete( 'General.option_4' );
 ```
 
 To delete all options use:
 
-```php
+```php copy
 $plugin->options->delete();
 ```
-
-
 
 ### Reset to default options
 
 To reset the options to last version, please use:
 
-```php
+```php copy
 $plugin->options->reset();
 ```
-
-
 
 ### New version of options
 
 When you release a new version of your plugin, you could add, remove or delete some options. To do so, just edit your options array. When your plugin is updated and activated again, the new options will apply through a delta process.
 
 
-
 ### Display options in pretty format
 
 You may display all options plugin in JSON by using `echo $plugin->options`. This feature is useful to inject your options like a Javascript object:
 
-```php
-
+```php copy
 add_action( 'wp_head', 'wp_head' );
 
 public function wp_head()
@@ -195,7 +191,7 @@ public function wp_head()
 
 Then you'll find the following, in your HTML source page:
 
-```html
+```html copy
 <script>
 window.MyJavascriptGlobalObject = {
   "General": {
@@ -210,6 +206,6 @@ window.MyJavascriptGlobalObject = {
 
 If you wish to get the options as a flat array, please use:
 
-```php
+```php copy
 $result = MyPluginGlobalFunction()->options->toArray();
 ```
