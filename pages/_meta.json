@@ -1,5 +1,8 @@
 {
   "index": "Introduction",
+  "---1": {
+    "type": "separator"
+  },
   "getting-started": "Getting Started",
   "core-concepts": "Core Concepts",
   "views-and-templates": "Views & Templates",
@@ -8,7 +11,14 @@
   "bones-console": "Bones Console",
   "wordpress-integration": "WordPress Integration",
   "official-packages": "Official Packages",
-
+  "---2": {
+    "type": "separator"
+  },
+  "helpers": "Helpers",
+  "contributing": "Contributing",
+  "versioning": "Versioning",
+  "security-vulnerabilities​": "Security Vulnerabilities​",
+  "license": "License",
   "contact": {
     "title": "Contact ↗",
     "type": "page",
