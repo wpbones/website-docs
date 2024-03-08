@@ -1,0 +1,153 @@
+In WordPress you can have three different Ajax access:
+
+- Only for logged-in users
+- Only for not-logged-in users
+- For everyone
+
+In order to allow Ajax call, you have to edit the `/config/plugin.php` file. In the Ajax section you can insert the list of your own Ajax classes, for example:
+
+```php
+...
+  /*
+  |--------------------------------------------------------------------------
+  | Ajax
+  |--------------------------------------------------------------------------
+  |
+  | Here is where you can register your own Ajax actions.
+  |
+  */
+
+  'ajax' => [ '\WPKirk\Ajax\MyAjax' ],
+...
+```
+
+In the `\WPKirk\Ajax\MyAjax` class you will list your methods/actions for logged, not logged or trusted users:
+
+```php
+class MyAjax extends WordPressAjaxServiceProvider {
+
+  /**
+   * List of the ajax actions executed by both logged and not logged users.
+   * Here you will use a methods list.
+   *
+   * @var array
+   */
+  protected $trusted = [
+    'trusted'
+  ];
+
+  /**
+   * List of the ajax actions executed only by logged-in users.
+   * Here you will use a methods list.
+   *
+   * @var array
+   */
+  protected $logged = [
+    'logged'
+  ];
+
+  /**
+   * List of the ajax actions executed only by the not logged-in user, usually from the frontend.
+   * Here you will use a methods list.
+   *
+   * @var array
+   */
+  protected $notLogged = [
+    'notLogged'
+  ];
+
+}
+```
+
+Using the `php bones make:ajax` Bones command, we can quickly create an Ajax Service Provider.
+
+The parent class `WordPressAjaxServiceProvider` will register on your behalf the WordPress actions that you need. So, let's have a look at a complete example:
+
+```php
+<?php
+
+namespace WPKirk\Ajax;
+
+use WPKirk\WPBones\Foundation\WordPressAjaxServiceProvider;
+
+class MyAjax extends WordPressAjaxServiceProvider {
+
+  /**
+   * List of the ajax actions executed by both logged and not logged users.
+   * Here you will use a methods list.
+   *
+   * @var array
+   */
+  protected $trusted = [
+    'trusted'
+  ];
+
+  /**
+   * List of the ajax actions executed only by logged-in users.
+   * Here you will use a methods list.
+   *
+   * @var array
+   */
+  protected $logged = [
+    'logged'
+  ];
+
+  /**
+   * List of the ajax actions executed only by the not logged-in users, usually from the frontend.
+   * Here you will use a methods list.
+   *
+   * @var array
+   */
+  protected $notLogged = [
+    'notLogged'
+  ];
+
+  public function trusted()
+  {
+    $response = "trusted";
+
+    wp_send_json( $response );
+  }
+
+  public function logged()
+  {
+    $response = "logged";
+
+    wp_send_json( $response );
+  }
+
+  public function notLogged()
+  {
+    $response = "notLogged";
+
+    wp_send_json( $response );
+  }
+
+}
+```
+
+You can also get the post variables by using `$this->request->get('post_name')`. WordPress provides several functions to return a JSON result. For example, you may use:
+
+```php
+wp_send_json_succcess();
+// or
+wp_send_json_success( [ 'hello' => 'world' ] );
+```
+
+In Javascript side, you'll find:
+
+```javascript
+$.post(ajaxurl, {}, function (response) {
+	if (response.success) {
+		// success property is set by WordPress wp_send_json_success
+	} else {
+		// also data property is by WordPress wp_send_json_success
+		// but it contains your custom array/object
+		alert(response.data.hello);
+	}
+});
+```
+
+> 📌
+>
+> **Note**: The `wp_send_json_error` function works in the same way.

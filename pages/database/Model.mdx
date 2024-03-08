@@ -1,0 +1,185 @@
+In your Plugin you may use the Database Model class instead of the [Query Builder](query-builder).
+
+To use the Model convenction you need to extend the `WPKirk\WPBones\Database\Model` class:
+
+```php
+<?php
+
+namespace WPKirk\Http\Controllers;
+
+use WPKirk\WPBones\Database\Model;
+
+class Users extends Model
+{
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'users';
+}
+```
+
+> NOTE: we don't support the automatic plurar naming of the table at the moment. Anyway, the default table name will be the "snake case" of the class name. For example, the class `Users` will be associated with the table `users`. The class `UsersLogged` will be associated with the table `users_logged`.
+
+If your model's corresponding database table does not fit this convention, you may manually specify the model's table name by defining a `table` property on the model:
+
+```php
+<?php
+
+namespace WPKirk\Http\Controllers;
+
+use WPKirk\WPBones\Database\Model;
+
+class Users extends Model
+{
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'logged_users';
+}
+```
+
+Using the `php bones make:model` Bones command, we can quickly create a `Model`.
+
+## Primary Keys
+
+Model will also assume that each model's corresponding database table has a primary key column named `id`. If necessary, you may define a protected `$primaryKey` property on your model to specify a different column that serves as your model's primary key:
+
+```php
+<?php
+
+namespace WPKirk\Http\Controllers;
+
+use WPKirk\WPBones\Database\Model;
+
+class Users extends Model
+{
+    /**
+     * The primary key associated with the table.
+     *
+     * @var string
+     */
+    protected $primaryKey = 'user_id';
+}
+```
+
+## Retrieving Models
+
+Once you have created a model and its associated database table, you are ready to start retrieving data from your database. You can think of each Model as a powerful [query builder](https://github.com/wpbones/WPBones/wiki/query-builder) allowing you to fluently query the database table associated with the model. The model's all method will retrieve all of the records from the model's associated database table:
+
+```php
+<?php
+
+use WPKirk\Plugin\Model\Users;
+
+foreach (Users::all() as $user) {
+    echo $user->user_login;
+}
+```
+
+### Building Queries
+
+The Query Builder all method will return all of the results in the model's table. However, since each Model serves as a query builder, you may add additional constraints to queries and then invoke the get method to retrieve the results:
+
+```php
+$users = Users::where('id', '>', 1)
+               ->orderBy('user_login')
+               ->limit(10)
+               ->get();
+```
+
+# Accessors & Mutators
+
+## Defining An Accessor
+
+An accessor transforms an attribute value when it is accessed. To define an accessor, create a `get{Attribute}Attribute` method on your model where `{Attribute}` is the "studly" cased name of the column you wish to access.
+
+In this example, we'll define an accessor for the `display_name` attribute. The accessor will automatically be called by WP Bones model when attempting to retrieve the value of the `display_name` attribute:
+
+```php
+<?php
+
+namespace WPKirk\Http\Controllers;
+
+use WPKirk\WPBones\Database\Model;
+
+class Users extends Model
+{
+    /**
+     * Get the user's display name.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getDisplayNameAttribute($value)
+    {
+        return strtoupper($value);
+    }
+}
+```
+
+As you can see, the original value of the column is passed to the accessor, allowing you to manipulate and return the value. To access the value of the accessor, you may simply access the `display_name` attribute on a model instance:
+
+```php
+use WPKirk\Http\Controllers\Users;
+
+$user = Users::find(1);
+
+$display_name = $user->display_name; // will be in upper case
+```
+
+You are not limited to interacting with a single attribute within your accessor. You may also use accessors to return new, computed values from existing attributes:
+
+```php
+/**
+ * Get the user's full name.
+ *
+ * @return string
+ */
+public function getFullNameAttribute()
+{
+    return "{$this->user_nicename} {$this->display_name}";
+}
+```
+
+## Defining A Mutator
+
+A mutator transforms an attribute value when it is set. To define a mutator, define a `set{Attribute}Attribute` method on your model where `{Attribute}` is the "studly" cased name of the column you wish to access.
+
+Let's define a mutator for the `display_name` attribute. This mutator will be automatically called when we attempt to set the value of the `display_name` attribute on the model:
+
+```php
+<?php
+
+namespace WPKirk\Http\Controllers;
+
+use WPKirk\WPBones\Database\Model;
+
+class Users extends Model
+{
+    /**
+     * Set the user's first name.
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setDisplayNameAttribute($value)
+    {
+        $this->attributes['display_name'] = strtolower($value);
+    }
+}
+```
+
+The mutator will receive the value that is being set on the attribute, allowing you to manipulate the value and set the manipulated value on the model's internal `$attributes` property. To use our mutator, we only need to set the `display_name` attribute on the model:
+
+```php
+use WPKirk\Http\Controllers\Users;
+
+$user = Users::find(1);
+
+$user->display_name = 'JOHN'; // will be stored in lower case
+$user->save();
+```

@@ -1,15 +1,20 @@
 {
   "index": "Introduction",
-  "another": "Another Page",
-  "advanced": "Advanced (A Folder)",
-  "about": {
-    "title": "About",
-    "type": "page"
-  },
+  "getting-started": "Getting Started",
+  "core-concepts": "Core Concepts",
+  "views-and-templates": "Views & Templates",
+  "services": "Services",
+  "database": "Database",
+  "bones-console": "Bones Console",
+  "wordpress-integration": "WordPress Integration",
+  "official-packages": "Official Packages",
+
   "contact": {
     "title": "Contact ↗",
     "type": "page",
     "href": "https://twitter.com/shuding_",
     "newWindow": true
-  }
+  },
+
+  "another": "Another Page"
 }

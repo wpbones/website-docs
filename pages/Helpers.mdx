@@ -1,0 +1,62 @@
+WP Bones includes a variety of "helper" PHP functions, many of which are used by the framework itself; however, you are free to use them in your own applications if you find them convenient. Some of these functions are a clone of the Laravel helper functions.
+
+> 📌 
+>
+> **Note**: These helper functions may become a problem when different versions of the framework will load in WordPress. In fact, a function has not a namespace like a class. Anyway, in this release, I'm taking care to limit these functions.
+
+### Available Methods
+
+* [wpbones_value](#wpbones_value)
+* [wpbones_env](#wpbones_env)
+* [wpbones_array_insert](#wpbones_array_insert)
+* [wpbones_checked](#wpbones_checked)
+* [wpbones_selected](#wpbones_selected)
+
+---
+
+#### wpbones_value
+
+The `wpbones_value` function's behaviour will simply return the value it is given. However, if you pass a `Closure` to the function, the `Closure` will be executed then its result will be returned:
+
+```php
+$value = wpbones_value( function() { return 'bar'; });
+```
+
+#### wpbones_env
+
+The `wpbones_env` function gets the value of an environment variable or returns a default value:
+
+```php
+$env = wpbones_env('APP_ENV');
+
+// Return a default value if the variable doesn't exist...
+$env = wpbones_env('APP_ENV', 'production');
+```
+
+#### wpbones_array_insert
+
+The `wpbones_array_insert` function inserts a key value pair array in a specified position:
+
+```php
+$result = wpbones_array_insert( $arr, $key, $val, $index = 0 );
+```
+
+#### wpbones_checked
+
+The `wpbones_checked` function is similar to WordPress `checked()` except for array support:
+
+```html
+<input type="checkbox" <?php wpbones_checked( [1,2,3], $current ) ?> name="product" />
+```
+
+#### wpbones_selected
+
+The `wpbones_selected` function is similar to WordPress `selected()` except for array support :
+
+```html
+<select name="products">
+  <?php foreach( $products as $key => $value ) : ?>
+  <option <?php wpbones_selected( [1,2,3], $key ) ?>><?php echo $value ?></option>
+  <?php endforeach; ?>
+</select>
+```

@@ -1,0 +1,187 @@
+Don't forget that we are working using a WordPress plugin.
+
+## Request Lifecycle
+
+The entry point is the `<plugin name>/index.php`. The `index.php` contains the WordPress comments used to identify the plugin:
+
+```php
+<?php
+
+/**
+ * Plugin Name: WP Kirk
+ * Plugin URI: http://undolog.com
+ * Description: WP Kirk, a WP Bones boilerplate plugin
+ * Version: 1.0.0
+ * Author: Giovambattista Fazioli
+ * Author URI: http://undolog.com
+ * Text Domain: wp-kirk
+ * Domain Path: localization
+ *
+ */
+```
+
+As you know, you may use any filename for your main PHP file. In fact, WordPress will recognize the main plugin file by the PHP comment in the file head. Anyway, I suggest you use `index.php`. See [Get plugin information](#get-plugin-information) for more details.
+
+So, the entry point of a plugin is `index.php`.
+
+Of course, you can edit the `index.php` file in order to set your WordPress comment information. The rest of code is handled by WP Bones.
+
+## Plugin Structure
+
+The default WP Bones plugin structure is intended to provide a great starting point for both large and small plugins. Of course, you are free to organize your application as you like. Similarly Laravel, WP Bones imposes almost no restrictions where any given class is located - as long as Composer can autoload the class.
+
+### The root directory
+
+Let's see a default standard WP Bones plugin folder tree:
+
+- `myPlugin/`
+  - `bootstrap/`
+  - `config/`
+  - `database/`
+  - `localization/`
+  - `plugin/`
+  - `public/`
+  - `resources/`
+
+The root directory of a fresh WP Bones plugin contains a variety of directories:
+
+The `bootstrap` directory contains a few files that bootstrap the framework and configure autoloading.
+
+The `config` directory, as the name implies, contains all of your configuration plugin's files.
+
+The `database` directory contains your database migration. If you wish, you may also use this directory to hold a SQLite database.
+
+The `localization` directory contains the `.mo` and `.pot` files used by WordPress in order to localize your plugin.
+
+The `plugin` directory, as you might expect, contains the core code of your plugin. We'll explore this directory in more details soon.
+
+The `public` directory contains the front controller and your assets (images, JavaScript, CSS, etc.).
+
+The `resources` directory contains your views, raw assets (LESS, SASS, CoffeeScript), and localization files.
+
+The `vendor` directory contains (at this moment) the WP Bones Framework.
+
+### Additional directories
+
+You may use the following additional directories:
+
+The `api` directory contains your [REST API](restapi) endpoints.
+
+The `pages` directory contains your plugin's [custom pages](pages-routing#custom-admin-pages-folder).
+
+### The root files
+
+Also, you'll find a set of files in the root of plugin:
+
+- `bones`
+- `composer.json`
+- `composer.lock`
+- `gulpfile.js`
+- `index.php`
+- `namespace`
+- `package.json`
+- `readme.txt`
+
+The `bones` file is the command line PHP script, likewise `artisan` in Laravel environment.
+
+The `composer.json` and `composer.lock` are used by composer.
+
+The `gulpfile.js` is the script used by Gulp. This file is prepared with the main tasks to process styles and scripts. Before using it, you should install gulp and npm.
+
+The `index.php` is the entry point of plugin.
+
+The `namespace` is a file used by bones command. You can ignore it.
+
+The `package.json` is used by npm. Feel free to add your own packages.
+
+The `readme.txt` is the WordPress readme file to be used when you'll submit your plugin to the WordPress repository.
+
+### The plugin directory
+
+However, the most important folder is `/plugin/`. In this folder, you will find the main controllers of your plugin:
+
+- `myPlugin/`
+  - `plugin/`
+    - `Ajax/`
+    - `CustomPostTypes/`
+    - `CustomTaxonomyTypes/`
+    - `Http/`
+    - `Shortcodes/`
+    - `activation.php`
+    - `deactivation.php`
+
+### The config directory
+
+All of the configuration files for the Plugin are stored in the `config/` directory. Each option is self-documented, so feel free to look through the files and get familiar with the options available to you.
+
+- `myPlugin/`
+  - `config/`
+    - `plugin.php`
+    - `menus.php`
+    - ...
+
+In the WP Kirk boilerplate plugin, you'll find a sample `custom.php` file. This file contains:
+
+```php
+<?php
+
+/*
+|--------------------------------------------------------------------------
+| Custom configuration
+|--------------------------------------------------------------------------
+|
+| This is an example of a custom configuration. You may get this configuration
+| by plugin instance.
+| For example, in a view you can use `$this->config( 'custom.sample' )`.
+|
+*/
+
+return [
+  'sample' => 'Hello, Captain!'
+];
+```
+
+It's very easy to get a custom configuration by using `$pluginInstance->config( 'custom.sample') `.
+
+## Plugin instance
+
+The plugin instance is the most important object in WP Bones.
+You will be able to get the plugin instance by using either `WPKirk()` function or the global static class `WPKirk`.
+
+```php
+// plugin instance by global unique function
+echo WPKirk()->Author;
+
+// plugin instance by global static class
+echo WPKirk::$plugin->Author;
+
+```
+
+Of course, if your plugin is named `MyPlugin` you will use `MyPlugin()` to get the instance. Same for the static class `echo WPKirk::$plugin->Author;`
+
+### Get plugin information
+
+In the `index.php` file you may use the comment to insert some plugin information:
+
+```php
+<?php
+
+/**
+ * Plugin Name: WP Kirk
+ * Plugin URI: http://undolog.com
+ * Description: WP Kirk, a WP Bones boilerplate plugin
+ * Version: 1.0.0
+ * Author: Giovambattista Fazioli
+ * Author URI: http://undolog.com
+ * Text Domain: wp-kirk
+ * Domain Path: localization
+ *
+ */
+```
+
+You can get this information by using the **plugin instance**:
+
+```php
+echo $plugin->Author;
+echo $plugin->TextDomain;
+```

@@ -1,0 +1,33 @@
+Although Wordpress doesn't support composer, we can use the `composer.json` to install third party packages.
+Of course, to write a WP Bones package you should follow some special rules.
+
+## How to write a WP Bones package
+
+Edit the `composer.json` file of your package and use the following syntax:
+
+```json
+...
+  "autoload": {
+    "psr-4": {
+       "WPKirk\\YourPackage\\": "src/"
+    }
+  },
+...
+```
+
+You should use `WPKirk` like namespace. So, I suggest you to write and test your package in the WPKirk boilerplate.
+
+```shell
+git clone -b boilerplate https://github.com/wpbones/WPKirk.git <your plugin folder>
+```
+
+All above is necessary because when you'll use:
+
+```shell
+php bones update
+```
+
+The bones command will perform a rename of the namespace.
+For more details, have a look at the source code of [Morris php](https://github.com/wpbones/morris-php).
+
+There you'll find a list of the official WP Bones packages. Feel free to write your own WP Bones package and send me a request in order to add it.

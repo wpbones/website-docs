@@ -1,0 +1,71 @@
+Bones is also the name of the command-line interface included with **WP Kirk boilerplate**. It provides a number of helpful commands for your use while developing your plugin. You will use bones command-line interface to start your develop. First of all, try the command-line console by running:
+
+    php bones
+
+Then, you can change the plugin namespace from `WPKirk` to `MyFirstWPBonesPlugin`, for example:
+
+    php bones rename 'My First WP Bones Plugin' MyFirstWPBonesPlugin
+
+Awesome! You are quite ready to start to develop.
+
+### Updated
+
+Of course, while you are in developing, you may update the WP Bones framework. You can do this by using `update` bones command:
+
+    php bones update
+
+> Currently we will get the `develop` branch.
+
+### Deploy
+
+When your plugin is ready, you can use the `deploy` bones command in order to create a new folder useful to submit your plugin to the wordpress.org repository:
+
+    php bones deploy /var/www/mydeploy
+
+In the `mydeploy` folder you'll find only the needed files to run your plugin. For example, the `node_modules` folder will be deleted as well as the `resources/assets`.
+
+### Customize Deploy
+
+Of course, you may customize the deploy process by editing the `deploy.php` file. In this file you can add your own commands to run before and after the deploy. You will find also some actions and filters to customize the deploy process.
+
+For example, you can add any custom command to run before the deploy by using:
+
+```php
+/**
+* Fired when the deploy command is started
+*
+* @param object $console Instance of WPBones Console
+* @param string $path Destination path
+*/
+add_action('wpbones_console_deploy_start', function ($console, $path) {
+    // Do something
+}, 10, 2);
+```
+
+Or change the list of skipped files by using:
+
+```php
+/**
+* Filter the list of the folder to skip for the deploy version
+*
+* @param array $folders List of folders to skip
+* @return array List of folders to skip
+*/
+add_filter('wpbones_console_deploy_skip_folders', function ($folders) {
+    return $folders;
+});
+```
+
+### Creators
+
+The Bones command console provides a set of commands to create some base classes. For example, you may create a Custom Post Type by using:
+
+    php bones make:cpt MyCustomPostTypeClass
+
+### To require Packages
+
+You can install third-party packages by using:
+
+    php bones require <PackageName>
+
+I advise you use this command instead of `composer require` because by doing so, an automatic renaming will be done.

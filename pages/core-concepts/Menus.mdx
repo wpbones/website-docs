@@ -1,0 +1,150 @@
+You can set your custom menu in `/config/menus.php` file. This file returns an array so being the menu structure. You can leave this array empty if you don't need a menu. Let me show you a typical menu structure.
+
+```php
+/*
+|--------------------------------------------------------------------------
+| Plugin Menus routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register all of the menu routes for a plugin.
+| In this context, the route is the menu link.
+|
+*/
+
+return [
+  'wp_kirk_slug_menu' => [
+    "page_title" => "WP Kirk Page title",
+    "menu_title" => "WP Kirk Menu title",
+    'capability' => 'read',
+    'position'   => null,
+    'icon'       => 'dashicons-admin-plugins',
+    'items'      => [
+      [
+        "page_title" => "Main View",
+        "menu_title" => "Main View",
+        'capability' => 'read',
+        'route'      => [ 'get' => 'Dashboard\DashboardController@firstMenu' ],
+      ],
+      [
+        "page_title" => "Ajax Example",
+        "menu_title" => "Ajax Example",
+        'capability' => 'read',
+        'route'      => [ 'get' => 'Dashboard\DashboardController@secondMenu' ],
+      ]
+    ]
+  ]
+];
+```
+
+> :pushpin: 
+>
+> **Under the hood**:  The menu page slug for the first item will be `wp_kirk_slug_menu`. For the second item will be `wp_kirk_1`. For the third item will be `wp_kirk_2`.
+> In other words, the menu slug is `{namespace}_{index_sub_menu}`.
+
+Of course, you can replace the submenu index with your own array key:
+
+```php
+return [
+  'wp_kirk_slug_menu' => [
+    "page_title" => "WP Kirk Page title",
+    "menu_title" => "WP Kirk Menu title",
+    'capability' => 'read',
+    'position'   => null,
+    'icon'       => 'dashicons-admin-plugins',
+    'items'      => [
+      'my-main-view' => [
+        "page_title" => "Main View",
+        "menu_title" => "Main View",
+        'capability' => 'read',
+        'route'      => [ 'get' => 'Dashboard\DashboardController@firstMenu' ],
+      ],
+      'example' => [
+        "page_title" => "Ajax Example",
+        "menu_title" => "Ajax Example",
+        'capability' => 'read',
+        'route'      => [ 'get' => 'Dashboard\DashboardController@secondMenu' ],
+      ]
+    ]
+  ]
+];
+```
+
+In this case, you'll get as first item:
+
+    /wp-admin/admin.php?page=wp_kirk_my_main_view
+    
+and
+
+    /wp-admin/admin.php?page=wp_kirk_example
+
+> :pushpin: 
+>
+> **Under the hood**:  The array key will be sanitized in lower case and any of the char `-` will be replaced by `_` 
+
+
+## Default values
+
+You may avoid inserting the following array items:
+
+    icon         : blank
+    page_title   : menu_title
+    capability   : read
+    position     : null
+
+The `capability` key is optional for both menu and submenu items. The default value of key `capability` in the root menu is `read` when it is not set. The default value of key `capability` in the submenu remains the same of root menu when it is not set. For example:
+
+```php
+/*
+|--------------------------------------------------------------------------
+| Plugin Menus routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register all of the menu routes for a plugin.
+| In this context, the route is the menu link.
+|
+*/
+
+return [
+  'wp_kirk_slug_menu' => [
+    "page_title" => "WP Kirk Page title",
+    "menu_title" => "WP Kirk Menu title",
+    'capability' => 'manage_options',
+    'position'   => null,
+    'icon'       => 'dashicons-admin-plugins',
+    'items'      => [
+      [
+        "page_title" => "Main View",
+        "menu_title" => "Main View",
+        'route'      => [ 'get' => 'Dashboard\DashboardController@firstMenu' ],
+      ]
+    ]
+  ]
+];
+```
+The submenu "Main View" capability will be set to `manage_options`.
+
+
+## Icon
+
+If you set the icon key on something like `dashicons-admin-plugins`, it will be used the official icon font of the WordPress admin. Otherwise, if the value doesn't start with `dashicons-`, it will be used as an image filename in the `public/images/` folder.
+
+## Custom Post Type attach
+
+Of course, you could have your own Custom Post Type as standard WordPress menu. To attach your custom menu below the Custom Post item menu, just replace the first menu key with something like the following one:
+
+```php
+return [
+  'edit.php?post_type=your_cpt_id',
+...
+```
+
+Where `your_cpt_id` enter the Custom Post Type id. So, your menu will be attached under the Custom Post Type submenu items.
+
+
+## Menu View Controller
+
+As you can see from the code above, the view is handled by a **Laravel** style syntax. In other words, the `view` key is bound to a View Controller's methods. The syntax is very easy `ViewController@method`.
+
+> :pushpin: 
+>
+> **Note**: Of course, you will add the namespace as necessary.

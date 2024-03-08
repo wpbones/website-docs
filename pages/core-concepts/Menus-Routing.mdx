@@ -1,0 +1,129 @@
+In the WordPress as well as WP Bones architecture, the routing is pretty different from Laravel. We haven't got a true routing but a menu routing. Anyway, you may handle the basic HTTP verb such as GET, POST, PUT, PATCH and DELETE. In the above sample, we have used `get` verb in `route` key. If your view has a form with a POST method you may use:
+
+```php
+...
+  'route' => [
+    'get'  => 'Dashboard\DashboardController@secondMenu',
+    'post' => 'Dashboard\DashboardController@updateValues'
+  ]
+...  
+```
+
+In this case, when an HTTP POST request is made, the method `updateValues` in `Dashboard\DashboardController` will be called.
+
+## Form Method Spoofing
+
+HTML forms do not support `PUT`, `PATCH` or `DELETE` actions. So, when defining `PUT`, `PATCH` or`DELETE` routes that are called from an HTML form, you will need to add a hidden `_method` field to the form. The value sent with the `_method` field will be used in the HTTP request:
+
+```HTML
+<form action="" method="POST">
+    <input type="hidden" name="_method" value="PUT">
+</form>
+```
+
+
+
+## Resource
+
+Alternatively, instead of specifying each single HTTP verb, you may use the `resource` key in order to call the default method in your view controller:
+
+```php
+...
+  'route' => [ 'resource' => 'Dashboard\DashboardController' ],
+...
+```
+
+Once you have assigned the view controller to a given route resource, you may use the standard methods instead:
+
+```php
+class DashboardResourceController extends Controller {
+  
+  // GET
+  public function index() {
+    //
+  }
+  
+  // POST
+  public function store() {
+    //
+  }
+  
+  // PUT AND PATCH
+  public function update() {
+    //
+  }
+
+  // DELETE
+  public function destroy() {
+    //
+  }
+}
+```
+
+You can use `php bones` command to create a controller:
+
+```sh
+php bones make:controller MyController
+
+# create the folder and namespace
+php bones make:controller Billing/Market/MyController
+```
+
+
+
+## Redirect in load
+
+When a submenu is clicked, your controller's methods are executed inside of the admin view. This means that the HTTP headers are already sent. So, you can't execute any HTTP redirect but only a script - workaround - redirect. Anyway, WP Bones provides a redirect method that you may use. If the headers are already sent, a Javascript script redirect will be done:
+
+```php
+  // POST
+  public function store() {
+    // your store command
+    $this->redirect( 'some url' );
+  }
+```
+
+Also, WP Bones provides a special ruote called `load`. It is executed before the page is rendered:
+
+```php
+...
+  'route' => [ 'load' => 'Dashboard\DashboardController@load' ],
+...
+```
+
+
+> :pushpin: 
+>
+> **Note**: You will need to use thid method to add meta boxes.
+
+```php
+public function load()
+{
+    wp_enqueue_script( 'common' );
+    wp_enqueue_script( 'wp-lists' );
+    wp_enqueue_script( 'postbox' );
+    
+    // TODO: add your meta boxes
+}
+```
+
+This route will be called on the `load-{hook}` action. Here you can use `wp_redirect()` or the WP Bones redirect method. Let's see an example:
+
+```html
+  <form action="" method="post">
+    <input type="hidden" name="_redirect" value="http://undolog.com">
+    <button class="button">POST with redirect</button>
+  </form>
+```
+
+In the `load` method of the controller:
+
+```php
+  public function load()
+  {
+    if( $this->request->get( '_redirect' ) ) {
+      // the wp_redirect() will be done
+      $this->redirect( $this->request->get( '_redirect' ) );
+    }
+  }
+```

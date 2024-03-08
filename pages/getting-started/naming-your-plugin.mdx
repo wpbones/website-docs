@@ -1,0 +1,70 @@
+# Naming Your Plugin
+
+When you install **your plugin**, you may wish to change the plugin name. This is a common practice when you are using **bones** as a starting point for your plugin development.
+
+Let's rename the plugin name and the namespace:
+
+```shell
+php bones rename '<your plugin name>' '<your namespace>'
+```
+
+If you leave blank `<your plugin name>`, a command line prompt will be displayed and you will be asked to enter a new Plugin name. Bones command will use this information to perform some changes into the code. Also, **bones** command will use it as namespace as well as slug. For example, if you enter `My WP Plugin`, bones command will create:
+
+```
+My WP Plugin          Name of plugin
+MyWPPlugin            Namespace, see [PSR-4 autoloading standard](http://www.php-fig.org/psr/psr-4/)
+my_wp_plugin_slug     Plugin slug
+my_wp_plugin_vars     Plugin vars used for CPT, taxonomy, etc.
+my-wp-plugin          Internal id used for css, js and less files
+```
+
+## Naming Your Plugin again
+
+After installing **your plugin**, you may wish to change the plugin name again.
+
+> :pushpin:
+>
+> **Note**: Remember that a plugin name is bound to PHP namespace. This because WordPress doesn't support namespace in current plugin architecture.
+
+You can do this, by using the `rename` command in bones command line:
+
+```shell
+php bones rename 'WP My Awesome Plugin'
+```
+
+In this case, you will get:
+
+```
+WP My Awesome Plugin          Name of plugin
+WPMyAwesomePlugin             Namespace (PSR-4)
+wp_my_awesome_plugin_slug     Plugin slug
+wp_my_awesome_plugin_vars     Plugin vars used for CPT, taxonomy, etc.
+wp-my-awesome_plugin          Internal id used for css, js and less files
+```
+
+## Options
+
+You may also reset the plugin name and the namespace to the orginal version.
+
+```shell
+php bones rename --reset
+```
+
+In addition to that, you may also update the namespace after a composer update.
+
+```shell
+php bones rename --update
+```
+
+> NOTE: Probably, you won't need to that as the update flow is already in the composer file
+
+```json
+...
+  "scripts": {
+    "post-autoload-dump": [
+      "php -r \"copy('vendor/wpbones/wpbones/src/Console/bin/bones', 'bones');\"",
+      "php bones rename --update"
+    ]
+  }
+  ...
+```

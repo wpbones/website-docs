@@ -1,0 +1,87 @@
+In the `config/plugin.php` file, you might have noticed the `providers` key. It is used to load your custom providers on Load of a plugin.
+
+```php
+...
+  /*
+  |--------------------------------------------------------------------------
+  | Autoloaded Service Providers
+  |--------------------------------------------------------------------------
+  |
+  | The service providers listed here will be automatically loaded on the
+  | init of your plugin. Feel free to add your own services to
+  | this array to grant expanded functionality to your applications.
+  |
+  */
+
+  'providers' => [ 'YourNamespace\Providers\YourServiceProvider' ],
+... 
+```
+
+Using the php bones `make:provider` Bones command, we can quickly create a Service Provider.
+
+Let me show you a common service provider.
+
+```php
+<?php
+
+namespace YourNamespace\Providers;
+
+use YourNamespace\WPBones\Support\ServiceProvider;
+
+class YourServiceProvider extends ServiceProvider
+{
+
+  public function register()
+  {
+    // TODO
+  }
+}
+
+``` 
+
+The Service Provider are useful because they are loaded at the start (init) of the plugin. For example, you may use them to add the plugin row data in the plugin list view:
+
+```php
+public function register()
+{
+  // plugin list
+  add_action( 'plugin_action_links_' . WPKirk()->pluginBasename, [ $this, 'plugin_action_links' ], 10, 4 );
+}
+
+public function plugin_action_links( $links )
+{
+  $main     = '<a href="' . menu_page_url( 'wp_kirk_slug_menu', false ) . '">' . __( 'Main' ) . '</a>';
+  $settings = '<a href="' . menu_page_url( 'wp_kirk_slug_menu-settings', false ) . '">' . __( 'Settings' ) . '</a>';
+
+  array_unshift( $links, $main, $settings );
+
+  return $links;
+}
+```
+### Plugin instance pointer
+
+As you know, you can get the plugin instance by using `WPKirk()` global function or `YourNamespace()`. Anyway, in the service provider, you'll able to get the plugin instance by using `$this->plug` property.
+
+```php
+<?php
+
+namespace YourNamespace\Providers;
+
+use YourNamespace\WPBones\Support\ServiceProvider;
+
+class YourServiceProvider extends ServiceProvider
+{
+
+  public function register()
+  {
+    // TODO
+  }
+
+  public function myMethod()
+  {
+     $plugin = $this->plugin;
+  }
+
+}
+
+``` 

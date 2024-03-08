@@ -1,7 +1,7 @@
 {
-  "name": "nextra-docs-template",
-  "version": "0.0.1",
-  "description": "Nextra docs template",
+  "name": "@wpbones/docs",
+  "version": "1.2.5",
+  "description": "WPBones Docs",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/shuding/nextra-docs-template.git"
+    "url": "git+https://github.com/wpbones/WPBones.git"
   },
-  "author": "Shu Ding <g@shud.in>",
-  "license": "MIT",
+  "author": "Giovambattista Fazioli <giovambattista.fazioli@gmail.com>",
+  "license": "GNU GENERAL PUBLIC LICENSE",
   "bugs": {
-    "url": "https://github.com/shuding/nextra-docs-template/issues"
+    "url": "https://github.com/wpbones/WPBones/issues"
   },
-  "homepage": "https://github.com/shuding/nextra-docs-template#readme",
+  "homepage": "https://wpbones.vercel.app/",
   "dependencies": {
     "next": "^13.0.6",
     "nextra": "latest",

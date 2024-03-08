@@ -1,0 +1,187 @@
+The views provide the UI and interaction with the end user. Usually, a view is a link in WordPress. The menus, for example, are a way to display a view.
+
+## Basic Usage
+
+Views contain the HTML served by your plugin and separate your controller / plugin logic from your presentation logic. Views are stored in the `resources/views` directory. A view is usually bound with a menu. So, you will handle your view from an inside method of View Controller. In the [Menus](#menus) section we have already used a View Controller in the menu array:
+
+```php
+...
+'route' => [ 'get' => 'Dashboard\DashboardController@firstMenu' ],
+...
+```
+
+Now, let's see a simple View Controller used to display a view:
+
+```php
+<?php
+
+namespace WPKirk\Http\Controllers\Dashboard;
+
+use WPKirk\Http\Controllers\Controller;
+
+class DashboardController extends Controller {
+
+  public function firstMenu()
+  {
+    return WPKirk()->view( 'dashboard.index' );
+  }
+}
+```
+
+The "Dot" notation provides a simple way to organise the views. In this example, we will have the following files structure `resources/views/dashboard/index.php`. The `index.php` file is the HTML/PHP file:
+
+```html
+<div class="wrap">
+  <h1>Hello, captain!</h1>
+</div>
+```
+
+> :pushpin:
+>
+> **Note**: You may use any PHP code inside the view.
+
+## Passing Data To Views
+
+As in Laravel, we may easily pass any data to the views:
+
+```php
+return WPKirk()->view( 'dashboard.index' )->with( [ 'kirk' => 'Captain' ] );
+```
+
+So, inside your view, you can then access the data by using its corresponding keys, such as `<?php echo $kirk; ?>`.
+
+```html
+<div class="wrap">
+  <h1>Hello, <?php echo $kirk; ?>!</h1>
+</div>
+```
+
+As an alternative to passing a complete array of data to the view, you may use the `with` method to add individual pieces of data to the view:
+
+```php
+return WPKirk()->view( 'dashboard.index' )->with( 'kirk', 'Captain' );
+```
+
+In addition, you will able to get your plugin instance by `$plugin` variable.
+
+> :pushpin: 
+>
+> **Note**: In this release, you'll find the `$plugin` variable auto set to the plugin instance. This variable is reserved. 
+
+
+## Enqueue Styles and Scripts in Admin area
+
+You may enqueue all registered styles and scripts when a view is displayed. All styles and scripts files must be located in `public/` folder. The `.css` files will be got in the `public/css/` folder and the `.js` files will be got in the `public/js/` folder. Currently, you can use `withAdminStyles` and `withAdminScripts` methods. For example:
+
+```php
+return WPKirk()->view( 'dashboard.index' )
+               ->with( [ 'kirk' => 'Captain' ] )
+               ->withAdminStyles( 'wp-kirk-common' );
+```
+
+The file `public/css/wp-kirk-common.css` will be registered and enqueued when the view is displayed.
+
+## Enqueue Style and Scripts in Frontend
+
+Also, you can enqueue scripts and styles in the frontend, for example when you will display a view for a widget. In this case, you can use `withStyles` and `withScripts` fluent methods. All these methods accept three params: name, deps and version:
+
+```php
+return WPKirk()->view( 'dashboard.index' )
+               ->with( [ 'kirk' => 'Captain' ] )
+               ->withAdminStyles( 'wp-kirk-common', [ 'wp-kir-colors' ], '1.0' );
+```
+
+
+
+## Fragment
+
+A very useful feature of View is the ability to include another View. For example, you could use the following:
+
+```html
+<h1>
+  Main view in file "/views/main.php"
+</h1>
+<?php echo WPKirk()->view( 'fragment' ) ?>
+```
+
+In the above example, we are going to load the `/view/fragment.php` view into the main view. This feature is very usuful for loops or dynamic parts of a view. Let's show a more complete example:
+
+```html
+<!-- this main view: echo WPKirk()->view( 'main' )->with( 'items', $items ) -->
+<h1>
+  Main view in file "/views/main.php"
+</h1>
+<?php echo WPKirk()->view( 'list-items' ) ?>
+```
+
+In the `/views/list-items.php` you'll find:
+
+```html
+<ul>
+<?php foreach( $items as $item ) : ?>
+  <li><?php echo $item ?></li>
+<?php endforach; ?>
+</ul>
+```
+> :pushpin:
+>
+> **Note**: Of course, if you have used a folder for your views, you will have to add it to the fragment.
+
+```html
+<h1>
+  Main view in file "/views/dasboard/index.php"
+</h1>
+<?php echo WPKirk()->view( 'dashboard.list-items' ) ?>
+```
+
+## Content
+
+Of course, you may get the content of a view and use it in several way. For example, to send an email.
+
+```php
+$content = WPKirk()->view( 'dashboard.list-items' )
+                   ->toHTML();
+
+// or
+$content = WPKirk()->view( 'dashboard.list-items' )
+                   ->render( true );
+
+```
+
+## Ajax
+
+You may wish to return a view or a fragment of a view as a JSON return. In this case, you can use:
+
+```php
+...
+    wp_send_json_success(
+      [
+        'feedback' => WPKirk()->view( 'tools.index' )->render()
+      ]
+    );
+...    
+```
+The `render` method will verify if the call is by Ajax and it will return the processed HTML.
+
+## Minified version
+
+Of course, if you are using **gulp** for compiling or minifying your scripts and styles, you may use the minified version of these files by setting the `minified` key in `config/plugin.php` configuration file:
+
+```php
+...
+  /*
+  |--------------------------------------------------------------------------
+  | Use minified styles and scripts
+  |--------------------------------------------------------------------------
+  |
+  | If you like gulp to compile and compress your styles and scripts,
+  | the filenames in `public/css` will have `.min` as postfix. If this
+  | setting is TRUE then it will be used the minified version.
+  |
+  */
+
+  'minified' => false,
+...
+```
+
+By default, this setting is `false`. Before setting `true`, make sure to have the minified version available.
