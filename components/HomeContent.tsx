@@ -1,4 +1,4 @@
-import { Button, Container, Divider, Group, Image, SimpleGrid, Stack, Text } from "@mantine/core";
+import { Button, Container, Divider, Grid, Group, Image, SimpleGrid, Stack, Text } from "@mantine/core";
 import {
   IconApi,
   IconBrandCakephp,
@@ -18,31 +18,33 @@ import phpBones from "./image.png";
 
 export default function HomeContent() {
   const claims = [
-    "WP Bones allows for WordPress plugins with Laravel-like features.",
+    "WP Bones allows for WordPress plugins with Laravel-like features",
     "WP Bones makes WordPress plugin development more efficient and modern",
   ];
 
   return (
     <Container size="xl">
       <Stack m="xl">
-        <Group justify="space-between" align="center">
-          <Text maw="60%" lh={1} fz={84} fw={900} variant="gradient" gradient={{ from: "blue", to: "violet", deg: 90 }}>
-            WP Bones makes WordPress plugin development more efficient and modern
-          </Text>
-          <Image component={NextImage} radius="md" h={500} w="auto" fit="contain" src={phpBones} alt="PHP Bones" />
-        </Group>
+        <Grid>
+          <Grid.Col span={8}>
+            <Text lh={1} fz={84} fw={900} variant="gradient" gradient={{ from: "blue", to: "violet", deg: 90 }}>
+              WP Bones allows for WordPress plugins with Laravel-like features
+            </Text>
+          </Grid.Col>
+          <Grid.Col span={4}>
+            <Image component={NextImage} radius="md" h={500} w="auto" fit="contain" src={phpBones} alt="PHP Bones" />
+          </Grid.Col>
+        </Grid>
 
         <Text fz={24}>Streamlines and modernizes WordPress plugin development.</Text>
 
         <Group>
-          <Button component="a" href="/docs" variant="filled" size="xl">
+          <Button component="a" href="/docs" variant="filled" size="xl" radius={"xl"}>
             Get started →
           </Button>
         </Group>
 
-        <Divider my="xs" label={<Text fz={24}>features</Text>} labelPosition="center" />
-
-        <SimpleGrid cols={{ base: 1, sm: 2, lg: 3 }}>
+        <SimpleGrid my={64} cols={{ base: 1, sm: 2, lg: 3 }}>
           <HomeCard
             title="Laravel-like"
             icon={<IconBrandLaravel />}

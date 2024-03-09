@@ -9,7 +9,7 @@ interface HomeCardProps {
 
 export const HomeCard: React.FC<HomeCardProps> = ({ title, description, children, icon }) => {
   return (
-    <Paper withBorder shadow="md" radius={"md"} p={"md"}>
+    <Paper withBorder shadow="md" radius={"lg"} p={"md"}>
       <Group>
         {icon}
         <Text variant="gradient" fz={24} fw={700}>
