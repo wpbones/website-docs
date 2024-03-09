@@ -1,17 +1,18 @@
-import { Cards, Card, Callout, FileTree } from 'nextra/components'
-import { FileTreeLabel } from '@components/FileTreeLabel'
-import { IconArticle } from "@tabler/icons-react";
+import { FileTreeLabel } from '@components/FileTreeLabel';
+import { Center, Group } from "@mantine/core";
+import { IconArticle, IconBrandGithub, IconBrandSlack, IconBrandWordpress, IconPlug } from "@tabler/icons-react";
+import { Callout, Card, Cards, FileTree } from 'nextra/components';
 
 # Introduction
 
-<p align="center">
+<Center my={24}>
   <img src="https://github.com/wpbones/WPBones/wiki/images/wp-bones-logo-little.png" alt="WP Bones Logo" />
-</p>
+</Center>
 
-<p align="center">
+<Group justify='center'>
 
   <a href="https://packagist.org/packages/wpbones/wpbones">
-   <img src="https://poser.pugx.org/wpbones/wpbones/v/stable" alt="Latest Stable Version" />
+   <img style={{display: "inline"}} src="https://poser.pugx.org/wpbones/wpbones/v/stable" alt="Latest Stable Version" />
   </a>
   
   <a href="https://packagist.org/packages/wpbones/wpbones">
@@ -26,7 +27,7 @@ import { IconArticle } from "@tabler/icons-react";
    <img src="https://poser.pugx.org/wpbones/wpbones/d/monthly" alt="Monthly Downloads" />
   </a>
 
-</p>
+</Group>
 
 ## Overview
 
@@ -44,7 +45,23 @@ If you like [Composer](https://getcomposer.org/), [npm](https://www.npmjs.com/),
 
 If you know [Laravel Framework](https://laravel.com/), you will love WP Bones Framework too. I inspired to Laravel while developing WP Bones. Even if, as you can image, the WordPress environment doesn't support Composer as we wished. So, you will find a lot of things similar to Laravel and some others very different.
 
+## Useful links
+
 <Cards>
-  <Card icon={<IconArticle />} title="NewsLetter" href="/docs/guide/built-ins/callout" />
+  <Card icon={<IconArticle color="orange" />} title="Undolog Magazine" target="_blank" href="https://undolog.substack.com/" />
+  <Card icon={<IconBrandGithub />} title="GitHub" target="_blank" href="https://github.com/wpbones/WPBones" />
+  <Card icon={<IconBrandSlack color="violet" />} title="WP Bones on Slack" target="_blank" href="https://wpbones.slack.com/" />
+  <Card icon={<IconPlug />} title="WP Bannerize Pro" target="_blank" href="https://wordpress.org/plugins/wp-bannerize-pro/" />
+  <Card icon={<IconPlug />} title="WP CleanFix" target="_blank" href="https://wordpress.org/plugins/wp-cleanfix/" />
+  <Card icon={<IconBrandWordpress color="green" />} title="WordPress" target="_blank" href="https://profiles.wordpress.org/gfazioli/#content-plugins" />
 </Cards>  
+
+---
+
+<iframe
+      src="https://undolog.substack.com/embed"
+      width="100%"
+      height="320"
+      style={{ border: 'none', background: 'white' }}
+    />
 

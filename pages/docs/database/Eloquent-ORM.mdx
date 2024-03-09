@@ -1,12 +1,18 @@
+import { Callout, FileTree } from 'nextra/components'
+
+# Illuminate Eloquent ORM
+
 Instead of using the [WP Bones light version of Query Builder](query-builder) you may include the original Illuminate Eloquent ORM.
 
-> 🚦 **WARNING**: installing third party packages is not recommended in the WordPress environment. You have to be sure that your plugin will be the only one using the package. Otherwise, you may get unexpected results.
+<Callout type="warning">
+Installing third party packages is not recommended in the WordPress environment. You have to be sure that your plugin will be the only one using the package. Otherwise, you may get unexpected results.
+</Callout>
 
 It provides a beautiful, simple ActiveRecord implementation for working with your database. Each database table has a corresponding "Model" which is used to interact with that table. Models allow you to query for data in your tables, as well as insert new records into the table.
 
 You'll find a complete demo of the database model in the WP Kirk demo branch:
 
-```shell
+```sh copy
 git clone -b demo https://github.com/wpbones/WPKirk.git <your plugin folder>
 ```
 
@@ -16,29 +22,33 @@ Here you'll find also a migration example. For more details see [Migrations](mig
 
 You may install Eloquent ORM in your plugin by using
 
-```shell
+```sh copy
 composer install illuminate/database
 ```
 
-> 🚦 **WARNING**: we decided to remove the illuminate/database Eloquent ORM package from the WP Banes core because it could provide some issue in the WordPress environment. Remember that the Namespace inside the WordPress plugins architecture should be unique. Anyway, we would like to support the Eloquent ORM features, so we decided to remove that from the core despite you will be able to use that separately
+<Callout type="warning">
+We decided to remove the illuminate/database Eloquent ORM package from the WP Banes core because it could provide some issue in the WordPress environment. Remember that the Namespace inside the WordPress plugins architecture should be unique. Anyway, we would like to support the Eloquent ORM features, so we decided to remove that from the core despite you will be able to use that separately
+</Callout>
 
 ## Defining Models
 
 To get started, let's create a database model. Models typically live in the `plugin` directory, but you are free to place them anywhere that can be auto-loaded according to your `composer.json` file. All database models extend `Illuminate\Database\Eloquent\Model` class.
 
-> 👀 **NOTE WELL**: as you can see the `Illuminate\Database\Eloquent\Model` is not defined with your plugin Namepace, for example `WPKirk\Illuminate\Database\Eloquent\Model`
+<Callout>
+As you can see the `Illuminate\Database\Eloquent\Model` is not defined with your plugin Namepace, for example `WPKirk\Illuminate\Database\Eloquent\Model`
+</Callout>
+
 
 The easiest way to create a model instance is using the `make:model` bones command. You can create a model for either existent WordPress tables or your own database table:
 
-```shell
+```sh copy
 php bones make:model Product
 ```
 
 The above command will create a file `Product.php` within `plugin/Http/Controllers` folder:
 
-```php
+```php copy
 <?php
-
 namespace WPKirk\Http\Controllers;
 
 use Illuminate\Database\Eloquent\Model;
@@ -81,7 +91,7 @@ By convention, the "snake case", the plural name of the class will be used as th
 
 However, as you know, the real name of the table `products` is `{prefix}_products`. Usually, `{prefix}` is `wp_` for default. Anyway, you don't need to use the WordPress prefix, WP Bones will do that for you:
 
-```php
+```php copy
 /**
  * Get the table associated with the model.
  *

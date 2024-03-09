@@ -1,7 +1,10 @@
+import { Callout, FileTree } from 'nextra/components'
+
+# Custom Post Types
+
 You can add your *Custom Post Type (CPT)* by editing the `/config/plugin.php` file. This file is very important because it returns several important information used while the plugin is started. Let see a typical structure of this file:
 
-```php
- ...
+```php filename="/config/plugin.php" copy
   /*
   |--------------------------------------------------------------------------
   | Custom Post Types
@@ -12,20 +15,14 @@ You can add your *Custom Post Type (CPT)* by editing the `/config/plugin.php` fi
   */
 
   'custom_post_types' => [ '\WPKirk\CustomPostTypes\MyCustomPostType' ],
-...
 ```
 
-Using the `php bones make:cpt` Bones command, we can quickly create a Custom Post Type Service Provider.
-
-```
-php bones make:cpt MyCustomPostType
-```
+## Typical structure of a Custom Post Type Service Provider
 
 Let's see a typical class
 
-```php
+```php filename="/plugin/CustomPostTypes/MyCustomPostType.php" copy
 <?php
-
 namespace WPKirk\CustomPostTypes;
 
 use WPKirk\WPBones\Foundation\WordPressCustomPostTypeServiceProvider;
@@ -59,4 +56,12 @@ class MyCustomPostType extends WordPressCustomPostTypeServiceProvider {
   }
 
 }
+```
+
+## PHP Bones Command
+
+Using the `php bones make:cpt` Bones command, we can quickly create a Custom Post Type Service Provider.
+
+```sh copy
+php bones make:cpt MyCustomPostType
 ```

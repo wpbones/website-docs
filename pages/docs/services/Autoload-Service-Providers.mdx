@@ -1,7 +1,10 @@
+import { Callout, FileTree } from 'nextra/components'
+
+# Autoload Service Providers
+
 In the `config/plugin.php` file, you might have noticed the `providers` key. It is used to load your custom providers on Load of a plugin.
 
-```php
-...
+```php filename="config/plugin.php" copy
   /*
   |--------------------------------------------------------------------------
   | Autoloaded Service Providers
@@ -14,14 +17,17 @@ In the `config/plugin.php` file, you might have noticed the `providers` key. It 
   */
 
   'providers' => [ 'YourNamespace\Providers\YourServiceProvider' ],
-... 
 ```
+
+## PHP Bones Command
 
 Using the php bones `make:provider` Bones command, we can quickly create a Service Provider.
 
+## Typical Service Provider
+
 Let me show you a common service provider.
 
-```php
+```php filename="plugin/Providers/YourServiceProvider.php" copy
 <?php
 
 namespace YourNamespace\Providers;
@@ -36,12 +42,11 @@ class YourServiceProvider extends ServiceProvider
     // TODO
   }
 }
-
 ``` 
 
 The Service Provider are useful because they are loaded at the start (init) of the plugin. For example, you may use them to add the plugin row data in the plugin list view:
 
-```php
+```php copy
 public function register()
 {
   // plugin list
@@ -62,9 +67,8 @@ public function plugin_action_links( $links )
 
 As you know, you can get the plugin instance by using `WPKirk()` global function or `YourNamespace()`. Anyway, in the service provider, you'll able to get the plugin instance by using `$this->plug` property.
 
-```php
+```php copy
 <?php
-
 namespace YourNamespace\Providers;
 
 use YourNamespace\WPBones\Support\ServiceProvider;
@@ -83,5 +87,4 @@ class YourServiceProvider extends ServiceProvider
   }
 
 }
-
 ``` 

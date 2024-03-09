@@ -1,0 +1,11 @@
+import "@mantine/core/styles.css";
+
+import { createTheme, MantineProvider } from "@mantine/core";
+
+export default function WPBonesDocsApp({ Component, pageProps }) {
+  return (
+    <MantineProvider>
+      <Component {...pageProps} />
+    </MantineProvider>
+  );
+}

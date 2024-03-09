@@ -1,3 +1,7 @@
+import { Callout, FileTree } from 'nextra/components'
+
+# Official WP Bones packages
+
 Although Wordpress doesn't support composer, we can use the `composer.json` to install third party packages.
 Of course, to write a WP Bones package you should follow some special rules.
 
@@ -5,7 +9,7 @@ Of course, to write a WP Bones package you should follow some special rules.
 
 Edit the `composer.json` file of your package and use the following syntax:
 
-```json
+```json copy
 ...
   "autoload": {
     "psr-4": {
@@ -17,13 +21,13 @@ Edit the `composer.json` file of your package and use the following syntax:
 
 You should use `WPKirk` like namespace. So, I suggest you to write and test your package in the WPKirk boilerplate.
 
-```shell
+```sh copy
 git clone -b boilerplate https://github.com/wpbones/WPKirk.git <your plugin folder>
 ```
 
 All above is necessary because when you'll use:
 
-```shell
+```sh copy
 php bones update
 ```
 

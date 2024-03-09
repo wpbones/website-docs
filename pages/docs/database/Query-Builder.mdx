@@ -1,14 +1,21 @@
+import { Callout, FileTree } from 'nextra/components'
+
+
+# Query Builder
+
 WP Bones's database query builder provides a convenient, fluent interface to creating and running database queries. It can be used to perform most database operations in your WordPress instance.
 
-> This embed version of Query Builder is a light version of the original. It does not include the advanced features of the original.
+<Callout type="info">
+This embed version of Query Builder is a light version of the original. It does not include the advanced features of the original.
+</Callout>
+
 
 ## Retrieving All Rows From A Table
 
 You may use the `table` method provided by the `DB` class to begin a query. The `table` method returns a fluent query builder instance for the given table, allowing you to chain more constraints onto the query and then finally retrieve the results of the query using the `get` method:
 
-```php
+```php copy
 <?php
-
 namespace WPKirk\Http\Controllers;
 
 use WPKirk\WPBones\Database\DB;
@@ -28,7 +35,7 @@ class UserController extends Controller
 
 The `get` method returns an `WPKirk\WPBones\Database\Support\Collection` instance containing the results of the query where each result is an instance of the PHP `stdClass` object. You may access each column's value by accessing the column as a property of the object:
 
-```php
+```php copy
 use WPKirk\WPBones\Database\DB;
 
 $users = DB::table('users')->get();
@@ -42,7 +49,7 @@ foreach ($users as $user) {
 
 If you just need to retrieve a single row from a database table, you may use the `DB` class's `first` method. This method will return a single `stdClass` object:
 
-```php
+```php copy
 use WPKirk\WPBones\Database\DB;
 
 $user = DB::table('users')->where('user_login', 'admin')->first();
@@ -52,7 +59,7 @@ return $user->email;
 
 To retrieve a single row by its `id` column value, use the `find` method:
 
-```php
+```php copy
 use WPKirk\WPBones\Database\DB;
 
 $user = DB::table('users')->find(3);
@@ -62,7 +69,7 @@ $user = DB::table('users')->find(3);
 
 If you would like to retrieve an `WPKirk\WPBones\Database\Support\Collection` instance containing the values of a single column, you may use the `pluck` method. In this example, we'll retrieve a collection of user names:
 
-```php
+```php copy
 use WPKirk\WPBones\Database\DB;
 
 $names = DB::table('users')->pluck('user_login');
@@ -76,7 +83,7 @@ foreach ($names as $name) {
 
 The query builder also provides a variety of methods for retrieving aggregate values like `count` (max, min, avg, and sum in progress yet). You may call any of these methods after constructing your query:
 
-```php
+```php copy
 use WPKirk\WPBones\Database\DB;
 
 $users = DB::table('users')->count();
@@ -88,7 +95,7 @@ $users = DB::table('users')->count();
 
 You may not always want to select all columns from a database table. Using the `select` method, you can specify a custom "select" clause for the query:
 
-```php
+```php copy
 use WPKirk\WPBones\Database\DB;
 
 $users = DB::table('users')
@@ -104,7 +111,7 @@ You may use the query builder's `where` method to add "where" clauses to the que
 
 For example, the following query retrieves users where the value of the `user_login` column is equal to `admin` and the value of the `user_status` column is greater than `0`:
 
-```php
+```php copy
 $users = DB::table('users')
                 ->where('user_login', '=', 'admin')
                 ->where('user_status', '>', 0)
@@ -113,13 +120,13 @@ $users = DB::table('users')
 
 For convenience, if you want to verify that a column is `=` to a given value, you may pass the value as the second argument to the `where` method. WP Bones will assume you would like to use the `=` operator:
 
-```php
+```php copy
 $users = DB::table('users')->where('user_login', 'admin')->get();
 ```
 
 As previously mentioned, you may use any operator that is supported by your database system:
 
-```php
+```php copy
 $users = DB::table('users')
                 ->where('user_status', '>=', 100)
                 ->get();
@@ -135,7 +142,7 @@ $users = DB::table('users')
 
 You may also pass an array of conditions to the `where` function. Each element of the array should be an array containing the three arguments typically passed to the `where` method:
 
-```php
+```php copy
 $users = DB::table('users')->where([
     ['user_status', '=', '0'],
     ['display_name', 'like', 'r%'],
@@ -146,7 +153,7 @@ $users = DB::table('users')->where([
 
 When chaining together calls to the query builder's `where` method, the "where" clauses will be joined together using the `and` operator. However, you may use the `orWhere` method to join a clause to the query using the or operator. The `orWhere` method accepts the same arguments as the `where` method:
 
-```php
+```php copy
 $users = DB::table('users')
                     ->where('user_status', '>', 0)
                     ->orWhere('user_login', 'root')
@@ -159,7 +166,7 @@ $users = DB::table('users')
 
 The `whereBetween` method verifies that a column's value is between two values:
 
-```php
+```php copy
 $users = DB::table('users')
            ->whereBetween('user_status', [1, 100])
            ->get();
@@ -169,7 +176,7 @@ $users = DB::table('users')
 
 The `whereNotBetween` method verifies that a column's value lies outside of two values:
 
-```php
+```php copy
 $users = DB::table('users')
            ->whereNotBetween('id', [1, 100])
            ->get();
@@ -179,7 +186,7 @@ $users = DB::table('users')
 
 The `whereIn` method verifies that a given column's value is contained within the given array:
 
-```php
+```php copy
 $users = DB::table('users')
                     ->whereIn('id', [1, 2, 3])
                     ->get();
@@ -193,7 +200,7 @@ $users = DB::table('users')
 
 The `orderBy` method allows you to sort the results of the query by a given column. The first argument accepted by the `orderBy` method should be the column you wish to sort by, while the second argument determines the direction of the sort and may be either asc or desc:
 
-```php
+```php copy
 $users = DB::table('users')
                 ->orderBy('display_name', 'desc')
                 ->get();
@@ -201,7 +208,7 @@ $users = DB::table('users')
 
 To sort by multiple columns, you may simply invoke `orderBy` as many times as necessary:
 
-```php
+```php copy
 $users = DB::table('users')
                 ->orderBy('display_name', 'desc')
                 ->orderBy('user_email', 'asc')
@@ -212,7 +219,7 @@ $users = DB::table('users')
 
 You may use the `limit` and `offset` methods to limit the number of results returned from the query or to skip a given number of results in the query:
 
-```php
+```php copy
 $users = DB::table('users')
                 ->offset(10)
                 ->limit(5)
@@ -223,7 +230,7 @@ $users = DB::table('users')
 
 The query builder also provides an `insert` method that may be used to insert records into the database table. The `insert` method accepts an array of column names and values:
 
-```php
+```php copy
 DB::table('users')->insert([
     'user_email' => 'kayla@example.com',
     'user_login' => 'kayla',
@@ -232,7 +239,7 @@ DB::table('users')->insert([
 
 You may insert several records at once by passing an array of arrays. Each array represents a record that should be inserted into the table:
 
-```php
+```php copy
 DB::table('users')->insert([
     ['user_email' => 'picard@example.com', 'user_login' => 'picard'],
     ['user_email' => 'janeway@example.com', 'user_login' => 'janeway'],
@@ -243,7 +250,7 @@ DB::table('users')->insert([
 
 In addition to inserting records into the database, the query builder can also update existing records using the `update` method. The `update` method, like the insert method, accepts an array of column and value pairs indicating the columns to be updated. You may constrain the `update` query using `where` clauses:
 
-```php
+```php copy
 $affected = DB::table('users')
               ->where('id', 1)
               ->update(['user_email' => 'janeway@example.com']);
@@ -251,7 +258,7 @@ $affected = DB::table('users')
 
 You may also use:
 
-```php
+```php copy
 $user = DB::table('users')->find(1);
 $user->user_email = 'janeway@example.com';
 $user->save();
@@ -261,7 +268,7 @@ $user->save();
 
 The query builder's `delete` method may be used to delete records from the table. You may constrain `delete` statements by adding "where" clauses before calling the `delete` method:
 
-```php
+```php copy
 DB::table('users')->delete();
 
 DB::table('users')->where('id', '>', 100)->delete();
@@ -269,7 +276,7 @@ DB::table('users')->where('id', '>', 100)->delete();
 
 If you wish to truncate an entire table, which will remove all records from the table and reset the auto-incrementing ID to zero, you may use the `truncate` method:
 
-```php
+```php copy
 DB::table('users')->truncate();
 ```
 
@@ -277,11 +284,11 @@ DB::table('users')->truncate();
 
 You may use the `dump` methods while building a query to dump the current query bindings and SQL. The `dump` method will display the records returned by the query in a JSON pretty-printed format:
 
-```php
+```php copy
 echo DB::table('users')->get()->dump();
 ```
 
-```json
+```json copy
 [
 	{
 		"ID": "1",

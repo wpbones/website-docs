@@ -13,17 +13,14 @@
     },
     "showcase": {
       "type": "page",
-      "title": "Showcase",
-      "theme": {
-        "typesetting": "article",
-        "layout": "full"
-      }
+      "title": "Magazine",
+      "newWindow": true,
+      "href": "https://undolog.substack.com/"
     },
     "about": {
       "type": "page",
       "title": "About",
-      "theme": {
-        "typesetting": "article"
-      }
+      "newWindow": true,
+      "href": "https://github.com/gfazioli"
     }
   }

@@ -21,8 +21,8 @@ export default function HomeContent() {
         <Text fz={24}>Streamlines and modernizes WordPress plugin development.</Text>
 
         <Group>
-          <Button component="a" href="/docs" variant="outline" color="blue" size="xl">
-            Get Started
+          <Button component="a" href="/docs" variant="filled" size="xl">
+            Get started →
           </Button>
         </Group>
       </Stack>

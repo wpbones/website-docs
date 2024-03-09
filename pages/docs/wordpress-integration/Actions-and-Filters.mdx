@@ -1,10 +1,14 @@
+import { Callout, FileTree } from 'nextra/components'
+
+# Actions and Filters
+
 It is very important to note that WP Bones uses actions and filters on several points.
 
 ## Actions
 
-### your_plugin_slug\_loaded
+### \{your_plugin_slug\}\_loaded
 
-```php
+```php copy
 /**
 * Fired when your plugin is started
 *
@@ -16,7 +20,7 @@ add_action('{your_plugin_slug}_loaded', function () {
 
 ### wpbones_console_deploy_start
 
-```php
+```php copy
 /**
 * Fired when the deploy command is started
 *
@@ -30,7 +34,7 @@ add_action('wpbones_console_deploy_start', function ($console, $path) {
 
 ### wpbones_console_deploy_before_compile_assets
 
-```php
+```php copy
 /**
 * Fired before compile assets
 *
@@ -44,7 +48,7 @@ add_action('wpbones_console_deploy_before_compile_assets', function ($console, $
 
 ### wpbones_console_deploy_after_compile_assets
 
-```php
+```php copy
 /**
 * Fired after compile assets
 *
@@ -58,7 +62,7 @@ add_action('wpbones_console_deploy_after_compile_assets', function ($console, $p
 
 ### wpbones_console_deployed
 
-```php
+```php copy
 /**
  * Fires when the console deploy is completed.
  *
@@ -72,7 +76,7 @@ do_action('wpbones_console_deployed', $this, $path);
 
 ### wpbones_console_deploy_gulp_production
 
-```php
+```php copy
 /**
 * Filter the console command used to compile assets
 *
@@ -86,7 +90,7 @@ add_filter('wpbones_console_deploy_gulp_production', function ($command) {
 
 ### wpbones_console_deploy_skip_folders
 
-```php
+```php copy
 /**
 * Filter the list of the folder to skip for the deploy version
 *

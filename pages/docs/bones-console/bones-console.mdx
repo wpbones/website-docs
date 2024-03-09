@@ -1,10 +1,18 @@
+import { Callout, FileTree } from 'nextra/components'
+
+# Bones Command-Line Interface
+
 Bones is also the name of the command-line interface included with **WP Kirk boilerplate**. It provides a number of helpful commands for your use while developing your plugin. You will use bones command-line interface to start your develop. First of all, try the command-line console by running:
 
-    php bones
+```sh copy
+php bones
+```
 
 Then, you can change the plugin namespace from `WPKirk` to `MyFirstWPBonesPlugin`, for example:
 
-    php bones rename 'My First WP Bones Plugin' MyFirstWPBonesPlugin
+```sh copy
+php bones rename 'My First WP Bones Plugin' MyFirstWPBonesPlugin
+```
 
 Awesome! You are quite ready to start to develop.
 
@@ -12,7 +20,10 @@ Awesome! You are quite ready to start to develop.
 
 Of course, while you are in developing, you may update the WP Bones framework. You can do this by using `update` bones command:
 
-    php bones update
+```sh copy
+php bones update
+```
+
 
 > Currently we will get the `develop` branch.
 
@@ -20,7 +31,9 @@ Of course, while you are in developing, you may update the WP Bones framework. Y
 
 When your plugin is ready, you can use the `deploy` bones command in order to create a new folder useful to submit your plugin to the wordpress.org repository:
 
-    php bones deploy /var/www/mydeploy
+```sh copy
+php bones deploy /var/www/mydeploy
+```
 
 In the `mydeploy` folder you'll find only the needed files to run your plugin. For example, the `node_modules` folder will be deleted as well as the `resources/assets`.
 
@@ -30,7 +43,7 @@ Of course, you may customize the deploy process by editing the `deploy.php` file
 
 For example, you can add any custom command to run before the deploy by using:
 
-```php
+```php copy
 /**
 * Fired when the deploy command is started
 *
@@ -44,7 +57,7 @@ add_action('wpbones_console_deploy_start', function ($console, $path) {
 
 Or change the list of skipped files by using:
 
-```php
+```php copy
 /**
 * Filter the list of the folder to skip for the deploy version
 *
@@ -60,7 +73,9 @@ add_filter('wpbones_console_deploy_skip_folders', function ($folders) {
 
 The Bones command console provides a set of commands to create some base classes. For example, you may create a Custom Post Type by using:
 
-    php bones make:cpt MyCustomPostTypeClass
+```sh copy
+php bones make:cpt MyCustomPostTypeClass
+```
 
 ### To require Packages
 

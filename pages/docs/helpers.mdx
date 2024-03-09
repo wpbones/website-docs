@@ -1,8 +1,12 @@
+import { Callout, FileTree } from 'nextra/components'
+
+# Helpers
+
 WP Bones includes a variety of "helper" PHP functions, many of which are used by the framework itself; however, you are free to use them in your own applications if you find them convenient. Some of these functions are a clone of the Laravel helper functions.
 
-> 📌 
->
-> **Note**: These helper functions may become a problem when different versions of the framework will load in WordPress. In fact, a function has not a namespace like a class. Anyway, in this release, I'm taking care to limit these functions.
+<Callout type="warning">
+These helper functions may become a problem when different versions of the framework will load in WordPress. In fact, a function has not a namespace like a class. Anyway, in this release, I'm taking care to limit these functions.
+</Callout>
 
 ### Available Methods
 
@@ -18,7 +22,7 @@ WP Bones includes a variety of "helper" PHP functions, many of which are used by
 
 The `wpbones_value` function's behaviour will simply return the value it is given. However, if you pass a `Closure` to the function, the `Closure` will be executed then its result will be returned:
 
-```php
+```php copy
 $value = wpbones_value( function() { return 'bar'; });
 ```
 
@@ -26,7 +30,7 @@ $value = wpbones_value( function() { return 'bar'; });
 
 The `wpbones_env` function gets the value of an environment variable or returns a default value:
 
-```php
+```php copy
 $env = wpbones_env('APP_ENV');
 
 // Return a default value if the variable doesn't exist...
@@ -37,7 +41,7 @@ $env = wpbones_env('APP_ENV', 'production');
 
 The `wpbones_array_insert` function inserts a key value pair array in a specified position:
 
-```php
+```php copy
 $result = wpbones_array_insert( $arr, $key, $val, $index = 0 );
 ```
 
@@ -45,7 +49,7 @@ $result = wpbones_array_insert( $arr, $key, $val, $index = 0 );
 
 The `wpbones_checked` function is similar to WordPress `checked()` except for array support:
 
-```html
+```html copy
 <input type="checkbox" <?php wpbones_checked( [1,2,3], $current ) ?> name="product" />
 ```
 
@@ -53,7 +57,7 @@ The `wpbones_checked` function is similar to WordPress `checked()` except for ar
 
 The `wpbones_selected` function is similar to WordPress `selected()` except for array support :
 
-```html
+```html copy
 <select name="products">
   <?php foreach( $products as $key => $value ) : ?>
   <option <?php wpbones_selected( [1,2,3], $key ) ?>><?php echo $value ?></option>

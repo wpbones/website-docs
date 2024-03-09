@@ -1,16 +1,22 @@
+import { Callout, FileTree } from 'nextra/components'
+
+# Seeding
+
 Likewise Laravel, WP Bones includes the ability to seed your database with data using seed classes. All seed classes are stored in the `database/seeders` directory.
 The seeder classes will be loaded and executed when the plugin is activated.
 
 ## Writing Seeders
 
-> **Note:** Currently, there is no way to write seeders by `php bones`. We are working on that.
-
 A seeder class only contains one method by default: `run`. You have to define the table name as well.
 Below, an example of seeder class used in the [wpbones/geolocalizer](https://packagist.org/packages/wpbones/geolocalizer) package.
 
-```php
-<?php
+<Callout type="info">
+Currently, there is no way to write seeders by `php bones`. We are working on that.
+</Callout>
 
+
+```php copy
+<?php
 // remember that your namespace will be different
 use WPKirk\WPBones\Database\Seeder;
 
@@ -41,9 +47,8 @@ return new class extends Seeder {
 
 Currently, the seeder is executed when the plugin is activated. If you want to execute the seeder just one time, you can set the `runOnce` property to `true`.
 
-```php
+```php copy
 <?php
-
 // remember that your namespace will be different
 use WPKirk\WPBones\Database\Seeder;
 
@@ -79,9 +84,8 @@ return new class extends Seeder {
 
 You can use a model to seed your database.
 
-```php
+```php copy
 <?php
-
 // remember that your namespace will be different
 use WPKirk\WPBones\Database\Seeder;
 

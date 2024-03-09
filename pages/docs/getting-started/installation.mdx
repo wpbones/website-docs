@@ -5,18 +5,33 @@ import { Callout } from 'nextra/components'
 First of all, you should prepare the development environment. I may suggest you the following:
 
 - [Vagrant](https://github.com/gfazioli/VagrantUbuntu)
-- [Valet](https://laravel.com/docs/5.2/valet)
+- [Valet](https://laravel.com/docs/10.x/valet)
+
+<Callout>
+I suggest you to use also [PHP Monitor](https://phpmon.app/) is a lightweight, native Mac menu bar app that works best when accompanied by [Laravel Valet](https://github.com/laravel/valet) (but it also works without it).
+</Callout>
 
 And proceed with further instructions.
 
 Once the environment is installed, you're ready to start developing your first WP Bones plugin.
 
+## Use WPKirk plugin
+
 In order to start to develop a WP Bones plugin, you must have a copy of WordPress files. You can download the last WordPress release from [wordpress.org](#http://wordpress.org).
 
 Next, you need to download the **WP Kirk boilerplate plugin** starter kit inside `wp-content/plugins/` folder.
+
+### GitHub Template
+You may also use the [GitHub Template](https://github.com/wpbones/WPKirk) of WPKirk.
+
+![Create a new plugin from template](./github-template.png)
+
+
+### Clone the repository
+
 You can use either git command line or Github for Mac application.
 
-```shell copy
+```sh copy
 cd wp-content/plugins
 git clone -b boilerplate https://github.com/wpbones/WPKirk.git <your plugin folder>
 ```

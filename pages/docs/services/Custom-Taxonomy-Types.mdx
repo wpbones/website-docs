@@ -1,7 +1,10 @@
+import { Callout, FileTree } from 'nextra/components'
+
+# Custom Taxonomy Types
+
 You can also add your _Custom Taxonomy Types_ by editing the `/config/plugin.php` file:
 
-```php
- ...
+```php filename="/config/plugin.php" copy
   /*
   |--------------------------------------------------------------------------
   | Custom Taxonomy Types
@@ -12,14 +15,12 @@ You can also add your _Custom Taxonomy Types_ by editing the `/config/plugin.php
   */
 
   'custom_taxonomies' => [ '\WPKirk\CustomTaxonomyTypes\MyCustomTaxonomy' ],
-...
 ```
 
 The related class will be:
 
 ```php
 <?php
-
 namespace WPKirk\CustomTaxonomyTypes;
 
 use WPKirk\WPBones\Foundation\WordPressCustomTaxonomyTypeServiceProvider;
@@ -34,5 +35,7 @@ class MyCustomTaxonomy extends WordPressCustomTaxonomyTypeServiceProvider {
 
 }
 ```
+
+## PHP Bones Command
 
 Using the `php bones make:ctt` Bones command, we can quickly create a Custom Taxonomy Type Service Provider.

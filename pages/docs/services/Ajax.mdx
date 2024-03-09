@@ -1,3 +1,7 @@
+import { Callout, FileTree } from 'nextra/components'
+
+# Ajax
+
 In WordPress you can have three different Ajax access:
 
 - Only for logged-in users
@@ -6,8 +10,7 @@ In WordPress you can have three different Ajax access:
 
 In order to allow Ajax call, you have to edit the `/config/plugin.php` file. In the Ajax section you can insert the list of your own Ajax classes, for example:
 
-```php
-...
+```php copy
   /*
   |--------------------------------------------------------------------------
   | Ajax
@@ -18,12 +21,11 @@ In order to allow Ajax call, you have to edit the `/config/plugin.php` file. In 
   */
 
   'ajax' => [ '\WPKirk\Ajax\MyAjax' ],
-...
 ```
 
 In the `\WPKirk\Ajax\MyAjax` class you will list your methods/actions for logged, not logged or trusted users:
 
-```php
+```php filename="/plugin/Ajax/MyAjax.php" copy
 class MyAjax extends WordPressAjaxServiceProvider {
 
   /**
@@ -56,6 +58,11 @@ class MyAjax extends WordPressAjaxServiceProvider {
     'notLogged'
   ];
 
+  /**
+   * You may also define the capability required to execute the action.
+   */
+  protected $capability = 'manage_options';
+
 }
 ```
 
@@ -63,9 +70,8 @@ Using the `php bones make:ajax` Bones command, we can quickly create an Ajax Ser
 
 The parent class `WordPressAjaxServiceProvider` will register on your behalf the WordPress actions that you need. So, let's have a look at a complete example:
 
-```php
+```php copy
 <?php
-
 namespace WPKirk\Ajax;
 
 use WPKirk\WPBones\Foundation\WordPressAjaxServiceProvider;
@@ -128,15 +134,19 @@ class MyAjax extends WordPressAjaxServiceProvider {
 
 You can also get the post variables by using `$this->request->get('post_name')`. WordPress provides several functions to return a JSON result. For example, you may use:
 
-```php
+```php copy
 wp_send_json_succcess();
-// or
+```
+
+or
+
+```php copy
 wp_send_json_success( [ 'hello' => 'world' ] );
 ```
 
 In Javascript side, you'll find:
 
-```javascript
+```javascript copy
 $.post(ajaxurl, {}, function (response) {
 	if (response.success) {
 		// success property is set by WordPress wp_send_json_success
@@ -148,6 +158,6 @@ $.post(ajaxurl, {}, function (response) {
 });
 ```
 
-> 📌
->
-> **Note**: The `wp_send_json_error` function works in the same way.
+<Callout>
+The `wp_send_json_error` function works in the same way.
+</Callout>

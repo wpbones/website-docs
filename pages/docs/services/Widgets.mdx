@@ -1,8 +1,11 @@
+import { Callout, FileTree } from 'nextra/components'
+
+# Widgets
+
 You may register your widgets in the `/config/plugin.php` files in the `widgets` key:
 
-```php
+```php filename="/config/plugin.php" copy
 <?php
-...
   /*
   |--------------------------------------------------------------------------
   | Widgets
@@ -13,14 +16,12 @@ You may register your widgets in the `/config/plugin.php` files in the `widgets`
   */
 
   'widgets' => [ ],
-...
 ```
 
 WP Bones provides a new `Widget` class to manage a WordPress widget. Let's see a simple example of Widget:
 
-```php
+```php filename="/plugin/Widgets/MyWidget.php" copy
 <?php
-
 namespace WPKirk\Widgets;
 
 use WPKirk\WPBones\Support\Widget;
@@ -103,12 +104,15 @@ class MyWidget extends Widget
   }
 }
 ```
+As you can see, this new `Widget` class supports the resource view like a view. 
 
-Using the `php bones make:widget` Bones command, we can quickly create an Widget Service Provider.
+The `viewForm` method should return the view used in the backend admin area. 
 
-As you can see, this new `Widget` class supports the resource view like a view. The `viewForm` method should return the view used in the backend admin area. The `viewWidget` should return the view used in the frontend. In other words, this is the output of widget. In these methods, you may choose which view to return. Inside the view, you'll have available `$plugin` instance, `$instance` WordPress variable and `Html` facade. For example, in `widgets.form` you can:
+The `viewWidget` should return the view used in the frontend. In other words, this is the output of widget. 
 
-```html
+In these methods, you may choose which view to return. Inside the view, you'll have available `$plugin` instance, `$instance` WordPress variable and `Html` facade. For example, in `widgets.form` you can:
+
+```html copy
 <div>
 	<h1>Widget Backend</h1>
 	<h3><?php echo $plugin->Name ?></h3>
@@ -118,11 +122,11 @@ As you can see, this new `Widget` class supports the resource view like a view. 
 
 Of course, if you wish to share the `$instance` variable, then you can:
 
-```php
+```php copy
 return WPKirk()->view( 'widgets.form' )->with( 'instance', $instance );
 ```
 
-```html
+```html copy
 <div>
 	<h1>Widget Backend</h1>
 	<h2><?php var_dump( $instance ) ?></h2>
@@ -130,3 +134,7 @@ return WPKirk()->view( 'widgets.form' )->with( 'instance', $instance );
 	<?php echo WPKirk\Html::button( 'Click Me!' ) ?>
 </div>
 ```
+
+## PHP Bones Command
+
+Using the `php bones make:widget` Bones command, we can quickly create an Widget Service Provider.

@@ -1,12 +1,16 @@
+import { Callout, FileTree } from 'nextra/components'
+
+# Migrations
+
 WP Bones provides a simple implementation of the migration. Of course, this implementation is a little bit different than Laravel migration. First of all, you can use `php bones migrate:create` in order to create a migration file:
 
-```shell
+```sh copy
 php bones migrate:create MyTable
 ```
 
 You'll see a new file in `/database/migrations/` folder, looking like to `/database/migrations/2016_01_28_131206_create_mytable_table.php`. This file contains your class migration:
 
-```php
+```php copy
 use WPKirk\WPBones\Database\Migrations\Migration;
 
 return new class extends Migration
@@ -22,13 +26,13 @@ return new class extends Migration
 
 For example, if you want a _products_ table, please use:
 
-```
+```sh copy
 php bones migrate:create Products
 ```
 
 Edit the migration file like this:
 
-```php
+```php copy
 use WPKirk\WPBones\Database\Migrations\Migration;
 
 return new class extends Migration {

@@ -17,14 +17,6 @@
   "helpers": "Helpers",
   "contributing": "Contributing",
   "versioning": "Versioning",
-  "security-vulnerabilities​": "Security Vulnerabilities​",
-  "license": "License",
-  "contact": {
-    "title": "Contact ↗",
-    "type": "page",
-    "href": "https://twitter.com/shuding_",
-    "newWindow": true
-  },
-
-  "another": "Another Page"
+  "security-vulnerabilities": "Security Vulnerabilities",
+  "license": "License"
 }

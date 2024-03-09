@@ -1,3 +1,7 @@
+import { Callout, FileTree } from 'nextra/components'
+
+# Writing Commands
+
 In addition to the commands provided within Bones, you may also build your own custom commands.
 Commands are typically stored in the `plugin/Console/Commands` directory; however, you are free to choose your own storage location as long as your commands can be loaded by Composer.
 
@@ -8,14 +12,15 @@ This command will create a new command class in the `plugin/Console/Commands` di
 Don't worry if this directory does not exist in your plugin, since it will be created the very first time when running the `make:command` Bones command.
 The generated command will include the default set of properties and methods that are present on all commands:
 
-    php bones make:console MyCommand
+```sh copy
+php bones make:console MyCommand
+```
 
 The above command will generate a class at `plugin/Console/Commands/MyCommand.php`. It will generate the file `plugin/Console/Kernel.php` if it doesn't exist.
 The signature of command and the command name will be asked in console.
 
-```php
+```php filename="plugin/Console/Commands/MyCommand.php" copy
 <?php
-
 namespace WPKirk\Console\Commands;
 
 use WPKirk\WPBones\Console\Command;
@@ -46,9 +51,8 @@ The `handle` method will be called when your command is executed. You may place 
 
 You will also need to add the command class in the `plugin/Console/Commands/Kernel.php` file, in the `$command` property array.
 
-```php
+```php copy
 <?php
-
 namespace WPKirk\Console;
 
 use WPKirk\WPBones\Foundation\Console\Kernel as ConsoleKernel;
@@ -65,7 +69,7 @@ class Kernel extends ConsoleKernel
 
 You can customize the deploy process by using the action `wpbones_console_deployed`. This is very useful, for example, to delete some folder and write a new file. To do that, you can override the `__construct` method in your command.
 
-```php
+```php copy
 public function __construct()
 {
     parent::__construct();
