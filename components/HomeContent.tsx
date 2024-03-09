@@ -77,7 +77,7 @@ export default function HomeContent() {
           <HomeCard
             title="Pages"
             icon={<IconPaperclip />}
-            description="Creating custom page routes and pages in Nextra is straightforward and flexible, allowing for easy navigation and page creation without menus"
+            description="Creating custom page routes and pages is straightforward and flexible, allowing for easy navigation and page creation without menus"
           />
           <HomeCard
             title="Logging"
