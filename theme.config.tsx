@@ -14,6 +14,14 @@ const config: DocsThemeConfig = {
   project: {
     link: "https://github.com/wpbones/WPBones",
   },
+  head: () => (
+    <>
+      <title>WPBones</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <meta property="og:title" content="WPBones" />
+      <meta property="og:description" content="WPBones" />
+    </>
+  ),
   editLink: {
     component: null,
   },
