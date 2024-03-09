@@ -1,21 +1,29 @@
-import { DocsThemeConfig } from 'nextra-theme-docs'
+import { DocsThemeConfig } from "nextra-theme-docs";
 
 const config: DocsThemeConfig = {
-  logo: <span>WPBones</span>,
+  logo: (
+    <span>
+      <img
+        width={128}
+        src="https://github.com/wpbones/WPBones/wiki/images/wp-bones-logo-little.png"
+        alt="WP Bones Logo"
+      />
+    </span>
+  ),
   project: {
-    link: 'https://github.com/wpbones/WPBones',
+    link: "https://github.com/wpbones/WPBones",
   },
   chat: {
-    link: 'https://discord.com',
+    link: "https://discord.com",
   },
-  docsRepositoryBase: 'https://github.com/wpbones/WPBones',
+  docsRepositoryBase: "https://github.com/wpbones/WPBones",
   sidebar: {
     defaultMenuCollapseLevel: 1,
     toggleButton: true,
   },
   footer: {
-    text: 'WPBones Docs',
+    text: "WPBones Docs",
   },
-}
+};
 
-export default config
+export default config;
