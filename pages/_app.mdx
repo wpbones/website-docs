@@ -1,11 +1,16 @@
 import "@mantine/core/styles.css";
 
-import { createTheme, MantineProvider } from "@mantine/core";
+import { MantineProvider } from "@mantine/core";
+import { readLocalStorageValue, useLocalStorage } from '@mantine/hooks';
 
 export default function WPBonesDocsApp({ Component, pageProps }) {
+
+  const value = readLocalStorageValue({ key: 'theme' });
+  const colorScheme = value === 'system' ? 'auto' : value;
+
   return (
-    <MantineProvider>
-      <Component {...pageProps} />
-    </MantineProvider>
+      <MantineProvider defaultColorScheme={colorScheme}>
+        <Component {...pageProps} />
+      </MantineProvider>
   );
 }

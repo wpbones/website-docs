@@ -3,14 +3,14 @@
   "---1": {
     "type": "separator"
   },
-  "getting-started": "Getting Started",
-  "core-concepts": "Core Concepts",
-  "views-and-templates": "Views & Templates",
-  "services": "Services",
+  "GettingStarted": "Getting Started",
+  "CoreConcepts": "Core Concepts",
+  "Views": "Views & Templates",
+  "ServicesProvider": "Services Provider",
   "database": "Database",
-  "bones-console": "Bones Console",
-  "wordpress-integration": "WordPress Integration",
-  "official-packages": "Official Packages",
+  "BonesConsole": "Bones Console",
+  "WordpressIntegration": "WordPress Integration",
+  "Packages": "Official Packages",
   "---2": {
     "type": "separator"
   },
