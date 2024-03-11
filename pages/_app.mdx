@@ -1,16 +1,68 @@
 import "@mantine/core/styles.css";
 
-import { MantineProvider } from "@mantine/core";
-import { readLocalStorageValue, useLocalStorage } from '@mantine/hooks';
+import { ColorSchemeScript, MantineProvider } from "@mantine/core";
+import { useEffect, useState } from "react";
 
 export default function WPBonesDocsApp({ Component, pageProps }) {
 
-  const value = readLocalStorageValue({ key: 'theme' });
-  const colorScheme = value === 'system' ? 'auto' : value;
+
+  const [colorScheme, setColorScheme] = useState();
+
+  useEffect(() => {
+    const observeStyleChanges = (target) => {
+      const observer = new MutationObserver(mutationsList => {
+        mutationsList.forEach(mutation => {
+          if (mutation.type === "attributes" && mutation.attributeName === "style") {
+            const styleValue = target.getAttribute("style");
+            const colorSchemeMatch = styleValue.match(/color-scheme:\s*(light|dark);/);
+            if (colorSchemeMatch) {
+              const colorScheme = colorSchemeMatch[1]; // "light" or "dark"
+              console.log("Color scheme:", colorScheme);
+              htmlElement.setAttribute('data-mantine-color-scheme', colorScheme);
+            }
+          }
+        });
+      });
+
+      observer.observe(target, { attributes: true, attributeFilter: ["style"] });
+
+      return observer;
+    };
+
+    const htmlElement = document.documentElement;
+
+    if (htmlElement) {
+      const observer = observeStyleChanges(htmlElement);
+
+      if (colorScheme === undefined) {
+        const styleValue = htmlElement.getAttribute("style");
+        const colorSchemeMatch = styleValue.match(/color-scheme:\s*(light|dark);/);
+        if (colorSchemeMatch) {
+          const colorScheme = colorSchemeMatch[1]; // "light" or "dark"
+          console.log("Color scheme:", colorScheme);
+          htmlElement.setAttribute('data-mantine-color-scheme', colorScheme);
+        }
+      }
+
+      return () => {
+        observer.disconnect();
+      };
+    }
+  }, []);
+
+
+
+  console.log("!!!!!!  sColor scheme:", colorScheme);
 
   return (
-      <MantineProvider defaultColorScheme={colorScheme}>
-        <Component {...pageProps} />
-      </MantineProvider>
+    <>
+      <ColorSchemeScript
+        nonce="8IBTHwOdqNKAWeKl7plt8g=="
+        defaultColorScheme={"auto"}
+      />
+        <MantineProvider>
+      <Component {...pageProps} />
+    </MantineProvider>
+    </>
   );
 }

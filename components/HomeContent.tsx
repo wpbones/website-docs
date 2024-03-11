@@ -1,3 +1,5 @@
+"use client";
+
 import { Button, Container, Divider, Grid, Group, Image, SimpleGrid, Stack, Text } from "@mantine/core";
 import {
   IconApi,

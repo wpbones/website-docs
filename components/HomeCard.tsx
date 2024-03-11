@@ -1,3 +1,5 @@
+"use client";
+
 import { Group, Paper, Text } from "@mantine/core";
 
 interface HomeCardProps {

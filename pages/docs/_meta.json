@@ -18,5 +18,9 @@
   "contributing": "Contributing",
   "versioning": "Versioning",
   "security-vulnerabilities": "Security Vulnerabilities",
-  "license": "License"
+  "license": "License",
+  "---3": {
+    "type": "separator"
+  },
+  "change-log": "Change Log"
 }
