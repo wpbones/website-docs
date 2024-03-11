@@ -17,7 +17,7 @@ export default function WPBonesDocsApp({ Component, pageProps }) {
             const colorSchemeMatch = styleValue.match(/color-scheme:\s*(light|dark);/);
             if (colorSchemeMatch) {
               const colorScheme = colorSchemeMatch[1]; // "light" or "dark"
-              console.log("Color scheme:", colorScheme);
+
               htmlElement.setAttribute('data-mantine-color-scheme', colorScheme);
             }
           }
@@ -37,9 +37,10 @@ export default function WPBonesDocsApp({ Component, pageProps }) {
       if (colorScheme === undefined) {
         const styleValue = htmlElement.getAttribute("style");
         const colorSchemeMatch = styleValue.match(/color-scheme:\s*(light|dark);/);
+
         if (colorSchemeMatch) {
           const colorScheme = colorSchemeMatch[1]; // "light" or "dark"
-          console.log("Color scheme:", colorScheme);
+
           htmlElement.setAttribute('data-mantine-color-scheme', colorScheme);
         }
       }
@@ -50,9 +51,6 @@ export default function WPBonesDocsApp({ Component, pageProps }) {
     }
   }, []);
 
-
-
-  console.log("!!!!!!  sColor scheme:", colorScheme);
 
   return (
     <>
