@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Container, Divider, Grid, Group, Image, SimpleGrid, Stack, Text } from "@mantine/core";
+import { Button, Container, Grid, Group, Image, SimpleGrid, Stack, Text } from "@mantine/core";
 import {
   IconApi,
   IconBrandCakephp,
@@ -112,8 +112,6 @@ export default function HomeContent() {
             description="Integrate Illuminate Eloquent ORM into WP Bones, allowing for easy database querying and model creation"
           />
         </SimpleGrid>
-
-        <Divider my="xs" label={<Text fz={24}>used by</Text>} labelPosition="center" />
       </Stack>
     </Container>
   );
