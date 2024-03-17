@@ -21,6 +21,8 @@
     "@mantine/core": "^7.6.1",
     "@mantine/hooks": "^7.6.1",
     "@tabler/icons-react": "^2.47.0",
+    "@vercel/analytics": "^1.2.2",
+    "i": "^0.3.7",
     "next": "^13.0.6",
     "nextra": "^2.13.4",
     "nextra-theme-docs": "^2.13.4",
