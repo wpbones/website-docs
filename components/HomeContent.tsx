@@ -6,6 +6,7 @@ import {
   IconBrandCakephp,
   IconBrandJavascript,
   IconBrandLaravel,
+  IconBrandReact,
   IconBrandWordpress,
   IconCode,
   IconDatabase,
@@ -16,7 +17,13 @@ import {
 } from "@tabler/icons-react";
 import NextImage from "next/image";
 import { HomeCard } from "./HomeCard";
+import consoleImage from "./console.png";
+import controllerImage from "./controller.png";
 import phpBones from "./image.png";
+import menuImage from "./menu.png";
+import optionsImage from "./option.png";
+import pageImage from "./page.png";
+import reactImage from "./react-js.png";
 
 export default function HomeContent() {
   const claims = [
@@ -49,19 +56,36 @@ export default function HomeContent() {
         <SimpleGrid my={64} cols={{ base: 1, sm: 2, lg: 3 }}>
           <HomeCard
             title="Laravel-like"
+            image={controllerImage}
             icon={<IconBrandLaravel />}
-            description="A revolutionary framework that combines Composer, npm, Laravel coding style, and Gulp to bring modern development tools to the WordPress environment"
+            description="A revolutionary framework that combines Composer, npm, Laravel coding style, and Gulp to bring modern development tools to the WordPress environment."
           />
           <HomeCard
             title="Console Commands"
             icon={<IconTerminal />}
-            description="Bones command-line interface for developing WordPress plugins, providing helpful commands and customization options, while also simplifying the deployment process"
+            image={consoleImage}
+            description="Bones command-line interface for developing WordPress plugins, providing helpful commands and customization options, while also simplifying the deployment process.
+            Automatic creation of controllers, models, and views, as well as the ability to run migrations and seeders."
+          />
+          <HomeCard
+            title="ReactJS"
+            icon={<IconBrandReact />}
+            image={reactImage}
+            description="WP Bones provides a simple and efficient way to integrate ReactJS into your WordPress plugin, allowing for easy creation of custom components and pages. Supports JavaScript and TypeScript. Styles are handled by Less and Sass."
           />
 
           <HomeCard
             title="Menu"
             icon={<IconMenuDeep />}
-            description="Offers a unique approach to menus routing, form method spoofing, and redirects in load, making it a powerful tool for building custom WordPress admin menu"
+            image={menuImage}
+            description="Offers a unique approach to menus routing, form method spoofing, and redirects in load, making it a powerful tool for building custom WordPress admin menu."
+          />
+
+          <HomeCard
+            title="Pages"
+            icon={<IconPaperclip />}
+            image={pageImage}
+            description="Creating custom page routes and pages is straightforward and flexible, allowing for easy navigation and page creation without menus."
           />
 
           <HomeCard
@@ -73,14 +97,10 @@ export default function HomeContent() {
           <HomeCard
             title="Options"
             icon={<IconSettings2 />}
+            image={optionsImage}
             description="The plugin options system in WordPress is efficient and easy to use, allowing for easy storage and retrieval of plugin settings"
           />
 
-          <HomeCard
-            title="Pages"
-            icon={<IconPaperclip />}
-            description="Creating custom page routes and pages is straightforward and flexible, allowing for easy navigation and page creation without menus"
-          />
           <HomeCard
             title="Logging"
             icon={<IconPaperclip />}
