@@ -1,0 +1,7 @@
+.card {
+    &:hover {
+        transform:rotateZ(2deg) scale(1.1);
+        box-shadow: 0 32px 32px 10px rgba(0, 0, 0, 0.5);
+    }
+    transition: all 0.5s;
+}

@@ -53,11 +53,20 @@ export default function HomeContent() {
           </Button>
         </Group>
 
-        <SimpleGrid my={64} cols={{ base: 1, sm: 2, lg: 3 }}>
+        <SimpleGrid
+          my={64}
+          cols={{ base: 1, sm: 2, lg: 3 }}
+          style={{
+            position: "relative",
+            perspective: "1000px",
+            transformStyle: "preserve-3d",
+            perspectiveOrigin: "center center",
+          }}>
           <HomeCard
             title="Laravel-like"
             image={controllerImage}
             icon={<IconBrandLaravel />}
+            href="/docs/CoreConcepts/architecture-foundations"
             description="A revolutionary framework that combines Composer, npm, Laravel coding style, and Gulp to bring modern development tools to the WordPress environment."
           />
           <HomeCard
@@ -78,6 +87,7 @@ export default function HomeContent() {
             title="Menu"
             icon={<IconMenuDeep />}
             image={menuImage}
+            href="/docs/CoreConcepts/menus"
             description="Offers a unique approach to menus routing, form method spoofing, and redirects in load, making it a powerful tool for building custom WordPress admin menu."
           />
 
