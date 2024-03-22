@@ -6,6 +6,15 @@ import { Callout, FileTree } from 'nextra/components'
 Before submitting your plugin to the WordPress repository directory, you should know some **important** information about code style.
 </Callout>
 
+## Install Plugin Check (PCP)
+
+The first thing you should do is to install the [Plugin Check](https://github.com/WordPress/plugin-check).
+You can download the zip file from the [releases page](https://wordpress.org/plugins/plugin-check/).
+This plugin will check your plugin for errors and warnings before you submit it to the WordPress repository.
+You will be able to see the errors and warnings in the WordPress admin panel.
+
+## Knowlegde potential issues
+
 When you will submit your plugin to the WordPress repository, some line of code could be rejected. This may happen because WordPress repository provides a set of pre-commit hooks. These are performed during the commit process. These hooks will perform a PHP checking, below you'll find a list of possible error in your code:
 
 ```php
@@ -41,4 +50,7 @@ static::class
 get_called_class();
 ```
 
-Also, you may use the bones `deploy` command. See [here](deploy) for more details.
+## Deploy version
+
+You will have to use the bones `deploy` command to create the deply version of your plugin.
+See [here](../BonesConsole/bones-console#deploy) for more details.

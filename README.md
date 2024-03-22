@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/wpbones/WPBones/wiki/images/wp-bones-logo-little.png" alt="WP Bones Logo" />
+  <img src="https://github.com/wpbones/WPBones/assets/432181/13e0e825-9b0d-44c2-a77d-1baad88a1070" alt="WP Bones Logo" />
 </p>
 
 <p align="center">
@@ -29,28 +29,30 @@ As you know, WordPress doesn't support composer. So, I have used a little trick 
 
 ## Documentation
 
-You'll find the [complete docs here](https://github.com/wpbones/WPBones/wiki).
+You'll find the [complete docs here](https://wpbones.vercel.app/).
 
 ## Requirement
 
-- We recommend servers running version 7.2 or greater of PHP
-
 ### Composer
 
-    $ curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
+```sh
+$ curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
+```
 
 ### Nodes
 
-    $ sudo apt-get update && sudo apt-get install nodejs && sudo apt-get install npm
-    $ sudo apt-get install nodejs-legacy
+```sh
+$ sudo apt-get update && sudo apt-get install nodejs && sudo apt-get install npm
+$ sudo apt-get install nodejs-legacy
+```
 
-### Gulp
+### Package
 
-    $ sudo npm install --global gulp
+In the `package.json` there are the tools used to compile the assets. You can install them by running:
 
-## Boilerplate
-
-You may start from [WPKirk](https://github.com/wpbones/WPKirk) repo as a boilerplate to create a WP Bones WordPress plugin.
+```sh
+$ npm install
+```
 
 ## I love Laravel
 
@@ -59,13 +61,19 @@ After cloning the repo, you can:
 
 Display help
 
-    $ php bones
+```sh
+$ php bones
+```
 
 Change namespace
 
-    $ php bones install
+```sh
+$ php bones namespace MyPluginName
+```
 
-The last command is very important. You can change either the plugin name or the namespace in anytime. However, I suggest you to make this only the first time, when the plugin is inactive.
+The last command is very important. You can change the namespace in anytime. However, I suggest you to make this only the first time, when the plugin is inactive.
 After changing of the namespace, you can start to develop you plugin. Your namespace will be `MyPluginName`.
 
-You will find further detail in the [Official WP Bones Documentation](https://github.com/wpbones/WPBones/wiki)
+## Documentation
+
+You'll find the [complete docs here](https://wpbones.vercel.app/docs)

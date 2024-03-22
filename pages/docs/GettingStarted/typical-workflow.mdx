@@ -1,4 +1,5 @@
-import { Callout, Steps } from 'nextra/components'
+import { FileTreeLabel } from '@components/FileTreeLabel'
+import { Callout, FileTree, Steps } from 'nextra/components'
 
 # Typical workflow
 
@@ -7,33 +8,54 @@ Let's see a typical workflow in order to develop a WordPress Plugin.
 <Steps>
 ### Start your Vagrant / Valet environment
 
-Before starting, you have to prepare your developing and testing environment. To do this, you can use a [Vagrant WordPress](https://github.com/gfazioli/VagrantUbuntu) or the [Valet](https://laravel.com/docs/5.2/valet) solution.
+Before starting, you have to prepare your developing and testing environment. To do this, you can use a [Vagrant WordPress](https://github.com/gfazioli/VagrantUbuntu) or the [Valet](https://laravel.com/docs/10.x/valet) solution.
 We call this environment **WordPress Host**.
 
 ### Client Host
 
 If you are on Mac, Window or Linux, I'll assume you have access to **WordPress Host** `plugins` folder by your **Client Host**.
-You can install [npm](https://www.npmjs.com/) on either **WordPress Host** or **Client Host** environment or eventually both.
 
-### Clone WP Kirk boilerplate into WordPress plugin
 
-You can clone the WP Kirk boilerplate on both **WordPress Host** and **Client Host** environment.
+#### Using the WP Kirk template
 
-```shell copy
+On GitHub, you can create a new repository using the [WP Kirk template](https://github.com/wpbones/WPKirk) by clicking on the "Use this template" button on the repository page.
+
+![Create a new plugin from template](./github-template.png)
+
+Or click [here](https://github.com/new?template_name=WPKirk&template_owner=wpbones).
+
+#### Clone the WP Kirk repository
+
+You may also clone the repository using either the Git command line or the Github for Mac application.
+
+Change directory to the `wp-content/plugins` folder of your local WordPress installation.
+
+```sh copy
 cd wp-content/plugins
-git clone -b boilerplate https://github.com/wpbones/WPKirk.git <your plugin folder>
 ```
 
-Don't forget
-
-```shell copy
-cd <your plugin folder>
+```sh copy
+git clone -b main https://github.com/wpbones/WPKirk.git <your plugin folder>
+```
+<Callout type="warning">
+If you have cloned the repository instead of using the GitHub template, you should remove the `.git` folder before creating your own Git repository.
+So run
+```sh copy
 rm -rf .git
 ```
+</Callout>
 
-### Check Bones
+### Install the dependencies packages to compile the assets
 
-From **WordPress Host** execute:
+From inside your plugin folder, run:
+
+```sh npm2yarn
+npm install
+```
+
+### Check the installation
+
+Next, from inside your plugin folder try to run:
 
 ```shell copy
 php bones
@@ -66,27 +88,46 @@ Remember to review the [WordPress guide lines](before-submit-to-wordpress-reposi
 php bones update
 ```
 
-Of course, you can start `gulp` in order to compile **less** and **Javascript** files.
-To do this, remember to execute:
+Of course, you can start to work on styles and Javascript by using the whatcher provided by the package.json file.
 
-```shell copy
-npm install
+```sh npm2yarn
+npm run dev
 ```
+All the assets in `resources/assets` are compiled and copied to the `public` folder.
 
-Or
+Your development source assets:
 
-```shell copy
-yarn
-```
+<FileTree>
+  <FileTree.Folder name="resources" defaultOpen>
+      <FileTree.Folder name="assets" defaultOpen>
+        <FileTree.Folder name="css" defaultOpen>
+            <FileTree.File label={<FileTreeLabel type="file" name="my-styles-1.less">less</FileTreeLabel>} />
+            <FileTree.File label={<FileTreeLabel type="file" name="my-styles-2.scss">Sass</FileTreeLabel>} />
+        </FileTree.Folder>
+        <FileTree.Folder name="js" defaultOpen>
+            <FileTree.File label={<FileTreeLabel type="file" name="my-script.js">Javascript</FileTreeLabel>} />
+            <FileTree.File label={<FileTreeLabel type="file" name="my-hook.ts">Typescript</FileTreeLabel>} />
+            <FileTree.File label={<FileTreeLabel type="file" name="my-react-component.jsx">ReactJS</FileTreeLabel>} />
+        </FileTree.Folder>
+      </FileTree.Folder>
+  </FileTree.Folder>
+</FileTree>
 
-You may install **npm** in the **WordPress Host** or in the **Client Host**. Next, run:
+Will be compiled and copied to the `public` folder:
 
-```shell copy
-gulp default
-```
-
-In the root folder, you'll find the default `gulp.js` file. WP Bones provides a set of default gulp tasks.
-However, feel free to add your own ones.
+<FileTree>
+  <FileTree.Folder name="public" defaultOpen>
+      <FileTree.Folder name="css" defaultOpen>
+          <FileTree.File label={<FileTreeLabel type="file" name="my-styles-1.css">CSS</FileTreeLabel>} />
+          <FileTree.File label={<FileTreeLabel type="file" name="my-styles-2.css">CSS</FileTreeLabel>} />
+      </FileTree.Folder>
+      <FileTree.Folder name="js" defaultOpen>
+          <FileTree.File label={<FileTreeLabel type="file" name="my-script.js">Javascript</FileTreeLabel>} />
+          <FileTree.File label={<FileTreeLabel type="file" name="my-hook.js">Javascript</FileTreeLabel>} />
+          <FileTree.File label={<FileTreeLabel type="file" name="my-react-component.js">Javascript</FileTreeLabel>} />
+      </FileTree.Folder>
+  </FileTree.Folder>
+</FileTree>
 
 ### Plugin Version
 
@@ -121,6 +162,10 @@ When your plugin is ready and you are satisfied with it, you can prepare a deplo
 ```shell copy
 php bones deploy ../deploy-version
 ```
+
+<Callout>
+The deploy will run also the build command, so the assets will be compressed and minified.
+</Callout>
 
 ### Submit to WordPress repository
 

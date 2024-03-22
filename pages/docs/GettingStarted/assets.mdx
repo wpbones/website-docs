@@ -1,0 +1,78 @@
+import { FileTreeLabel } from '@components/FileTreeLabel'
+import { Callout, FileTree, Steps } from 'nextra/components'
+
+# Assets
+
+WP Bones uses [gulp](https://gulpjs.com/) to compile and copy the assets from the `resources/assets` folder to the `public` folder. It supports:
+
+- CSS (Less, Sass)
+- Javascript (ES6, Typescript)
+- ReactJS
+
+## Installation
+
+To compile the assets, you need to install the packages:
+
+```sh npm2yarn
+npm install
+```
+
+## Package.json
+
+The `package.json` file contains the scripts to compile the assets:
+
+```json
+{
+  "scripts": {
+    "dev": "gulp watch",
+    "build": "gulp build"
+  },
+}
+```
+
+To compile the assets, you need to install the dependencies:
+
+```sh npm2yarn
+npm run dev
+```
+All the assets in `resources/assets` are compiled and copied to the `public` folder.
+
+Your development source assets:
+
+<FileTree>
+  <FileTree.Folder name="resources" defaultOpen>
+      <FileTree.Folder name="assets" defaultOpen>
+        <FileTree.Folder name="css" defaultOpen>
+            <FileTree.File label={<FileTreeLabel type="file" name="my-styles-1.less">less</FileTreeLabel>} />
+            <FileTree.File label={<FileTreeLabel type="file" name="my-styles-2.scss">Sass</FileTreeLabel>} />
+        </FileTree.Folder>
+        <FileTree.Folder name="js" defaultOpen>
+            <FileTree.File label={<FileTreeLabel type="file" name="my-script.js">Javascript</FileTreeLabel>} />
+            <FileTree.File label={<FileTreeLabel type="file" name="my-hook.ts">Typescript</FileTreeLabel>} />
+            <FileTree.File label={<FileTreeLabel type="file" name="my-react-component.jsx">ReactJS</FileTreeLabel>} />
+        </FileTree.Folder>
+      </FileTree.Folder>
+  </FileTree.Folder>
+</FileTree>
+
+Will be compiled and copied to the `public` folder:
+
+<FileTree>
+  <FileTree.Folder name="public" defaultOpen>
+      <FileTree.Folder name="css" defaultOpen>
+          <FileTree.File label={<FileTreeLabel type="file" name="my-styles-1.css">CSS</FileTreeLabel>} />
+          <FileTree.File label={<FileTreeLabel type="file" name="my-styles-2.css">CSS</FileTreeLabel>} />
+      </FileTree.Folder>
+      <FileTree.Folder name="js" defaultOpen>
+          <FileTree.File label={<FileTreeLabel type="file" name="my-script.js">Javascript</FileTreeLabel>} />
+          <FileTree.File label={<FileTreeLabel type="file" name="my-hook.js">Javascript</FileTreeLabel>} />
+          <FileTree.File label={<FileTreeLabel type="file" name="my-react-component.js">Javascript</FileTreeLabel>} />
+      </FileTree.Folder>
+  </FileTree.Folder>
+</FileTree>
+
+## Gulpfile.js
+
+The `gulpfile.js` in the root folder contains the tasks to compile the assets.
+Feel free to modify the tasks to fit your needs.
+
