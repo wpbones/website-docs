@@ -18,8 +18,8 @@
   },
   "homepage": "https://wpbones.vercel.app/",
   "dependencies": {
-    "@mantine/core": "^7.6.1",
-    "@mantine/hooks": "^7.6.1",
+    "@mantine/core": "^7.7.0",
+    "@mantine/hooks": "^7.7.0",
     "@tabler/icons-react": "^2.47.0",
     "@vercel/analytics": "^1.2.2",
     "i": "^0.3.7",
