@@ -12,6 +12,16 @@ interface HomeCardProps {
   href?: string;
 }
 
+/**
+ * HomeCard component props.
+ *
+ * @param title - The title of the card.
+ * @param description - The description text in the card.
+ * @param children - Any additional content inside the card.
+ * @param icon - An optional icon to display in the card header.
+ * @param image - An optional image to display in the card.
+ * @param href - An optional href if the card should link somewhere.
+ */
 export const HomeCard: React.FC<HomeCardProps> = ({ title, description, children, icon, image, href }) => {
   return (
     <Paper component="a" href={href} withBorder shadow="md" radius={"lg"} p={"md"} className={classes.card}>

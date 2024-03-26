@@ -1,4 +1,3 @@
-import { IconBrandSlack } from "@tabler/icons-react";
 import { DocsThemeConfig } from "nextra-theme-docs";
 
 const config: DocsThemeConfig = {
@@ -26,8 +25,7 @@ const config: DocsThemeConfig = {
     component: null,
   },
   chat: {
-    icon: <IconBrandSlack />,
-    link: "https://wpbones.slack.com/",
+    link: "https://discord.gg/dCP5NajK",
   },
   docsRepositoryBase: "https://github.com/wpbones/WPBones",
   sidebar: {
