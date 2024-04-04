@@ -1,5 +1,5 @@
-import { Callout, FileTree } from 'nextra/components'
 import { FileTreeLabel } from '@components/FileTreeLabel'
+import { Callout, FileTree } from 'nextra/components'
 
 # Views
 
@@ -86,6 +86,44 @@ return WPKirk()->view( 'dashboard.index' )
 
 The file `public/css/wp-kirk-common.css` will be registered and enqueued when the view is displayed.
 
+## Localize Scripts
+
+You may localize your scripts by using the `localizeScript` method. For example:
+
+```php copy
+return WPKirk()->view( 'dashboard.index' )
+               ->with( [ 'kirk' => 'Captain' ] )
+               ->withAdminScript( 'wp-kirk-common' )
+               ->withLocalizeScripts('wp-kirk-common', 'wpKirkGlobal', [
+                  'ajaxUrl' => admin_url('admin-ajax.php'),
+                  'nonce' => wp_create_nonce('wp-kirk-nonce')
+          ]);
+```
+As you know, you will be able to access to `wpKirkGlobal` variable in your scripts. For example:
+
+```javascript copy
+(function($) {
+  'use strict';
+  
+  // Post data to the server
+  $.ajax({
+    url: wpKirkGlobal.ajaxUrl,
+    type: 'POST',
+    data: {
+      action: 'wp_kirk_action',
+      nonce: wpKirkGlobal.nonce
+    },
+    success: function(response) {
+      console.log(response);
+    }
+  });
+})(jQuery);
+```
+
+
+
+
+
 ## Enqueue Style and Scripts in Frontend
 
 Also, you can enqueue scripts and styles in the frontend, for example when you will display a view for a widget. In this case, you can use `withStyles` and `withScripts` fluent methods. All these methods accept three params: name, deps and version:
@@ -166,24 +204,3 @@ wp_send_json_success(
 );
 ```
 The `render` method will verify if the call is by Ajax and it will return the processed HTML.
-
-## Minified version
-
-Of course, if you are using **gulp** for compiling or minifying your scripts and styles, you may use the minified version of these files by setting the `minified` key in `config/plugin.php` configuration file:
-
-```php filename="config/plugin.php" copy
-/*
-|--------------------------------------------------------------------------
-| Use minified styles and scripts
-|--------------------------------------------------------------------------
-|
-| If you like gulp to compile and compress your styles and scripts,
-| the filenames in `public/css` will have `.min` as postfix. If this
-| setting is TRUE then it will be used the minified version.
-|
-*/
-
-'minified' => false,
-```
-
-By default, this setting is `false`. Before setting `true`, make sure to have the minified version available.

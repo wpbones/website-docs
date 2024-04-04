@@ -1,5 +1,6 @@
 {
     "views": "Views",
-    "options-view" : "Options View",
-    "html" : "HTML"
+    "blade-template" : "Blade Template",
+    "html" : "HTML",
+    "options-view" : "Options View"
 }

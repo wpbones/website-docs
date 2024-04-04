@@ -35,6 +35,14 @@ const config: DocsThemeConfig = {
   footer: {
     text: "WPBones Docs",
   },
+  banner: {
+    key: "1.3.2-release",
+    text: (
+      <a href="/docs/Views/blade-template" target="_blank">
+        🎉 v1.3.2 Released. Introducing Blade template. Read more →
+      </a>
+    ),
+  },
 };
 
 export default config;

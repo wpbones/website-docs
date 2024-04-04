@@ -74,7 +74,13 @@ export default function HomeContent() {
             image={controllerImage}
             icon={<IconBrandLaravel />}
             href="/docs/CoreConcepts/architecture-foundations"
-            description="A revolutionary framework that combines Composer, npm, Laravel coding style, and Gulp to bring modern development tools to the WordPress environment."
+            description={
+              <span>
+                A revolutionary framework that combines Composer, npm, Laravel coding style,{" "}
+                <strong>Blade templates</strong> and Gulp to bring modern development tools to the WordPress
+                environment.
+              </span>
+            }
           />
           <HomeCard
             title="Console Commands"
