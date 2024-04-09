@@ -25,7 +25,7 @@ const config: DocsThemeConfig = {
     component: null,
   },
   chat: {
-    link: "https://discord.gg/dCP5NajK",
+    link: "https://discord.gg/5bdVyycU8F",
   },
   docsRepositoryBase: "https://github.com/wpbones/WPBones",
   sidebar: {
