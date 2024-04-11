@@ -36,10 +36,10 @@ const config: DocsThemeConfig = {
     text: "WPBones Docs",
   },
   banner: {
-    key: "1.3.2-release",
+    key: "1.3.4-release",
     text: (
       <a href="/docs/Views/blade-template" target="_blank">
-        🎉 v1.3.2 Released. Introducing Blade template. Read more →
+        🎉 v1.3.4 Released. Introducing Blade template. Read more →
       </a>
     ),
   },
