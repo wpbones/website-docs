@@ -1,5 +1,5 @@
 {
-    "landingPage": "/wp-admin/plugins.php",
+    "landingPage": "/wp-admin/admin.php?page=wp_kirk_slug_menu",
     "preferredVersions": {
         "php": "8.2",
         "wp": "latest"
@@ -15,16 +15,6 @@
             "step": "login",
             "username": "admin",
             "password": "password"
-        },
-        {
-            "step": "installPlugin",
-            "pluginZipFile": {
-                "resource": "url",
-                "url": "https://wpbones.vercel.app/wp-cleanfix-deploy.zip"
-            },
-            "options": {
-                "activate": true
-            }
         },
         {
             "step": "installPlugin",
