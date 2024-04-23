@@ -1,5 +1,5 @@
 {
-    "landingPage": "\/wp-admin\/plugins.php",
+    "landingPage": "/wp-admin/plugins.php",
     "preferredVersions": {
         "php": "8.0",
         "wp": "latest"
@@ -12,19 +12,19 @@
     },
     "steps": [
         {
+            "step": "login",
+            "username": "admin",
+            "password": "password"
+        },
+        {
             "step": "installPlugin",
             "pluginZipFile": {
                 "resource": "url",
-                "url": "https:\/\/wpbones.vercel.app\/wpkirk-deploy.zip"
+                "url": "https://wpbones.vercel.app/wpkirk-deploy.zip"
             },
             "options": {
                 "activate": true
             }
-        },
-        {
-            "step": "login",
-            "username": "admin",
-            "password": "password"
         }
     ]
 }
