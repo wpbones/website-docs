@@ -15,7 +15,7 @@ export default function WPBonesDocsApp({ Component, pageProps }) {
         mutationsList.forEach(mutation => {
           if (mutation.type === "attributes" && mutation.attributeName === "style") {
             const styleValue = target.getAttribute("style");
-            const colorSchemeMatch = styleValue.match(/color-scheme:\s*(light|dark);/);
+            const colorSchemeMatch = styleValue?.match(/color-scheme:\s*(light|dark);/);
             if (colorSchemeMatch) {
               const colorScheme = colorSchemeMatch[1]; // "light" or "dark"
 
@@ -37,7 +37,7 @@ export default function WPBonesDocsApp({ Component, pageProps }) {
 
       if (colorScheme === undefined) {
         const styleValue = htmlElement.getAttribute("style");
-        const colorSchemeMatch = styleValue.match(/color-scheme:\s*(light|dark);/);
+        const colorSchemeMatch = styleValue?.match(/color-scheme:\s*(light|dark);/);
 
         if (colorSchemeMatch) {
           const colorScheme = colorSchemeMatch[1]; // "light" or "dark"
