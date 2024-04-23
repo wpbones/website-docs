@@ -17,17 +17,20 @@
             "password": "password"
         },
         {
-            "step": "defineWpConfigConsts",
-            "consts": {
-                "WP_DEBUG": true,
-                "WP_DEBUG_DISPLAY": true
+            "step": "installPlugin",
+            "pluginZipFile": {
+                "resource": "url",
+                "url": "https://wpbones.vercel.app/wp-cleanfix-deploy.zip"
+            },
+            "options": {
+                "activate": true
             }
         },
         {
             "step": "installPlugin",
             "pluginZipFile": {
                 "resource": "url",
-                "url": "https://wpbones.vercel.app/wp-cleanfix-deploy.zip"
+                "url": "https://wpbones.vercel.app/wpkirk-deploy.zip"
             },
             "options": {
                 "activate": true
