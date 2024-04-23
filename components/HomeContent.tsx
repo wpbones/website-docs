@@ -9,6 +9,7 @@ import {
   IconBrandWordpress,
   IconCode,
   IconDatabase,
+  IconExternalLink,
   IconEyeStar,
   IconMenuDeep,
   IconPaperclip,
@@ -52,9 +53,23 @@ export default function HomeContent() {
           </Grid.Col>
         </Grid>
 
-        <Text fz={24}>Streamlines and modernizes WordPress plugin development.</Text>
+        <Group justify="center">
+          <Button
+            color="orange"
+            component="a"
+            href="https://playground.wordpress.net/?blueprint-url=https://wpbones.vercel.app/blueprint.json"
+            variant="filled"
+            size="xl"
+            radius={"xl"}>
+            See WP Bones Plugin demo in action <IconExternalLink style={{ marginLeft: 10 }} />
+          </Button>
+        </Group>
 
-        <Group>
+        <Text ta={"center"} fz={24}>
+          Streamlines and modernizes WordPress plugin development.
+        </Text>
+
+        <Group justify="center">
           <Button component="a" href="/docs" variant="filled" size="xl" radius={"xl"}>
             Get started →
           </Button>
