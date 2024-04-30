@@ -1,0 +1,161 @@
+import { FileTreeLabel } from '@components/FileTreeLabel'
+import { Callout, FileTree, Card, Cards, Steps } from 'nextra/components'
+import { IconBrandWordpress } from "@tabler/icons-react";
+
+# ReactJS Components
+
+If you want to use simple ReactJS components in your plugin, you can use the `resources/js/` folder.
+First of all, you need to install the dependencies as described in the [Assets section](../GettingStarted/assets).
+
+<Steps>
+### Create the Menu
+
+First of all, let's create a menu. Open the `config/menu.php` file and add the following code in the [menu list](../CoreConcepts/menus):
+
+```php copy
+[
+  'menu_title' => 'Simple React Component',
+  'route' => [
+    'get' => 'SimpleReactController@index',
+  ],
+],
+```
+
+### Create the Controller
+
+By using `php bones` command you can create a controller and a view at the same time. Run the following command:
+
+```shell copy
+php bones make:controller SimpleReactController
+```
+
+This command will create `plugin/Http/Controllers/SimpleReactController.php`. Open the file and add the following code:
+
+```php copy
+<?php
+
+namespace WPKirk\Http\Controllers;
+
+if (! defined('ABSPATH')) {
+    exit;
+}
+
+use WPKirk\Http\Controllers\Controller;
+
+class SimpleReactController extends Controller
+{
+
+  public function index()
+  {
+      return WPKirk()
+        ->view('react' )
+        ->withAdminScripts('wp-react-component', ['wp-element']); 
+  }
+
+  public function store()
+  {
+    // POST
+  }
+
+  public function update()
+  {
+    // PUT AND PATCH
+  }
+
+  public function destroy()
+  {
+    // DELETE
+  }
+
+}
+```
+
+<Callout>
+Maybe you will need to replace the namespace and the  `WPKirk()` function.
+</Callout>
+
+### Create the view
+
+In the `resources/views` folder create a new file called `react.php` and add the following code:
+
+```html copy
+<h1>React Component Example</h1>
+<div id="react-test"></div>
+```
+
+<Callout>
+You may create any complex view. This is just an example.
+</Callout>
+
+### Create the React Component
+
+In your `resources/js/` folder create a new file called `wp-react-component.jsx` and add the following code:
+
+```jsx copy
+const { render, useState } = wp.element;
+
+const WordPressButton = ({ children, primary, ...others }) => {
+  return (
+    <button className={`button ${primary ? 'button-primary' : ''}`} {...others}>
+      {children}
+    </button>
+  );
+};
+
+const FlexContainer = ({ children, justifyContent, alignItems, gap }) => {
+  return <div style={{ display: 'flex', justifyContent, alignItems, gap }}>{children}</div>;
+};
+
+const MyComponent = () => {
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <h2>Hello, React World!</h2>
+      <p>
+        This is a simple React component rendered in a WordPress plugin. It is a counter that increments every time you
+        click the button.
+      </p>
+
+      <FlexContainer gap={14} alignItems="center">
+        <WordPressButton onClick={() => setCount(count + 1)}>Click me</WordPressButton>
+        <span>{count}</span>
+      </FlexContainer>
+    </div>
+  );
+};
+
+render(<MyComponent />, document.getElementById('react-test'));
+```
+
+In the `resources/views` folder create a new file called `react.php` and add the following code:
+
+```html copy
+<div id="react-test"></div>
+```
+
+### Start the development server
+
+Now, you can start the development server by running the following command:
+
+```shell copy
+npm run dev
+```
+That's all
+
+![ReactJS Component](./react-component.png)
+</Steps>
+
+## Production build
+
+Obviously, once complete, remember to run the build command:
+
+```shell copy
+npm run build
+```
+
+## See it in action 
+
+<Cards num="1">
+  <Card icon={<IconBrandWordpress />} title="See it in action in your browser" target="_blank" href="https://playground.wordpress.net/?blueprint-url=https://wpbones.vercel.app/blueprint.json" />
+</Cards> 

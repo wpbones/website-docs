@@ -1,0 +1,193 @@
+import { FileTreeLabel } from '@components/FileTreeLabel';
+import { Callout, FileTree, Card, Cards, Steps } from 'nextra/components';
+import { IconBrandWordpress } from "@tabler/icons-react";
+
+# ReactJS Applications
+
+If you want to a more complex ReactJS application, you can use the `resources/apps/` folder.
+
+First of all, you need to install the dependencies as described in the [Assets section](../GettingStarted/assets).
+
+<Callout type="info">
+Feel free to install also any others dependencies you need. You could install Mantine UI, React Router, etc.
+</Callout>
+
+<Steps>
+### Create the Menu
+
+First of all, let's create a menu. Open the `config/menu.php` file and add the following code in the [menu list](../CoreConcepts/menus):
+
+```php copy
+[
+  'menu_title' => 'React Application',
+  'route' => [
+    'get' => 'ReactAppController@index',
+  ],
+],
+```
+
+### Create the Controller
+
+By using `php bones` command you can create a controller and a view at the same time. Run the following command:
+
+```shell copy
+php bones make:controller ReactAppController
+```
+
+This command will create `plugin/Http/Controllers/ReactAppController.php`. Open the file and add the following code:
+
+```php copy
+<?php
+
+namespace WPKirk\Http\Controllers;
+
+if (! defined('ABSPATH')) {
+    exit;
+}
+
+use WPKirk\Http\Controllers\Controller;
+
+class ReactAppController extends Controller
+{
+
+  public function index()
+  {
+      return WPKirk()
+        ->view('react-app' )
+        ->withAdminAppsScripts('app'); 
+  }
+
+  public function store()
+  {
+    // POST
+  }
+
+  public function update()
+  {
+    // PUT AND PATCH
+  }
+
+  public function destroy()
+  {
+    // DELETE
+  }
+
+}
+```
+
+<Callout>
+Maybe you will need to replace the namespace and the  `WPKirk()` function.
+</Callout>
+
+#### withAdminAppsScripts()
+
+The `withAdminAppsScripts()` method is used to load the ReactJS application. The first parameter is the name of the application and the second parameter indicates whether the CSS modules should also be loaded. The default value is `true`.
+
+```php copy
+return WPKirk()
+  ->view('react-app' )
+  ->withAdminAppsScripts('app', false); // without CSS modules
+```
+
+You may also create a global variable which can be used in the ReactJS application.
+
+```php copy
+return WPKirk()
+  ->view('react-app' )
+  ->withAdminAppsScripts('app', true, 'ReactApp', [
+    'tab' => 'settings',
+  ]);
+```
+The above example will create a global variable called `ReactApp` with the value `{ tab:'settings' }`.
+
+
+### Create the view
+
+In the `resources/views` folder create a new file called `react.php` and add the following code:
+
+```html copy
+<h1>React Application Example</h1>
+<div id="react-app"></div>
+```
+
+<Callout>
+You may create any complex view. This is just an example.
+</Callout>
+
+### Create the React Application
+
+In your `resources/apps/` folder create a new file called `app.jsx` and add the following code:
+
+```jsx copy
+const { render } = wp.element;
+
+// core styles are required for all packages
+import '@mantine/core/styles.css';
+import classes from './app.module.scss';
+
+import { Route, Routes, BrowserRouter } from 'react-router-dom';
+import { MantineProvider } from '@mantine/core';
+import { Demo } from './components/Demo';
+
+const MyApp = () => {
+  return (
+    <MantineProvider>
+      <h2 className={classes.title}>Say Hello, Mantine Application</h2>
+
+      <BrowserRouter basename="/wp-admin/">
+        <Routes>
+          <Route path="/admin.php" element={<Demo />} />
+        </Routes>
+      </BrowserRouter>
+    </MantineProvider>
+  );
+};
+
+render(<MyApp />, document.getElementById('react-app'));
+```
+
+<Callout tyoe="info">
+The above code is just an example. You may create any complex ReactJS application. Here we're using the [Mantine UI](https://mantine.dev/) library as well as [React Router](https://reactrouter.com/). In addition, we're using others components in the `components` folder.
+</Callout>
+
+<FileTree>
+  <FileTree.Folder name="resources" defaultOpen>
+      <FileTree.Folder name="assets" defaultOpen>
+        <FileTree.Folder name="apps" defaultOpen>
+            <FileTree.File label={<FileTreeLabel type="file" name="app.jsx">Main ReactJS</FileTreeLabel>} />
+            <FileTree.File label={<FileTreeLabel type="file" name="app.module.css">CSS module</FileTreeLabel>} />
+            <FileTree.Folder name="components" defaultOpen>
+              <FileTree.File label={<FileTreeLabel type="file" name="Demo.jsx">ReactJS</FileTreeLabel>} />
+            </FileTree.Folder>
+        </FileTree.Folder>
+      </FileTree.Folder>
+  </FileTree.Folder>
+</FileTree>
+
+### Start the development server
+
+Now, you can start the development server by running the following command:
+
+```shell copy
+npm run start:apps
+```
+That's all
+
+![ReactJS Application](./react-app.png)
+
+</Steps>
+
+## Production build
+
+Obviously, once complete, remember to run the build command:
+
+```shell copy
+npm run build:apps
+```
+
+## See it in action 
+
+<Cards num="1">
+  <Card icon={<IconBrandWordpress />} title="See it in action in your browser" target="_blank" href="https://playground.wordpress.net/?blueprint-url=https://wpbones.vercel.app/blueprint.json" />
+</Cards>  
+
