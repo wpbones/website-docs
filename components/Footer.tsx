@@ -172,7 +172,7 @@ export const Footer: React.FC<FooterProps> = () => {
               aim of Bones is to be able to write a Plugin such as Laravel Framework application.
             </Text>
             <Group>
-              <ActionIcon variant="subtle" component="a" href="https://twitter.com/gfazioli">
+              <ActionIcon variant="subtle" component="a" href="https://twitter.com/wpbonesx">
                 <IconBrandX size={24} />
               </ActionIcon>
               <ActionIcon variant="subtle" component="a" href="https://github.com/wpbones/WPBones">
