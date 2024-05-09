@@ -1,4 +1,5 @@
 import { DocsThemeConfig } from "nextra-theme-docs";
+import { Footer } from "@components/Footer";
 
 const config: DocsThemeConfig = {
   logo: (
@@ -18,7 +19,10 @@ const config: DocsThemeConfig = {
       <title>WPBones</title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <meta property="og:title" content="WPBones" />
-      <meta property="og:description" content="WPBones" />
+      <meta
+        property="og:description"
+        content="WPBones allows for WordPress plugins with Laravel-like features. Streamlines and modernizes WordPress plugin development."
+      />
     </>
   ),
   editLink: {
@@ -33,7 +37,7 @@ const config: DocsThemeConfig = {
     toggleButton: true,
   },
   footer: {
-    text: "WPBones Docs",
+    component: <Footer />,
   },
   banner: {
     key: "1.3.4-release",

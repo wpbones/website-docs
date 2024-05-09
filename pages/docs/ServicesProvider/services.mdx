@@ -1,9 +1,83 @@
-import { Callout, FileTree } from 'nextra/components'
+import { Callout, FileTree, Steps } from 'nextra/components'
 
-<Callout type="warning">
-The Service Provider aspect is taken from Laravel and it is currently under develop.
+# Services Provider
+
+WP Bones implements and provides several WordPress services such as Ajax, Shortcodes, Custom Post Types, and so on.
+Most of these services are handled by the `config/plugin.php` file.
+
+<Callout type="info">
+  The `config/plugin.php` file is the main configuration file of the plugin. It is the place where you can define the plugin name, version, and other settings.
 </Callout>
 
+## Available Services
 
-WP Bones implements and provides several WordPress services such as Ajax, Shortcodes, Custom Post Types, and so on. 
-Most of these services are handled by the `config/plugin.php` file.
+* [Ajax](/docs/ServicesProvider/ajax)
+* [Custom Post Types](/docs/ServicesProvider/custom-post-types)
+* [Custom Taxonomies](/docs/ServicesProvider/custom-post-types)
+* [Custom Shortcodes](/docs/ServicesProvider/shortcodes)
+
+
+## Write your own Service
+
+<Steps>
+
+### Create a new Service Provider
+
+You may create your own service by following the steps below:
+
+```sh copy
+php bones make:provider MyProvider
+```
+
+By default, the new provider will be created in the `plugins/Providers` directory.
+Of course, you may create your Service Provider manually and in any directory you prefer.
+You have to change the namespace accordingly.
+
+### Edit the Service Provider bootstrap
+
+```php copy
+<?php
+
+namespace WPKirk\Providers;
+
+if (! defined('ABSPATH')) {
+    exit;
+}
+
+use WPKirk\WPBones\Support\ServiceProvider;
+
+class MyProvider extends ServiceProvider
+{
+
+  public function register()
+  {
+    // TODO
+  }
+}
+```
+
+In the `register` method, you may define the actions, filters, and other services you need.
+
+
+### Load the Service Provider
+
+The ServiceProvider is loaded by the `config/plugin.php` file.
+
+```php copy
+  /*
+  |--------------------------------------------------------------------------
+  | Autoload Service Providers
+  |--------------------------------------------------------------------------
+  |
+  | The service providers listed here will be automatically loaded on the
+  | init to your plugin. Feel free to add your own services to
+  | this array to grant expanded functionality to your applications.
+  |
+  */
+
+  "providers" => [
+    "WPKirk\Providers\MyProvider",
+  ],
+```
+
+</Steps>

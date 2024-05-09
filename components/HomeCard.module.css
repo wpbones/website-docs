@@ -1,42 +1,40 @@
 @keyframes gradientAnimation {
-    0% {
-      background-position: 0 50%;
+  0% {
+    background-position: 0 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0 50%;
+  }
+}
+
+.card {
+  &:hover {
+    transform: scale(1.05) translate3d(0, -10px, 0);
+    box-shadow: 0 32px 32px 10px rgba(0, 0, 0, 0.5);
+
+    @mixin light {
+      background-image: linear-gradient(-45deg, #fff, #f0f0f0, #eee, #fff);
+      background-size: 200% auto;
+      animation: gradientAnimation 10s ease infinite;
     }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0 50%;
+
+    @mixin dark {
+      background-image: linear-gradient(-45deg, #000, #151515, #111, #000);
+      background-size: 200% auto;
+      animation: gradientAnimation 10s ease infinite;
     }
   }
 
-.card {
+  @mixin light {
+    background-color: white;
+  }
 
+  @mixin dark {
+    background-image: linear-gradient(45deg, #111, #151515);
+  }
 
-    &:hover {
-        transform: scale(1.05) translate3d(0, -10px, 0);
-        box-shadow: 0 32px 32px 10px rgba(0, 0, 0, 0.5);
-
-        @mixin light {
-            background-image: linear-gradient(-45deg, #fff, #f0f0f0, #eee, #fff);
-            background-size: 200% auto;
-            animation: gradientAnimation 10s ease infinite;
-        }
-            
-        @mixin dark {
-            background-image: linear-gradient(-45deg, #000, #151515, #111, #000);
-            background-size: 200% auto;
-            animation: gradientAnimation 10s ease infinite;
-        }
-    }
-
-    @mixin light {
-        background-color: white;
-    }
-        
-    @mixin dark {
-        background-image: linear-gradient(45deg, #111, #151515);
-    }
-
-    transition: all 0.5s;
+  transition: all 0.5s;
 }

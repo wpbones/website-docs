@@ -1,0 +1,17 @@
+.footer {
+  margin-top: 64px;
+  padding-bottom: 32px;
+
+  .column {
+    background: #111;
+  }
+}
+
+.title {
+  font-size: 12px !important;
+  font-weight: 300;
+}
+
+.columnAnchor {
+  font-size: 11px !important;
+}

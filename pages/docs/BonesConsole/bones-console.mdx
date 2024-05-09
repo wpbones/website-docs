@@ -2,7 +2,7 @@ import { Callout, FileTree } from 'nextra/components'
 
 # Bones Command-Line Interface
 
-Bones is also the name of the command-line interface included with **WP Kirk template**. It provides a number of helpful commands for your use while developing your plugin. You will use bones command-line interface to start your develop. First of all, try the command-line console by running:
+Bones is also the name of the command-line interface included with [WP Kirk template](https://github.com/wpbones/WPKirk-Boilerplate). It provides a number of helpful commands for your use while developing your plugin. You will use bones command-line interface to start your develop. First of all, try the command-line console by running:
 
 ```sh copy
 php bones
@@ -16,7 +16,7 @@ php bones rename 'My First WP Bones Plugin' MyFirstWPBonesPlugin
 
 Awesome! You are quite ready to start to develop.
 
-### Updated
+### Update WP Bones
 
 Of course, while you are in developing, you may update the WP Bones framework. You can do this by using `update` bones command:
 
@@ -24,18 +24,69 @@ Of course, while you are in developing, you may update the WP Bones framework. Y
 php bones update
 ```
 
+### Versioning your Plugin
 
-> Currently we will get the `develop` branch.
+You can version your plugin by using:
 
-### Deploy
+```sh copy
+php bones version 1.0.0
+```
+
+The above command will update the plugin version in the main plugin file and in the `readme.txt` file.
+
+<Callout type="info">
+Despite php bones support the semantic versioning, we suggest you use the same version in the `readme.txt` file and in the main plugin file.
+In short avoid to use the `v` prefix in the version number.
+</Callout>
+
+You can see the help by using:
+
+```sh copy
+php bones version --help
+
+readme.txt > 1.4.0 (Stable tag: 1.4.0)
+index.php  > 1.4.0 ( * Version: 1.4.0)
+
+Usage:
+  version [plugin version]
+
+Arguments:
+  [plugin version]		    The version of plugin. Examples: '2.0',  'v1.2',  '1.2.0-rc.40', 'v1-beta.4'
+  [--major]			        Increment the <major>.y.z of plugin.
+  [--minor]			        Increment the x.<minor>.z of plugin.
+  [--patch]			        Increment the x.y.<patch> of plugin.
+  [--pre-patch] <prefix>	Increment the x.y.<patch>-<prefix>.<i> of plugin.
+  [--pre-minor] <prefix>	Increment the x.<minor>.z-<prefix>.<i> of plugin.
+  [--pre-major] <prefix>	Increment the <major>.y.z-<prefix>.<i> of plugin.
+```
+
+#### Available Options
+
+The `php bones version` command can handle the version starting from the current version of the plugin. You can use the following options:
+
+* `--major` to increment the major version number. For example, if the current version is `1.0.0`, the new version will be `2.0.0`.
+* `--minor` to increment the minor version number. For example, if the current version is `1.0.0`, the new version will be `1.1.0`.
+* `--patch` to increment the patch version number. For example, if the current version is `1.0.0`, the new version will be `1.0.1`.
+
+You can also use the `--pre-patch`, `--pre-minor`, and `--pre-major` options to increment the version with a prefix. For example, if the current version is `1.0.0`, the new version will be `1.0.1-rc.1`.
+
+The default prefix is `rc`. But you can change it by using: 
+
+```sh copy
+php bones version 1.0.0 --pre-patch beta
+```
+
+The above command will update the plugin version to `1.0.1-beta.1`.
+
+### Deploy your Plugin
 
 When your plugin is ready, you can use the `deploy` bones command in order to create a new folder useful to submit your plugin to the wordpress.org repository:
 
 ```sh copy
-php bones deploy /var/www/mydeploy
+php bones deploy your-path/mydeploy
 ```
 
-In the `mydeploy` folder you'll find only the needed files to run your plugin. For example, the `node_modules` folder will be deleted as well as the `resources/assets`.
+In the `mydeploy` folder you'll find only the needed files to run your plugin. For example, the developer `resources/assets` folder will be removed.
 
 ### Customize Deploy
 
@@ -77,7 +128,7 @@ The Bones command console provides a set of commands to create some base classes
 php bones make:cpt MyCustomPostTypeClass
 ```
 
-### To require Packages
+### Third-party Packages
 
 You can install third-party packages by using:
 
@@ -86,3 +137,6 @@ php bones require <PackageName>
 ```
 
 I advise you use this command instead of `composer require` because by doing so, an automatic renaming will be done.
+
+
+
