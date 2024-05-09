@@ -1,5 +1,5 @@
-import { DocsThemeConfig } from "nextra-theme-docs";
 import { Footer } from "@components/Footer";
+import { DocsThemeConfig } from "nextra-theme-docs";
 
 const config: DocsThemeConfig = {
   logo: (
@@ -42,8 +42,8 @@ const config: DocsThemeConfig = {
   banner: {
     key: "1.3.4-release",
     text: (
-      <a href="/docs/Views/blade-template" target="_blank">
-        🎉 v1.3.4 Released. Introducing Blade template. Read more →
+      <a href="/docs/Views/react-app" target="_blank">
+        🎉 v1.4.0 Released. Introducing ReactJS Applications. Read more →
       </a>
     ),
   },

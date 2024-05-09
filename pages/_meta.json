@@ -13,9 +13,9 @@
     },
     "showcase": {
       "type": "page",
-      "title": "Magazine",
+      "title": "Newsletter",
       "newWindow": true,
-      "href": "https://undolog.substack.com/"
+      "href": "https://wpbones.substack.com/"
     },
     "about": {
       "type": "page",
