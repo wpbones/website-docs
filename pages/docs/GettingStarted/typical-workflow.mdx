@@ -15,7 +15,6 @@ We call this environment **WordPress Host**.
 
 If you are on Mac, Window or Linux, I'll assume you have access to **WordPress Host** `plugins` folder by your **Client Host**.
 
-
 #### Using the WP Kirk template
 
 On GitHub, you can create a new repository using the [WP Kirk template](https://github.com/wpbones/WPKirk) by clicking on the "Use this template" button on the repository page.
@@ -37,6 +36,7 @@ cd wp-content/plugins
 ```sh copy
 git clone -b main https://github.com/wpbones/WPKirk.git <your plugin folder>
 ```
+
 <Callout type="warning">
 If you have cloned the repository instead of using the GitHub template, you should remove the `.git` folder before creating your own Git repository.
 So run
@@ -93,6 +93,7 @@ Of course, you can start to work on styles and Javascript by using the whatcher 
 ```sh npm2yarn
 npm run dev
 ```
+
 All the assets in `resources/assets` are compiled and copied to the `public` folder.
 
 Your development source assets:
@@ -140,10 +141,14 @@ php bones version
 You may use a specific version
 
 ```shell copy
-php bones version v3
+php bones version --pre-patch
 ```
 
-or auto-increment one of major.minor.patch value
+<Callout type="info">
+Take a look at how plugin versioning works [versioning works](/docs/BonesConsole/bones-console#versioning-your-plugin)
+</Callout>
+
+or auto-increment one of `major.minor.patch` value
 
 ```shell copy
 php bones version --patch
@@ -153,7 +158,6 @@ php bones version --patch
 Remember to follow [SemVer](https://semver.org/) rules.
 Here](https://semver.org/) you may found more information about [SemVer](https://semver.org/)
 </Callout>
-
 
 ### Before submitting
 

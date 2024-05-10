@@ -162,56 +162,58 @@ const VerticalLinks = ({ list }: { list: VerticalLink[] }) => {
 
 export const Footer: React.FC<FooterProps> = () => {
   return (
-    <Container className={classes.footer} size="xl">
-      <Grid grow>
-        <Grid.Col span={{ base: 12, sm: 4 }}>
-          <Stack gap="xs">
-            <Image component={NextImage} w={32} h={32} fit="contain" src={wpBonesLogo} alt="WP Bones" />
-            <Text fz={12} mr={64}>
-              WP Bones is a little Framework providing a set of tools and rules to facilitate the WordPress plugin. The
-              aim of Bones is to be able to write a Plugin such as Laravel Framework application.
-            </Text>
-            <Group>
-              <ActionIcon variant="subtle" component="a" href="https://twitter.com/wpbonesx">
-                <IconBrandX size={24} />
-              </ActionIcon>
-              <ActionIcon variant="subtle" component="a" href="https://github.com/wpbones/WPBones">
-                <IconBrandGithubFilled size={24} />
-              </ActionIcon>
-              <ActionIcon variant="subtle" component="a" href="https://discord.gg/5bdVyycU8Fv">
-                <IconBrandDiscordFilled size={24} />
-              </ActionIcon>
-              <ActionIcon variant="subtle" component="a" href="https://wpbones.substack.com/">
-                <IconMailHeart size={24} />
-              </ActionIcon>
-            </Group>
-          </Stack>
-        </Grid.Col>
-        <Grid.Col className={classes.column} span={2}>
-          <Stack gap="xs">
-            <Title className={classes.title} order={6}>
-              HIGHLIGHTS
-            </Title>
-            <VerticalLinks list={wpBonesHighlights} />
-          </Stack>
-        </Grid.Col>
-        <Grid.Col className={classes.column} span={2}>
-          <Stack gap="xs">
-            <Title className={classes.title} order={6}>
-              RESOURCES
-            </Title>
-            <VerticalLinks list={wpBonesResources} />
-          </Stack>
-        </Grid.Col>
-        <Grid.Col className={classes.column} span={2}>
-          <Stack gap="xs">
-            <Title className={classes.title} order={6}>
-              ECOSYSTEM
-            </Title>
-            <VerticalLinks list={wpBonesEcoSystem} />
-          </Stack>
-        </Grid.Col>
-      </Grid>
-    </Container>
+    <div className={classes.contentFooter}>
+      <Container className={classes.footer} size="lg">
+        <Grid grow>
+          <Grid.Col span={{ base: 12, sm: 4 }}>
+            <Stack gap="xs">
+              <Image component={NextImage} w={32} h={32} fit="contain" src={wpBonesLogo} alt="WP Bones" />
+              <Text fz={12} mr={64}>
+                WP Bones is a little Framework providing a set of tools and rules to facilitate the WordPress plugin.
+                The aim of Bones is to be able to write a Plugin such as Laravel Framework application.
+              </Text>
+              <Group>
+                <ActionIcon variant="subtle" component="a" href="https://twitter.com/wpbonesx">
+                  <IconBrandX size={24} />
+                </ActionIcon>
+                <ActionIcon variant="subtle" component="a" href="https://github.com/wpbones/WPBones">
+                  <IconBrandGithubFilled size={24} />
+                </ActionIcon>
+                <ActionIcon variant="subtle" component="a" href="https://discord.gg/5bdVyycU8Fv">
+                  <IconBrandDiscordFilled size={24} />
+                </ActionIcon>
+                <ActionIcon variant="subtle" component="a" href="https://wpbones.substack.com/">
+                  <IconMailHeart size={24} />
+                </ActionIcon>
+              </Group>
+            </Stack>
+          </Grid.Col>
+          <Grid.Col className={classes.column} span={2}>
+            <Stack gap="xs">
+              <Title className={classes.title} order={6}>
+                HIGHLIGHTS
+              </Title>
+              <VerticalLinks list={wpBonesHighlights} />
+            </Stack>
+          </Grid.Col>
+          <Grid.Col className={classes.column} span={2}>
+            <Stack gap="xs">
+              <Title className={classes.title} order={6}>
+                RESOURCES
+              </Title>
+              <VerticalLinks list={wpBonesResources} />
+            </Stack>
+          </Grid.Col>
+          <Grid.Col className={classes.column} span={2}>
+            <Stack gap="xs">
+              <Title className={classes.title} order={6}>
+                ECOSYSTEM
+              </Title>
+              <VerticalLinks list={wpBonesEcoSystem} />
+            </Stack>
+          </Grid.Col>
+        </Grid>
+      </Container>
+    </div>
   );
 };

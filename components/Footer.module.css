@@ -1,9 +1,12 @@
-.footer {
-  margin-top: 64px;
-  padding-bottom: 32px;
+.contentFooter {
+  padding-top: 32px;
+  background: var(--mantine-color-body);
+  box-shadow: inset 0px 4px 32px 0px #00000032;
+}
 
+.footer {
+  padding-bottom: 32px;
   .column {
-    background: #111;
   }
 }
 
