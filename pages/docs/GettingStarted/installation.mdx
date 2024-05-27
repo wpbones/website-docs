@@ -3,7 +3,6 @@ import { Callout, Card, Cards, Steps } from 'nextra/components';
 
 # Installation
 
-
 <Steps>
 ### Create your local WordPress installation
 
@@ -18,13 +17,17 @@ I suggest you to use also [PHP Monitor](https://phpmon.app/) is a lightweight, n
 
 In order to start to develop a WP Bones plugin, you must have a copy of WordPress files. You can download the last WordPress release from [wordpress.org](#http://wordpress.org).
 
-
 ### Create your plugin
 
 To create yor WP bones plugin you can use one of our ready-made templates available on GitHub. You can choose one of the following:
 
- - [WPKirk Complete Demo](https://github.com/wpbones/WPKirk) - this is the template with several examples inside, **recommended for beginners**
- - [WPKirk Boilerplate](https://github.com/wpbones/WPKirk-Boilerplate) - this is the base template, without examples inside, **recommended for experienced users**
+- [WPKirk Complete Demo](https://github.com/wpbones/WPKirk) - this is the template with several examples inside, **recommended for beginners**
+
+ <Callout type="warning">
+ The [WPKirk Complete Demo](https://github.com/wpbones/WPKirk) requires the PHP version 8.2+ or higher due to the illuminate/database package.
+ </Callout>
+
+- [WPKirk Boilerplate](https://github.com/wpbones/WPKirk-Boilerplate) - this is the base template, without examples inside, **recommended for experienced users**
 
 for both, you can choose to create your repository on GitHub using the available templates. Or you can clone the repository directly to your computer.
 
@@ -36,13 +39,11 @@ On GitHub, you can create a new repository using the [WP Kirk template](https://
 
 <Cards num={1}>
 
-  <Card arrow icon={<IconBrandGithub />} title="Create your repository starting from a complete demo - beginners" target="_blank" href="https://github.com/new?template_name=WPKirk&template_owner=wpbones"/>
+<Card arrow icon={<IconBrandGithub />} title="Create your repository starting from a complete demo - beginners" target="\_blank" href="https://github.com/new?template_name=WPKirk&template_owner=wpbones"/>
 
-  
-  <Card arrow icon={<IconBrandGithub />} title="Create your repository starting from a empty boilerplate - advanced users" target="_blank" href="https://github.com/new?template_name=WPKirk-Boilerplate&template_owner=wpbones"/>
+<Card arrow icon={<IconBrandGithub />} title="Create your repository starting from a empty boilerplate - advanced users" target="\_blank" href="https://github.com/new?template_name=WPKirk-Boilerplate&template_owner=wpbones"/>
 
-</Cards>  
-  
+</Cards>
 
 #### Clone from GitHub
 
@@ -67,11 +68,12 @@ git clone -b main https://github.com/wpbones/WPKirk-Boilerplate.git <your plugin
 
 <Callout type="warning">
 If you have cloned the repository instead of using the GitHub template, you should remove the `.git` folder before creating your own Git repository.
-So run 
+So run
 
 ```sh copy
 rm -rf .git
 ```
+
 </Callout>
 
 ### Install the dependencies packages to compile the assets
@@ -81,8 +83,8 @@ From inside your plugin folder, run:
 ```sh npm2yarn
 npm install
 ```
-Take a look at the [Assets](assets) section to learn more.
 
+Take a look at the [Assets](assets) section to learn more.
 
 ### Check the installation
 
@@ -91,7 +93,6 @@ Next, from inside your plugin folder try to run:
 ```shell copy
 php bones
 ```
-
 
 You should see:
 
@@ -102,7 +103,7 @@ You should see:
    \ / \ /  |         |   | | | |  | |-'  \
     o   o   o         o--o  o-o o  o o-o o-o
 
-Bones Version 1.3.0
+Bones Version 1.4.3
 
 Current plugin name and namespace:
  'WP Kirk', 'WPKirk'
@@ -133,8 +134,7 @@ make
  make:widget             Create a new Widget service provider class
  make:model              Create a new database model class
  make:eloquent-model     Create a new Eloquent database model class
-``` 
-
+```
 
 ### Install
 
