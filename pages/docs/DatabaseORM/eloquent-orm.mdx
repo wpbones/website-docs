@@ -4,7 +4,7 @@ import { Callout, FileTree } from 'nextra/components'
 
 Instead of using the [WP Bones light version of Query Builder](query-builder) you may include the original Illuminate Eloquent ORM.
 
-<Callout type="warning">
+<Callout type="info">
 Installing third party packages is not recommended in the WordPress environment. You have to be sure that your plugin will be the only one using the package. Otherwise, you may get unexpected results.
 </Callout>
 
@@ -26,8 +26,12 @@ You may install Eloquent ORM in your plugin by using
 composer install illuminate/database
 ```
 
-<Callout type="warning">
-We decided to remove the illuminate/database Eloquent ORM package from the WP Banes core because it could provide some issue in the WordPress environment. Remember that the Namespace inside the WordPress plugins architecture should be unique. Anyway, we would like to support the Eloquent ORM features, so we decided to remove that from the core despite you will be able to use that separately
+<Callout type="info">
+We decided to remove the illuminate/database Eloquent ORM package from the WP Bones core because it could provide some issue in the WordPress environment.
+
+🚦**Installing this package will require you to have the PHP version 8.2 or higher.**
+
+Remember that the Namespace inside the WordPress plugins architecture should be unique. Anyway, we would like to support the Eloquent ORM features, so we decided to remove that from the core despite you will be able to use that separately.
 </Callout>
 
 ## Defining Models
@@ -37,7 +41,6 @@ To get started, let's create a database model. Models typically live in the `plu
 <Callout>
 As you can see the `Illuminate\Database\Eloquent\Model` is not defined with your plugin Namepace, for example `WPKirk\Illuminate\Database\Eloquent\Model`
 </Callout>
-
 
 The easiest way to create a model instance is using the `make:model` bones command. You can create a model for either existent WordPress tables or your own database table:
 
@@ -55,31 +58,31 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    /**
-     * The table associated with the model.
-     *
-     * @var string
-     */
-    protected $table = 'products';
+  /**
+   * The table associated with the model.
+   *
+   * @var string
+   */
+  protected $table = "products";
 
-    /**
-      * The primary key for the model.
-      *
-      * @var string
-      */
-    protected $primaryKey = 'log_id';
+  /**
+   * The primary key for the model.
+   *
+   * @var string
+   */
+  protected $primaryKey = "log_id";
 
-    /**
-     * Get the table associated with the model.
-     *
-     * @return string
-     */
-    public function getTable()
-    {
-        global $wpdb;
+  /**
+   * Get the table associated with the model.
+   *
+   * @return string
+   */
+  public function getTable()
+  {
+    global $wpdb;
 
-        return $wpdb->prefix . preg_replace('/[[:<:]]' . $wpdb->prefix . '/', '', parent::getTable(), 1);
-    }
+    return $wpdb->prefix . preg_replace("/[[:<:]]" . $wpdb->prefix . "/", "", parent::getTable(), 1);
+  }
 }
 ```
 
