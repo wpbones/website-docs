@@ -28,8 +28,8 @@ const config: DocsThemeConfig = {
         content="WP Bones allows for WordPress plugins with Laravel-like features. It streamlines and modernizes WordPress plugin development."
       />
       <meta property="twitter:title" content="WP Bones" />
-      <meta property="twitter:card" content="https://wpbones.vercel.app/favicon.png" />
-      <meta property="twitter:image" content="https://wpbones.vercel.app/favicon.png"></meta>
+      <meta property="twitter:card" content="summary" />
+      <meta property="twitter:image" content="https://wpbones.vercel.app/image.jpeg"></meta>
 
       <meta property="og:title" content="WP Bones" />
       <meta
@@ -38,7 +38,7 @@ const config: DocsThemeConfig = {
       />
       <meta property="og:url" content="https://wpbones.vercel.app/" />
       <meta property="og:site_name" content="WP Bones" />
-      <meta property="og:image" content="https://wpbones.vercel.app/favicon.png" />
+      <meta property="og:image" content="https://wpbones.vercel.app/image.jpeg" />
     </>
   ),
   editLink: {
