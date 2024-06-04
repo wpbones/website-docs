@@ -16,12 +16,12 @@ const config: DocsThemeConfig = {
   },
   head: () => (
     <>
-      <title>WPBones</title>
+      <title>WP Bones</title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <meta property="og:title" content="WPBones" />
+      <meta property="og:title" content="WP Bones" />
       <meta
         property="og:description"
-        content="WPBones allows for WordPress plugins with Laravel-like features. Streamlines and modernizes WordPress plugin development."
+        content="WP Bones allows for WordPress plugins with Laravel-like features. It streamlines and modernizes WordPress plugin development."
       />
     </>
   ),
@@ -40,10 +40,10 @@ const config: DocsThemeConfig = {
     component: <Footer />,
   },
   banner: {
-    key: "1.3.4-release",
+    key: "ownai-chatgpt",
     text: (
-      <a href="/docs/Views/react-app" target="_blank">
-        🎉 v1.4.0 Released. Introducing ReactJS Applications. Read more →
+      <a href="https://wpbones.ownai.com/" target="_blank">
+        🎉 Try the WP Bones chatGPT →
       </a>
     ),
   },

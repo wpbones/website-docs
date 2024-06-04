@@ -1,18 +1,17 @@
-import { Callout, FileTree } from 'nextra/components'
 import { FileTreeLabel } from '@components/FileTreeLabel'
+import { Callout, FileTree } from 'nextra/components'
 
-# Blade template
+# Blade Template
 
-As you maybe already know, the Blade template engine is used to generate HTML. The Blade template engine is a simple, yet powerful templating language that is used by the Laravel framework. For more information on the Blade template engine, please visit the [Laravel documentation](https://laravel.com/docs/11.x/blade).
+As you may already know, the Blade template engine is used to generate HTML. The Blade template engine is a simple yet powerful templating language that is used by the Laravel framework. For more information on the Blade template engine, please visit the [Laravel documentation](https://laravel.com/docs/11.x/blade).
 
 Blade template files use the `.blade.php` file extension and are typically stored in the `resources/views` directory.
 
 ## Basic Usage
 
-The only things that you have to do to use Blade templates in your plugin is to create a view file in the `resources/views` directory. For example, you can create a file named `dashboard.blade.php` in the `resources/views` directory.
+The only thing you have to do to use Blade templates in your plugin is to create a view file in the `resources/views` directory. For example, you can create a file named `dashboard.blade.php` in the `resources/views` directory.
 
-You will be able to use the blade template at the same way as you would use the current php template. 
-For example, a typical Controller method to render a Blade template in `resources/views/blade/demo.blade.php` would look like this:
+You will be able to use the Blade template in the same way as you would use the current PHP template. For example, a typical controller method to render a Blade template in `resources/views/blade/demo.blade.php` would look like this:
 
 ```php copy {13}
 <?php
@@ -35,7 +34,7 @@ class ExampleBladeController extends Controller
 }
 ```
 
-In the example above, we are using the `WPKirk()->view()` method to render the view. The `WPKirk()->view()` method accepts the name of the view and the data that you want to pass to the view. As you can see, it works like the `WPKirk()->view()` method of the current php template.
+In the example above, we are using the `WPKirk()->view()` method to render the view. The `WPKirk()->view()` method accepts the name of the view and the data that you want to pass to the view. As you can see, it works like the `WPKirk()->view()` method of the current PHP template.
 
 Of course, you may also pass the data to the view using the `WPKirk()->view()` method as a second parameter.
 
@@ -54,10 +53,10 @@ In the `resources/views/blade/demo.blade.php` file, you can use the data passed 
 </div>  
 ```
 
-## BladeOne composer package
+## BladeOne Composer Package
 
-<img style={{float: "left", margin: "1rem 1rem 0 0"}} alt="BladeOne ogo" src="https://raw.githubusercontent.com/EFTEC/BladeOne/gh-pages/images/bladelogo.png" />
-We're using the [BladeOne](https://github.com/EFTEC/BladeOne) template engine. BladeOne is a standalone version of Blade Template Engine that uses a single PHP file and can be ported and used in different projects. It allows you to use blade template outside Laravel.
+<img style={{float: "left", margin: "1rem 1rem 0 0"}} alt="BladeOne logo" src="https://raw.githubusercontent.com/EFTEC/BladeOne/gh-pages/images/bladelogo.png" />
+We're using the [BladeOne](https://github.com/EFTEC/BladeOne) template engine. BladeOne is a standalone version of Blade Template Engine that uses a single PHP file and can be ported and used in different projects. It allows you to use Blade templates outside Laravel.
 
-If you want learn more about Blade directives, please visit the [BladeOne documentation](https://github.com/EFTEC/BladeOne/wiki) or the [Laravel documentation](https://laravel.com/docs/11.x/blade#blade-directives).
+If you want to learn more about Blade directives, please visit the [BladeOne documentation](https://github.com/EFTEC/BladeOne/wiki) or the [Laravel documentation](https://laravel.com/docs/11.x/blade#blade-directives).
 

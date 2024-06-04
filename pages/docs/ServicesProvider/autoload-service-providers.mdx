@@ -2,7 +2,7 @@ import { Callout, FileTree } from 'nextra/components'
 
 # Autoload Service Providers
 
-In the `config/plugin.php` file, you might have noticed the `providers` key. It is used to load your custom providers on Load of a plugin.
+In the `config/plugin.php` file, you might have noticed the `providers` key. It is used to load your custom providers on the load of a plugin.
 
 ```php filename="config/plugin.php" copy
   /*
@@ -21,11 +21,11 @@ In the `config/plugin.php` file, you might have noticed the `providers` key. It 
 
 ## PHP Bones Command
 
-Using the php bones `make:provider` Bones command, we can quickly create a Service Provider.
+Using the PHP Bones `make:provider` Bones command, we can quickly create a Service Provider.
 
 ## Typical Service Provider
 
-Let me show you a common service provider.
+Let me show you a typical service provider.
 
 ```php filename="plugin/Providers/YourServiceProvider.php" copy
 <?php
@@ -44,7 +44,7 @@ class YourServiceProvider extends ServiceProvider
 }
 ``` 
 
-The Service Provider are useful because they are loaded at the start (init) of the plugin. For example, you may use them to add the plugin row data in the plugin list view:
+The service providers are useful because they are loaded at the start (init) of the plugin. For example, you may use them to add the plugin row data in the plugin list view:
 
 ```php copy
 public function register()
@@ -65,7 +65,7 @@ public function plugin_action_links( $links )
 ```
 ### Plugin instance pointer
 
-As you know, you can get the plugin instance by using `WPKirk()` global function or `YourNamespace()`. Anyway, in the service provider, you'll able to get the plugin instance by using `$this->plug` property.
+As you know, you can get the plugin instance by using `WPKirk()` global function or `YourNamespace()`. Anyway, in the service provider, you'll be able to get the plugin instance by using `$this->plug` property.
 
 ```php copy
 <?php

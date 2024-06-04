@@ -3,7 +3,7 @@ import { Callout, FileTree, Steps } from 'nextra/components'
 
 # Assets
 
-WP Bones uses [gulp](https://gulpjs.com/) to compile and copy the assets from the `resources/assets` folder to the `public` folder. It supports:
+WP Bones uses [Gulp](https://gulpjs.com/) to compile and copy the assets from the `resources/assets` folder to the `public` folder. It supports:
 
 - CSS (Less, Sass)
 - Javascript (ES6, Typescript)
@@ -19,9 +19,9 @@ npm install
 
 ## Package.json
 
-The `package.json` file contains the scripts to compile the assets:
+The `package.json` file contains the scripts to compile the assets.
 
-```json
+```json copy
 {
   "scripts": {
     "dev": "gulp watch",
@@ -78,5 +78,4 @@ Feel free to modify the tasks to fit your needs.
 
 ## More complex ReactJS components or applications
 
-If you need to create more complex ReactJS components or applications, checkout the [ReactJS Components](/docs/Views/react) section and the [ReactJS Applications](/docs/Views/react-app) section.
-
+If you need to create more complex ReactJS components or applications, check out the [ReactJS Components](/docs/Views/react) section and the [ReactJS Applications](/docs/Views/react-app) section.

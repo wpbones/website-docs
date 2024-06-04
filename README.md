@@ -22,10 +22,9 @@
 
 </p>
 
-WP Bones is a framework for [WordPress](http://wordpress.org) written with [composer](https://getcomposer.org/).
-You can use [WPKirk](https://github.com/wpbones/WPKirk) repo as a boilerplate to create a plugin.
+WP Bones is a framework for WordPress written with Composer. You can use WPKirk repo as a boilerplate to create a plugin.
 
-As you know, WordPress doesn't support composer. So, I have used a little trick to fix this issue.
+As you know, WordPress doesn't support Composer. So, I have used a little trick to fix this issue.
 
 ## Documentation
 
@@ -48,7 +47,7 @@ $ sudo apt-get install nodejs-legacy
 
 ### Package
 
-In the `package.json` there are the tools used to compile the assets. You can install them by running:
+In the `package.json`, there are the tools used to compile the assets. You can install them by running:
 
 ```sh
 $ npm install
@@ -56,7 +55,7 @@ $ npm install
 
 ## I love Laravel
 
-First to all, this framework and the boilerplate plugin are inspired to [Laravel](http://laravel.com/) framework. Also, you will find a `bones` php shell executable like Laravel `artisan`.
+First of all, this framework and the boilerplate plugin are inspired by the [Laravel](http://laravel.com/) framework. Also, you will find a `bones` PHP shell executable like Laravel's `artisan`.
 After cloning the repo, you can:
 
 Display help
@@ -71,8 +70,8 @@ Change namespace
 $ php bones namespace MyPluginName
 ```
 
-The last command is very important. You can change the namespace in anytime. However, I suggest you to make this only the first time, when the plugin is inactive.
-After changing of the namespace, you can start to develop you plugin. Your namespace will be `MyPluginName`.
+The last command is very important. You can change the namespace at any time. However, I suggest you do this only the first time when the plugin is inactive.
+After changing the namespace, you can start to develop your plugin. Your namespace will be `MyPluginName`.
 
 ## Documentation
 

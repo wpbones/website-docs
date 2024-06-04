@@ -7,11 +7,11 @@ The views provide the UI and interaction with the end user. Usually, a view is a
 
 ## Basic Usage
 
-Views contain the HTML served by your plugin and separate your controller / plugin logic from your presentation logic. Views are stored in the `resources/views` directory. A view is usually bound with a menu. So, you will handle your view from an inside method of View Controller. In the [Menus](#menus) section we have already used a View Controller in the menu array:
+Views contain the HTML served by your plugin and separate your controller/plugin logic from your presentation logic. Views are stored in the `resources/views` directory. A view is usually bound with a menu. So, you will handle your view from an inside method of View Controller. In the [Menus](#menus) section, we have already used a View Controller in the menu array:
 
 ```php copy
 ...
-'route' => [ 'get' => 'Dashboard\DashboardController@firstMenu' ],
+'route' => ['get' => 'Dashboard\DashboardController@firstMenu'],
 ...
 ```
 
@@ -33,7 +33,7 @@ class DashboardController extends Controller {
 }
 ```
 
-The "Dot" notation provides a simple way to organise the views. In this example, we will have the following files structure `resources/views/dashboard/index.php`. The `index.php` file is the HTML/PHP file:
+The "Dot" notation provides a simple way to organize the views. In this example, we will have the following file structure `resources/views/dashboard/index.php`. The `index.php` file is the HTML/PHP file:
 
 ```html copy
 <div class="wrap">
@@ -47,7 +47,7 @@ You may use any PHP code inside the view.
 
 ## Passing Data To Views
 
-As in Laravel, we may easily pass any data to the views:
+As in Laravel, we can easily pass any data to the views:
 
 ```php copy
 return WPKirk()->view( 'dashboard.index' )->with( [ 'kirk' => 'Captain' ] );
@@ -67,16 +67,15 @@ As an alternative to passing a complete array of data to the view, you may use t
 return WPKirk()->view( 'dashboard.index' )->with( 'kirk', 'Captain' );
 ```
 
-In addition, you will able to get your plugin instance by `$plugin` variable.
+In addition, you will be able to get your plugin instance by the `$plugin` variable.
 
 <Callout>
-In this release, you'll find the `$plugin` variable auto set to the plugin instance. This variable is reserved.
+In this release, you'll find the `$plugin` variable automatically set to the plugin instance. This variable is reserved.
 </Callout>
 
+## Enqueue Styles and Scripts in Admin Area
 
-## Enqueue Styles and Scripts in Admin area
-
-You may enqueue all registered styles and scripts when a view is displayed. All styles and scripts files must be located in `public/` folder. The `.css` files will be got in the `public/css/` folder and the `.js` files will be got in the `public/js/` folder. Currently, you can use `withAdminStyles` and `withAdminScripts` methods. For example:
+You can enqueue all registered styles and scripts when a view is displayed. All styles and scripts files must be located in the `public/` folder. The `.css` files will be found in the `public/css/` folder, and the `.js` files will be found in the `public/js/` folder. Currently, you can use the `withAdminStyles` and `withAdminScripts` methods. For example:
 
 ```php copy
 return WPKirk()->view( 'dashboard.index' )
@@ -99,7 +98,7 @@ return WPKirk()->view( 'dashboard.index' )
                   'nonce' => wp_create_nonce('wp-kirk-nonce')
           ]);
 ```
-As you know, you will be able to access to `wpKirkGlobal` variable in your scripts. For example:
+As you know, you will be able to access the `wpKirkGlobal` variable in your scripts. For example:
 
 ```javascript copy
 (function($) {
@@ -120,13 +119,9 @@ As you know, you will be able to access to `wpKirkGlobal` variable in your scrip
 })(jQuery);
 ```
 
-
-
-
-
 ## Enqueue Style and Scripts in Frontend
 
-Also, you can enqueue scripts and styles in the frontend, for example when you will display a view for a widget. In this case, you can use `withStyles` and `withScripts` fluent methods. All these methods accept three params: name, deps and version:
+Also, you can enqueue scripts and styles in the frontend, for example when you will display a view for a widget. In this case, you can use `withStyles` and `withScripts` fluent methods. All these methods accept three parameters: name, dependencies, and version:
 
 ```php copy
 return WPKirk()->view( 'dashboard.index' )
@@ -145,7 +140,7 @@ A very useful feature of View is the ability to include another View. For exampl
 <?php echo WPKirk()->view( 'fragment' ) ?>
 ```
 
-In the above example, we are going to load the `/view/fragment.php` view into the main view. This feature is very usuful for loops or dynamic parts of a view. Let's show a more complete example:
+In the above example, we are going to load the `/view/fragment.php` view into the main view. This feature is very useful for loops or dynamic parts of a view. Let's show a more complete example:
 
 ```html copy
 <!-- this main view: echo WPKirk()->view( 'main' )->with( 'items', $items ) -->
@@ -155,7 +150,7 @@ In the above example, we are going to load the `/view/fragment.php` view into th
 <?php echo WPKirk()->view( 'list-items' ) ?>
 ```
 
-In the `/views/list-items.php` you'll find:
+In the `/views/list-items.php` you will find:
 
 ```html copy
 <ul>
@@ -169,7 +164,6 @@ In the `/views/list-items.php` you'll find:
 Of course, if you have used a folder for your views, you will have to add it to the fragment.
 </Callout>
 
-
 ```html copy
 <h1>
   Main view in file "/views/dasboard/index.php"
@@ -179,7 +173,7 @@ Of course, if you have used a folder for your views, you will have to add it to 
 
 ## Content
 
-Of course, you may get the content of a view and use it in several way. For example, to send an email.
+Of course, you may get the content of a view and use it in several ways. For example, to send an email.
 
 ```php copy
 $content = WPKirk()->view( 'dashboard.list-items' )

@@ -1,11 +1,11 @@
-import { Callout, FileTree } from 'nextra/components'
 import { FileTreeLabel } from '@components/FileTreeLabel'
+import { Callout, FileTree } from 'nextra/components'
 
 # Menus Routing
 
-In the WordPress as well as WP Bones architecture, the routing is pretty different from Laravel. We haven't got a true routing but a menu routing. Anyway, you may handle the basic HTTP verb such as GET, POST, PUT, PATCH and DELETE. In the above sample, we have used `get` verb in `route` key. If your view has a form with a POST method you may use:
+In WordPress as well as WP Bones architecture, the routing is quite different from Laravel. Instead of a true routing system, there is menu routing. However, you can still handle basic HTTP verbs such as GET, POST, PUT, PATCH, and DELETE. In the example above, we used the `get` verb in the `route` key. If your view contains a form with a POST method, you can use:
 
-```php
+```php copy
 ...
   'route' => [
     'get'  => 'Dashboard\DashboardController@secondMenu',
@@ -26,19 +26,17 @@ HTML forms do not support `PUT`, `PATCH` or `DELETE` actions. So, when defining 
 </form>
 ```
 
-
-
 ## Resource
 
 Alternatively, instead of specifying each single HTTP verb, you may use the `resource` key in order to call the default method in your view controller:
 
-```php
+```php copy
 ...
   'route' => [ 'resource' => 'Dashboard\DashboardController' ],
 ...
 ```
 
-Once you have assigned the view controller to a given route resource, you may use the standard methods instead:
+Once you have assigned the view controller to a given route resource, you may use the standard methods instead.
 
 ```php copy
 class DashboardResourceController extends Controller {
@@ -65,13 +63,13 @@ class DashboardResourceController extends Controller {
 }
 ```
 
-You can use `php bones` command to create a controller:
+You can use the `php bones` command to create a controller:
 
 ```sh copy
 php bones make:controller MyController
 ```
 
-create the folder and namespace
+Create the folder and namespace
 
 ```sh copy
 php bones make:controller Billing/Market/MyController
@@ -79,7 +77,7 @@ php bones make:controller Billing/Market/MyController
 
 ## Redirect in load
 
-When a submenu is clicked, your controller's methods are executed inside of the admin view. This means that the HTTP headers are already sent. So, you can't execute any HTTP redirect but only a script - workaround - redirect. Anyway, WP Bones provides a redirect method that you may use. If the headers are already sent, a Javascript script redirect will be done:
+When a submenu is clicked, your controller's methods are executed inside the admin view. This means that the HTTP headers are already sent. So, you can't execute any HTTP redirect but only a script - workaround - redirect. Anyway, WP Bones provides a redirect method that you may use. If the headers are already sent, a JavaScript script redirect will be done:
 
 ```php copy
 // POST
@@ -89,9 +87,9 @@ public function store() {
 }
 ```
 
-Also, WP Bones provides a special ruote called `load`. It is executed before the page is rendered:
+Also, WP Bones provides a special route called `load`. It is executed before the page is rendered:
 
-```php
+```php copy
 ...
   'route' => [ 'load' => 'Dashboard\DashboardController@load' ],
 ...
@@ -116,7 +114,7 @@ public function load()
 
 This route will be called on the `load-{hook}` action. Here you can use `wp_redirect()` or the WP Bones redirect method. Let's see an example:
 
-```html
+```html copy
 <form action="" method="post">
   <input type="hidden" name="_redirect" value="http://undolog.com">
   <button class="button">POST with redirect</button>

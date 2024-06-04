@@ -1,9 +1,9 @@
-import { Callout, FileTree } from 'nextra/components'
 import { FileTreeLabel } from '@components/FileTreeLabel'
+import { Callout, FileTree } from 'nextra/components'
 
 # Logging
 
-To help you learn more about what's happening within your plugin, you can use the `error_log()` function. As you know, within WordPress you can enable the loggin by adding the following lines in the `wp-config.php` file:
+To help you learn more about what's happening within your plugin, you can use the `error_log()` function. As you know, within WordPress, you can enable logging by adding the following lines in the `wp-config.php` file:
 
 ```php filename="wp_config.php" copy
 /**
@@ -19,7 +19,7 @@ To help you learn more about what's happening within your plugin, you can use th
  ini_set('display_errors', 0 );
 ```
 
-Anyway, WPBones provides addition configuration that allow you to log messages to files, in a easy a beatiful way.
+Anyway, WPBones provides additional configuration that allows you to log messages to files in an easy and beautiful way.
 
 ### Configuration
 
@@ -44,17 +44,17 @@ You can find the configuration for your plugin's logging in the `config/plugin.p
 'log_level' => 'debug',
 ```
 
-### Configuring the loggin type
+### Configuring the logging type
 
-By default, the channel driver is set to `errorlog`. This mean that you'll find the WPBones log in the default WordPress log file, usually `/wp-content/debug.log`. You may use the `single` or `daily` driver as well. In this case, you'll find the log file in `/storage/logs/` folder within your plugin folder.
+By default, the channel driver is set to `errorlog`. This means that you'll find the WPBones log in the default WordPress log file, usually `/wp-content/debug.log`. You may use the `single` or `daily` driver as well. In this case, you'll find the log file in the `/storage/logs/` folder within your plugin folder.
 
 The `single` channel driver will create a single log file in `/storage/logs/debug.log`.
 The `daily` channel driver will create a daily log file in `/storage/logs/20180401.log`.
 
 ### Write Log Messages
 
-You may write information to the logs using the `Log` class or the `log()` method from you plugin instance.
-The logger provides the eight logging levels defined in the [RFC 5424 specification](https://tools.ietf.org/html/rfc5424): emergency, alert, critical, error, warning, notice, info and debug:
+You may write information to the logs using the `Log` class or the `log()` method from your plugin instance.
+The logger provides the eight logging levels defined in the [RFC 5424 specification](https://tools.ietf.org/html/rfc5424): emergency, alert, critical, error, warning, notice, info, and debug:
 
 ```php copy
 use YourNamespace\WPBones\Foundation\Log\Log;
@@ -70,8 +70,8 @@ class MyClass {
 
 ![Logging](./logging.png)
 
-As you can see, the log row will be rendered with color console. In this way, will be easy to find your logs.
-As mentioned, you may use the global plugin instance function to access to log provider.
+As you can see, the log row will be rendered with colored console. In this way, it will be easy to find your logs.
+As mentioned, you may use the global plugin instance function to access the log provider.
 
 ```php copy
 use YourNamespace\WPBones\Foundation\Log\Log;
@@ -85,7 +85,7 @@ class MyClass {
 }
 ```
 
-Of course, in the Service Provider you may use:
+In the service provider, you may use:
 
 ```php copy
 use YourNamespace\WPBones\Foundation\Log\Log;
@@ -102,14 +102,14 @@ class MyServiceProvider extends ServiceProvider {
 
 ## Helper functions
 
-You may use also the `logger()` function
+You may also use the `logger()` function
 
 ```php copy
 logger()->debug('Hello, World');
 logger()->info('Hello, World');
 ```
 
-As `logger()` is a common function name, if you get any issues, for instance conflict, you can use `wpbones_logger()` instead. In fact, `logger()` is just an alias of `wpbones_logger()`
+As `logger()` is a common function name, if you encounter any issues, such as conflicts, you can use `wpbones_logger()` instead. In reality, `logger()` is simply an alias of `wpbones_logger()`.
 
 ```php copy
 wpbones_logger()->debug('Hello, World');

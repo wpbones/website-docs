@@ -1,6 +1,6 @@
 "use client";
 
-import { ActionIcon, Anchor, Container, Grid, Group, Image, Stack, Text, Title } from "@mantine/core";
+import { ActionIcon, Anchor, Badge, Container, Grid, Group, Image, Stack, Text, Title } from "@mantine/core";
 import { IconBrandDiscordFilled, IconBrandGithubFilled, IconBrandX, IconMailHeart } from "@tabler/icons-react";
 import NextImage from "next/image";
 import classes from "./Footer.module.css";
@@ -13,6 +13,7 @@ type VerticalLink = {
   title: string;
   href: string;
   newWindow?: boolean;
+  new?: boolean;
 };
 
 const wpBonesHighlights = [
@@ -133,6 +134,12 @@ const wpBonesResources = [
     href: "https://wpbones.substack.com/",
   },
   {
+    key: "wpbones-ai",
+    title: "WP Bones AI",
+    href: "https://wpbones.ownai.com/",
+    new: true,
+  },
+  {
     key: "wordpress-developer-resources",
     title: "WordPress Developer Resources",
     href: "https://developer.wordpress.org/",
@@ -148,13 +155,16 @@ const VerticalLinks = ({ list }: { list: VerticalLink[] }) => {
   return (
     <>
       {list.map(item => (
-        <Anchor
-          key={item.key}
-          className={classes.columnAnchor}
-          href={item.href}
-          target={item.newWindow ? "_blank" : ""}>
-          {item.title}
-        </Anchor>
+        <Group key={item.key}>
+          <Anchor className={classes.columnAnchor} href={item.href} target={item.newWindow ? "_blank" : ""}>
+            {item.title}
+          </Anchor>
+          {item.new && (
+            <Badge className={classes.badgeNew} size="xs" fz={10} color="red">
+              New
+            </Badge>
+          )}
+        </Group>
       ))}
     </>
   );

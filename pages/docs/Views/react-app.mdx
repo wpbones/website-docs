@@ -1,21 +1,21 @@
 import { FileTreeLabel } from '@components/FileTreeLabel';
-import { Callout, FileTree, Card, Cards, Steps } from 'nextra/components';
 import { IconBrandWordpress } from "@tabler/icons-react";
+import { Callout, Card, Cards, FileTree, Steps } from 'nextra/components';
 
 # ReactJS Applications
 
-If you want to a more complex ReactJS application, you can use the `resources/apps/` folder.
+If you want to create a more complex ReactJS application, you can use the `resources/apps/` folder.
 
 First of all, you need to install the dependencies as described in the [Assets section](../GettingStarted/assets).
 
 <Callout type="info">
-Feel free to install also any others dependencies you need. You could install Mantine UI, React Router, etc.
+Feel free to also install any other dependencies you need. You could install Mantine UI, React Router, etc.
 </Callout>
 
 <Steps>
 ### Create the Menu
 
-First of all, let's create a menu. Open the `config/menu.php` file and add the following code in the [menu list](../CoreConcepts/menus):
+First of all, let's create a menu. Open the `config/menu.php` file and add the following code to the [menu list](../CoreConcepts/menus):
 
 ```php copy
 [
@@ -28,7 +28,7 @@ First of all, let's create a menu. Open the `config/menu.php` file and add the f
 
 ### Create the Controller
 
-By using `php bones` command you can create a controller and a view at the same time. Run the following command:
+By using the `php bones` command, you can create a controller and a view at the same time. Run the following command:
 
 ```shell copy
 php bones make:controller ReactAppController
@@ -89,7 +89,7 @@ return WPKirk()
   ->withAdminAppsScripts('app', false); // without CSS modules
 ```
 
-You may also create a global variable which can be used in the ReactJS application.
+You may also create a global variable that can be used in the ReactJS application.
 
 ```php copy
 return WPKirk()
@@ -98,12 +98,11 @@ return WPKirk()
     'tab' => 'settings',
   ]);
 ```
-The above example will create a global variable called `ReactApp` with the value `{ tab:'settings' }`.
-
+The above example will create a global variable called `ReactApp` with the value `{ tab: 'settings' }`.
 
 ### Create the view
 
-In the `resources/views` folder create a new file called `react.php` and add the following code:
+In the `resources/views` folder, create a new file called `react.php` and add the following code:
 
 ```html copy
 <h1>React Application Example</h1>
@@ -116,7 +115,7 @@ You may create any complex view. This is just an example.
 
 ### Create the React Application
 
-In your `resources/apps/` folder create a new file called `app.jsx` and add the following code:
+In your `resources/apps/` folder, create a new file called `app.jsx` and add the following code:
 
 ```jsx copy
 const { render } = wp.element;
@@ -146,8 +145,8 @@ const MyApp = () => {
 render(<MyApp />, document.getElementById('react-app'));
 ```
 
-<Callout tyoe="info">
-The above code is just an example. You may create any complex ReactJS application. Here we're using the [Mantine UI](https://mantine.dev/) library as well as [React Router](https://reactrouter.com/). In addition, we're using others components in the `components` folder.
+<Callout type="info">
+The above code is just an example. You may create any complex ReactJS application. Here we're using the [Mantine UI](https://mantine.dev/) library as well as [React Router](https://reactrouter.com/). In addition, we're using other components in the `components` folder.
 </Callout>
 
 <FileTree>
@@ -177,9 +176,9 @@ That's all
 
 </Steps>
 
-## Production build
+## Production Build
 
-Obviously, once complete, remember to run the build command:
+Obviously, once completed, remember to run the build command:
 
 ```shell copy
 npm run build:apps

@@ -2,13 +2,13 @@ import { Callout, FileTree } from 'nextra/components'
 
 # Ajax
 
-In WordPress you can have three different Ajax access:
+In WordPress, you can have three different Ajax access:
 
-- Only for logged-in users
-- Only for not-logged-in users
-- For everyone
+-  Only for logged-in users
+-  Only for not-logged-in users
+-  For everyone
 
-In order to allow Ajax call, you have to edit the `/config/plugin.php` file. In the Ajax section you can insert the list of your own Ajax classes, for example:
+To allow Ajax calls, you need to edit the `/config/plugin.php` file. In the Ajax section, you can insert the list of your own Ajax classes, for example:
 
 ```php copy
   /*
@@ -23,7 +23,7 @@ In order to allow Ajax call, you have to edit the `/config/plugin.php` file. In 
   'ajax' => [ '\WPKirk\Ajax\MyAjax' ],
 ```
 
-In the `\WPKirk\Ajax\MyAjax` class you will list your methods/actions for logged, not logged or trusted users:
+In the `\WPKirk\Ajax\MyAjax` class, you will list your methods/actions for logged-in, not logged-in, or trusted users:
 
 ```php filename="/plugin/Ajax/MyAjax.php" copy
 <?php
@@ -87,7 +87,7 @@ use WPKirk\WPBones\Foundation\WordPressAjaxServiceProvider;
 class MyAjax extends WordPressAjaxServiceProvider
 {
   /**
-   * List of the ajax actions executed by both logged and not logged users.
+   * List of the AJAX actions executed by both logged-in and not logged-in users.
    * Here you will use a methods list.
    *
    * @var array
@@ -95,7 +95,7 @@ class MyAjax extends WordPressAjaxServiceProvider
   protected $trusted = ["trusted"];
 
   /**
-   * List of the ajax actions executed only by logged-in users.
+   * List of the AJAX actions executed only by logged-in users.
    * Here you will use a methods list.
    *
    * @var array
@@ -103,7 +103,7 @@ class MyAjax extends WordPressAjaxServiceProvider
   protected $logged = ["logged"];
 
   /**
-   * List of the ajax actions executed only by the not logged-in users, usually from the frontend.
+   * List of the AJAX actions executed only by the not logged-in users, usually from the frontend.
    * Here you will use a methods list.
    *
    * @var array
@@ -167,14 +167,14 @@ or
 wp_send_json_success(["hello" => "world"]);
 ```
 
-In Javascript side, you'll find:
+In JavaScript side, you'll find:
 
 ```javascript copy
 $.post(ajaxurl, {}, function (response) {
   if (response.success) {
     // success property is set by WordPress wp_send_json_success
   } else {
-    // also data property is by WordPress wp_send_json_success
+    // also data property is set by WordPress wp_send_json_success
     // but it contains your custom array/object
     alert(response.data.hello);
   }
@@ -187,7 +187,7 @@ The `wp_send_json_error` function works in the same way.
 
 ## Security
 
-You may protect your Ajax calls by using two main methods: bye the simple capability property or by the nonce key.
+You may protect your Ajax calls by using two main methods: by the simple capability property or by the nonce key.
 
 ### Capability
 
@@ -217,7 +217,7 @@ protected $nonceHash = "anything-you-want";
 The `$nonceKey` property is the name of the post variable that will be sent to the server. The `$nonceHash` property is the string used to generate the nonce.
 </Callout>
 
-Next, you have to generate the nonce in your Controller and make it available to the Javascript side. You can use `withLocalizeScripts` method to pass the nonce to the Javascript side.
+Next, you have to generate the nonce in your Controller and make it available to the JavaScript side. You can use the `withLocalizeScripts` method to pass the nonce to the JavaScript side.
 
 If you are using a ReactJS application, you may use something like this:
 
@@ -229,7 +229,7 @@ class DashboardController extends Controller
     return WPKirk()
       ->view("dashboard.index")
       ->withLocalizeScripts("app", "WPKirkNonce", [
-        "nonce" => wp_create_nonce(anything-you-want"),
+        "nonce" => wp_create_nonce("anything-you-want"),
       ])
       ->withAdminAppsScripts("app", true);
   }
@@ -268,7 +268,7 @@ post("logged").then(response => {
 ```
 
 <Callout>
-You may use the same also in Vanilla Javascript or any other Javascript framework. Most probably, in WordPress you are used to jQuery, so you can use the `$.post` method.
+You may use the same also in Vanilla JavaScript or any other JavaScript framework. Most probably, in WordPress you are used to jQuery, so you can use the `$.post` method.
 
 ```javascript copy
 $.post(
@@ -279,7 +279,7 @@ $.post(
   },
   function (data) {
     alert(data);
-  },
+  }
 );
 ```
 

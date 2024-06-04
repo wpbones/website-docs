@@ -8,11 +8,10 @@ WP Bones provides a simple way to create your own REST API. You may use the Word
 You'll find more info [here](https://developer.wordpress.org/rest-api/extending-the-rest-api/)
 </Callout>
 
-
 ## Configuration
 
 First of all, we have added a new `api.php` configuration file to the `config` folder.
-You'll find some useful settng to handle the embeded WordPress Rest API and your custome own endpoints.
+You'll find some useful settings to handle the embedded WordPress REST API and your custom endpoints.
 
 ```php filename="config/api.php" copy
 <?php
@@ -49,14 +48,15 @@ return [
 
 ## Create your first API
 
-To create your custom API, you have to create a new folder into `/api` in the root of your plugin.
+To create your custom API, you have to create a new folder in `/api` at the root of your plugin.
 
 <Callout>
-You may change the name of your folder, but you'll have to change the `path` in the `api.php` configuration file.
+You can change the name of your folder, but you will need to update the `path` in the `api.php` configuration file.
 </Callout>
 
-The main folder will be the `vendor`. Usually, into the **vendor** folder you'll create the `version` folder as well.
-For example, you may create
+The main folder will be the `vendor`. Typically, within the **vendor** folder, you will also create the `version` folder.
+
+For instance, you could create
 
 <FileTree>
   <FileTree.Folder name="api" defaultOpen>
@@ -69,7 +69,7 @@ For example, you may create
 
 ## Routing
 
-Now, we can start to create the Rest API route by adding a new file in the our structure.
+Now, we can start creating the REST API route by adding a new file in our structure.
 
 For example, we'll use `route.php`
 
@@ -83,7 +83,7 @@ For example, we'll use `route.php`
    </FileTree.Folder>
 </FileTree>
 
-Let's see a simple implementation of `route.php`
+Let's see a simple implementation of `route.php`.
 
 ```php filename="api/vendor/v1/route.php" copy
 use WPKirk\WPBones\Routing\API\Route;
@@ -97,7 +97,7 @@ You may use your browser to test `/api/vendor/v1/example` route.
 
 ### HTTP Methods
 
-The `Route` class supports the following HTTP methods: `get`, `post`, `put`, `patch`, `delete`
+The `Route` class supports the following HTTP methods: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`
 
 In short, the same supported by the WordPress REST API and defined in the `WP_REST_Server` class.
 
@@ -109,7 +109,7 @@ Route::post('/example', function () {
 });
 ```
 
-Instead of use the static method `Route::get()`, `Route::post()`, and so on, you can use the `::request()` instead. You will be able to use multiple HTTP verbs at the same time.
+Instead of using the static method `Route::get()`, `Route::post()`, and so on, you can use `::request()` instead. You will be able to use multiple HTTP verbs at the same time.
 
 ```php filename="api/vendor/v1/route.php" copy
 use WPKirk\WPBones\Routing\API\Route;
@@ -176,18 +176,18 @@ Of course, you may return a JSON response by using the WordPress `wp_send_json()
 ```php copy
 use WPKirk\WPBones\Routing\API\Route;
 
-// json response
+// JSON response
 Route::get('/example_json', function () {
     wp_send_json(["tag" => "v1.0.0"]);
 });
 ```
 
-You may use also the `response()` static method provides by the `Route` class.
+You may also use the `response()` static method provided by the `Route` class.
 
 ```php copy
 use WPKirk\WPBones\Routing\API\Route;
 
-// right way to use a simple response
+// The correct way to use a simple response
 Route::get('/example_response', function () {
     return Route::response(["tag" => "v1.0.0"]);
 });
@@ -200,13 +200,13 @@ The best practice is to return a `WP_Error` object.
 ```php copy
 use WPKirk\WPBones\Routing\API\Route;
 
-// invalide example
+// invalid example
 Route::get('/invalid', function () {
     return new \WP_Error('no_author', 'Invalid author', [ 'status' => 404 ]);
 });
 ```
 
-Also in this case, you may use the `responseError()` static method provides by the `Route` class.
+Also in this case, you may use the `responseError()` static method provided by the `Route` class.
 
 ```php copy
 use WPKirk\WPBones\Routing\API\Route;
@@ -219,10 +219,10 @@ Route::get('/error', function () {
 
 ### RestController
 
-Of course, you may use a `RestController` to handle the request. WPBones provides a simple way to create a new controller. 
+Of course, you may use a `RestController` to handle the request. WPBones provides a simple way to create a new controller.
 
 You may create your own controller extending the `RestController` class.
-For example, lets create a new controller called `WPKirkV1Controller` in the `wp-content/plugins/WPKirk/plugin/API/WPKirkV1Controller.php` folder.
+For example, let's create a new controller called `WPKirkV1Controller` in the `wp-content/plugins/WPKirk/plugin/API/WPKirkV1Controller.php` folder.
 
 ```php copy
 namespace WPKirk\API;
@@ -251,7 +251,7 @@ Route::get('/version', '\WPKirk\API\WPKirkV1Controller@version');
 
 ### WP_REST_Request and vendor injection
 
-By usign a `RestController` you may get the `WP_REST_Request` object and the vendor information in different ways. The first one is using the property `request` of the `RestController` class.
+By using a `RestController`, you can access the `WP_REST_Request` object and the vendor information in different ways. The first method involves using the `request` property of the `RestController` class.
 
 ```php copy
 namespace WPKirk\API;
@@ -262,7 +262,7 @@ class WPKirkV1Controller extends RestController
 {
     public function version()
     {
-        // get the request object and log the method
+        // Retrieve the request object and log the method
         logger()->debug("REQUEST get_method", $this->request->get_method());
 
         return $this->response(['version' => '1.0.0']);
@@ -272,7 +272,7 @@ class WPKirkV1Controller extends RestController
 
 Of course, feel free to check the WordPress documentation for more information about the `WP_REST_Request` object.
 
-The second way is using inject object in method directly.
+The second way is using the inject object in the method directly.
 
 ```php copy
 namespace WPKirk\API;
@@ -283,7 +283,7 @@ class WPKirkV1Controller extends RestController
 {
     public function version($request)
     {
-        // get the request object and log the method
+        // Get the request object and log the method.
         logger()->debug("REQUEST get_method", $request->get_method());
 
         return $this->response(['version' => '1.0.0']);
@@ -291,7 +291,8 @@ class WPKirkV1Controller extends RestController
 }
 ```
 
-The vendor information, instead, is available in the property `vendor` of the `RestController` class. You will get all paths along with any version information. For instance `wpkirk/v1` in our example.
+The vendor information, instead, is available in the property `vendor` of the `RestController` class. You will get all paths along with any version information. For instance, `wpkirk/v1` in our example.
+
 
 ```php copy
 namespace WPKirk\API;
@@ -312,9 +313,9 @@ class WPKirkV1Controller extends RestController
 
 ## Authentication
 
-WPBones will add the Basic Authentication features without use the [official WordPress Plugin](https://github.com/WP-API/Basic-Auth). The Basic Authentication is based on the [WordPress Basic Authentication](https://codex.wordpress.org/HTTP_Authentication#Basic_Authentication) and the [WordPress Basic Authentication Plugin](https://wordpress.org/plugins/basic-authentication/).
+WP Bones will add the Basic Authentication features without using the [official WordPress Plugin](https://github.com/WP-API/Basic-Auth). The Basic Authentication is based on the [WordPress Basic Authentication](https://codex.wordpress.org/HTTP_Authentication#Basic_Authentication) and the [WordPress Basic Authentication Plugin](https://wordpress.org/plugins/basic-authentication/).
 
-Remember that you have to enebale this feature from `api.php` configuration file.
+Remember that you have to enable this feature from the `api.php` configuration file.
 
 ```php filename="config/api.php" copy
 <?php
@@ -339,7 +340,7 @@ return [
 
 ## Options
 
-You may add additional options to the `Route` following the WordPress REST para
+You may add additional options to the `Route` following the WordPress REST API.
 
 ```php copy
 use WPKirk\WPBones\Routing\API\Route;
@@ -351,7 +352,7 @@ Route::get('/example', function () {
 }]);
 ```
 
-In the above example you'll receive
+In the above example, you'll receive
 
 ```json copy
  {"code":"rest_forbidden","message":"Sorry, you are not allowed to do that.","data":{"status":401}}

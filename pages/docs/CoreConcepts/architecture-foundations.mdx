@@ -31,15 +31,15 @@ As you know, you may use any filename for your main PHP file. In fact, WordPress
 
 So, the entry point of a plugin is `index.php`.
 
-Of course, you can edit the `index.php` file in order to set your WordPress comment information. The rest of code is handled by WP Bones.
+Of course, you can edit the `index.php` file to set your WordPress comment information. The rest of the code is handled by WP Bones.
 
 ## Plugin Structure
 
-The default WP Bones plugin structure is intended to provide a great starting point for both large and small plugins. Of course, you are free to organize your application as you like. Similarly Laravel, WP Bones imposes almost no restrictions where any given class is located - as long as Composer can autoload the class.
+The default WP Bones plugin structure is intended to provide a great starting point for both large and small plugins. Of course, you are free to organize your application as you like. Similarly, Laravel, WP Bones imposes almost no restrictions on where any given class is located - as long as Composer can autoload the class.
 
 ### The root directory
 
-Let's see a default standard WP Bones plugin folder tree:
+Let's look at a default standard WP Bones plugin folder tree:
 
 <FileTree>
   <FileTree.Folder name="myPlugin" defaultOpen>
@@ -60,7 +60,7 @@ You may use the following additional directories:
 
 <FileTree>
   <FileTree.Folder name="myPlugin" defaultOpen>
-    <FileTree.Folder label={<FileTreeLabel name="api">contains your REST api endpoints</FileTreeLabel>} />
+    <FileTree.Folder label={<FileTreeLabel name="api">contains your REST API endpoints</FileTreeLabel>} />
     <FileTree.Folder label={<FileTreeLabel name="pages">contains your plugin's custom page</FileTreeLabel>} />
   </FileTree.Folder>
 </FileTree>
@@ -71,7 +71,7 @@ Check out [REST API](restapi) and [custom pages](pages-routing#custom-admin-page
 
 ### The root files
 
-Also, you'll find a set of files in the root of plugin:
+Also, you will find a set of files in the root of the plugin:
 
 
 <FileTree>
@@ -88,12 +88,12 @@ Also, you'll find a set of files in the root of plugin:
 </FileTree>
 
 - The `bones` file is the command line PHP script, likewise `artisan` in Laravel environment.
-- The `composer.json` and `composer.lock` are used by composer.
-- The `gulpfile.js` is the script used by Gulp. This file is prepared with the main tasks to process styles and scripts. Before using it, you should install gulp and npm.
-- The `index.php` is the entry point of plugin.
-- The `namespace` is a file used by bones command. You can ignore it.
-- The `package.json` is used by npm. Feel free to add your own packages.
-- The `readme.txt` is the WordPress readme file to be used when you'll submit your plugin to the WordPress repository.
+-  The `composer.json` and `composer.lock` are used by Composer.
+-  The `gulpfile.js` is the script used by Gulp. This file is prepared with the main tasks to process styles and scripts. Before using it, you should install Gulp and npm.
+-  The `index.php` is the entry point of the plugin.
+-  The `namespace` is a file used by the bones command. You can ignore it.
+-  The `package.json` is used by npm. Feel free to add your own packages.
+-  The `readme.txt` is the WordPress readme file to be used when you'll submit your plugin to the WordPress repository.
 
 ### The plugin directory
 
@@ -116,7 +116,7 @@ However, the most important folder is `/plugin/`. In this folder, you will find 
 
 ### The config directory
 
-All of the configuration files for the Plugin are stored in the `config/` directory. Each option is self-documented, so feel free to look through the files and get familiar with the options available to you.
+All of the configuration files for the plugin are stored in the `config/` directory. Each option is self-documented, so feel free to look through the files and get familiar with the options available to you.
 
 <FileTree>
   <FileTree.Folder name="myPlugin" defaultOpen>
@@ -128,7 +128,7 @@ All of the configuration files for the Plugin are stored in the `config/` direct
   </FileTree.Folder>
 </FileTree>
 
-In the WP Kirk template plugin, you'll find a sample `custom.php` file. This file contains:
+In the WP Kirk template plugin, you will find a sample `custom.php` file. This file contains:
 
 ```php copy
 <?php

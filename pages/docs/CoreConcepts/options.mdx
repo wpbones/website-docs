@@ -1,5 +1,5 @@
-import { Callout, FileTree } from 'nextra/components'
 import { FileTreeLabel } from '@components/FileTreeLabel'
+import { Callout, FileTree } from 'nextra/components'
 
 # Options
 
@@ -7,14 +7,13 @@ All plugins need some options. You may put your options model array in `config/o
 
 ```php copy
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Plugin options
 |--------------------------------------------------------------------------
 |
 | Here is where you can insert the options model of your plugin.
-| These options model will be stored in WordPress options table
+| These options model will be stored in the WordPress options table
 | (usually wp_options).
 | You'll get these options by using $plugin->options property
 |
@@ -39,14 +38,14 @@ return [
 ```
 
 <Callout>
-The options are subjected to case sensitive. So, have a look to first key `General`. You should get it by using `$plugin->options->get('General.option_1')` for instance.
+The options are subject to case sensitivity. So, take a look at the first key `General`. You should access it using `$plugin->options->get('General.option_1')`, for instance.
 </Callout>  
 
-The plugin options are created on the **first activation** of the plugin into the `wp_options` database table. The name of option (`option_name`) will be the plugin slug. The options array will be converted in JSON and stored in `option_value`.
+The plugin options are created upon the **first activation** of the plugin in the `wp_options` database table. The name of the option (`option_name`) will be the plugin slug. The options array will be converted to JSON and stored in `option_value`.
 
-### Get options
+### Get Options
 
-To acquire an option from your model, simply call the `get` method:
+To obtain an option from your model, simply call the `get` method:
 
 ```php copy
 echo $plugin->options->get( 'General.option_1');
@@ -66,7 +65,7 @@ echo $plugin->options->get( 'General.options_4');
 
 That will return an array `[ "sub_options_of_3" => 'Hello' ]`.
 
-Whether the option doesn't exist, you may define a default value:
+If the option doesn't exist, you can define a default value:
 
 ```php copy
 echo $plugin->options->get( 'General.doNotExists', 'default');
@@ -145,15 +144,15 @@ or
 $plugin->options->set( 'Special.Name' );
 ```
 
-### Delete options
+### Delete Options
 
-To delete a single option use:
+To delete a single option, use:
 
 ```php copy
-$plugin->options->delete( 'General.option_4' );
+$plugin->options->delete('General.option_4');
 ```
 
-To delete all options use:
+To delete all options, use:
 
 ```php copy
 $plugin->options->delete();
@@ -161,7 +160,7 @@ $plugin->options->delete();
 
 ### Reset to default options
 
-To reset the options to last version, please use:
+To reset the options to the last version, please use:
 
 ```php copy
 $plugin->options->reset();
@@ -169,12 +168,11 @@ $plugin->options->reset();
 
 ### New version of options
 
-When you release a new version of your plugin, you could add, remove or delete some options. To do so, just edit your options array. When your plugin is updated and activated again, the new options will apply through a delta process.
+When you release a new version of your plugin, you could add, remove, or delete some options. To do so, just edit your options array. When your plugin is updated and activated again, the new options will apply through a delta process.
 
+### Display options in a pretty format
 
-### Display options in pretty format
-
-You may display all options plugin in JSON by using `echo $plugin->options`. This feature is useful to inject your options like a Javascript object:
+You may display all plugin options in JSON by using `echo $plugin->options`. This feature is useful to inject your options like a JavaScript object:
 
 ```php copy
 add_action( 'wp_head', 'wp_head' );
@@ -204,7 +202,7 @@ window.MyJavascriptGlobalObject = {
 
 ### Get options as an array
 
-If you wish to get the options as a flat array, please use:
+If you want to obtain the options as a flat array, please use:
 
 ```php copy
 $result = MyPluginGlobalFunction()->options->toArray();

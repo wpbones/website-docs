@@ -3,16 +3,15 @@ import { Callout, FileTree } from 'nextra/components'
 
 # Query Builder
 
-WP Bones's database query builder provides a convenient, fluent interface to creating and running database queries. It can be used to perform most database operations in your WordPress instance.
+WP Bones's database query builder provides a convenient, fluent interface for creating and running database queries. It can be used to perform most database operations in your WordPress instance.
 
 <Callout type="info">
-This embed version of Query Builder is a light version of the original. It does not include the advanced features of the original.
+This embedded version of Query Builder is a light version of the original. It does not include the advanced features of the original.
 </Callout>
-
 
 ## Retrieving All Rows From A Table
 
-You may use the `table` method provided by the `DB` class to begin a query. The `table` method returns a fluent query builder instance for the given table, allowing you to chain more constraints onto the query and then finally retrieve the results of the query using the `get` method:
+You can use the `table` method provided by the `DB` class to start a query. The `table` method returns a fluent query builder instance for the given table, allowing you to chain more constraints onto the query and then finally retrieve the results of the query using the `get` method:
 
 ```php copy
 <?php
@@ -45,7 +44,7 @@ foreach ($users as $user) {
 }
 ```
 
-## Retrieving A Single Row / Column From A Table
+## Retrieving a Single Row / Column from a Table
 
 If you just need to retrieve a single row from a database table, you may use the `DB` class's `first` method. This method will return a single `stdClass` object:
 
@@ -65,9 +64,9 @@ use WPKirk\WPBones\Database\DB;
 $user = DB::table('users')->find(3);
 ```
 
-## Retrieving A List Of Column Values
+## Retrieving a List of Column Values
 
-If you would like to retrieve an `WPKirk\WPBones\Database\Support\Collection` instance containing the values of a single column, you may use the `pluck` method. In this example, we'll retrieve a collection of user names:
+If you would like to retrieve a `WPKirk\WPBones\Database\Support\Collection` instance containing the values of a single column, you may use the `pluck` method. In this example, we will retrieve a collection of usernames:
 
 ```php copy
 use WPKirk\WPBones\Database\DB;
@@ -91,7 +90,7 @@ $users = DB::table('users')->count();
 
 # Select Statements
 
-## Specifying A Select Clause
+## Specifying a Select Clause
 
 You may not always want to select all columns from a database table. Using the `select` method, you can specify a custom "select" clause for the query:
 
@@ -107,9 +106,9 @@ $users = DB::table('users')
 
 ## Where Clauses
 
-You may use the query builder's `where` method to add "where" clauses to the query. The most basic call to the `where` method requires three arguments. The first argument is the name of the column. The second argument is an operator, which can be any of the database's supported operators. The third argument is the value to compare against the column's value.
+You can utilize the query builder's `where` method to add "where" clauses to the query. The most basic call to the `where` method requires three arguments. The first argument is the name of the column. The second argument is an operator, which can be any of the database's supported operators. The third argument is the value to compare against the column's value.
 
-For example, the following query retrieves users where the value of the `user_login` column is equal to `admin` and the value of the `user_status` column is greater than `0`:
+For instance, the subsequent query retrieves users where the value of the `user_login` column is equal to `admin` and the value of the `user_status` column is greater than `0`:
 
 ```php copy
 $users = DB::table('users')
@@ -118,7 +117,7 @@ $users = DB::table('users')
                 ->get();
 ```
 
-For convenience, if you want to verify that a column is `=` to a given value, you may pass the value as the second argument to the `where` method. WP Bones will assume you would like to use the `=` operator:
+For convenience, if you want to verify that a column is equal to a given value, you may pass the value as the second argument to the `where` method. WP Bones will assume you would like to use the equal operator:
 
 ```php copy
 $users = DB::table('users')->where('user_login', 'admin')->get();

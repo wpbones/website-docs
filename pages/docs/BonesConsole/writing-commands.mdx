@@ -16,8 +16,7 @@ The generated command will include the default set of properties and methods tha
 php bones make:console MyCommand
 ```
 
-The above command will generate a class at `plugin/Console/Commands/MyCommand.php`. It will generate the file `plugin/Console/Kernel.php` if it doesn't exist.
-The signature of command and the command name will be asked in console.
+The above command will generate a class at `plugin/Console/Commands/MyCommand.php`. It will generate the file `plugin/Console/Kernel.php` if it doesn't exist. The signature of the command and the command name will be asked in the console.
 
 ```php filename="plugin/Console/Commands/MyCommand.php" copy
 <?php
@@ -67,7 +66,7 @@ class Kernel extends ConsoleKernel
 
 ## Customizing Deploy
 
-You can customize the deploy process by using the action `wpbones_console_deployed`. This is very useful, for example, to delete some folder and write a new file. To do that, you can override the `__construct` method in your command.
+You can customize the deployment process by using the action `wpbones_console_deployed`. This is very useful, for example, to delete a folder and write a new file. To do that, you can override the `__construct` method in your command.
 
 ```php copy
 public function __construct()
@@ -88,4 +87,4 @@ public function __construct()
 ```
 
 You will find more actions and filters in the `deploy.php` file in the root of your Bones plugin.
-That's anoter way to [customize the deploy process](bones-console#customize-deploy).
+That's another way to [customize the deploy process](bones-console#customize-deploy).

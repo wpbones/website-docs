@@ -1,7 +1,7 @@
 {
   "name": "@wpbones/docs",
   "version": "1.2.5",
-  "description": "WPBones Docs",
+  "description": "WP Bones Docs",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

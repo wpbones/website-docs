@@ -11,6 +11,12 @@
       "type": "page",
       "title": "Documentation"
     },
+    "char": {
+      "type": "page",
+      "title": "WP Bones AI",
+      "newWindow": true,
+      "href": "https://wpbones.ownai.com/"
+    },
     "showcase": {
       "type": "page",
       "title": "Newsletter",

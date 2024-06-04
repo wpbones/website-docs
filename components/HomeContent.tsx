@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Container, Grid, Group, Image, SimpleGrid, Stack, Text } from "@mantine/core";
+import { Button, Container, Group, Image, SimpleGrid, Stack, Text } from "@mantine/core";
 import {
   IconApi,
   IconBrandJavascript,
@@ -19,19 +19,20 @@ import {
 } from "@tabler/icons-react";
 import NextImage from "next/image";
 import { HomeCard } from "./HomeCard";
+import classes from "./HomeContent.module.css";
 import ajaxImage from "./ajax.png";
 import apiImage from "./api.png";
 import consoleImage from "./console.png";
 import controllerImage from "./controller.png";
 import cptImage from "./cpt.png";
 import dbImage from "./db.png";
-import phpBones from "./image.png";
 import logsImage from "./logs.png";
 import menuImage from "./menu.png";
 import migrationImage from "./migration.png";
 import optionsImage from "./option.png";
 import pageImage from "./page.png";
 import reactImage from "./react-js.png";
+import phpBones from "./wpbones-window.png";
 
 export default function HomeContent() {
   const claims = [
@@ -42,36 +43,59 @@ export default function HomeContent() {
   return (
     <Container size="xl">
       <Stack m="xl">
-        <Grid>
-          <Grid.Col span={8}>
-            <Text lh={1} fz={84} fw={900} variant="gradient" gradient={{ from: "blue", to: "violet", deg: 90 }}>
-              WP Bones allows for WordPress plugins with Laravel-like features
-            </Text>
-          </Grid.Col>
-          <Grid.Col span={4}>
-            <Image component={NextImage} radius="md" h={500} w="auto" fit="contain" src={phpBones} alt="PHP Bones" />
-          </Grid.Col>
-        </Grid>
+        <Text
+          my="xl"
+          ta="center"
+          lh={1}
+          fz={{ base: 48, md: 64, lg: 92 }}
+          fw={900}
+          variant="gradient"
+          gradient={{ from: "blue", to: "violet", deg: 90 }}>
+          WP Bones allows for WordPress plugins with Laravel-like features
+        </Text>
+
+        <div className={classes.imageHero}>
+          <Image component={NextImage} mx="auto" maw="1272px" fit="fill" src={phpBones} alt="PHP Bones" />
+        </div>
 
         <Group justify="center">
           <Button
             color="orange"
             component="a"
             href="https://playground.wordpress.net/?blueprint-url=https://wpbones.vercel.app/blueprint.json"
-            variant="filled"
+            variant="gradient"
             size="xl"
+            gradient={{ from: "orange", to: "violet", deg: 45 }}
+            className={classes.buttonAction}
             radius={"xl"}>
             See WP Bones Plugin demo in action <IconExternalLink style={{ marginLeft: 10 }} />
           </Button>
         </Group>
 
-        <Text ta={"center"} fz={24}>
+        <Text my="xl" ta={"center"} fz={24}>
           Streamlines and modernizes WordPress plugin development.
         </Text>
 
-        <Group justify="center">
-          <Button component="a" href="/docs" variant="filled" size="xl" radius={"xl"}>
-            Get started →
+        <Group justify="space-evenly">
+          <Button
+            component="a"
+            href="/docs"
+            size="xl"
+            radius={"xl"}
+            variant="gradient"
+            className={classes.buttonDocs}
+            gradient={{ from: "blue", to: "violet", deg: 45 }}>
+            Get started with the Docs →
+          </Button>
+          <Button
+            component="a"
+            href="https://wpbones.ownai.com/"
+            size="xl"
+            radius={"xl"}
+            variant="gradient"
+            className={classes.buttonChat}
+            gradient={{ from: "teal", to: "lime", deg: 45 }}>
+            Chat with WP Bones AI →
           </Button>
         </Group>
 
@@ -102,8 +126,7 @@ export default function HomeContent() {
             href="/docs/BonesConsole/bones-console"
             icon={<IconTerminal />}
             image={consoleImage}
-            description="Bones command-line interface for developing WordPress plugins, providing helpful commands and customization options, while also simplifying the deployment process.
-            Automatic creation of controllers, models, and views, as well as the ability to run migrations and seeders."
+            description="Bones command-line interface for developing WordPress plugins provides helpful commands and customization options, while also simplifying the deployment process. Automatic creation of controllers, models, and views, as well as the ability to run migrations and seeders."
           />
           <HomeCard
             title="ReactJS"
@@ -149,7 +172,7 @@ export default function HomeContent() {
             href="/docs/CoreConcepts/logging"
             icon={<IconPaperclip />}
             image={logsImage}
-            description="WPBones makes it easy and beautiful to log messages in your WordPress plugin with its configuration options and helper functions"
+            description="WP Bones makes it easy and beautiful to log messages in your WordPress plugin with its configuration options and helper functions."
           />
 
           <HomeCard
@@ -157,7 +180,7 @@ export default function HomeContent() {
             href="/docs/ServicesProvider/ajax"
             icon={<IconBrandJavascript />}
             image={ajaxImage}
-            description="Add support for Ajax calls in WordPress with three different access levels: for logged-in users, not-logged-in users, and everyone"
+            description="Add support for Ajax calls in WordPress with three different access levels: for logged-in users, not logged-in users, and everyone."
           />
 
           <HomeCard
@@ -165,7 +188,7 @@ export default function HomeContent() {
             href="/docs/ServicesProvider/custom-post-types"
             icon={<IconBrandWordpress />}
             image={cptImage}
-            description="You can easily create a custom post type and custom taxonomy service provider"
+            description="You can easily create a custom post type and custom taxonomy service provider."
           />
 
           <HomeCard
@@ -173,7 +196,7 @@ export default function HomeContent() {
             href="/docs/ServicesProvider/rest-api"
             icon={<IconApi />}
             image={apiImage}
-            description="Provides a simple and efficient way to handle the WordPress REST API, including authentication and customizable routes"
+            description="Provides a simple and efficient way to handle the WordPress REST API, including authentication and customizable routes."
           />
 
           <HomeCard
@@ -181,7 +204,7 @@ export default function HomeContent() {
             href="/docs/CoreConcepts/options"
             icon={<IconSettings2 />}
             image={optionsImage}
-            description="The plugin options system in WordPress is efficient and easy to use, allowing for easy storage and retrieval of plugin settings"
+            description="The plugin options system in WordPress is efficient and easy to use, allowing for easy storage and retrieval of plugin settings."
           />
 
           <HomeCard
@@ -202,7 +225,7 @@ export default function HomeContent() {
             title="And more..."
             href="/docs"
             icon={<IconEyeStar />}
-            description="Supports Composer for dependency management, easy plugin activation and deactivation, awesome options system, custom post types, REST API, and shortcodes."
+            description="Supports Composer for dependency management, easy plugin activation and deactivation, an awesome options system, custom post types, REST API, and shortcodes."
           />
         </SimpleGrid>
       </Stack>

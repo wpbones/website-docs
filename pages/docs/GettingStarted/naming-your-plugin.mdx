@@ -10,7 +10,7 @@ Let's rename the plugin name and the namespace:
 php bones rename '<your plugin name>' '<your namespace>'
 ```
 
-If you leave blank `<your plugin name>`, a command line prompt will be displayed and you will be asked to enter a new Plugin name. Bones command will use this information to perform some changes into the code. Also, **bones** command will use it as namespace as well as slug. For example, if you enter `My WP Plugin`, bones command will create:
+If you leave blank `<your plugin name>`, a command line prompt will be displayed, and you will be asked to enter a new Plugin name. The Bones command will use this information to make some changes to the code. Also, the **bones** command will use it as a namespace as well as a slug. For example, if you enter `My WP Plugin`, the bones command will create:
 
 ```
 My WP Plugin          Name of plugin
@@ -20,16 +20,16 @@ my_wp_plugin_vars     Plugin vars used for CPT, taxonomy, etc.
 my-wp-plugin          Internal id used for css, js and less files
 ```
 
-## Naming Your Plugin again
+## Naming Your Plugin Again
 
 After installing **your plugin**, you may wish to change the plugin name again.
 
 <Callout type="warning">
-Remember that a plugin name is bound to PHP namespace. This because WordPress doesn't support namespace in current plugin architecture.
+Remember that a plugin name is bound to PHP namespace. This is because WordPress doesn't support namespaces in the current plugin architecture.
 </Callout>
 
 
-You can do this, by using the `rename` command in bones command line:
+You can do this by using the `rename` command in the Bones command line:
 
 ```shell copy
 php bones rename 'WP My Awesome Plugin'
@@ -47,7 +47,7 @@ wp-my-awesome_plugin          Internal id used for css, js and less files
 
 ## Options
 
-You may also reset the plugin name and the namespace to the orginal version.
+You may also reset the plugin name and the namespace to the original version.
 
 ```shell copy
 php bones rename --reset
@@ -60,7 +60,7 @@ php bones rename --update
 ```
 
 <Callout type="info">
-Probably, you won't need to that as the update flow is already in the composer file
+Probably, you won't need to do that as the update flow is already in the composer file
 </Callout>
 
 

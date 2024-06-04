@@ -15,9 +15,9 @@ You will be able to see the errors and warnings in the WordPress admin panel.
 
 ## Knowlegde potential issues
 
-When you will submit your plugin to the WordPress repository, some line of code could be rejected. This may happen because WordPress repository provides a set of pre-commit hooks. These are performed during the commit process. These hooks will perform a PHP checking, below you'll find a list of possible error in your code:
+When you submit your plugin to the WordPress repository, some lines of code could be rejected. This may happen because the WordPress repository provides a set of pre-commit hooks. These are performed during the commit process. These hooks will perform PHP checking. Below you'll find a list of possible errors in your code:
 
-```php
+```php copy
 // will be rejected by WordPress.org
 $list = [
   MyNamespace\MyClass::class
@@ -29,7 +29,7 @@ $list = [
 ];
 ```
 
-```php
+```php copy
 // will be rejected by WordPress.org
 if( empty( MyInstance::method() ) ) { 
   ... 
@@ -42,7 +42,7 @@ if( empty( $result ) ) {
 }
 ```
 
-```php
+```php copy
 // will be rejected by WordPress.org
 static::class
   
@@ -52,5 +52,4 @@ get_called_class();
 
 ## Deploy version
 
-You will have to use the bones `deploy` command to create the deply version of your plugin.
-See [here](../BonesConsole/bones-console#deploy) for more details.
+You will have to use the `deploy` command to create the deploy version of your plugin. See [here](../BonesConsole/bones-console#deploy) for more details.

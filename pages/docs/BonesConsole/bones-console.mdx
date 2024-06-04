@@ -2,7 +2,7 @@ import { Callout, FileTree } from 'nextra/components'
 
 # Bones Command-Line Interface
 
-Bones is also the name of the command-line interface included with [WP Kirk template](https://github.com/wpbones/WPKirk-Boilerplate). It provides a number of helpful commands for your use while developing your plugin. You will use bones command-line interface to start your develop. First of all, try the command-line console by running:
+Bones is also the name of the command-line interface included with [WP Kirk template](https://github.com/wpbones/WPKirk-Boilerplate). It provides a number of helpful commands for your use while developing your plugin. You will use the Bones command-line interface to start your development. First of all, try the command-line console by running:
 
 ```sh copy
 php bones
@@ -14,11 +14,11 @@ Then, you can change the plugin namespace from `WPKirk` to `MyFirstWPBonesPlugin
 php bones rename 'My First WP Bones Plugin' MyFirstWPBonesPlugin
 ```
 
-Awesome! You are quite ready to start to develop.
+Great! You are quite ready to start developing.
 
 ### Update WP Bones
 
-Of course, while you are in developing, you may update the WP Bones framework. You can do this by using `update` bones command:
+While you are developing, you can update the WP Bones framework. You can do this by using the `update bones` command.
 
 ```sh copy
 php bones update
@@ -35,8 +35,7 @@ php bones version 1.0.0
 The above command will update the plugin version in the main plugin file and in the `readme.txt` file.
 
 <Callout type="info">
-Despite php bones support the semantic versioning, we suggest you use the same version in the `readme.txt` file and in the main plugin file.
-In short avoid to use the `v` prefix in the version number.
+Despite PHP Bones supporting semantic versioning, we suggest you use the same version in the `readme.txt` file and in the main plugin file. In short, avoid using the `v` prefix in the version number.
 </Callout>
 
 You can see the help by using:
@@ -80,19 +79,19 @@ The above command will update the plugin version to `1.0.1-beta.1`.
 
 ### Deploy your Plugin
 
-When your plugin is ready, you can use the `deploy` bones command in order to create a new folder useful to submit your plugin to the wordpress.org repository:
+When your plugin is ready, you can use the `deploy` bones command in order to create a new folder useful to submit your plugin to the wordpress.org repository.
 
 ```sh copy
 php bones deploy your-path/mydeploy
 ```
 
-In the `mydeploy` folder you'll find only the needed files to run your plugin. For example, the developer `resources/assets` folder will be removed.
+In the `mydeploy` folder, you will find only the necessary files to run your plugin. For instance, the developer's `resources/assets` folder will be removed.
 
 ### Customize Deploy
 
-Of course, you may customize the deploy process by editing the `deploy.php` file. In this file you can add your own commands to run before and after the deploy. You will find also some actions and filters to customize the deploy process.
+Of course, you may customize the deployment process by editing the `deploy.php` file. In this file, you can add your own commands to run before and after the deployment. You will also find some actions and filters to customize the deployment process.
 
-For example, you can add any custom command to run before the deploy by using:
+For example, you can add any custom command to run before the deployment by using:
 
 ```php copy
 /**
@@ -122,7 +121,7 @@ add_filter('wpbones_console_deploy_skip_folders', function ($folders) {
 
 ### Creators
 
-The Bones command console provides a set of commands to create some base classes. For example, you may create a Custom Post Type by using:
+The Bones command console provides a set of commands to create some base classes. For example, you can create a Custom Post Type by using:
 
 ```sh copy
 php bones make:cpt MyCustomPostTypeClass
@@ -136,7 +135,7 @@ You can install third-party packages by using:
 php bones require <PackageName>
 ```
 
-I advise you use this command instead of `composer require` because by doing so, an automatic renaming will be done.
+I recommend using this command instead of `composer require` because by doing so, an automatic renaming will be performed.
 
 
 

@@ -5,7 +5,7 @@ import { Callout, FileTree } from 'nextra/components'
 WP Bones includes a variety of "helper" PHP functions, many of which are used by the framework itself; however, you are free to use them in your own applications if you find them convenient. Some of these functions are a clone of the Laravel helper functions.
 
 <Callout type="warning">
-These helper functions may become a problem when different versions of the framework will load in WordPress. In fact, a function has not a namespace like a class. Anyway, in this release, I'm taking care to limit these functions.
+These helper functions may become a problem when different versions of the framework will load in WordPress. In fact, a function does not have a namespace like a class. Anyway, in this release, I'm taking care to limit these functions.
 </Callout>
 
 ### Available Methods
@@ -20,7 +20,7 @@ These helper functions may become a problem when different versions of the frame
 
 #### wpbones_value
 
-The `wpbones_value` function's behaviour will simply return the value it is given. However, if you pass a `Closure` to the function, the `Closure` will be executed then its result will be returned:
+The `wpbones_value` function's behavior will simply return the value it is given. However, if you pass a `Closure` to the function, the `Closure` will be executed, and then its result will be returned:
 
 ```php copy
 $value = wpbones_value( function() { return 'bar'; });
@@ -28,18 +28,19 @@ $value = wpbones_value( function() { return 'bar'; });
 
 #### wpbones_env
 
-The `wpbones_env` function gets the value of an environment variable or returns a default value:
+The `wpbones_env` function retrieves the value of an environment variable or returns a default value.
 
 ```php copy
 $env = wpbones_env('APP_ENV');
 
-// Return a default value if the variable doesn't exist...
+// Return a default value if the variable does not exist...
+
 $env = wpbones_env('APP_ENV', 'production');
 ```
 
 #### wpbones_array_insert
 
-The `wpbones_array_insert` function inserts a key value pair array in a specified position:
+The `wpbones_array_insert` function inserts a key-value pair array at a specified position.
 
 ```php copy
 $result = wpbones_array_insert( $arr, $key, $val, $index = 0 );

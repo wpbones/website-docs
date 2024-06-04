@@ -2,8 +2,7 @@ import { Callout, FileTree, Steps } from 'nextra/components'
 
 # Services Provider
 
-WP Bones implements and provides several WordPress services such as Ajax, Shortcodes, Custom Post Types, and so on.
-Most of these services are handled by the `config/plugin.php` file.
+WP Bones implements and provides several WordPress services such as Ajax, Shortcodes, Custom Post Types, and so on. Most of these services are handled by the `config/plugin.php` file.
 
 <Callout type="info">
   The `config/plugin.php` file is the main configuration file of the plugin. It is the place where you can define the plugin name, version, and other settings.
@@ -15,7 +14,6 @@ Most of these services are handled by the `config/plugin.php` file.
 * [Custom Post Types](/docs/ServicesProvider/custom-post-types)
 * [Custom Taxonomies](/docs/ServicesProvider/custom-post-types)
 * [Custom Shortcodes](/docs/ServicesProvider/shortcodes)
-
 
 ## Write your own Service
 
@@ -56,12 +54,11 @@ class MyProvider extends ServiceProvider
 }
 ```
 
-In the `register` method, you may define the actions, filters, and other services you need.
-
+In the `register` method, you can define the actions, filters, and other services you require.
 
 ### Load the Service Provider
 
-The ServiceProvider is loaded by the `config/plugin.php` file.
+The ServiceProvider gets loaded through the `config/plugin.php` file.
 
 ```php copy
   /*
@@ -70,8 +67,8 @@ The ServiceProvider is loaded by the `config/plugin.php` file.
   |--------------------------------------------------------------------------
   |
   | The service providers listed here will be automatically loaded on the
-  | init to your plugin. Feel free to add your own services to
-  | this array to grant expanded functionality to your applications.
+  | initialization of your plugin. Feel free to add your own services to
+  | this array to provide expanded functionality to your applications.
   |
   */
 

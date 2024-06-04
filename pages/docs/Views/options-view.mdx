@@ -1,9 +1,9 @@
-import { Callout, FileTree } from 'nextra/components'
 import { FileTreeLabel } from '@components/FileTreeLabel'
+import { Callout, FileTree } from 'nextra/components'
 
 # Options View
 
-Of course, you will need to display your options in order to edit them. Let's have a look at a complete sample of options view. First, let's assume we have the following routes defined in our `config/menus.php` file:
+Of course, you will need to display your options in order to edit them. Let's have a look at a complete sample of the options view. First, let's assume we have the following routes defined in our `config/menus.php` file:
 
 ```php filename="config/menus.php" copy
   'route' => [
@@ -36,10 +36,10 @@ Now, we will create a file `optionview.php` in the `resources/views/dashboard/` 
 ```
 
 <Callout>
-You can't use the dot (`.`) in the name of the field, because it will be replaced by an underscore (`_`) char. Instead, use a slash in order to separate the options branch.
+You can't use the dot (`.`) in the name of the field because it will be replaced by an underscore (`_`) character. Instead, use a slash to separate the options branch.
 </Callout>
 
-Next, in the updating method we'll use:
+Next, in the updating method, we will use:
 
 ```php filename="plugin/Controllers/DashboardController.php" copy
 public function saveOptions()
@@ -54,13 +54,13 @@ public function saveOptions()
 That's all.
 
 <Callout>
-You may use the dot notation as well as slash notation when getting a post value by `request` property. For example, you may use `$this->request->get( 'Special.Name' )` or `$this->request->get( 'Special/Name' )`
+You may use the dot notation as well as slash notation when getting a post value by the `request` property. For example, you may use `$this->request->get('Special.Name')` or `$this->request->get('Special/Name')`.
 </Callout>
 
 
 ## Massive update
 
-Instead of specifing each single option, you may use `$this->request->getAsOptions` method in order to get all options post fields:
+Instead of specifying each single option, you may use `$this->request->getAsOptions` method in order to get all options post fields:
 
 ```php filename="plugin/Controllers/DashboardController.php" copy
 public function saveOptions()
@@ -73,13 +73,13 @@ public function saveOptions()
 ```
 
 <Callout>
-The method `$this->request->getAsOptions` will get only the POST keys formatted as `Branch/subbranch`.
+The method `$this->request->getAsOptions` will only retrieve the POST keys formatted as `Branch/subbranch`.
 </Callout>
 
 
 ## Checkbox workaround
 
-When you are using the massive update by `update( $this->request->getAsOptions() )`, remember that any checkbox input fields cannot be sent if unchecked. Anyway, you may use a workaround in order to send an unchecked value even when the checkboxes are unchecked. You can do this by adding a **hidden input field** with the same name of the input checkbox and set the value to negative or null value:
+When you are using the massive update by `update($this->request->getAsOptions())`, remember that any checkbox input fields cannot be sent if unchecked. However, you can use a workaround to send an unchecked value even when the checkboxes are unchecked. You can achieve this by adding a **hidden input field** with the same name as the input checkbox and setting the value to a negative or null value:
 
 ```html copy
 <form action="" method="post">
@@ -110,12 +110,12 @@ echo WPKirk\Html::checkbox()->name( 'myname')->value( 'on');
 
 Then you'll get:
 
-```html 
+```html copy
 <input type="hidden" name="myname" value="off" />
 <input type="checkbox" name="myname" value="on" />
 ```
 
-Currently, you'll get an `off` as unchecked value. You can also use:
+Currently, you'll get an "off" as an unchecked value. You can also use:
 
 ```php copy
 echo WPKirk\Html::checkbox()
@@ -183,7 +183,7 @@ You wish to use the WordPress nonce function to prevent CSRF attacks. You can do
 </form>
 ```
 
-Next, in the `saveOptions` you may use `wp_verify_nonce` WordPress function or the more useful `$this->request->verifyNonce` WP Bones method:
+Next, in the `saveOptions` you may use the `wp_verify_nonce` WordPress function or the more useful `$this->request->verifyNonce` WP Bones method:
 
 ```php copy
 public function saveOptions()
