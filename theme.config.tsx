@@ -1,5 +1,6 @@
 import { Footer } from "@components/Footer";
-import { DocsThemeConfig } from "nextra-theme-docs";
+import { useRouter } from "next/router";
+import { DocsThemeConfig, useConfig } from "nextra-theme-docs";
 
 const config: DocsThemeConfig = {
   logo: (
@@ -14,33 +15,42 @@ const config: DocsThemeConfig = {
   project: {
     link: "https://github.com/wpbones/WPBones",
   },
-  head: () => (
-    <>
-      <title>WP Bones</title>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <meta
-        property="description"
-        content="WP Bones allows for WordPress plugins with Laravel-like features. It streamlines and modernizes WordPress plugin development."
-      />
+  head: function useHead() {
+    const { title } = useConfig();
+    const { route } = useRouter();
 
-      <meta
-        property="twitter:description"
-        content="WP Bones allows for WordPress plugins with Laravel-like features. It streamlines and modernizes WordPress plugin development."
-      />
-      <meta property="twitter:title" content="WP Bones" />
-      <meta property="twitter:card" content="summary" />
-      <meta property="twitter:image" content="https://wpbones.vercel.app/image.jpeg"></meta>
+    const socialCard =
+      route === "/" || !title ? "https://wpbones.vercel.app/image.jpeg" : `https://wpbones.vercel.app/image.jpeg`;
+    return (
+      <>
+        <title>WP Bones</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta
+          property="description"
+          content="WP Bones allows for WordPress plugins with Laravel-like features. It streamlines and modernizes WordPress plugin development."
+        />
+        <meta
+          property="og:description"
+          content="WP Bones allows for WordPress plugins with Laravel-like features. It streamlines and modernizes WordPress plugin development."
+        />
 
-      <meta property="og:title" content="WP Bones" />
-      <meta
-        property="og:description"
-        content="WP Bones allows for WordPress plugins with Laravel-like features. It streamlines and modernizes WordPress plugin development."
-      />
-      <meta property="og:url" content="https://wpbones.vercel.app/" />
-      <meta property="og:site_name" content="WP Bones" />
-      <meta property="og:image" content="https://wpbones.vercel.app/image.jpeg" />
-    </>
-  ),
+        <meta property="twitter:title" content="WP Bones" />
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:image" content={socialCard}></meta>
+        <meta
+          property="twitter:description"
+          content="WP Bones allows for WordPress plugins with Laravel-like features. It streamlines and modernizes WordPress plugin development."
+        />
+
+        <meta property="og:title" content={title ? title + " - WP Bones" : "WP Bones"} />
+
+        <meta property="og:url" content="https://wpbones.vercel.app/" />
+        <meta property="og:site_name" content="WP Bones" />
+        <meta property="og:image" content={socialCard} />
+        <meta name="apple-mobile-web-app-title" content="WP Bones" />
+      </>
+    );
+  },
   editLink: {
     component: null,
   },
