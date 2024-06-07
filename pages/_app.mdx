@@ -1,6 +1,7 @@
 import "@mantine/core/styles.css";
 
 import { ColorSchemeScript, MantineProvider } from "@mantine/core";
+import { GoogleTagManager } from '@next/third-parties/google';
 import { Analytics } from "@vercel/analytics/react";
 import { useEffect, useState } from "react";
 
@@ -59,10 +60,11 @@ export default function WPBonesDocsApp({ Component, pageProps }) {
         nonce="8IBTHwOdqNKAWeKl7plt8g=="
         defaultColorScheme={"auto"}
       />
-        <MantineProvider>
+      <MantineProvider>
         <Component {...pageProps} />
+        <GoogleTagManager gtmId="GTM-WGWNN65V" />
         <Analytics />
-    </MantineProvider>
+      </MantineProvider>
     </>
   );
 }
