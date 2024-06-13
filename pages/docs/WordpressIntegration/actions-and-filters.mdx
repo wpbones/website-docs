@@ -60,7 +60,7 @@ add_action('wpbones_console_deploy_after_compile_assets', function ($console, $p
 }, 10, 2);
 ```
 
-### wpbones_console_deployed
+### wpbones_console_deploy_completed
 
 ```php copy
 /**
@@ -69,7 +69,7 @@ add_action('wpbones_console_deploy_after_compile_assets', function ($console, $p
  * @param mixed  $bones This bones command instance.
  * @param string $path  The deployed path.
  */
-do_action('wpbones_console_deployed', $this, $path);
+do_action('wpbones_console_deploy_completed', $this, $path);
 ```
 
 ## Filters
