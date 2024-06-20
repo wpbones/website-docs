@@ -1,3 +1,23 @@
+/* keyframe for fade in with a delay 100 */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.fadeIn {
+  opacity: 0;
+  animation: fadeIn 1s ease-in-out 0.1s forwards;
+}
+
+.delay-300ms {
+  animation-delay: 0.3s;
+}
+
+
 .buttonAction {
     box-shadow: inset 0 1px 0 1px rgba(255, 255, 255, 0.2), 0 1px 12px rgba(255, 0, 0, 0.5);
 }
