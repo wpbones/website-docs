@@ -22,57 +22,12 @@
 
 </p>
 
-WP Bones is a framework for WordPress written with Composer. You can use WPKirk repo as a boilerplate to create a plugin.
+## Overview
 
-As you know, WordPress doesn't support Composer. So, I have used a little trick to fix this issue.
+This is the main Website Documentation for the WP Bones Framework. You can see this Website Documentation live [here](https://wpbones.vercel.app/).
 
-## Documentation
+## Contributing
 
-You'll find the [complete docs here](https://wpbones.vercel.app/).
+If you want to contribute to this documentation, please read the file [CONTRIBUTING.md](CONTRIBUTING.md) to know how to do it.
 
-## Requirement
-
-### Composer
-
-```sh
-$ curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
-```
-
-### Nodes
-
-```sh
-$ sudo apt-get update && sudo apt-get install nodejs && sudo apt-get install npm
-$ sudo apt-get install nodejs-legacy
-```
-
-### Package
-
-In the `package.json`, there are the tools used to compile the assets. You can install them by running:
-
-```sh
-$ npm install
-```
-
-## I love Laravel
-
-First of all, this framework and the boilerplate plugin are inspired by the [Laravel](http://laravel.com/) framework. Also, you will find a `bones` PHP shell executable like Laravel's `artisan`.
-After cloning the repo, you can:
-
-Display help
-
-```sh
-$ php bones
-```
-
-Change namespace
-
-```sh
-$ php bones namespace MyPluginName
-```
-
-The last command is very important. You can change the namespace at any time. However, I suggest you do this only the first time when the plugin is inactive.
-After changing the namespace, you can start to develop your plugin. Your namespace will be `MyPluginName`.
-
-## Documentation
-
-You'll find the [complete docs here](https://wpbones.vercel.app/docs)
+You can fork the project and create a pull request to contribute to the documentation.
