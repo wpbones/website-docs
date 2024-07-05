@@ -163,6 +163,10 @@ Updating, improving and correcting the documentation. This can include typos, gr
 
 If you are interested in becoming a member of the project team, please contact us at <wpbones.info@gmail.com>.
 
+### Discord
+
+You can also join our Discord server [here](https://discord.gg/5bdVyycU8F).
+
 <!-- omit in toc -->
 ## Attribution
 This guide is based on the **contributing-gen**. [Make your own](https://github.com/bttger/contributing-gen)!

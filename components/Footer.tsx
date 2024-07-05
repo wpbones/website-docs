@@ -54,6 +54,40 @@ const wpBonesHighlights = [
   },
 ];
 
+const wpBonesResources = [
+  {
+    key: "demo",
+    title: "WP Bones Demo in action",
+    href: "https://playground.wordpress.net/?blueprint-url=https://wpbones.vercel.app/blueprint.json",
+  },
+  {
+    key: "forum",
+    title: "Forum",
+    href: "https://discord.gg/5bdVyycU8Fv",
+  },
+  {
+    key: "wpbones-news",
+    title: "WP Bones News",
+    href: "https://wpbones.substack.com/",
+  },
+  {
+    key: "wpbones-ai",
+    title: "WP Bones AI",
+    href: "https://wpbones.ownai.com/",
+    new: true,
+  },
+  {
+    key: "wordpress-developer-resources",
+    title: "WordPress Developer Resources",
+    href: "https://developer.wordpress.org/",
+  },
+  {
+    key: "reactjs-mantine-ui-extensions",
+    title: "ReactJS Mantine UI Extensions",
+    href: "https://mantine-extensions.vercel.app/projects",
+  },
+];
+
 const wpBonesEcoSystem = [
   {
     key: "wp-bones-repository",
@@ -72,6 +106,13 @@ const wpBonesEcoSystem = [
     title: "WP Bones Plugin Boilerplate",
     href: "https://github.com/wpbones/WPKirk-Boilerplate",
     newWindow: true,
+  },
+  {
+    key: "wp-bones-website-docs",
+    title: "WP Bones Website Docs",
+    href: "https://github.com/wpbones/website-docs",
+    newWindow: true,
+    new: true,
   },
   {
     key: "action-and-filters",
@@ -114,40 +155,6 @@ const wpBonesEcoSystem = [
     title: "WP Tables",
     href: "https://packagist.org/packages/wpbones/wptables",
     newWindow: true,
-  },
-];
-
-const wpBonesResources = [
-  {
-    key: "demo",
-    title: "WP Bones Demo in action",
-    href: "https://playground.wordpress.net/?blueprint-url=https://wpbones.vercel.app/blueprint.json",
-  },
-  {
-    key: "forum",
-    title: "Forum",
-    href: "https://discord.gg/5bdVyycU8Fv",
-  },
-  {
-    key: "wpbones-news",
-    title: "WP Bones News",
-    href: "https://wpbones.substack.com/",
-  },
-  {
-    key: "wpbones-ai",
-    title: "WP Bones AI",
-    href: "https://wpbones.ownai.com/",
-    new: true,
-  },
-  {
-    key: "wordpress-developer-resources",
-    title: "WordPress Developer Resources",
-    href: "https://developer.wordpress.org/",
-  },
-  {
-    key: "reactjs-mantine-ui-extensions",
-    title: "ReactJS Mantine UI Extensions",
-    href: "https://mantine-extensions.vercel.app/projects",
   },
 ];
 

@@ -13,7 +13,7 @@ const config: DocsThemeConfig = {
     </span>
   ),
   project: {
-    link: "https://github.com/wpbones/WPBones",
+    link: "https://github.com/wpbones/website-docs",
   },
   head: function useHead() {
     const { title } = useConfig();
@@ -57,7 +57,7 @@ const config: DocsThemeConfig = {
   chat: {
     link: "https://discord.gg/5bdVyycU8F",
   },
-  docsRepositoryBase: "https://github.com/wpbones/WPBones",
+  docsRepositoryBase: "https://github.com/wpbones/website-docs",
   sidebar: {
     defaultMenuCollapseLevel: 1,
     toggleButton: true,
