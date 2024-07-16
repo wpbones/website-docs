@@ -11,7 +11,7 @@ WP Bones uses [Gulp](https://gulpjs.com/) to compile and copy the assets from th
 
 ## Installation
 
-To compile the assets, you need to install the packages:
+To compile the assets, you need to install the packages and dependencies:
 
 ```sh npm2yarn copy
 npm install
@@ -24,16 +24,21 @@ The `package.json` file contains the scripts to compile the assets.
 ```json copy
 {
   "scripts": {
-    "dev": "gulp watch",
+    "start": "gulp watch",
     "build": "gulp build"
   },
 }
 ```
 
-To compile the assets, you need to install the dependencies:
+Now you can compile the assets by running:
 
 ```sh npm2yarn copy
-npm run dev
+npm run build
+```
+To compile the assets during development, run:
+
+```sh npm2yarn copy
+npm run start
 ```
 All the assets in `resources/assets` are compiled and copied to the `public` folder.
 
