@@ -74,20 +74,6 @@ do_action('wpbones_console_deploy_completed', $this, $path);
 
 ## Filters
 
-### wpbones_console_deploy_gulp_production
-
-```php copy
-/**
-* Filter the console command used to compile assets
-*
-* @param string $command Command to use. Default 'gulp production'
-* @return string A different command or NULL to skip the compilation
-*/
-add_filter('wpbones_console_deploy_gulp_production', function ($command) {
-    return $command;
-});
-```
-
 ### wpbones_console_deploy_skip_folders
 
 ```php copy
