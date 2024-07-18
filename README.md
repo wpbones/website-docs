@@ -31,3 +31,9 @@ This is the main Website Documentation for the WP Bones Framework. You can see t
 If you want to contribute to this documentation, please read the file [CONTRIBUTING.md](CONTRIBUTING.md) to know how to do it.
 
 You can fork the project and create a pull request to contribute to the documentation.
+
+### Thanks to all contributors
+
+<a href="https://github.com/wpbones/website-docs/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=wpbones/website-docs" />
+</a>
