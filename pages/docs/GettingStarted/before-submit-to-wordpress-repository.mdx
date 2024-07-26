@@ -51,7 +51,7 @@ get_called_class();
 ```
 
 <Callout type="info">
-If you know of any other issues that could be rejected by the WordPress repository, please let us know.
+If you know of any other issues that could be rejected by the WordPress repository, [please let us know](https://discord.gg/5bdVyycU8F).
 </Callout>
 
 ## Deploy version
@@ -73,6 +73,38 @@ The following links will assist you in understanding WordPress's versioning and 
 
 > You cannot set it beyond the current version, as that will cause your plugin not to be available on searches. Also remember that WordPress has made late changes in releases, so claiming compatibility with an incomplete version is likely to land you in trouble.
 
+```txt copy filename="readme.txt"
+=== WP Kirk ===
+Contributors: gfazioli
+Donate link: http://undolog.com
+Tags: template, wpbones
+Requires at least: 6.2
+Tested up to: 6.5
+Stable tag: 1.5.0
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+```
+
+```php copy filename="your-plugin.php"
+/**
+ * Plugin Name: WP Kirk
+ * Plugin URI: https://github.com/wpbones/WPKirk
+ * Description: WP Bones template WordPress plugin
+ * Version: 1.5.0
+ * Requires at least: 6.2
+ * Requires PHP: 7.4
+ * Author: Giovambattista Fazioli
+ * Author URI: http://undolog.com
+ * License: GPLv2 or later
+ * License URI: http://www.gnu.org/licenses/gpl-2.0.html
+ * Text Domain: wp-kirk
+ * Domain Path: localization
+ *
+ */
+```
+
+
+
 ### No GPL-compatible license declared
 
 > It is necessary to declare the license of this plugin. You can do this using the fields available both in the plugin readme and in the plugin headers. Remember that all code, data, and images — anything stored in the plugin directory hosted on WordPress.org — must comply with the GPL or a GPL-Compatible license. Included third-party libraries, code, images, or otherwise, must be also compatible
@@ -89,6 +121,36 @@ Please check the header requirements in order to correctly declare the license o
 
 It is necessary to configure the "License: " field in the plugin header with a valid, GPL-compliant license name.
 
+```txt copy filename="readme.txt"
+=== WP Kirk ===
+Contributors: gfazioli
+Donate link: http://undolog.com
+Tags: template, wpbones
+Requires at least: 6.2
+Tested up to: 6.5
+Stable tag: 1.5.0
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+```
+
+```php copy filename="your-plugin.php"
+/**
+ * Plugin Name: WP Kirk
+ * Plugin URI: https://github.com/wpbones/WPKirk
+ * Description: WP Bones template WordPress plugin
+ * Version: 1.5.0
+ * Requires at least: 6.2
+ * Requires PHP: 7.4
+ * Author: Giovambattista Fazioli
+ * Author URI: http://undolog.com
+ * License: GPLv2 or later
+ * License URI: http://www.gnu.org/licenses/gpl-2.0.html
+ * Text Domain: wp-kirk
+ * Domain Path: localization
+ *
+ */
+```
+
 ### The main file of the plugin has a name that does not follow the convention.
 
 ```txt
@@ -99,4 +161,16 @@ The main file of this plugin is named index.php
 
 > Note that using some common names as the filename for the main plugin file can lead to issues in some configurations. Please check out our tips on how to structure files and folders in a plugin. 
 
+<Callout type="info">
+This is already handled by the Bones framework starting from `v1.5.0`. The main file of the plugin is named `your-plugin.php`.
+</Callout>
+
 ### Using composer but could not find composer.json file
+
+> We noticed that your plugin is using Composer to handle library dependencies, that's great as it will help maintaining and updating your plugin in the future while avoiding collisions with other plugins that are using same libraries. The composer.json file describes the dependencies of your project and may contain other metadata as well. It's a small file that typically can be found in the top-most directory of your plugin. As one of the strengths of open source is the ability to review, observe, and adapt code, we would like to ask you to include that file in your plugin, even if it is only used for development purposes. This will allow others to exercise the open source freedoms from which we all benefit.
+
+Use the `--wp` option to deploy the plugin with the `composer.json` file.
+
+```bash copy
+$ php bones deploy --wp
+```

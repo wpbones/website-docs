@@ -167,11 +167,18 @@ When your plugin is ready and you are satisfied with it, you can prepare a deplo
 php bones deploy ../deploy-version
 ```
 
-<Callout>
+<Callout type="info" emoji="💡">
 The deploy will run also the build command, so the assets will be compressed and minified.
 </Callout>
 
 ### Submit to WordPress repository
+
+Due to the WordPress repository rules, you have to prepare a deploy version of your plugin. You can use the `deploy` command along with the `--wp` option.
+
+```shell copy
+php bones deploy ../deploy-version --wp
+```
+Read more about the [Before submit to WordPress repository](../GettingStarted/before-submit-to-wordpress-repository).
 
 You can copy the `deploy-version` content in the WordPress **trunk** subversion folder. Add and commit your files.
 
