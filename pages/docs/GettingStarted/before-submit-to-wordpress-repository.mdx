@@ -174,3 +174,19 @@ Use the `--wp` option to deploy the plugin with the `composer.json` file.
 ```bash copy
 $ php bones deploy --wp
 ```
+
+### No publicly documented resource for your compressed content
+
+> In reviewing your plugin, we cannot find a non-compiled version of your javascript and/or css related source code. In order to comply with our guidelines of human-readable code, we require you to include the source code and / or a link to the non-compressed, developer libraries you’ve included in your plugin. If you include a link, this may be in your source code, however we require you to also have it in your readme.
+
+- https://developer.wordpress.org/plugins/wordpress-org/detailed-plugin-guidelines/#4-code-must-be-mostly-human-readable
+
+> We strongly feel that one of the strengths of open source is the ability to review, observe, and adapt code. By maintaining a public directory of freely available code, we encourage and welcome future developers to engage with WordPress and push it forward. That said, with the advent of larger and larger plugins using more complex libraries, people are making good use of build tools (such as composer or npm) to generate their distributed production code. In order to balance the need to keep plugin sizes smaller while still encouraging open source development, we require plugins to make the source code to any compressed files available to the public in an easy to find location, by documenting it in the readme.
+
+> For example, if you’ve made a Gutenberg plugin and used npm and webpack to compress and minify it, you must either include the source code within the published plugin or provide access to a public maintained source that can be reviewed, studied, and yes, forked. We strongly recommend you include directions on the use of any build tools to encourage future developers.
+
+Use the `--wp` option to deploy the plugin with the `composer.json` file.
+
+```bash copy
+$ php bones deploy --wp
+```
