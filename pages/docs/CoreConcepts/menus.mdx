@@ -6,6 +6,10 @@ import { Callout, FileTree } from 'nextra/components'
 You can set your custom menu in `/config/menus.php` file. This file returns an array representing the menu structure. You can leave this array empty if you don't need a menu. Let me show you a typical menu structure.
 
 ```php filename="config/menus.php" copy
+if (!defined('ABSPATH')) {
+    exit();
+}
+
 /*
 |--------------------------------------------------------------------------
 | Plugin Menus routes
@@ -107,6 +111,10 @@ position     : null
 The `capability` key is optional for both menu and submenu items. The default value of the key `capability` in the root menu is `read` when it is not set. The default value of the key `capability` in the submenu remains the same as the root menu when it is not set. For example:
 
 ```php filename="config/menus.php" copy
+if (!defined('ABSPATH')) {
+    exit();
+}
+
 /*
 |--------------------------------------------------------------------------
 | Plugin Menus routes

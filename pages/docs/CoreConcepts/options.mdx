@@ -1,12 +1,18 @@
-import { FileTreeLabel } from '@components/FileTreeLabel'
-import { Callout, FileTree } from 'nextra/components'
+import { FileTreeLabel } from '@components/FileTreeLabel';
+import { IconBrandWordpress } from "@tabler/icons-react";
+import { Callout, Card, Cards, FileTree } from 'nextra/components';
 
 # Options
 
 All plugins need some options. You may put your options model array in `config/options.php`:
 
-```php copy
+```php copy filename="config/options.php"
 <?php
+
+if (!defined('ABSPATH')) {
+    exit();
+}
+
 /*
 |--------------------------------------------------------------------------
 | Plugin options
@@ -28,7 +34,8 @@ return [
     'option_3' => [
       'sub_option_of_3' => 'Hello'
     ],
-    'option_4' => 'to delete'
+    'option_4' => 'to delete',
+    'option_5' => null,
   ],
 
   'Special' => [
@@ -37,7 +44,7 @@ return [
 ];
 ```
 
-<Callout>
+<Callout type="info">
 The options are subject to case sensitivity. So, take a look at the first key `General`. You should access it using `$plugin->options->get('General.option_1')`, for instance.
 </Callout>  
 
@@ -70,6 +77,23 @@ If the option doesn't exist, you can define a default value:
 ```php copy
 echo $plugin->options->get( 'General.doNotExists', 'default');
 ```
+
+As you can handle also the `null` value, you may use:
+
+```php copy
+echo $plugin->options->get( 'General.option_5', 'default'); // will return 'default'
+```
+
+or
+
+```php copy
+$value = $plugin->options->get( 'General.option_5');
+if ( is_null( $value ) ) {
+    echo 'default';
+}
+```
+
+
 
 ### Update options
 
@@ -111,7 +135,8 @@ $plugin->options->update(
       'General' => [
         'option_4' => [
           'color'      => 'red',
-          'background' => 'transparent'
+          'background' => 'transparent',
+          'images' => null
         ]
       ]
     ]
@@ -126,23 +151,14 @@ $plugin->options->update(
       'General' => [
         'option_5' => [
           'color'      => 'red',
-          'background' => 'transparent'
+          'background' => 'transparent',
+          'images' => null
         ]
       ]
     ]
   );
 ```
 
-If you wish to delete an option, you may also use:
-
-```php copy
-$plugin->options->set( 'Special.Name', null );
-```
-or
-
-```php copy
-$plugin->options->set( 'Special.Name' );
-```
 
 ### Delete Options
 
@@ -207,3 +223,11 @@ If you want to obtain the options as a flat array, please use:
 ```php copy
 $result = MyPluginGlobalFunction()->options->toArray();
 ```
+
+## See Options in action
+
+You can see the options in actions in the [WP Kirk](https://github.com/wpbones/WPKirk) Demo plugin.
+
+<Cards num={1}>
+  <Card icon={<IconBrandWordpress color="#74C0FC" />} title="Demo Plugin in action" target="_blank" href="https://playground.wordpress.net/?blueprint-url=https://wpbones.vercel.app/blueprint.json" />
+</Cards>

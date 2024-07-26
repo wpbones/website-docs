@@ -26,6 +26,9 @@ Anyway, WPBones provides additional configuration that allows you to log message
 You can find the configuration for your plugin's logging in the `config/plugin.php`:
 
 ```php filename="config/plugin.php" copy
+if (!defined('ABSPATH')) {
+    exit();
+}
 /*
 |--------------------------------------------------------------------------
 | Logging Configuration

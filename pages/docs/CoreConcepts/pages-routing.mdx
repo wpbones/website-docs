@@ -1,5 +1,5 @@
-import { Callout, FileTree } from 'nextra/components'
 import { FileTreeLabel } from '@components/FileTreeLabel'
+import { Callout, FileTree } from 'nextra/components'
 
 # Pages Routing
 
@@ -7,8 +7,11 @@ In addition to [Menus Routing](menus-routing), you may add a page routing withou
 
 In the `config/routes.php` you'll find an array with the page routing settings:
 
-```php copy
+```php copy filename="config/routes.php"
 <?php
+if (!defined('ABSPATH')) {
+    exit();
+}
 
 /*
 |--------------------------------------------------------------------------
