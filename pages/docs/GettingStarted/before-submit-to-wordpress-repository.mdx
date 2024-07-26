@@ -13,7 +13,7 @@ You can download the zip file from the [releases page](https://wordpress.org/plu
 This plugin will check your plugin for errors and warnings before you submit it to the WordPress repository.
 You will be able to see the errors and warnings in the WordPress admin panel.
 
-## Knowlegde potential issues
+## Potential known code issues
 
 When you submit your plugin to the WordPress repository, some lines of code could be rejected. This may happen because the WordPress repository provides a set of pre-commit hooks. These are performed during the commit process. These hooks will perform PHP checking. Below you'll find a list of possible errors in your code:
 
@@ -50,6 +50,53 @@ static::class
 get_called_class();
 ```
 
+<Callout type="info">
+If you know of any other issues that could be rejected by the WordPress repository, please let us know.
+</Callout>
+
 ## Deploy version
 
 You will have to use the `deploy` command to create the deploy version of your plugin. See [here](../BonesConsole/bones-console#deploy) for more details.
+
+## WordPress.org potential issues
+
+When you submit your plugin to the WordPress repository, you may encounter some issues. Here are some common issues:
+
+### Tested Up To Value is Out of Date, Invalid, or Missing
+
+> The tested up to value in your plugin is not set to the current version of WordPress. This means your plugin will not show up in searches, as we require plugins to be compatible and documented as tested up to the most recent version of WordPress. Please update your readme to show that it is tested up to the most recent stable major version of WordPress. For example if WordPress said that version 99.0.1 was the current release, you would be able to set your value to 99.0 or 99.0.1, as 99.0.1 would be considered a minor release.
+
+The following links will assist you in understanding WordPress's versioning and the latest version:
+
+- https://wordpress.org/download/
+- https://make.wordpress.org/core/handbook/about/release-cycle/version-numbering/
+
+> You cannot set it beyond the current version, as that will cause your plugin not to be available on searches. Also remember that WordPress has made late changes in releases, so claiming compatibility with an incomplete version is likely to land you in trouble.
+
+### No GPL-compatible license declared
+
+> It is necessary to declare the license of this plugin. You can do this using the fields available both in the plugin readme and in the plugin headers. Remember that all code, data, and images — anything stored in the plugin directory hosted on WordPress.org — must comply with the GPL or a GPL-Compatible license. Included third-party libraries, code, images, or otherwise, must be also compatible
+
+For a specific list of compatible licenses, [please read the GPL-Compatible license list on gnu.org](https://www.gnu.org/licenses/license-list.html#GPLCompatibleLicenses).
+
+> The license declared on this plugin is either no present or it's not GPL compatible:
+
+```txt
+ERROR: License declaration not found on index.php
+```
+
+Please check the header requirements in order to correctly declare the license of the plugin: https://developer.wordpress.org/plugins/plugin-basics/header-requirements/
+
+It is necessary to configure the "License: " field in the plugin header with a valid, GPL-compliant license name.
+
+### The main file of the plugin has a name that does not follow the convention.
+
+```txt
+The main file of this plugin is named index.php
+```
+
+> We expect the main plugin file (the file containing the plugin headers) to have the same name as the plugin folder, which is also the same name as the slug / permalink of the plugin. For example, if your plugin slug is ecpt-social-manager we expect your main plugin filename to be ecpt-social-manager.php
+
+> Note that using some common names as the filename for the main plugin file can lead to issues in some configurations. Please check out our tips on how to structure files and folders in a plugin. 
+
+### Using composer but could not find composer.json file

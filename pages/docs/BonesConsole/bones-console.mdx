@@ -84,8 +84,12 @@ When your plugin is ready, you can use the `deploy` bones command in order to cr
 ```sh copy
 php bones deploy your-path/mydeploy
 ```
+<Callout type="info">
+Starting from WP Bones `v1.5.0` we added a new option `--wp` to deploy the plugin to the WordPress repository. This option will create a deploy folder with the necessary files to submit your plugin to the WordPress repository. For further information, see [here](../GettingStarted/before-submit-to-wordpress-repository).
+</Callout>
 
-In the `mydeploy` folder, you will find only the necessary files to run your plugin. For instance, the developer's `resources/assets` folder will be removed.
+In the `mydeploy` folder, you will find only the necessary files to run your plugin. 
+Without the `--wp` option the developer's `resources/assets` folder will be removed.
 
 ### Customize Deploy
 

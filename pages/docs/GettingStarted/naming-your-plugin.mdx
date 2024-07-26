@@ -18,7 +18,12 @@ MyWPPlugin            Namespace, see [PSR-4 autoloading standard](http://www.php
 my_wp_plugin_slug     Plugin slug
 my_wp_plugin_vars     Plugin vars used for CPT, taxonomy, etc.
 my-wp-plugin          Internal id used for css, js and less files
+my-wp-plugin.php      Main plugin file
 ```
+
+<Callout type="info">
+Starting from `v1.5.0`, we replaced the previous `index.php` main plugin file with the name of your plugin. This change was made to avoid rejection from the WordPress plugin repository.
+</Callout>
 
 ## Naming Your Plugin Again
 
@@ -43,6 +48,7 @@ WPMyAwesomePlugin             Namespace (PSR-4)
 wp_my_awesome_plugin_slug     Plugin slug
 wp_my_awesome_plugin_vars     Plugin vars used for CPT, taxonomy, etc.
 wp-my-awesome_plugin          Internal id used for css, js and less files
+wp-my-awesome-plugin.php      Main plugin file
 ```
 
 ## Options
