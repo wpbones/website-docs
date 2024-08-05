@@ -38,6 +38,46 @@ import pageImage from "./page.png";
 import reactImage from "./react-js.png";
 import phpBones from "./wpbones-window.png";
 
+const ProductHuntBadge = ({ mode = "light" }: { mode?: "light" | "neutral" | "dark" }) =>
+  mode === "light" ? (
+    <a
+      href="https://www.producthunt.com/posts/wp-bones?embed=true&utm_source=badge-featured&utm_medium=badge&utm_souce=badge-wp&#0045;bones"
+      target="_blank"
+      rel="noopener noreferrer">
+      <img
+        src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=476081&theme=light"
+        alt="WP Bones - Allows for WordPress plugins with Laravel-like features | Product Hunt"
+        style={{ width: "250px", height: "54px" }}
+        width="250"
+        height="54"
+      />
+    </a>
+  ) : mode === "dark" ? (
+    <a
+      href="https://www.producthunt.com/posts/wp-bones?embed=true&utm_source=badge-featured&utm_medium=badge&utm_souce=badge-wp&#0045;bones"
+      target="_blank">
+      <img
+        src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=476081&theme=dark"
+        alt="WP Bones - Allows for WordPress plugins with Laravel-like features | Product Hunt"
+        style={{ width: "250px", height: "54px" }}
+        width="250"
+        height="54"
+      />
+    </a>
+  ) : (
+    <a
+      href="https://www.producthunt.com/posts/wp-bones?embed=true&utm_source=badge-featured&utm_medium=badge&utm_souce=badge-wp&#0045;bones"
+      target="_blank">
+      <img
+        src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=476081&theme=neutral"
+        alt="WP Bones - Allows for WordPress plugins with Laravel-like features | Product Hunt"
+        style={{ width: "250px", height: "54px" }}
+        width="250"
+        height="54"
+      />
+    </a>
+  );
+
 export default function HomeContent() {
   const claims = [
     "WP Bones allows for WordPress plugins with Laravel-like features",
@@ -62,6 +102,10 @@ export default function HomeContent() {
           gradient={{ from: "blue", to: "violet", deg: 90 }}>
           WP Bones allows for WordPress plugins with Laravel-like features
         </Text>
+
+        <Group justify="center">
+          <ProductHuntBadge />
+        </Group>
 
         <div className={cx(classes.imageHero, classes.fadeIn, classes["delay-300ms"])}>
           <Image component={NextImage} mx="auto" maw="1272px" fit="fill" src={phpBones} alt="PHP Bones" />
