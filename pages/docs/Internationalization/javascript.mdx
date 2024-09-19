@@ -1,0 +1,38 @@
+import { FileTreeLabel } from '@components/FileTreeLabel'
+import { Callout, FileTree, Steps } from 'nextra/components'
+
+# Javascript Localization
+
+WordPress provides the [`wp_localize_script()`](https://developer.wordpress.org/reference/functions/wp_localize_script/) function to pass data from PHP to JavaScript. This function is used to pass the localized strings to the JavaScript file.
+
+<Callout type="info">
+More generally, the function [`wp_localize_script()`](https://developer.wordpress.org/reference/functions/wp_localize_script/) is used to add a global JavaScript object with data. This function is often used to pass any type of data to JavaScript, not just localized strings. Today, it is possible to use [`wp_add_inline_script()`](https://developer.wordpress.org/reference/functions/wp_add_inline_script/) to pass data to JavaScript. Our suggestion is to use [`wp_localize_script()`](https://developer.wordpress.org/reference/functions/wp_localize_script/) only for passing localized strings.
+
+So you should follow the same rule in WP Bones and use the fluent method `withLocalizeScript()` to pass the localized strings to the JavaScript file. And use the fluent `withInlineScript()` method to pass any other type of data to the JavaScript file.
+</Callout>
+
+In WP Bones you can use the fluent `withLocalizeScript()` method to pass the localized strings to the JavaScript file.
+
+Here is an example of how to pass the localized strings to the JavaScript file:
+
+```php copy filename="Your Controller"
+$localization_data = array(
+    'greeting' => __('Hello, World!', 'wp-kirk'),
+    'farewell' => __('Goodbye, World!', 'wp-kirk'),
+    'ajax_url' => admin_url('admin-ajax.php'),
+);
+
+return WPKirk()->view( 'dashboard.index' )
+               ->with( [ 'kirk' => 'Captain' ] )
+               ->withAdminScript( 'wp-kirk-common' )
+               ->withLocalizeScript('wp-kirk-common', 'wpKirkGlobal', $localization_data);
+```
+
+```javascript copy filename="wp-kirk-common.js"
+(function($) {
+  'use strict';
+  
+  alert(wpKirkGlobal.greeting);
+
+})(jQuery);
+```

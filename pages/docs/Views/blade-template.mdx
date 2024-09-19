@@ -27,9 +27,9 @@ class ExampleBladeController extends Controller
 
     return WPKirk()
       ->view('blade.demo', ['users' => User::all()])
-      ->withAdminStyles('prism')
-      ->withAdminScripts('prism')
-      ->withAdminStyles('wp-kirk-common');
+      ->withAdminStyle('prism')
+      ->withAdminScript('prism')
+      ->withAdminStyle('wp-kirk-common');
   }
 }
 ```

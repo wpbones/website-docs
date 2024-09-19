@@ -1,0 +1,27 @@
+import { FileTreeLabel } from '@components/FileTreeLabel'
+import { Callout, FileTree } from 'nextra/components'
+
+# Core Plugin Files
+
+You can update the WP Bones framework by usign the bones command:
+  
+```bash
+php bones update
+```
+
+Under the hood, the bones command will excute a `compuser update` along with other tasks.
+Of course, you are updating just the framework, not your plugin.
+
+In this section, you will find the latest versions of the files included in the WP Bones boilerplate. These files may undergo changes, including breaking changes.
+
+So, if you have a plugin created with an earlier version of WP Bones, you can check here which files have changed in the latest versions. You can then copy and update these files in your plugin.
+
+<FileTree>
+  <FileTree.Folder name="myPlugin" defaultOpen >
+    <FileTree.File label={<FileTreeLabel type="file" href="./composer-json" name="composer.json" color="yellow">used by composer</FileTreeLabel>} />
+    <FileTree.File label={<FileTreeLabel type="file" href="./gulpfile-js" name="gulpfile.js">script used by Gulp</FileTreeLabel>} />
+    {/* <FileTree.File label={<FileTreeLabel type="file" name="{your-plugin-name}.php">entry point of plugin</FileTreeLabel>} /> */}
+    <FileTree.File label={<FileTreeLabel type="file" href="./package-json" name="package.json">used by npm</FileTreeLabel>} />
+    {/* <FileTree.File label={<FileTreeLabel type="file" name="readme.txt">WordPress readme file</FileTreeLabel>} /> */}
+  </FileTree.Folder>
+</FileTree>

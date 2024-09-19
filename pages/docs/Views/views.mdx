@@ -61,7 +61,7 @@ So, inside your view, you can then access the data by using its corresponding ke
 </div>
 ```
 
-As an alternative to passing a complete array of data to the view, you may use the `with` method to add individual pieces of data to the view:
+As an alternative to passing a complete array of data to the view, you may use the [`with()`](/docs/CoreClasses/view#with) method to add individual pieces of data to the view:
 
 ```php copy
 return WPKirk()->view( 'dashboard.index' )->with( 'kirk', 'Captain' );
@@ -69,36 +69,140 @@ return WPKirk()->view( 'dashboard.index' )->with( 'kirk', 'Captain' );
 
 In addition, you will be able to get your plugin instance by the `$plugin` variable.
 
-<Callout>
+<Callout type="info">
 In this release, you'll find the `$plugin` variable automatically set to the plugin instance. This variable is reserved.
 </Callout>
 
 ## Enqueue Styles and Scripts in Admin Area
 
-You can enqueue all registered styles and scripts when a view is displayed. All styles and scripts files must be located in the `public/` folder. The `.css` files will be found in the `public/css/` folder, and the `.js` files will be found in the `public/js/` folder. Currently, you can use the `withAdminStyles` and `withAdminScripts` methods. For example:
+You can enqueue all registered styles and scripts when a view is displayed. All styles and scripts files must be located in the `public/` folder. The `.css` files will be found in the `public/css/` folder, and the `.js` files will be found in the `public/js/` folder. 
+
+Currently, you can use [`withAdminStyle()`](/docs/CoreClasses/view#withadminstyle) and [`withAdminScript()`](/docs/CoreClasses/view#withadminscript) to enqueue styles and scripts in the admin area.
+
+For example:
 
 ```php copy
 return WPKirk()->view( 'dashboard.index' )
                ->with( [ 'kirk' => 'Captain' ] )
-               ->withAdminStyles( 'wp-kirk-common' );
+               ->withAdminStyle( 'wp-kirk-common' );
 ```
 
 The file `public/css/wp-kirk-common.css` will be registered and enqueued when the view is displayed.
 
-## Localize Scripts
+```php copy
+return WPKirk()->view( 'dashboard.index' )
+               ->with( [ 'kirk' => 'Captain' ] )
+               ->withAdminScript( 'wp-kirk-common' );
+```
 
-You may localize your scripts by using the `localizeScript` method. For example:
+The file `public/js/wp-kirk-common.js` will be registered and enqueued when the view is displayed.
+
+Of course, you can setup both styles and scripts:
+
+```php copy
+return WPKirk()->view( 'dashboard.index' )
+               ->with( [ 'kirk' => 'Captain' ] )
+               ->withAdminStyle( 'wp-kirk-common' )
+               ->withAdminScript( 'wp-kirk-common' );
+```
+Both files will be registered and enqueued when the view is displayed.
+
+## Enqueue Style and Scripts in Theme
+
+Also, you can enqueue scripts and styles just in the theme, for example when you will display a view for a widget. In this case, you can use [`withStyles()`](/docs/CoreClasses/view#withstyles) and [`withScripts()`](/docs/CoreClasses/view#withscripts) fluent methods. All these methods accept three parameters: name, dependencies, and version:
+
+For Example:
+
+```php copy
+return WPKirk()->view( 'dashboard.index' )
+               ->with( [ 'kirk' => 'Captain' ] )
+               ->withStyles( 'wp-kirk-common', [ 'wp-kirk-colors' ], '1.0' );
+```
+
+The file `public/css/wp-kirk-common.css` will be registered and enqueued when the view is displayed.
+
+```php copy
+return WPKirk()->view( 'dashboard.index' )
+               ->with( [ 'kirk' => 'Captain' ] )
+               ->withScripts( 'wp-kirk-common', [ 'wp-kirk-colors' ], '1.0' );
+```
+
+The file `public/js/wp-kirk-common.js` will be registered and enqueued when the view is displayed.
+
+Of course, you can setup both styles and scripts:
+
+```php copy
+return WPKirk()->view( 'dashboard.index' )
+               ->with( [ 'kirk' => 'Captain' ] )
+               ->withStyles( 'wp-kirk-common', [ 'wp-kirk-colors' ], '1.0' )
+               ->withScripts( 'wp-kirk-common', [ 'wp-kirk-colors' ], '1.0' );
+```
+Both files will be registered and enqueued when the view is displayed.
+
+## Inline Stile and Scripts
+
+You may add inline style to your view by using the [`withInlineStyle()`](/docs/CoreClasses/view#withinlinestyle) method. 
+
+```php copy
+return WPKirk()->view( 'dashboard.index' )
+               ->withAdminStyle( 'wp-kirk-common' )
+               ->withInlineStyle('wp-kirk-common', 'body { background-color: #f00; }');
+```
+
+You may add inline scripts to your view by using the [`withInlineScript()`](/docs/CoreClasses/view#withinlinescript) method. 
 
 ```php copy
 return WPKirk()->view( 'dashboard.index' )
                ->with( [ 'kirk' => 'Captain' ] )
                ->withAdminScript( 'wp-kirk-common' )
-               ->withLocalizeScripts('wp-kirk-common', 'wpKirkGlobal', [
-                  'ajaxUrl' => admin_url('admin-ajax.php'),
-                  'nonce' => wp_create_nonce('wp-kirk-nonce')
-          ]);
+               ->withInlineScript('wp-kirk-common', 'console.log("Hello, Captain!");');
 ```
-As you know, you will be able to access the `wpKirkGlobal` variable in your scripts. For example:
+
+or
+
+```php copy
+$myData = [
+  'name' => 'Captain',
+  'rank' => 'Captain'
+];
+
+return WPKirk()->view( 'dashboard.index' )
+               ->with( [ 'kirk' => 'Captain' ] )
+               ->withAdminScript( 'wp-kirk-common' )
+               ->withInlineScript('wp-kirk-common', 'const kirk = ' . json_encode( $myData ) . ';');
+```
+You may use the inline script to pass the Ajax URL and any nonce values from PHP to JavaScript.
+
+```php copy
+return WPKirk()->view( 'dashboard.index' )
+               ->with( [ 'kirk' => 'Captain' ] )
+               ->withAdminScript( 'wp-kirk-common' )
+               ->withInlineScript('wp-kirk-common', 'const ajaxUrl = "' . admin_url('admin-ajax.php') . '";');
+```
+
+Ajax URL and nonce values are very common in WordPress development. You can use the inline script to pass these values to your JavaScript.
+
+```php copy
+return WPKirk()->view( 'dashboard.index' )
+               ->with( [ 'kirk' => 'Captain' ] )
+               ->withAdminScript( 'wp-kirk-common' )
+               ->withInlineScript('wp-kirk-common', 'const ajaxUrl = "' . admin_url('admin-ajax.php') . '"; const nonce = "' . wp_create_nonce('wp-kirk-nonce') . '";');
+```
+In these cases you may use a global variable to access the values in your scripts.
+
+```php copy
+$globalData = [
+  'ajaxUrl' => admin_url('admin-ajax.php'),
+  'nonce' => wp_create_nonce('wp-kirk-nonce')
+];
+
+$globalObject = 'wpKirkGlobal';
+
+return WPKirk()->view( 'dashboard.index' )
+               ->with( [ 'kirk' => 'Captain' ] )
+               ->withAdminScript( 'wp-kirk-common' )
+               ->withInlineScript('wp-kirk-common', 'const ' . $globalObject . ' = ' . json_encode( $globalData ) . ';');
+```
 
 ```javascript copy
 (function($) {
@@ -119,14 +223,31 @@ As you know, you will be able to access the `wpKirkGlobal` variable in your scri
 })(jQuery);
 ```
 
-## Enqueue Style and Scripts in Frontend
+## Localize Scripts
 
-Also, you can enqueue scripts and styles in the frontend, for example when you will display a view for a widget. In this case, you can use `withStyles` and `withScripts` fluent methods. All these methods accept three parameters: name, dependencies, and version:
+You may localize your scripts by using the [`withLocalizeScript()`](/docs/CoreClasses/view#withlocalizescript) method. For example:
 
 ```php copy
+$localization_data = array(
+    'greeting' => __('Hello, World!', 'wp-kirk'),
+    'farewell' => __('Goodbye, World!', 'wp-kirk'),
+    'ajax_url' => admin_url('admin-ajax.php'),
+);
+
 return WPKirk()->view( 'dashboard.index' )
                ->with( [ 'kirk' => 'Captain' ] )
-               ->withAdminStyles( 'wp-kirk-common', [ 'wp-kir-colors' ], '1.0' );
+               ->withAdminScript( 'wp-kirk-common' )
+               ->withLocalizeScript('wp-kirk-common', 'wpKirkGlobal', $localization_data);
+```
+As you know, you will be able to access the `wpKirkGlobal` variable in your scripts. For example:
+
+```javascript copy filename="wp-kirk-common.js"
+(function($) {
+  'use strict';
+  
+  alert(wpKirkGlobal.greeting);
+
+})(jQuery);
 ```
 
 ## Fragment

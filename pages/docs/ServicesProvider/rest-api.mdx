@@ -1,19 +1,26 @@
-import { Callout, FileTree } from 'nextra/components'
+import { AnimateBadge } from "@components/AnimateBadge";
+import { Badge, Button, Group } from '@mantine/core';
+import { IconArticle, IconBrandGithub, IconBrandSlack, IconBrandWordpress, IconExternalLink, IconPlug } from "@tabler/icons-react";
+import { Callout, Card, Cards, FileTree } from 'nextra/components';
 
 # REST API
 
 WP Bones provides a simple way to create your own REST API. You may use the WordPress REST API as well.
 
-<Callout type="info">
-You'll find more info [here](https://developer.wordpress.org/rest-api/extending-the-rest-api/)
-</Callout>
+<Cards num={2}>
+
+<Card arrow icon={<IconBrandGithub color="white" />} title={<Group><AnimateBadge />WP Bones API Boilerplate</Group>} target="_blank" href="https://github.com/new?template_name=WPKirk-API-Boilerplate&template_owner=wpbones"/>
+
+<Card arrow icon={<IconBrandWordpress />} title="WordPress Developer API Documentation" target="_blank" href="https://developer.wordpress.org/rest-api/extending-the-rest-api/"/>
+
+</Cards>
 
 ## Configuration
 
 First of all, we have added a new `api.php` configuration file to the `config` folder.
 You'll find some useful settings to handle the embedded WordPress REST API and your custom endpoints.
 
-```php filename="config/api.php" copy
+```php filename="config/api.php" copy {21}
 <?php
 
 /*
@@ -50,8 +57,8 @@ return [
 
 To create your custom API, you have to create a new folder in `/api` at the root of your plugin.
 
-<Callout>
-You can change the name of your folder, but you will need to update the `path` in the `api.php` configuration file.
+<Callout type="info">
+You can change the name of your folder, but you will need to update the `path` in the `api.php` configuration file. Check the highlighted line in the snippet above.
 </Callout>
 
 The main folder will be the `vendor`. Typically, within the **vendor** folder, you will also create the `version` folder.
@@ -401,7 +408,7 @@ return [
 ]
 ```
 
-<Callout>
+<Callout emoji="⚠️">
 The above setting will affect all routes.
 From a browser request, you won't receive the error message if you're logged in.
 </Callout>

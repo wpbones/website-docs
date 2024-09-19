@@ -1,11 +1,20 @@
+import { ActionButton } from "@components/ActionButton";
+import { AnimateBadge } from "@components/AnimateBadge";
 import { FileTreeLabel } from '@components/FileTreeLabel';
-import { IconBrandWordpress } from "@tabler/icons-react";
+import { Badge, Button, Group } from '@mantine/core';
+import { IconArticle, IconBrandGithub, IconBrandSlack, IconBrandWordpress, IconExternalLink, IconPlug } from "@tabler/icons-react";
 import { Callout, Card, Cards, FileTree, Steps } from 'nextra/components';
 
 # ReactJS Components
 
 If you want to use simple ReactJS components in your plugin, you can use the `resources/js/` folder.
 First of all, you need to install the dependencies as described in the [Assets section](../GettingStarted/assets).
+
+<Cards num={1}>
+
+<Card arrow icon={<IconBrandGithub />} title={<Group><AnimateBadge />Try the WP Bones ReactJS Boilerplate</Group>} target="_blank" href="https://github.com/new?template_name=WPKirk-Reactjs-Boilerplate&template_owner=wpbones"/>
+
+</Cards>
 
 <Steps>
 ### Create the Menu
@@ -49,7 +58,7 @@ class SimpleReactController extends Controller
   {
       return WPKirk()
         ->view('react' )
-        ->withAdminScripts('wp-react-component', ['wp-element']); 
+        ->withAdminScript('wp-react-component', ['wp-element']); 
   }
 
   public function store()

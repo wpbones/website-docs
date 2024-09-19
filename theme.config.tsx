@@ -48,6 +48,22 @@ const config: DocsThemeConfig = {
         <meta property="og:site_name" content="WP Bones" />
         <meta property="og:image" content={socialCard} />
         <meta name="apple-mobile-web-app-title" content="WP Bones" />
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+        <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap" rel="stylesheet" />
+        <style>
+          {`
+            body {
+              font-family: 'Poppins', sans-serif;
+            }
+            code, pre, kbdm samp {
+              font-family: 'Fira Code', Monaco, monospace !important;
+              font-size: 14px !important;
+            }
+          `}
+        </style>
       </>
     );
   },
@@ -66,12 +82,8 @@ const config: DocsThemeConfig = {
     component: <Footer />,
   },
   banner: {
-    key: "ownai-chatgpt",
-    text: (
-      <a href="https://wpbones.ownai.com/" target="_blank">
-        🎉 Try the WP Bones chatGPT →
-      </a>
-    ),
+    key: "v1-6-0-released",
+    text: <a href="./docs/release-notes">🎉 v1.6.0 Released →</a>,
   },
 };
 

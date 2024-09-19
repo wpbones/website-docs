@@ -1,0 +1,281 @@
+import { FileTreeLabel } from '@components/FileTreeLabel'
+import { Callout, FileTree } from 'nextra/components'
+
+# Plugin Class
+
+The most important class in WP Bones is the `Plugin` class. This class is the main class that is responsible for the plugin initialization. It is the class that is responsible for registering the plugin, loading the plugin, and initializing the plugin.
+
+## Accessing the Plugin Class
+
+You may access the Plugin class using the `WPKirk()` helper function. The `WPKirk()` helper function returns an instance of the `Plugin` class.
+
+```php
+$plugin = WPKirk();
+```
+<Callout type="info">
+The `WPKirk()` helper function is a global which returns an instance of the `Plugin` class. This function is used to access the plugin class from anywhere in the plugin. As you may already know, if your plugin is named `MyAwesomePlugin`, then the helper function will be `MyAwesomePlugin()`.
+</Callout>
+
+## Methods
+
+### `config()`
+
+#### Synopsis
+
+```php
+/**
+ * Get / set the specified configuration value.
+ *
+ * If an array is passed as the key, we will assume you want to set an array of values.
+ *
+ * @param array|string $key The key of the configuration in dot notation.
+ * @param mixed $default    Optional. Default value
+ *
+ * @return mixed
+ */
+public function config($key = null, $default = null)
+```
+
+#### Usage 
+
+You can use the `config()` method to get or set the configuration value. The configuration values are stored in the `config` directory of the plugin.
+
+<FileTree>
+    <FileTree.Folder name="myPlugin" defaultOpen>
+        <FileTree.Folder name="config" defaultOpen>
+        <FileTree.File name="menus.php" />
+        <FileTree.File name="plugin.php" />
+        <div>...</div>
+        </FileTree.Folder>
+    </FileTree.Folder>
+</FileTree>
+
+For example if you want to get a configuration value from the `plugin.php` file, you can use the following code:
+
+```php copy
+$log = WPKirk()->config('plugin.log');
+```
+In the dot notazione the first part is the file name and the second part is the key of the configuration.
+
+If you have a `custom.php` file in the `config` directory, like this:
+
+```php copy filename="custom.php"
+<?php
+
+return [
+  'sample' => 'Hello, Captain!',
+  'nested' => [
+    'key' => 'value'
+  ]
+];
+```
+You can get the `sample` value by using the following code:
+
+```php copy
+$sample = WPKirk()->config('custom.sample');
+```
+
+You can also get the nested value by using the following code:
+
+```php copy
+$nested = WPKirk()->config('custom.nested.key');
+```
+------------------------------------------------------------------------------------------------------
+
+### `env()`
+
+#### Synopsis
+
+```php
+/**
+ * Gets the value of an environment variable. Supports boolean, empty and null.
+ *
+ * @param string $key      The environment variable name.
+ * @param mixed  $default  Optional. Default null.
+ *
+ * @return mixed
+ */
+public function env($key, $default = null)
+```
+
+------------------------------------------------------------------------------------------------------
+
+### `log()`
+
+#### Usage
+
+You can use the `log()` method to write a message to the log file. 
+
+```php copy
+use YourNamespace\WPBones\Foundation\Log\Log;
+ 
+class MyClass {
+ 
+  public function myMethod()
+  {
+    Plugin()->log()->debug( 'info', [ 'context' => 'any' ] );
+  }
+}
+```
+See the [Logging](/docs/CoreConcepts/logging) documentation for more information.
+
+------------------------------------------------------------------------------------------------------
+
+### `provider()`
+
+#### Synopsis
+
+```php
+/**
+ * Return a provider by name
+ *
+ * @param string  $name The Class name of the provider.
+ *
+ * @return mixed|null
+ */
+public function provider($name)
+```
+
+------------------------------------------------------------------------------------------------------
+
+### `vendor()`
+
+#### Synopsis
+
+```php
+/**
+ * Returns the absolute URL for the vendor directory.
+ *
+ * @param string $vendor Optional. Default 'wpbones'.
+ *
+ * @return string
+ */
+public function vendor($vendor = 'wpbones'): string
+```
+
+------------------------------------------------------------------------------------------------------
+
+### `view()`
+
+#### Synopsis
+
+```php
+/**
+ * Return an instance of View/Contract.
+ *
+ * @param null  $key  Optional. Default null.
+ * @param array $data Optional. Default null.
+ *
+ * @return View
+ */
+public function view($key = null, $data = []): View
+```
+
+#### Usage
+
+You can use the `view()` method to return an instance of the `View` class. The `View` class is responsible for rendering the views.
+
+```php copy
+return WPKirk()->view( 'dashboard.index' )
+               ->with( [ 'kirk' => 'Captain' ] );
+```
+See the [View Class](/docs/CoreClasses/view) documentation for more information.
+
+## Properties
+
+### `apps`
+
+`string` Return the public apps URL. Eg. `http://example.com/wp-content/plugins/my-plugin/public/apps`
+                                                       
+### `basePath`
+
+`string` Return the file system path of the plugin. Eg. `/var/www/html/wp-content/plugins/my-plugin`
+
+### `baseURI`
+
+`string` Return the base URI of the plugin. Eg. `http://example.com/wp-content/plugins/my-plugin`
+
+### `css`
+
+`string` Return the public css URL. Eg. `http://example.com/wp-content/plugins/my-plugin/public/css`
+
+### `images`
+
+`string` Return the public images URL. Eg. `http://example.com/wp-content/plugins/my-plugin/public/images`
+
+### `js`
+
+`string` Return the public js URL. Eg. `http://example.com/wp-content/plugins/my-plugin/public/js`
+
+### `options`
+
+`WordPressOption` Return the plugin options. See the [Options](/docs/CoreConcepts/options) documentation for more information.
+
+### `pluginBasename`
+
+`string` Return the plugin basename. Eg. `my-plugin/my-plugin.php`
+
+### `request`
+
+`Request` Return the request object.
+
+## Dynamic Properties
+
+The `Plugin` class has dynamic properties that are generated by the `get_plugin_data()` function. These properties are generated from the main plugin file.
+
+### `Name`
+
+`string` Return `Plugin Name` defnied in the main plugin file.
+
+### `PluginURI`
+
+`string` Return `Plugin URI` defined in the main plugin file.
+
+### `Description`
+
+`string` Return `Description` defined in the main plugin file.
+
+### `Version`
+
+`string` Return `Version` defined in the main plugin file.
+
+### `Author`
+
+`string` Return `Author` defined in the main plugin file.
+
+### `AuthorURI`
+
+`string` Return `Author URI` defined in the main plugin file.
+
+
+### `TextDomain`
+
+`string` Return `Text Domain` defined in the main plugin file.
+
+### `DomainPath`
+
+`string` Return `Domain Path` defined in the main plugin file.
+
+### `Network`
+
+`bool` Return `Network` defined in the main plugin file.
+
+### `RequiresWP`
+
+`string` Return `Requires at least` defined in the main plugin file.
+
+### `RequiresPHP`
+
+`string` Return `Requires PHP` defined in the main plugin file.
+
+### `UpdateURI`
+
+`string` Return `Update URI` defined in the main plugin file.
+
+### `RequiresPlugins`
+
+`string` Return `Requires Plugins` defined in the main plugin file. Comma separated list of dot org plugin slugs.
+
+
+
+

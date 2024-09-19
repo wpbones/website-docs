@@ -1,5 +1,8 @@
+import { ActionButton } from "@components/ActionButton";
+import { AnimateBadge } from "@components/AnimateBadge";
 import { FileTreeLabel } from '@components/FileTreeLabel';
-import { IconBrandWordpress } from "@tabler/icons-react";
+import { Badge, Button, Group } from '@mantine/core';
+import { IconArticle, IconBrandGithub, IconBrandSlack, IconBrandWordpress, IconExternalLink, IconPlug } from "@tabler/icons-react";
 import { Callout, Card, Cards, FileTree, Steps } from 'nextra/components';
 
 # ReactJS Applications
@@ -11,6 +14,11 @@ First of all, you need to install the dependencies as described in the [Assets s
 <Callout type="info">
 Feel free to also install any other dependencies you need. You could install Mantine UI, React Router, etc.
 </Callout>
+
+<Cards num={2}>
+<Card arrow icon={<IconBrandGithub />} title={<Group><AnimateBadge />Mantine UI Boilerplate</Group>} target="_blank" href="https://github.com/new?template_name=WPKirk-Mantine-Boilerplate&template_owner=wpbones"/>
+<Card arrow icon={<IconBrandGithub />} title={<Group><AnimateBadge />ReactJS Boilerplate</Group>} target="_blank" href="https://github.com/new?template_name=WPKirk-Reactjs-Boilerplate&template_owner=wpbones"/>
+</Cards>
 
 <Steps>
 ### Create the Menu
@@ -54,7 +62,7 @@ class ReactAppController extends Controller
   {
       return WPKirk()
         ->view('react-app' )
-        ->withAdminAppsScripts('app'); 
+        ->withAdminAppsScript('app'); 
   }
 
   public function store()
@@ -79,14 +87,14 @@ class ReactAppController extends Controller
 Maybe you will need to replace the namespace and the  `WPKirk()` function.
 </Callout>
 
-#### withAdminAppsScripts()
+#### withAdminAppsScript()
 
-The `withAdminAppsScripts()` method is used to load the ReactJS application. The first parameter is the name of the application and the second parameter indicates whether the CSS modules should also be loaded. The default value is `true`.
+The `withAdminAppsScript()` method is used to load the ReactJS application. The first parameter is the name of the application and the second parameter indicates whether the CSS modules should also be loaded. The default value is `true`.
 
 ```php copy
 return WPKirk()
   ->view('react-app' )
-  ->withAdminAppsScripts('app', false); // without CSS modules
+  ->withAdminAppsScript('app', false); // without CSS modules
 ```
 
 You may also create a global variable that can be used in the ReactJS application.
@@ -94,7 +102,7 @@ You may also create a global variable that can be used in the ReactJS applicatio
 ```php copy
 return WPKirk()
   ->view('react-app' )
-  ->withAdminAppsScripts('app', true, 'ReactApp', [
+  ->withAdminAppsScript('app', true, 'ReactApp', [
     'tab' => 'settings',
   ]);
 ```

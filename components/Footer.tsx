@@ -1,6 +1,7 @@
 "use client";
 
-import { ActionIcon, Anchor, Badge, Container, Grid, Group, Image, Stack, Text, Title } from "@mantine/core";
+import { AnimateBadge } from "@components/AnimateBadge";
+import { ActionIcon, Anchor, Container, Grid, Group, Image, Stack, Text, Title } from "@mantine/core";
 import { IconBrandDiscordFilled, IconBrandGithubFilled, IconBrandX, IconMailHeart } from "@tabler/icons-react";
 import NextImage from "next/image";
 import classes from "./Footer.module.css";
@@ -26,6 +27,30 @@ const wpBonesHighlights = [
     key: "getting-started",
     title: "Getting Started",
     href: "/docs/GettingStarted/requirements",
+  },
+  {
+    key: "internationalization",
+    title: "Internationalization",
+    href: "/docs/Internationalization/overview",
+    new: true,
+  },
+  {
+    key: "core-classes",
+    title: "Core Classes",
+    href: "/docs/CoreClasses/overview",
+    new: true,
+  },
+  {
+    key: "core-plugin-files",
+    title: "Core Plugin Files",
+    href: "/docs/CorePluginFiles/overview",
+    new: true,
+  },
+  {
+    key: "faqs",
+    title: "FAQs",
+    href: "/docs/faqs",
+    new: true,
   },
   {
     key: "routing",
@@ -59,6 +84,7 @@ const wpBonesResources = [
     key: "demo",
     title: "WP Bones Demo in action",
     href: "https://playground.wordpress.net/?blueprint-url=https://wpbones.vercel.app/blueprint.json",
+    new: true,
   },
   {
     key: "forum",
@@ -74,7 +100,6 @@ const wpBonesResources = [
     key: "wpbones-ai",
     title: "WP Bones AI",
     href: "https://wpbones.ownai.com/",
-    new: true,
   },
   {
     key: "wordpress-developer-resources",
@@ -97,7 +122,7 @@ const wpBonesEcoSystem = [
   },
   {
     key: "wp-kirk-demo",
-    title: "WP Kirk Demo",
+    title: "WP Bones Demo",
     href: "https://github.com/wpbones/WPKirk",
     newWindow: true,
   },
@@ -112,49 +137,47 @@ const wpBonesEcoSystem = [
     title: "WP Bones Website Docs",
     href: "https://github.com/wpbones/website-docs",
     newWindow: true,
-    new: true,
   },
   {
     key: "action-and-filters",
-    title: "Javascript Actions & Filters",
-    href: "https://packagist.org/packages/wpbones/actions-and-filters-js",
-    newWindow: true,
+    title: "Actions & Filters for Javascript",
+    href: "/docs/Packages/actions-and-filters-js",
+  },
+  {
+    key: "flags",
+    title: "Flags",
+    href: "/docs/Packages/flags",
+    new: true,
   },
   {
     key: "geolocalizer",
     title: "Geolocalizer",
-    href: "https://packagist.org/packages/wpbones/geolocalizer",
-    newWindow: true,
+    href: "/docs/Packages/geolocalizer",
   },
   {
     key: "Morris php",
     title: "Morris PHP",
-    href: "https://packagist.org/packages/wpbones/morris-php",
-    newWindow: true,
+    href: "/docs/Packages/morris-php",
   },
   {
     key: "Pure CSS Tabs",
     title: "Pure CSS Tabs",
-    href: "https://packagist.org/packages/wpbones/pure-css-tabs",
-    newWindow: true,
+    href: "/docs/Packages/pure-css-tabs",
   },
   {
     key: "Pure CSS Switch",
     title: "Pure CSS Switch",
-    href: "https://packagist.org/packages/wpbones/pure-css-switch",
-    newWindow: true,
+    href: "/docs/Packages/pure-css-switch",
   },
   {
     key: "User Agent",
     title: "User Agent",
-    href: "https://packagist.org/packages/wpbones/useragent",
-    newWindow: true,
+    href: "/docs/Packages/useragent",
   },
   {
     key: "WP Tables",
     title: "WP Tables",
-    href: "https://packagist.org/packages/wpbones/wptables",
-    newWindow: true,
+    href: "/docs/Packages/wp-tables",
   },
 ];
 
@@ -166,11 +189,7 @@ const VerticalLinks = ({ list }: { list: VerticalLink[] }) => {
           <Anchor className={classes.columnAnchor} href={item.href} target={item.newWindow ? "_blank" : ""}>
             {item.title}
           </Anchor>
-          {item.new && (
-            <Badge className={classes.badgeNew} size="xs" fz={10} color="red">
-              New
-            </Badge>
-          )}
+          {item.new && <AnimateBadge />}
         </Group>
       ))}
     </>

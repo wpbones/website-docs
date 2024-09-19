@@ -1,3 +1,5 @@
+import { Callout, FileTree, Steps } from 'nextra/components'
+
 # Requirements
 
 WP Bones has a few system requirements. However, if you are a newbie in [Composer](https://getcomposer.org/), [npm](https://nodejs.org/en/), [Laravel](https://laravel.com/) or [Gulp](http://gulpjs.com/), please, visit the related website before continuing.
@@ -6,5 +8,12 @@ WP Bones has a few system requirements. However, if you are a newbie in [Compose
 - git
 - [Composer](https://getcomposer.org/)
 - [npm](https://nodejs.org/en/) or [yarn](https://yarnpkg.com/en/)
+- [WP-CLI](https://wp-cli.org/#installing)
+
+<Callout type="info">
+The WP-CLI is not mandatory but it is very useful. Anyway, if you want to run the scripts `make-pot` and `make-json` used to translate the plugin, you need to install it.
+</Callout>
+
+## WordPress environment
 
 The `php bones` command should be run from your WordPress environment (in the [Vagrant](https://github.com/gfazioli/VagrantUbuntu) or [Valet](https://laravel.com/docs/10.x/valet) environment) because it will load WordPress. Also, make sure to install `git` and `composer` in your WordPress environment. In your host machine (Mac or PC), you can install `npm`. It is used only by `gulp`.

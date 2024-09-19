@@ -217,7 +217,7 @@ protected $nonceHash = "anything-you-want";
 The `$nonceKey` property is the name of the post variable that will be sent to the server. The `$nonceHash` property is the string used to generate the nonce.
 </Callout>
 
-Next, you have to generate the nonce in your Controller and make it available to the JavaScript side. You can use the `withLocalizeScripts` method to pass the nonce to the JavaScript side.
+Next, you have to generate the nonce in your Controller and make it available to the JavaScript side. You can use the `withLocalizeScript` method to pass the nonce to the JavaScript side.
 
 If you are using a ReactJS application, you may use something like this:
 
@@ -228,10 +228,10 @@ class DashboardController extends Controller
   {
     return WPKirk()
       ->view("dashboard.index")
-      ->withLocalizeScripts("app", "WPKirkNonce", [
+      ->withLocalizeScript("app", "WPKirkNonce", [
         "nonce" => wp_create_nonce("anything-you-want"),
       ])
-      ->withAdminAppsScripts("app", true);
+      ->withAdminAppsScript("app", true);
   }
 }
 ```

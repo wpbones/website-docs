@@ -1,0 +1,78 @@
+import { FileTreeLabel } from '@components/FileTreeLabel'
+import { Callout, FileTree, Steps } from 'nextra/components'
+
+# PHP localization
+
+The PHP localization process is the process of adapting internationalized software for a specific region or language by adding locale-specific components and translating text.
+
+## How to Localize PHP Code
+
+To localize PHP code, you need to use the [`gettext` functions](https://developer.wordpress.org/apis/internationalization/internationalization-functions/). The [`gettext` functions](https://developer.wordpress.org/apis/internationalization/internationalization-functions/) are part of the PHP core and are used to translate text strings in PHP code.
+
+Here is an example of how to localize a PHP string:
+
+```php
+<?php
+// Translate the string
+_e( 'Hello, World!', 'your-text-domain' );
+?>
+```
+
+In the example above, the `_e()` function is used to translate the string 'Hello, World!' into the current locale. The second parameter is the text domain, which is used to identify the translation file. The text domain is usually the name of the plugin. The text domain is defined in the main plugin file using the `Text Domain` header.
+
+Here is an example of how to define the text domain in the main plugin file:
+
+```php copy filename="your-plugin.php" {14}
+<?php
+
+/**
+ * Plugin Name: WP Kirk
+ * Plugin URI: https://github.com/wpbones/WPKirk
+ * Description: WP Bones template WordPress plugin
+ * Version: 1.6.0
+ * Requires at least: 6.2
+ * Requires PHP: 7.4
+ * Author: Giovambattista Fazioli
+ * Author URI: https://wpbones.vercel.app/
+ * License: GPLv2 or later
+ * License URI: http://www.gnu.org/licenses/gpl-2.0.html
+ * Text Domain: wp-kirk
+ * Domain Path: languages
+ *
+ */
+```
+
+## How to Generate the `.pot` File
+
+To generate the `.pot` file, you need to use the script `npm run make-pot`. The script will generate the `.pot` file in the `languages` folder.
+
+Here is an example of how to generate the `.pot` file:
+
+```bash copy
+npm run make-pot
+```
+
+## How to Translate the `.pot` File
+
+To translate the `.pot` file, you need to use a translation editor like [Poedit](https://poedit.net/). Poedit is a free translation editor that allows you to translate the `.pot` file into different languages. 
+
+Here is an example of how to translate the `.pot` file using Poedit: 
+
+1. Open Poedit
+2. Click on `File` > `New Catalog from POT/PO file`
+3. Select the `.pot` file
+4. Click on `Create`
+5. Translate the strings
+6. Save the file
+
+In your `languages` folder, you will find the `.po` and `.mo` files with the translations.
+
+<FileTree>
+  <FileTree.Folder name="wp-kirk" defaultOpen>
+    <FileTree.Folder label="languages" defaultOpen>
+        <FileTree.File name="wp-kirk.pot" />
+        <FileTree.File name="wp-kirk-it_IT.po" />
+        <FileTree.File name="wp-kirk-it_IT.mo" />
+    </FileTree.Folder>
+  </FileTree.Folder>
+</FileTree>

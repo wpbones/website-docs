@@ -1,0 +1,99 @@
+import { FileTreeLabel } from '@components/FileTreeLabel'
+import { Callout, FileTree, Steps } from 'nextra/components'
+
+# ReactJS Applications Localization
+
+Before you start, make sure you have installed [WP-CLI](https://make.wordpress.org/cli/handbook/guides/installing/).
+That's because you will need to use the new npm scripts for the localization.
+
+<Callout type="error" emoji="🛑">
+If you want to localize your ReactJS application, you won't be able to use the `lazy` import. That's because the wp-script will generate several files, for example `437.js`, which won't be able to be localized.
+</Callout>
+
+## Typical Workflow
+
+Below a typical workflow to localize your ReactJS application:
+
+<Steps>
+### Use the `@wordpress/i18n`
+
+First of all, you need to use the [`@wordpress/i18n`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-i18n/) package to localize your ReactJS application.
+
+```jsx copy
+import { __ } from '@wordpress/i18n'
+```
+
+In your ReactJS application, you can use the `__` function to localize your strings.
+
+```jsx copy
+import { __ } from '@wordpress/i18n'
+
+const MyComponent = () => {
+  return (
+    <div>
+      {__('Hello World', 'my-text-domain')}
+    </div>
+  )
+}
+```
+
+### Build your ReactJS application
+
+After you have localized your ReactJS application, you can build it using the following command:
+
+```bash copy
+npm run build
+```
+In the `public/apps` folder, you will find the build files.
+
+### Generate the .pot file
+
+To generate the `.pot` file, you can use the following command:
+
+```bash copy
+npm run make-pot
+```
+
+### Edit the `.pot` file
+
+After you have generated the `.pot` file, you can edit it to add the translations.
+
+Here are a few tools that can be used to translate PO files online:
+
+- [Transifex](https://www.transifex.com/)
+- [WebTranslateIt](https://webtranslateit.com/en)
+- [Poeditor](https://poeditor.com/)
+- [Google Translator Toolkit](http://translate.google.com/toolkit/)
+- [GlotPress](http://blog.glotpress.org/)
+
+And follow the [steps](/docs/Internationalization/php-localization#how-to-translate-the-pot-file) to translate the strings.
+
+### Generate the `.json` file
+
+To generate the `.json` file, you can use the following command:
+
+```bash copy
+npm run make-json
+```
+
+### Load the translations
+
+To load the translations, you can use
+
+```php copy
+<?php
+
+namespace WPKirk\Http\Controllers;
+
+class WPKirkController extends Controller
+{
+    public function index()
+    {
+        return WPKirk()
+            ->view('analytics.index')
+            ->withAdminAppsScript('analytics/analytics', true);
+    }
+}
+```
+
+</Steps>

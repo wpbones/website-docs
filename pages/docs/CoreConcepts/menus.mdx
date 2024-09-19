@@ -96,6 +96,19 @@ and
 The array key will be sanitized in lowercase, and any of the character `-` will be replaced by `_`.
 </Callout>
 
+## Get a menu item URL
+
+You can get a menu item URL by using the `getMenuUrl()` method from your plugin instance. This method accepts the menu slug or the menu index. For example:
+
+```php copy
+$plugin->getMenuUrl('example'); // will return /wp-admin/admin.php?page=wp_kirk_example
+```
+
+or
+
+```php copy
+$plugin->getMenuUrl(1); // will return /wp-admin/admin.php?page=wp_kirk_1
+```
 
 ## Default values
 

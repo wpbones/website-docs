@@ -1,5 +1,6 @@
 "use client";
 
+import { ActionButton } from "@components/ActionButton";
 import { Button, Container, Flex, Group, Image, SimpleGrid, Stack, Text } from "@mantine/core";
 import {
   IconApi,
@@ -9,7 +10,6 @@ import {
   IconBrandWordpress,
   IconCode,
   IconDatabase,
-  IconExternalLink,
   IconEyeStar,
   IconMenuDeep,
   IconPaperclip,
@@ -113,17 +113,7 @@ export default function HomeContent() {
 
         <Group justify="center">
           <Flex data-aos-duration="500" data-aos-delay="100" data-aos="zoom-in" data-aos-once="true">
-            <Button
-              color="orange"
-              component="a"
-              href="https://playground.wordpress.net/?blueprint-url=https://wpbones.vercel.app/blueprint.json"
-              variant="gradient"
-              size="xl"
-              gradient={{ from: "orange", to: "violet", deg: 45 }}
-              className={classes.buttonAction}
-              radius={"xl"}>
-              See WP Bones Plugin demo in action <IconExternalLink style={{ marginLeft: 10 }} />
-            </Button>
+            <ActionButton />
           </Flex>
         </Group>
 
