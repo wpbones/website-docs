@@ -1,6 +1,6 @@
 {
-    "overview": "Overview",
-    "php-localization": "PHP Localization",
+    "internationalization": "Overview",
+    "php": "PHP Localization",
     "javascript": "JavaScript Localization",
     "reactjs-apps": "React Apps Localization"
 }
