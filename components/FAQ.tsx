@@ -100,7 +100,7 @@ const faqs: FAQsProps[] = [
     answer: (
       <>
         You can update your WP Bones plugin by running the following command in your plugin directory:
-        <Code>composer update</Code> and check the{" "}
+        <Code>php bones update</Code> and check the{" "}
         <Anchor href="/docs/CorePluginFiles/overview">Core Plugin Files</Anchor>.
       </>
     ),
