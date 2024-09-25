@@ -25,6 +25,10 @@ You can install Eloquent ORM in your plugin by using
 ```sh copy
 composer install illuminate/database
 ```
+Also you need to include [laravel/serializable-closure](https://github.com/laravel/serializable-closure) in order to serialize objects for debug and to avoid errors on save instances of your model.
+```sh copy
+composer require laravel/serializable-closure
+```
 
 <Callout type="info">
 We decided to remove the illuminate/database Eloquent ORM package from the WP Bones core because it could cause some issues in the WordPress environment.
