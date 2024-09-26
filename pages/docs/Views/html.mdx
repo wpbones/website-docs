@@ -1,5 +1,7 @@
-import { FileTreeLabel } from '@components/FileTreeLabel'
-import { Callout, FileTree } from 'nextra/components'
+import { ActionButton } from "@components/ActionButton";
+import { FileTreeLabel } from '@components/FileTreeLabel';
+import { Group } from '@mantine/core';
+import { Callout, FileTree } from 'nextra/components';
 
 # HTML
 
@@ -25,7 +27,8 @@ Also, the `Html` class works like a facade and provides a fluent behavior. For e
 
 ```html copy
 <div class="wrap">
-  <?php WPKirk\Html::button( "Hello, world!" )->html() ?>
+  <?php WPKirk\Html::button( "Hello, world!" )
+        ->html() ?>
 </div>
 ```
 
@@ -48,15 +51,18 @@ Every HTML tag provides its HTML interface to set the attributes. For example, l
 
 ```html copy
 <div>
-  <?php echo WPKirk\Html::button( "Hello, world!" )->class( 'button') ?>
+  <?php echo WPKirk\Html::button( "Hello, world!" )
+        ->class( 'button') ?>
 </div>
 
 <div>
-  <?php echo WPKirk\Html::button( "Hello, world!" )->class( 'button button-primary') ?>
+  <?php echo WPKirk\Html::button( "Hello, world!" )
+        ->class( 'button button-primary') ?>
 </div>
 
 <div>
-  <?php echo WPKirk\Html::button( "Hello, world!" )->class( [ 'button', 'button-primary' ]) ?>
+  <?php echo WPKirk\Html::button( "Hello, world!" )
+        ->class( [ 'button', 'button-primary' ]) ?>
 </div>
 
 <div>
@@ -81,7 +87,8 @@ If you prefer an array, then you can use the original attribute name:
 Of course, you may wish to add your own custom attribute. You can do this by using the `attributes` method. For example:
 
 ```php copy
-<?php echo WPKirk\Html::button('Click me!')->attributes('hello', 'world') ?>
+<?php echo WPKirk\Html::button('Click me!')
+      ->attributes('hello', 'world') ?>
 ```
 
 You'll see it looks like
@@ -104,3 +111,11 @@ You'll see it looks like
 - `Html::option`
 - `Html::select`
 - `Html::textarea`
+
+## See HTML in action
+
+Click below to see the `Html` class in action in the WP Bones Demo plugin.
+
+<Group justify='center' mt={32}>
+    <ActionButton />
+</Group>

@@ -30,6 +30,7 @@ import consoleImage from "./console.png";
 import controllerImage from "./controller.png";
 import cptImage from "./cpt.png";
 import dbImage from "./db.png";
+import footer from "./footer.png";
 import logsImage from "./logs.png";
 import menuImage from "./menu.png";
 import migrationImage from "./migration.png";
@@ -90,7 +91,7 @@ export default function HomeContent() {
 
   return (
     <Container size="xl">
-      <Stack m="xl">
+      <Stack mx="xl">
         <Text
           my="xl"
           className={classes.fadeIn}
@@ -108,7 +109,7 @@ export default function HomeContent() {
         </Group>
 
         <div className={cx(classes.imageHero, classes.fadeIn, classes["delay-300ms"])}>
-          <Image component={NextImage} mx="auto" maw="1272px" fit="fill" src={phpBones} alt="PHP Bones" />
+          <Image component={NextImage} mx="auto" maw="1024px" fit="fill" src={phpBones} alt="PHP Bones" />
         </div>
 
         <Group justify="center">
@@ -151,7 +152,8 @@ export default function HomeContent() {
         </Group>
 
         <SimpleGrid
-          my={64}
+          mt={64}
+          mb={24}
           cols={{ base: 1, sm: 2, lg: 3 }}
           style={{
             position: "relative",
@@ -312,6 +314,18 @@ export default function HomeContent() {
           </Flex>
         </SimpleGrid>
       </Stack>
+      <Flex
+        component="a"
+        href="/docs"
+        justify={"center"}
+        style={{
+          overflow: "hidden",
+          height: "300px",
+        }}>
+        <Flex data-aos-duration="1500" data-aos-anchor-placement="top" data-aos-delay="100" data-aos="fade-up">
+          <Image component={NextImage} mx="auto" maw="1272px" fit="fill" src={footer} alt="PHP Bones" />
+        </Flex>
+      </Flex>
     </Container>
   );
 }

@@ -12,6 +12,7 @@ WP Bones includes a variety of "helper" PHP functions, many of which are used by
 * [wpbones_array_insert](#wpbones_array_insert)
 * [wpbones_checked](#wpbones_checked)
 * [wpbones_env](#wpbones_env)
+* [wpbones_flatten_and_uniquify](#wpbones_flatten_and_uniquify)
 * [wpbones_is_true](#wpbones_is_true)
 * [wpbones_logger](#wpbones_logger)
 * [wpbones_provider](#wpbones_provider)
@@ -139,6 +140,46 @@ $env = wpbones_env('APP_ENV');
 // Return a default value if the variable does not exist...
 $env = wpbones_env('APP_ENV', 'production');
 ```
+---------------------------------------------------------------------------------------------
+
+### `wpbones_flatten_and_uniquify()`
+
+#### Synopsis
+
+```php copy
+  /**
+   * Flattens a multi-dimensional array or comma-separated string and removes duplicates.
+   *
+   * This function takes an input which can be either a multi-dimensional array
+   * or a comma-separated string, flattens it into a single-dimensional array,
+   * and removes any duplicate values.
+   *
+   * @param array|string $input The input to be flattened and uniquified.
+   *                            Can be a multi-dimensional array or a comma-separated string.
+   * @return array A flat array with unique values.
+   */
+  function wpbones_flatten_and_uniquify($input): array
+```
+
+#### Usage
+
+The `wpbones_flatten_and_uniquify()` function takes an input that can be either a multi-dimensional array or a comma-separated string, flattens it into a single-dimensional array, and removes any duplicate values.
+
+```php copy
+$flattened = wpbones_flatten_and_uniquify('item1');
+// Output: ['item1']
+
+$flattened = wpbones_flatten_and_uniquify('item1, item2, item3');
+// Output: ['item1', 'item2', 'item3']
+
+$flattened = wpbones_flatten_and_uniquify(['item1', 'item2', 'item3']);
+// Output: ['item1', 'item2', 'item3']
+
+$flattened = wpbones_flatten_and_uniquify(['item1', 'item2', ['item3', 'item4']]);
+// Output: ['item1', 'item2', 'item3', 'item4']
+```
+
+
 ---------------------------------------------------------------------------------------------
 
 ### `wpbones_is_true()`

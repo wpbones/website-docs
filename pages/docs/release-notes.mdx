@@ -4,6 +4,31 @@ import { Badge, Flex, Group } from "@mantine/core";
 
 Here you will find the Release Notes of the **most important versions** of [WP Bones](https://github.com/wpbones/WPBones/releases). The versions that change in the **minor** and **major**. Therefore, the patches that can be found [here](https://github.com/wpbones/WPBones/releases) directly in the GitHub repository are excluded.
 
+## 1.6.1 - September 27, 2024
+
+### ✨ Added
+
+- Added a new WP Bones helper function [`wpbones_flatten_and_uniquify()`](https://wpbones.vercel.app/docs/helpers#wpbones_checked) to flatten and uniquify the array.
+- Added a new `php bones plugin` command to display the plugin header and perform plugin related operations.
+- Added a new `php bones plugin --check-header` command to check the plugin header.
+
+### 💎 Changed and Improved
+
+- Revamped the `php bones` command intro message.
+- Removed verbose file listing during the `php bones update` command.
+- Improved documentation for enhanced clarity and usability
+
+### 🐛 Fixed
+
+- Fixed the `select()` fluent method in the `HTML::select()` component to work with the `multiple` attribute. Now you can pass a comma separated string to the `selected` attribute as well as an array.
+- Fixed the [Eloquent documentation](https://wpbones.vercel.app/docs/DatabaseORM/eloquent-orm#install-eloquent-orm-out-of-the-box).
+- Fixed an issue with the `php bones update` command where it was incorrectly searching for the hardcoded `localization` folder instead of using the `Domain Path` value from the plugin header.
+- Fixed an issue in the [`View Class`](https://wpbones.vercel.app/docs/CoreClasses/view) class that prevent that correct enqueueing of the inline scripts and inline styles.
+
+## 💥 Breaking Changes
+
+- Deprecated `withScripts()` and `withStyles()` fluent methods in the [`View Class`](https://wpbones.vercel.app/docs/CoreClasses/view) - use `withScript()` and `withStyle()` instead.
+
 ## v1.6.0
 
 <Flex mt={-34} justify="right"><Badge>September 24, 2024</Badge></Flex>

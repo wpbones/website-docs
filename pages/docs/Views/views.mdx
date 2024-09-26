@@ -109,14 +109,14 @@ Both files will be registered and enqueued when the view is displayed.
 
 ## Enqueue Style and Scripts in Theme
 
-Also, you can enqueue scripts and styles just in the theme, for example when you will display a view for a widget. In this case, you can use [`withStyles()`](/docs/CoreClasses/view#withstyles) and [`withScripts()`](/docs/CoreClasses/view#withscripts) fluent methods. All these methods accept three parameters: name, dependencies, and version:
+Also, you can enqueue scripts and styles just in the theme, for example when you will display a view for a widget. In this case, you can use [`withStyle()`](/docs/CoreClasses/view#withstyles) and [`withScript()`](/docs/CoreClasses/view#withscript) fluent methods. All these methods accept three parameters: name, dependencies, and version:
 
 For Example:
 
 ```php copy
 return WPKirk()->view( 'dashboard.index' )
                ->with( [ 'kirk' => 'Captain' ] )
-               ->withStyles( 'wp-kirk-common', [ 'wp-kirk-colors' ], '1.0' );
+               ->withStyle( 'wp-kirk-common', [ 'wp-kirk-colors' ], '1.0' );
 ```
 
 The file `public/css/wp-kirk-common.css` will be registered and enqueued when the view is displayed.
@@ -124,7 +124,7 @@ The file `public/css/wp-kirk-common.css` will be registered and enqueued when th
 ```php copy
 return WPKirk()->view( 'dashboard.index' )
                ->with( [ 'kirk' => 'Captain' ] )
-               ->withScripts( 'wp-kirk-common', [ 'wp-kirk-colors' ], '1.0' );
+               ->withScript( 'wp-kirk-common', [ 'wp-kirk-colors' ], '1.0' );
 ```
 
 The file `public/js/wp-kirk-common.js` will be registered and enqueued when the view is displayed.
@@ -134,8 +134,8 @@ Of course, you can setup both styles and scripts:
 ```php copy
 return WPKirk()->view( 'dashboard.index' )
                ->with( [ 'kirk' => 'Captain' ] )
-               ->withStyles( 'wp-kirk-common', [ 'wp-kirk-colors' ], '1.0' )
-               ->withScripts( 'wp-kirk-common', [ 'wp-kirk-colors' ], '1.0' );
+               ->withStyle( 'wp-kirk-common', [ 'wp-kirk-colors' ], '1.0' )
+               ->withScript( 'wp-kirk-common', [ 'wp-kirk-colors' ], '1.0' );
 ```
 Both files will be registered and enqueued when the view is displayed.
 

@@ -82,8 +82,8 @@ const config: DocsThemeConfig = {
     component: <Footer />,
   },
   banner: {
-    key: "v1-6-0-released",
-    text: <a href="/docs/release-notes">🎉 v1.6.0 Released →</a>,
+    key: "v1-6-1-released",
+    text: <a href="/docs/release-notes">🎉 v1.6.1 Released →</a>,
   },
 };
 
