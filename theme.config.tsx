@@ -19,8 +19,7 @@ const config: DocsThemeConfig = {
     const { title } = useConfig();
     const { route } = useRouter();
 
-    const socialCard =
-      route === "/" || !title ? "https://wpbones.vercel.app/image.jpeg" : `https://wpbones.vercel.app/image.jpeg`;
+    const socialCard = route === "/" || !title ? "https://wpbones.com/image.jpeg" : `https://wpbones.com/image.jpeg`;
     return (
       <>
         <title>WP Bones</title>
@@ -44,7 +43,7 @@ const config: DocsThemeConfig = {
 
         <meta property="og:title" content={title ? title + " - WP Bones" : "WP Bones"} />
 
-        <meta property="og:url" content="https://wpbones.vercel.app/" />
+        <meta property="og:url" content="https://wpbones.com/" />
         <meta property="og:site_name" content="WP Bones" />
         <meta property="og:image" content={socialCard} />
         <meta name="apple-mobile-web-app-title" content="WP Bones" />

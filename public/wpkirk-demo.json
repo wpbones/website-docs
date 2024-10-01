@@ -20,7 +20,7 @@
             "step": "installPlugin",
             "pluginZipFile": {
                 "resource": "url",
-                "url": "https://wpbones.vercel.app/wpkirk-demo.zip"
+                "url": "https://wpbones.com/wpkirk-demo.zip"
             },
             "options": {
                 "activate": true

@@ -4,7 +4,7 @@
 
 ## Overview
 
-This is the main Website Documentation for the WP Bones Framework. You can see this Website Documentation live [here](https://wpbones.vercel.app/).
+This is the main Website Documentation for the WP Bones Framework. You can see this Website Documentation live [here](https://wpbones.com/).
 
 ## Contributing
 

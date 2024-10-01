@@ -16,7 +16,7 @@
   "bugs": {
     "url": "https://github.com/wpbones/website-docs/issues"
   },
-  "homepage": "https://wpbones.vercel.app/",
+  "homepage": "https://wpbones.com/",
   "dependencies": {
     "@mantine/core": "^7.13.1",
     "@mantine/hooks": "^7.13.1",
