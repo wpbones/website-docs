@@ -1,0 +1,10 @@
+body {
+    @mixin light {
+        background-color: #fff;
+
+      }
+  
+      @mixin dark {
+        background-color: #111;
+      }
+}

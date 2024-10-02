@@ -1,4 +1,5 @@
 import "@mantine/core/styles.css";
+import "./styles.css";
 
 import { ColorSchemeScript, createTheme, DEFAULT_THEME, MantineProvider } from "@mantine/core";
 import { GoogleTagManager } from "@next/third-parties/google";
@@ -16,6 +17,7 @@ export default function WPBonesDocsApp({ Component, pageProps }) {
       // Use default theme if you want to provide default Mantine fonts as a fallback
       fontFamily: `Poppins, ${DEFAULT_THEME.fontFamily}`,
     },
+    black: "#000",
   });
 
   useEffect(() => {

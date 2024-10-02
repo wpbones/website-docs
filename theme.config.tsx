@@ -3,6 +3,10 @@ import { useRouter } from "next/router";
 import { DocsThemeConfig, useConfig } from "nextra-theme-docs";
 
 const config: DocsThemeConfig = {
+  backgroundColor: {
+    dark: "17,17,17",
+    light: "255,255,255",
+  },
   logo: (
     <span>
       <img
