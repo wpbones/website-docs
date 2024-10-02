@@ -1,23 +1,17 @@
 import "@mantine/core/styles.css";
 
-import {
-  ColorSchemeScript,
-  createTheme,
-  DEFAULT_THEME,
-  MantineProvider
-} from "@mantine/core";
-import { GoogleTagManager } from '@next/third-parties/google';
+import { ColorSchemeScript, createTheme, DEFAULT_THEME, MantineProvider } from "@mantine/core";
+import { GoogleTagManager } from "@next/third-parties/google";
 import { Analytics } from "@vercel/analytics/react";
 import { useEffect, useState } from "react";
 
 export default function WPBonesDocsApp({ Component, pageProps }) {
-
   // DON'T REMOVE THIS CODE - IT'S REQUIRED FOR COLOR SCHEME SUPPORT
   const [colorScheme, setColorScheme] = useState();
 
   const theme = createTheme({
-    fontFamily: 'Poppins, sans-serif',
-    fontFamilyMonospace: 'Fira Code, Monaco, Courier, monospace',
+    fontFamily: "Poppins, sans-serif",
+    fontFamilyMonospace: "Fira Code, Monaco, Courier, monospace",
     headings: {
       // Use default theme if you want to provide default Mantine fonts as a fallback
       fontFamily: `Poppins, ${DEFAULT_THEME.fontFamily}`,
@@ -25,7 +19,7 @@ export default function WPBonesDocsApp({ Component, pageProps }) {
   });
 
   useEffect(() => {
-    const observeStyleChanges = (target) => {
+    const observeStyleChanges = target => {
       const observer = new MutationObserver(mutationsList => {
         mutationsList.forEach(mutation => {
           if (mutation.type === "attributes" && mutation.attributeName === "style") {
@@ -34,7 +28,7 @@ export default function WPBonesDocsApp({ Component, pageProps }) {
             if (colorSchemeMatch) {
               const colorScheme = colorSchemeMatch[1]; // "light" or "dark"
 
-              htmlElement.setAttribute('data-mantine-color-scheme', colorScheme);
+              htmlElement.setAttribute("data-mantine-color-scheme", colorScheme);
             }
           }
         });
@@ -57,7 +51,7 @@ export default function WPBonesDocsApp({ Component, pageProps }) {
         if (colorSchemeMatch) {
           const colorScheme = colorSchemeMatch[1]; // "light" or "dark"
 
-          htmlElement.setAttribute('data-mantine-color-scheme', colorScheme);
+          htmlElement.setAttribute("data-mantine-color-scheme", colorScheme);
         }
       }
 
@@ -67,13 +61,9 @@ export default function WPBonesDocsApp({ Component, pageProps }) {
     }
   }, []);
 
-
   return (
     <>
-      <ColorSchemeScript
-        nonce="8IBTHwOdqNKAWeKl7plt8g=="
-        defaultColorScheme={"auto"}
-      />
+      <ColorSchemeScript nonce="8IBTHwOdqNKAWeKl7plt8g==" defaultColorScheme={"auto"} />
       <MantineProvider theme={theme}>
         <Component {...pageProps} />
         <GoogleTagManager gtmId="GTM-WGWNN65V" />
