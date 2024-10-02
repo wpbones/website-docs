@@ -3,7 +3,7 @@ import { AnimateBadge } from "@components/AnimateBadge";
 import { FileTreeLabel } from '@components/FileTreeLabel';
 import { Badge, Button, Group } from '@mantine/core';
 import { IconArticle, IconBrandGithub, IconBrandSlack, IconBrandWordpress, IconExternalLink, IconPlug } from "@tabler/icons-react";
-import { Callout, Card, Cards, FileTree, Steps } from 'nextra/components';
+import { Callout, Cards, FileTree, Steps } from 'nextra/components';
 
 # ReactJS Applications
 
@@ -16,8 +16,8 @@ Feel free to also install any other dependencies you need. You could install Man
 </Callout>
 
 <Cards num={2}>
-<Card arrow icon={<IconBrandGithub />} title={<Group><AnimateBadge />Mantine UI Boilerplate</Group>} target="_blank" href="https://github.com/new?template_name=WPKirk-Mantine-Boilerplate&template_owner=wpbones"/>
-<Card arrow icon={<IconBrandGithub />} title={<Group><AnimateBadge />ReactJS Boilerplate</Group>} target="_blank" href="https://github.com/new?template_name=WPKirk-Reactjs-Boilerplate&template_owner=wpbones"/>
+<Cards.Card arrow icon={<IconBrandGithub />} title={<Group><AnimateBadge />Mantine UI Boilerplate</Group>} target="_blank" href="https://github.com/new?template_name=WPKirk-Mantine-Boilerplate&template_owner=wpbones"/>
+<Cards.Card arrow icon={<IconBrandGithub />} title={<Group><AnimateBadge />ReactJS Boilerplate</Group>} target="_blank" href="https://github.com/new?template_name=WPKirk-Reactjs-Boilerplate&template_owner=wpbones"/>
 </Cards>
 
 <Steps>
@@ -195,6 +195,6 @@ npm run build:apps
 ## See it in action 
 
 <Cards num="1">
-  <Card icon={<IconBrandWordpress />} title="See it in action in your browser" target="_blank" href="https://playground.wordpress.net/?blueprint-url=https://wpbones.com/wpkirk-demo.json" />
+  <Cards.Card icon={<IconBrandWordpress />} title="See it in action in your browser" target="_blank" href="https://playground.wordpress.net/?blueprint-url=https://wpbones.com/wpkirk-demo.json" />
 </Cards>  
 

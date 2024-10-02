@@ -1,7 +1,7 @@
 import { AnimateBadge } from "@components/AnimateBadge";
 import { Badge, Button, Group } from '@mantine/core';
 import { IconArticle, IconBrandGithub, IconBrandSlack, IconBrandWordpress, IconExternalLink, IconPlug } from "@tabler/icons-react";
-import { Callout, Card, Cards, FileTree } from 'nextra/components';
+import { Callout, Cards, FileTree } from 'nextra/components';
 
 # REST API
 
@@ -9,9 +9,9 @@ WP Bones provides a simple way to create your own REST API. You may use the Word
 
 <Cards num={2}>
 
-<Card arrow icon={<IconBrandGithub color="white" />} title={<Group><AnimateBadge />WP Bones API Boilerplate</Group>} target="_blank" href="https://github.com/new?template_name=WPKirk-API-Boilerplate&template_owner=wpbones"/>
+<Cards.Card arrow icon={<IconBrandGithub color="white" />} title={<Group><AnimateBadge />WP Bones API Boilerplate</Group>} target="_blank" href="https://github.com/new?template_name=WPKirk-API-Boilerplate&template_owner=wpbones"/>
 
-<Card arrow icon={<IconBrandWordpress />} title="WordPress Developer API Documentation" target="_blank" href="https://developer.wordpress.org/rest-api/extending-the-rest-api/"/>
+<Cards.Card arrow icon={<IconBrandWordpress />} title="WordPress Developer API Documentation" target="_blank" href="https://developer.wordpress.org/rest-api/extending-the-rest-api/"/>
 
 </Cards>
 

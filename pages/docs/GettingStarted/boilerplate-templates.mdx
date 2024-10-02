@@ -2,7 +2,7 @@ import { ActionButton } from "@components/ActionButton";
 import { AnimateBadge } from "@components/AnimateBadge";
 import { Badge, Button, Group } from '@mantine/core';
 import { IconArticle, IconBrandGithub, IconBrandSlack, IconBrandWordpress, IconExternalLink, IconPlug } from "@tabler/icons-react";
-import { Callout, Card, Cards, Steps } from 'nextra/components';
+import { Callout, Cards, Steps } from 'nextra/components';
 
 
 # Boilerplate templates
@@ -11,18 +11,18 @@ To create your WP Bones plugin, you can use one of our **ready-made boilerplate 
 
 <Cards num={2}>
 
-<Card arrow icon={<IconBrandGithub />} title={<Group><Badge color="lime" fz={10} size="xs">Most used</Badge>Base</Group>} target="\_blank" href="https://github.com/new?template_name=WPKirk-Boilerplate&template_owner=wpbones"/>
-<Card arrow icon={<IconBrandGithub color="white" />} title={<Group><AnimateBadge />API</Group>} target="_blank" href="https://github.com/new?template_name=WPKirk-API-Boilerplate&template_owner=wpbones"/>
-<Card arrow icon={<IconBrandGithub />} title={<Group><AnimateBadge />Internationalization</Group>} target="_blank" href="https://github.com/new?template_name=WPKirk-Internationalization-Boilerplate&template_owner=wpbones"/>
-<Card arrow icon={<IconBrandGithub />} title={<Group><AnimateBadge />Mantine UI</Group>} target="_blank" href="https://github.com/new?template_name=WPKirk-Mantine-Boilerplate&template_owner=wpbones"/>
-<Card arrow icon={<IconBrandGithub />} title={<Group><AnimateBadge />ReactJS</Group>} target="_blank" href="https://github.com/new?template_name=WPKirk-Reactjs-Boilerplate&template_owner=wpbones"/>
-<Card arrow icon={<IconBrandGithub />} title={<Group><AnimateBadge />Routes</Group>} target="_blank" href="https://github.com/new?template_name=WPKirk-Routes-Boilerplate&template_owner=wpbones"/>
+<Cards.Card arrow icon={<IconBrandGithub />} title={<Group><Badge color="lime" fz={10} size="xs">Most used</Badge>Base</Group>} target="\_blank" href="https://github.com/new?template_name=WPKirk-Boilerplate&template_owner=wpbones"/>
+<Cards.Card arrow icon={<IconBrandGithub color="white" />} title={<Group><AnimateBadge />API</Group>} target="_blank" href="https://github.com/new?template_name=WPKirk-API-Boilerplate&template_owner=wpbones"/>
+<Cards.Card arrow icon={<IconBrandGithub />} title={<Group><AnimateBadge />Internationalization</Group>} target="_blank" href="https://github.com/new?template_name=WPKirk-Internationalization-Boilerplate&template_owner=wpbones"/>
+<Cards.Card arrow icon={<IconBrandGithub />} title={<Group><AnimateBadge />Mantine UI</Group>} target="_blank" href="https://github.com/new?template_name=WPKirk-Mantine-Boilerplate&template_owner=wpbones"/>
+<Cards.Card arrow icon={<IconBrandGithub />} title={<Group><AnimateBadge />ReactJS</Group>} target="_blank" href="https://github.com/new?template_name=WPKirk-Reactjs-Boilerplate&template_owner=wpbones"/>
+<Cards.Card arrow icon={<IconBrandGithub />} title={<Group><AnimateBadge />Routes</Group>} target="_blank" href="https://github.com/new?template_name=WPKirk-Routes-Boilerplate&template_owner=wpbones"/>
 </Cards>
 
 ## Complete Demo
 
 <Cards num={1}>
-<Card arrow icon={<IconBrandGithub />} title="The complete Demo with several examples inside" target="\_blank" href="https://github.com/new?template_name=WPKirk&template_owner=wpbones"/>
+<Cards.Card arrow icon={<IconBrandGithub />} title="The complete Demo with several examples inside" target="\_blank" href="https://github.com/new?template_name=WPKirk&template_owner=wpbones"/>
 </Cards>
 
 <Group justify='center' mt={32}>

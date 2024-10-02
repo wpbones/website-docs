@@ -3,7 +3,7 @@ import { AnimateBadge } from "@components/AnimateBadge";
 import { FileTreeLabel } from '@components/FileTreeLabel';
 import { Badge, Button, Group } from '@mantine/core';
 import { IconArticle, IconBrandGithub, IconBrandSlack, IconBrandWordpress, IconExternalLink, IconPlug } from "@tabler/icons-react";
-import { Callout, Card, Cards, FileTree, Steps } from 'nextra/components';
+import { Callout, Cards, FileTree, Steps } from 'nextra/components';
 
 # ReactJS Components
 
@@ -12,7 +12,7 @@ First of all, you need to install the dependencies as described in the [Assets s
 
 <Cards num={1}>
 
-<Card arrow icon={<IconBrandGithub />} title={<Group><AnimateBadge />Try the WP Bones ReactJS Boilerplate</Group>} target="_blank" href="https://github.com/new?template_name=WPKirk-Reactjs-Boilerplate&template_owner=wpbones"/>
+<Cards.Card arrow icon={<IconBrandGithub />} title={<Group><AnimateBadge />Try the WP Bones ReactJS Boilerplate</Group>} target="_blank" href="https://github.com/new?template_name=WPKirk-Reactjs-Boilerplate&template_owner=wpbones"/>
 
 </Cards>
 
@@ -167,5 +167,5 @@ npm run build
 ## See it in action
 
 <Cards num="1">
-  <Card icon={<IconBrandWordpress />} title="See it in action in your browser" target="_blank" href="https://playground.wordpress.net/?blueprint-url=https://wpbones.com/wpkirk-demo.json" />
+  <Cards.Card icon={<IconBrandWordpress />} title="See it in action in your browser" target="_blank" href="https://playground.wordpress.net/?blueprint-url=https://wpbones.com/wpkirk-demo.json" />
 </Cards>
