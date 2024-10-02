@@ -83,7 +83,7 @@ const wpBonesResources = [
   {
     key: "demo",
     title: "WP Bones Demo in action",
-    href: "https://playground.wordpress.net/?blueprint-url=https://wpbones.com/wpkirk-demo.json",
+    href: "https://playground.wordpress.net/?blueprint-url=https://www.wpbones.com/wpkirk-demo.json",
     new: true,
   },
   {

@@ -9,7 +9,7 @@ export function ActionButton() {
     <Button
       color="orange"
       component="a"
-      href="https://playground.wordpress.net/?blueprint-url=https://wpbones.com/wpkirk-demo.json"
+      href="https://playground.wordpress.net/?blueprint-url=https://www.wpbones.com/wpkirk-demo.json"
       variant="gradient"
       size="xl"
       gradient={{ from: "orange", to: "violet", deg: 45 }}

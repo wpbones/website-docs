@@ -20,7 +20,7 @@
       "step": "installPlugin",
       "pluginZipFile": {
         "resource": "url",
-        "url": "https://wpbones.com/wpkirk-internationalization-boilerplate.zip"
+        "url": "https://www.wpbones.com/wpkirk-internationalization-boilerplate.zip"
       },
       "options": {
         "activate": true
