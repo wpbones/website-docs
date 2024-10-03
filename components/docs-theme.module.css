@@ -1,0 +1,30 @@
+.root {
+    &[data-layout='square'] {
+      border-radius: 6px;
+      height: auto;
+      max-width: 240px;
+      height: 150px;
+      padding: 16px;
+      perspective: 1000px;
+      perspective-origin: 0%;
+
+      &:hover {
+        transform: scale(1.03);
+      }
+
+      .label {
+        position: relative;
+        margin-top: 6px;
+        white-space: wrap;
+        line-height: 28px;
+        text-align: left;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+      }
+
+      .section {
+        position: absolute;
+        top:8px;
+        right: 8px;
+      }
+    }
+  }

@@ -1,7 +1,8 @@
 import "@mantine/core/styles.css";
 import "./styles.css";
 
-import { ColorSchemeScript, createTheme, DEFAULT_THEME, MantineProvider } from "@mantine/core";
+import { docsTheme } from "@components/docs-theme";
+import { ColorSchemeScript, createTheme, MantineProvider } from "@mantine/core";
 import { GoogleTagManager } from "@next/third-parties/google";
 import { Analytics } from "@vercel/analytics/react";
 import { useEffect, useState } from "react";
@@ -10,15 +11,7 @@ export default function WPBonesDocsApp({ Component, pageProps }) {
   // DON'T REMOVE THIS CODE - IT'S REQUIRED FOR COLOR SCHEME SUPPORT
   const [colorScheme, setColorScheme] = useState();
 
-  const theme = createTheme({
-    fontFamily: "Poppins, sans-serif",
-    fontFamilyMonospace: "Fira Code, Monaco, Courier, monospace",
-    headings: {
-      // Use default theme if you want to provide default Mantine fonts as a fallback
-      fontFamily: `Poppins, ${DEFAULT_THEME.fontFamily}`,
-    },
-    black: "#000",
-  });
+  const theme = createTheme(docsTheme);
 
   useEffect(() => {
     const observeStyleChanges = target => {

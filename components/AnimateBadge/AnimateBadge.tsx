@@ -1,7 +1,7 @@
 "use client";
 
 import { Badge, MantineColor } from "@mantine/core";
-import classes from "./Footer.module.css";
+import classes from "./AnimateBadge.module.css";
 
 type AnimateBadgeProps = {
   label?: string;

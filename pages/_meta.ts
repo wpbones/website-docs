@@ -17,11 +17,17 @@ export default {
     newWindow: true,
     href: "https://wpbones.ownai.com/",
   },
-  showcase: {
+  newsletter: {
     type: "page",
     title: "Newsletter",
     newWindow: true,
     href: "https://wpbones.substack.com/",
+  },
+  discussions: {
+    type: "page",
+    title: "Discussions",
+    newWindow: true,
+    href: "https://github.com/wpbones/WPBones/discussions ",
   },
   about: {
     type: "page",

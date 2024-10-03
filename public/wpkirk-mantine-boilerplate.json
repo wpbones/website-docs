@@ -1,7 +1,7 @@
 {
-  "landingPage": "/wp-admin/admin.php?page=wp_kirk_slug_menu",
+  "landingPage": "/wp-admin/admin.php?page=wp_kirk_mantine_slug_menu",
   "preferredVersions": {
-    "php": "8.2",
+    "php": "7.4",
     "wp": "latest"
   },
   "phpExtensionBundles": [

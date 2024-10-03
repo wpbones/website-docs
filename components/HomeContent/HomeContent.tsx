@@ -1,6 +1,6 @@
 "use client";
 
-import { ActionButton } from "@components/ActionButton";
+import { ActionButton } from "@components/ActionButton/ActionButton";
 import { Button, Container, Flex, Group, Image, SimpleGrid, Stack, Text } from "@mantine/core";
 import {
   IconApi,
@@ -22,7 +22,7 @@ import "aos/dist/aos.css";
 import cx from "clsx";
 import NextImage from "next/image";
 import { useEffect } from "react";
-import { HomeCard } from "./HomeCard";
+import { HomeCard } from "../HomeCard";
 import classes from "./HomeContent.module.css";
 import ajaxImage from "./ajax.png";
 import apiImage from "./api.png";
@@ -79,7 +79,7 @@ const ProductHuntBadge = ({ mode = "light" }: { mode?: "light" | "neutral" | "da
     </a>
   );
 
-export default function HomeContent() {
+export function HomeContent() {
   const claims = [
     "WP Bones allows for WordPress plugins with Laravel-like features",
     "WP Bones makes WordPress plugin development more efficient and modern",

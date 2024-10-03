@@ -17,16 +17,6 @@
   animation-delay: 0.3s;
 }
 
-
-.buttonAction {
-    box-shadow: inset 0 1px 0 1px rgba(255, 255, 255, 0.2), 0 1px 12px rgba(255, 0, 0, 0.5);
-}
-
-.buttonAction:hover {
-  transition: box-shadow 0.5s;
-  box-shadow: inset 0 -2px 0 1px rgba(255, 255, 255, 0.2), 0 0 32px rgba(255, 0, 0, 0.8)
-}
-
 .buttonDocs {
     box-shadow: inset 0 1px 0 1px rgba(255, 255, 255, 0.2), 0 1px 12px rgba(0, 0, 255, 0.5);
     transition: box-shadow 0.5s;
