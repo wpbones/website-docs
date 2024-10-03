@@ -36,11 +36,11 @@ importers:
         specifier: ^13.5.6
         version: 13.5.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       nextra:
-        specifier: ^3.0.2
-        version: 3.0.2(@types/react@18.3.5)(next@13.5.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@4.9.5)
+        specifier: ^3.0.3
+        version: 3.0.3(@types/react@18.3.5)(next@13.5.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@4.9.5)
       nextra-theme-docs:
-        specifier: ^3.0.2
-        version: 3.0.2(next@13.5.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(nextra@3.0.2(@types/react@18.3.5)(next@13.5.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@4.9.5))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^3.0.3
+        version: 3.0.3(next@13.5.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(nextra@3.0.3(@types/react@18.3.5)(next@13.5.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@4.9.5))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -1436,16 +1436,16 @@ packages:
       sass:
         optional: true
 
-  nextra-theme-docs@3.0.2:
-    resolution: {integrity: sha512-bTNE7rnUm8z+6soWsHub9hDQ+pwXNQFxPGDGcMx4YomCFeeOfW2g0UkYfGQS7TId9JN3/ufmXTk7pCxZFRPxBg==}
+  nextra-theme-docs@3.0.3:
+    resolution: {integrity: sha512-zC1mrASoYttM2rjAiUhmftM4gNb6UGtPhOO/oS68ky6ZdqLMp6i9UBgnECrjPRZdfOL3c+VAWRPjBM2B7a80Dw==}
     peerDependencies:
       next: '>=13'
-      nextra: 3.0.2
+      nextra: 3.0.3
       react: '>=18.0.0'
       react-dom: '>=18.0.0'
 
-  nextra@3.0.2:
-    resolution: {integrity: sha512-5cjEkw8+6UQZhSfb67hbAR2uNovDGT6vQg0I6cL4QzAnO45pwkuMLqooXo3iXIG32x3X8TTH5gXNOS/jNqFnRw==}
+  nextra@3.0.3:
+    resolution: {integrity: sha512-14NdEDZCdyZBrihbMBdGon3aq6feYVNonetHQrYXIVcCxuUsh9CNYRUX5bImpE3zQ6cfXDnRJsG70tHDbXdHMQ==}
     engines: {node: '>=18'}
     peerDependencies:
       next: '>=13'
@@ -1625,8 +1625,8 @@ packages:
   regenerator-runtime@0.14.1:
     resolution: {integrity: sha512-dYnhHh0nJoMfnkZs6GmmhFknAGRrLznOu5nc9ML+EJxGvrx6H7teuevqVqCuPcPK//3eDrrjQhehXVx9cnkGdw==}
 
-  regex@4.3.2:
-    resolution: {integrity: sha512-kK/AA3A9K6q2js89+VMymcboLOlF5lZRCYJv3gzszXFHBr6kO6qLGzbm+UIugBEV8SMMKCTR59txoY6ctRHYVw==}
+  regex@4.3.3:
+    resolution: {integrity: sha512-r/AadFO7owAq1QJVeZ/nq9jNS1vyZt+6t1p/E59B56Rn2GCya+gr1KSyOzNL/er+r+B7phv5jG2xU2Nz1YkmJg==}
 
   rehype-katex@7.0.1:
     resolution: {integrity: sha512-OiM2wrZ/wuhKkigASodFoo8wimG3H12LWQaH8qSPVJn9apWKFSH3YOCtbKpBorTVw/eI7cuT21XBbvwEswbIOA==}
@@ -3798,7 +3798,7 @@ snapshots:
       - '@babel/core'
       - babel-plugin-macros
 
-  nextra-theme-docs@3.0.2(next@13.5.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(nextra@3.0.2(@types/react@18.3.5)(next@13.5.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@4.9.5))(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  nextra-theme-docs@3.0.3(next@13.5.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(nextra@3.0.3(@types/react@18.3.5)(next@13.5.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@4.9.5))(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       '@headlessui/react': 2.1.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       clsx: 2.1.1
@@ -3806,13 +3806,13 @@ snapshots:
       flexsearch: 0.7.43
       next: 13.5.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       next-themes: 0.3.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      nextra: 3.0.2(@types/react@18.3.5)(next@13.5.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@4.9.5)
+      nextra: 3.0.3(@types/react@18.3.5)(next@13.5.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@4.9.5)
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
       scroll-into-view-if-needed: 3.1.0
       zod: 3.23.8
 
-  nextra@3.0.2(@types/react@18.3.5)(next@13.5.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@4.9.5):
+  nextra@3.0.3(@types/react@18.3.5)(next@13.5.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@4.9.5):
     dependencies:
       '@headlessui/react': 2.1.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@mdx-js/mdx': 3.0.1
@@ -3867,7 +3867,7 @@ snapshots:
 
   oniguruma-to-js@0.4.3:
     dependencies:
-      regex: 4.3.2
+      regex: 4.3.3
 
   p-finally@1.0.0: {}
 
@@ -4039,7 +4039,7 @@ snapshots:
 
   regenerator-runtime@0.14.1: {}
 
-  regex@4.3.2: {}
+  regex@4.3.3: {}
 
   rehype-katex@7.0.1:
     dependencies:
