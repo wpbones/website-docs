@@ -213,20 +213,20 @@ if ( wpbones_is_true('true') ) {
 #### Synopsis
 
 ```php copy
-    /* Utility to get an instance of Logger. */
-    function wpbones_logger()
+/* Utility to get an instance of Logger. */
+function wpbones_logger()
 ```
 
 #### Usage
 
 ```php copy
-  wpbones_logger()->info('Your message here');
+wpbones_logger()->info('Your message here');
 ```
 
 That's a shortcut to get the instance of the logger. You may use also
   
 ```php copy
-  $logger = WPKirk()->log();
+$logger = WPKirk()->log();
 ```
 ---------------------------------------------------------------------------------------------
 
@@ -305,9 +305,3 @@ The `wpbones_value` function's behavior will simply return the value it is given
 ```php copy
 $value = wpbones_value( function() { return 'bar'; });
 ```
----------------------------------------------------------------------------------------------
-
-
-
-
-
