@@ -5,7 +5,7 @@ import { Callout, FileTree } from 'nextra/components'
 
 You can update the WP Bones framework by usign the bones command:
   
-```bash
+```bash copy
 php bones update
 ```
 
@@ -17,7 +17,10 @@ In this section, you will find the latest versions of the files included in the 
 So, if you have a plugin created with an earlier version of WP Bones, you can check here which files have changed in the latest versions. You can then copy and update these files in your plugin.
 
 <FileTree>
-  <FileTree.Folder name="myPlugin" defaultOpen >
+  <FileTree.Folder name="myPlugin" defaultOpen>
+    <FileTree.Folder name="config" defaultOpen>
+      <FileTree.File label={<FileTreeLabel type="file" href="./config-plugin" name="plugin.php" color="yellow">main plugin config</FileTreeLabel>} />
+    </FileTree.Folder>
     <FileTree.File label={<FileTreeLabel type="file" href="./composer-json" name="composer.json" color="yellow">used by composer</FileTreeLabel>} />
     <FileTree.File label={<FileTreeLabel type="file" href="./gulpfile-js" name="gulpfile.js">script used by Gulp</FileTreeLabel>} />
     {/* <FileTree.File label={<FileTreeLabel type="file" name="{your-plugin-name}.php">entry point of plugin</FileTreeLabel>} /> */}

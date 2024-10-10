@@ -1,10 +1,14 @@
-import { FileTreeLabel } from '@components/FileTreeLabel'
-import { Callout, FileTree } from 'nextra/components'
+import { FileTreeLabel } from '@components/FileTreeLabel';
+import { Title } from "@mantine/core";
+import { IconBrandWordpress } from "@tabler/icons-react";
+import { Callout, FileTree } from 'nextra/components';
 
 # Architecture Foundations
 
-<Callout>
-Don't forget that we are working using a WordPress plugin.
+<Callout type="info" emoji={<IconBrandWordpress size={64} />}>
+<Title order={2} ta="center">¯\/\_(ツ)_/¯</Title>
+<Title order={2} ta="center">Don't forget that</Title>
+<Title order={2} ta="center">We are working using a WordPress plugin</Title>
 </Callout>
 
 ## Request Lifecycle

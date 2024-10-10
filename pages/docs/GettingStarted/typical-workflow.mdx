@@ -1,5 +1,6 @@
-import { FileTreeLabel } from '@components/FileTreeLabel'
-import { Callout, FileTree, Steps } from 'nextra/components'
+import { FileTreeLabel } from '@components/FileTreeLabel';
+import { IconArticle, IconBrandGithub, IconBrandSlack, IconBrandWordpress, IconPlug } from "@tabler/icons-react";
+import { Callout, Cards, FileTree, Steps } from 'nextra/components';
 
 # Typical workflow
 
@@ -17,11 +18,15 @@ If you are on Mac, Window or Linux, I'll assume you have access to **WordPress H
 
 #### Using the WP Kirk template
 
-On GitHub, you can create a new repository using the [WP Kirk template](https://github.com/wpbones/WPKirk) by clicking on the "Use this template" button on the repository page.
+On GitHub, you can create a new repository using the [WP Kirk Boilerplate](https://github.com/wpbones/WPKirk-Boilerplate) by clicking on the "Use this template" button on the repository page.
 
-![Create a new plugin from template](./github-template.png)
+![Create a new plugin from template](./github-template.jpeg)
 
-Or click [here](https://github.com/new?template_name=WPKirk&template_owner=wpbones).
+<Cards num={1}>
+<Cards.Card arrow icon={<IconBrandGithub />} title="Create your repository starting from here" target="\_blank" href="https://github.com/new?template_name=WPKirk-Boilerplate&template_owner=wpbones"/>
+</Cards>
+
+
 
 #### Clone the WP Kirk repository
 
