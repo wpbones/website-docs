@@ -1,5 +1,5 @@
 import { FileTreeLabel } from '@components/FileTreeLabel'
-import { Callout, FileTree } from 'nextra/components'
+import { Callout, Cards, FileTree } from 'nextra/components'
 
 # Views
 
@@ -41,7 +41,7 @@ The "Dot" notation provides a simple way to organize the views. In this example,
 </div>
 ```
 
-<Callout>
+<Callout type="info">
 You may use any PHP code inside the view.
 </Callout>
 
@@ -281,7 +281,7 @@ In the `/views/list-items.php` you will find:
 </ul>
 ```
 
-<Callout>
+<Callout type="info">
 Of course, if you have used a folder for your views, you will have to add it to the fragment.
 </Callout>
 
@@ -319,3 +319,7 @@ wp_send_json_success(
 );
 ```
 The `render` method will verify if the call is by Ajax and it will return the processed HTML.
+
+<Cards num={1}>
+<Cards.Card arrow title="Learn more about the View class"  href="/docs/CoreClasses/view"/>
+</Cards>

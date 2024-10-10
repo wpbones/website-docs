@@ -1,14 +1,14 @@
 import { FileTreeLabel } from '@components/FileTreeLabel';
-import { Title } from "@mantine/core";
+import { Center, Title } from "@mantine/core";
 import { IconBrandWordpress } from "@tabler/icons-react";
-import { Callout, FileTree } from 'nextra/components';
+import { Callout, Cards, FileTree } from 'nextra/components';
 
 # Architecture Foundations
 
-<Callout type="info" emoji={<IconBrandWordpress size={64} />}>
-<Title order={2} ta="center">¯\/\_(ツ)_/¯</Title>
+<Callout type="info" emoji="">
+<Center><IconBrandWordpress size={64} /></Center>
 <Title order={2} ta="center">Don't forget that</Title>
-<Title order={2} ta="center">We are working using a WordPress plugin</Title>
+<Title order={2} ta="center">we are working using a WordPress plugin...</Title>
 </Callout>
 
 ## Request Lifecycle
@@ -211,3 +211,6 @@ You can get this information by using the **plugin instance**:
 echo $plugin->Author;
 echo $plugin->TextDomain;
 ```
+<Cards num={1}>
+<Cards.Card arrow title="Learn more about the Plugin class"  href="/docs/CoreClasses/plugin"/>
+</Cards>

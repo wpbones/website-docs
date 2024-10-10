@@ -6,7 +6,7 @@ It is very important to note that WP Bones uses actions and filters at several p
 
 ## Actions
 
-### \{your_plugin_slug\}\_loaded
+### `\{your_plugin_slug\}\_loaded`
 
 ```php copy
 /**
@@ -18,7 +18,7 @@ add_action('{your_plugin_slug}_loaded', function () {
 });
 ```
 
-### wpbones_console_deploy_start
+### `wpbones_console_deploy_start`
 
 ```php copy
 /**
@@ -32,7 +32,7 @@ add_action('wpbones_console_deploy_start', function ($console, $path) {
 }, 10, 2);
 ```
 
-### wpbones_console_deploy_before_build_assets
+### `wpbones_console_deploy_before_build_assets`
 
 ```php copy
 /**
@@ -46,7 +46,7 @@ add_action('wpbones_console_deploy_before_build_assets', function ($console, $pa
 }, 10, 2);
 ```
 
-### wpbones_console_deploy_after_build_assets
+### `wpbones_console_deploy_after_build_assets`
 
 ```php copy
 /**
@@ -60,7 +60,7 @@ add_action('wpbones_console_deploy_after_build_assets', function ($console, $pat
 }, 10, 2);
 ```
 
-### wpbones_console_deploy_completed
+### `wpbones_console_deploy_completed`
 
 ```php copy
 /**
@@ -74,7 +74,7 @@ do_action('wpbones_console_deploy_completed', $this, $path);
 
 ## Filters
 
-### wpbones_console_deploy_skip_folders
+### `wpbones_console_deploy_skip_folders`
 
 ```php copy
 /**

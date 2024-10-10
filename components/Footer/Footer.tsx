@@ -96,9 +96,7 @@ export const Footer: React.FC<FooterProps> = () => {
         </Grid>
         <Divider
           my={16}
-          style={{
-            boxShadow: "0 3px 8px 2px rgba(0, 0, 0, 0.5)",
-          }}
+          className={classes.lastDivider}
         />
         <Group justify="right">
           <Text fz={12} inline>
