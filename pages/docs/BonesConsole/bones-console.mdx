@@ -27,7 +27,7 @@ Great! You are quite ready to start developing.
 
 ## Common Commands
 
-### deploy
+### `deploy`
 
 When your plugin is ready, you can use the `deploy` bones command in order to create a new folder useful to submit your plugin to the wordpress.org repository.
 
@@ -51,7 +51,7 @@ Arguments:
 ```
 The `--wp` option will create a deploy folder with the necessary files to submit your plugin to the WordPress repository. For further information, see [here](../GettingStarted/before-submit-to-wordpress-repository).
 
-#### --wp
+#### `--wp`
 
 <Callout type="info" emoji={<IconBrandWordpress />}>
 Starting from WP Bones `v1.5.0` we added a new option `--wp` to deploy the plugin to the WordPress repository. This option will create a deploy folder with the necessary files to submit your plugin to the WordPress repository. For further information, see [here](../GettingStarted/before-submit-to-wordpress-repository).
@@ -60,7 +60,7 @@ Starting from WP Bones `v1.5.0` we added a new option `--wp` to deploy the plugi
 In the `mydeploy` folder, you will find only the necessary files to run your plugin. 
 Without the `--wp` option the developer's `resources/assets` folder will be removed.
 
-#### Customize Deploy
+### Customize Deploy
 
 Of course, you may customize the deployment process by editing the `deploy.php` file. In this file, you can add your own commands to run before and after the deployment. You will also find some actions and filters to customize the deployment process.
 
@@ -92,7 +92,7 @@ add_filter('wpbones_console_deploy_skip_folders', function ($folders) {
 });
 ```
 
-### install
+### `install`
 
 The `install` command is used to install the WP Bones framework. You can use the `install` command by running:
 
@@ -102,7 +102,7 @@ php bones install
 
 → See more about [Installing WP Bones](../GettingStarted/installation).
 
-### optimize
+### `optimize`
 
 The `optimize` command uses the `composer dump-autoload -o` command to optimize the autoloader. You can use the `optimize` command by running:
 
@@ -110,7 +110,7 @@ The `optimize` command uses the `composer dump-autoload -o` command to optimize 
 php bones optimize
 ```
 
-### rename
+### `rename`
 
 The `rename` command is used to rename the plugin namespace. You can use the `rename` command by running:
 
@@ -120,7 +120,7 @@ php bones rename "My First WP Bones Plugin"
 
 → See more about [Naming your Plugin](../GettingStarted/naming-your-plugin).
 
-### require
+### `require`
 
 The `require` command is used to install third-party packages. You can use the `require` command by running:
 
@@ -132,7 +132,7 @@ Under the hood the `require` command uses the `composer require` command. But it
 
 We recommend using this command instead of `composer require` because by doing so, an automatic renaming will be performed.
 
-### tinker
+### `tinker`
 
 The `tinker` command is used to open an interactive shell. You can use the `tinker` command by running:
 
@@ -154,7 +154,7 @@ You can also use any WordPress function
 6.6.2
 ```
 
-### update
+### `update`
 
 The `update` command is used to update the WP Bones framework. You can use the `update` command by running:
 
@@ -165,7 +165,7 @@ php bones update
 → After updating the WP Bones framework, have a look at the [Changelog](../release-notes) to see what's new.<br/>
 → And you may also check the [Core Plugin Files](../CorePluginFiles/overview) to see if there are any changes.
 
-### version
+### `version`
 
 The `version` command is used to version your plugin. You can use the `version` command by running:
 
@@ -202,13 +202,19 @@ Arguments:
   [--pre-major] <prefix>	Increment the <major>.y.z-<prefix>.<i> of plugin.
 ```
 
-#### Available Options
-
 The `php bones version` command can handle the version starting from the current version of the plugin. You can use the following options:
 
-* `--major` to increment the major version number. For example, if the current version is `1.0.0`, the new version will be `2.0.0`.
-* `--minor` to increment the minor version number. For example, if the current version is `1.0.0`, the new version will be `1.1.0`.
-* `--patch` to increment the patch version number. For example, if the current version is `1.0.0`, the new version will be `1.0.1`.
+#### `--major`
+
+Increments the major version number. For example, if the current version is `1.0.0`, the new version will be `2.0.0`.
+
+#### `--minor`
+
+Increment the minor version number. For example, if the current version is `1.0.0`, the new version will be `1.1.0`.
+
+#### `--patch`
+
+Increment the patch version number. For example, if the current version is `1.0.0`, the new version will be `1.0.1`.
 
 You can also use the `--pre-patch`, `--pre-minor`, and `--pre-major` options to increment the version with a prefix. For example, if the current version is `1.0.0`, the new version will be `1.0.1-rc.1`.
 
@@ -220,7 +226,7 @@ php bones version 1.0.0 --pre-patch beta
 
 The above command will update the plugin version to `1.0.1-beta.1`.
 
-### plugin
+### `plugin`
 
 The `plugin` command is used to get and check your plugin. You can use the `plugin` command by running:
 
@@ -259,7 +265,7 @@ Available options:
  --check-header              Check the plugin header
  ```
 
-#### --check-header
+#### `--check-header`
 
 The `--check-header` option is used to check the plugin header. You can use the `--check-header` option by running:
 
