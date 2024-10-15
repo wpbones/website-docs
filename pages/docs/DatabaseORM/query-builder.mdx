@@ -1,4 +1,7 @@
-import { Callout, FileTree } from 'nextra/components'
+import { AnimateBadge } from "@components/AnimateBadge";
+import { Badge, Button, Group } from '@mantine/core';
+import { IconArticle, IconBrandGithub, IconBrandSlack, IconBrandWordpress, IconExternalLink, IconPlug } from "@tabler/icons-react";
+import { Callout, Cards, FileTree } from 'nextra/components';
 
 
 # Query Builder
@@ -161,7 +164,7 @@ $users = DB::table('users')
 
 ## Additional Where Clauses
 
-### whereBetween / orWhereBetween
+### `whereBetween` / `orWhereBetween`
 
 The `whereBetween` method verifies that a column's value is between two values:
 
@@ -171,7 +174,7 @@ $users = DB::table('users')
            ->get();
 ```
 
-### whereNotBetween / orWhereNotBetween
+### `whereNotBetween` / `orWhereNotBetween`
 
 The `whereNotBetween` method verifies that a column's value lies outside of two values:
 
@@ -181,7 +184,7 @@ $users = DB::table('users')
            ->get();
 ```
 
-### whereIn / whereNotIn / orWhereIn / orWhereNotIn
+### `whereIn` / `whereNotIn` / `orWhereIn` / `orWhereNotIn`
 
 The `whereIn` method verifies that a given column's value is contained within the given array:
 
@@ -303,3 +306,24 @@ echo DB::table('users')->get()->dump();
 	}
 ]
 ```
+
+## Tables without the WordPress prefix
+
+Starting from version `1.7.0`, you can use tables without the WordPress prefix.
+If you are using tables without the WordPress prefix, you can set the table name in the `DB` class:
+
+```php copy
+DB::table('my_table', 'id', false);
+```
+
+The third parameter is a boolean that indicates whether the table has the WordPress prefix or not.
+
+You may use the short syntax to set the table name:
+
+```php copy
+DB::tableWithoutPrefix('my_table');
+```
+
+<Cards num={1}>
+<Cards.Card arrow icon={<IconBrandGithub color="white" />} title={<Group><AnimateBadge />WP Bones Database Boilerplate</Group>} target="_blank" href="https://github.com/new?template_name=WPKirk-API-Boilerplate&template_owner=wpbones"/>
+</Cards>

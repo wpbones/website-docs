@@ -60,3 +60,33 @@ Remember that the migrations files will be executed when a plugin is activated. 
 ## WordPress prefix
 
 As you know, the real name of the table `products` is `{prefix}_products`. Usually, `{prefix}` is `wp_` for default. Anyway, you don't need to use the WordPress prefix, WP Bones will do that for you.
+
+### Remove the WordPress prefix
+
+Starting from version `1.7.0`, you can remove the WordPress prefix. You may use the `usePrefix` property in the migration class:
+
+```php copy {5}
+use WPKirk\WPBones\Database\Migrations\Migration;
+
+return new class extends Migration {
+
+  protected $usePrefix = false;
+
+  public function up()
+  {
+
+    $this->create('products', "(
+              log_id bigint(20) unsigned NOT NULL auto_increment,
+              user_id bigint(20) unsigned NOT NULL default '0',
+              activity varchar(20) NOT NULL default 'updated',
+              object_id bigint(20) unsigned NOT NULL default '0',
+              object_type varchar(20) NOT NULL default 'post',
+              activity_date datetime NOT NULL default '0000-00-00 00:00:00',
+              PRIMARY KEY  (log_id),
+              KEY user_id (user_id)
+         ) {$this->charsetCollate};" );
+
+  }
+};
+```
+In this case the table will be named `products`.
