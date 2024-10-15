@@ -30,14 +30,14 @@ import consoleImage from "./console.png";
 import controllerImage from "./controller.png";
 import cptImage from "./cpt.png";
 import dbImage from "./db.png";
-import footer from "./footer.png";
+import footer from "./footer-removebg.png";
 import logsImage from "./logs.png";
 import menuImage from "./menu.png";
 import migrationImage from "./migration.png";
 import optionsImage from "./option.png";
 import pageImage from "./page.png";
 import reactImage from "./react-js.png";
-import phpBones from "./wpbones-window.png";
+import phpBones from "./wpbones-window-removebg.png";
 
 const ProductHuntBadge = ({ mode = "light" }: { mode?: "light" | "neutral" | "dark" }) =>
   mode === "light" ? (
