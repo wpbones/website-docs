@@ -49,9 +49,10 @@ export const Footer: React.FC<FooterProps> = () => {
           <Grid.Col span={{ base: 12, sm: 4 }}>
             <Stack gap="xs">
               <Image component={NextImage} w={32} h={32} fit="contain" src={wpBonesLogo} alt="WP Bones" />
-              <Text fz={12} mr={64}>
-                WP Bones is a little Framework providing a set of tools and rules to facilitate the WordPress plugin.
-                The aim of Bones is to be able to write a Plugin such as Laravel Framework application.
+              <Text fz={13} mr={64}>
+                WP Bones is a lightweight framework that offers tools and guidelines to simplify WordPress plugin
+                development. Bones aims to allow you to write plugins in a manner similar to developing a Laravel
+                framework application.
               </Text>
               <Group>
                 <ActionIcon variant="subtle" component="a" href="https://twitter.com/wpbonesx">
@@ -94,10 +95,7 @@ export const Footer: React.FC<FooterProps> = () => {
             </Stack>
           </Grid.Col>
         </Grid>
-        <Divider
-          my={16}
-          className={classes.lastDivider}
-        />
+        <Divider my={16} className={classes.lastDivider} />
         <Group justify="right">
           <Text fz={12} inline>
             Made with ❤️ by{" "}
