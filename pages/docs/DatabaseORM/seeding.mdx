@@ -80,6 +80,52 @@ return new class extends Seeder {
 }
 ```
 
+## WordPress prefix
+
+As you know, the real name of the table `my_plugin_products` is `{prefix}_my_plugin_products`. Usually, `{prefix}` is `wp_` for default. Anyway, you don't need to use the WordPress prefix, WP Bones will do that for you.
+
+### Remove the WordPress prefix
+
+Starting from version `1.7.0`, you can remove the WordPress prefix. You may use the `usePrefix` property in the migration class:
+
+```php copy {18}
+<?php
+// remember that your namespace will be different
+use WPKirk\WPBones\Database\Seeder;
+
+// you have to return an instance of WPKirk\WPBones\Database\Seeder
+return new class extends Seeder {
+  /**
+   * It will be converted to lowercase and with the WordPress prefix.
+   *
+   * @var string The table name.
+   */
+  protected $tablename = "my_plugin_products";
+
+  // Run the database seeds just once
+  protected $runOnce = true;
+
+  // Remove the WordPress prefix
+  protected $usePrefix = false;
+
+  // the seeder run method is called automatically
+  // here you can do everything you need to do
+  public function run()
+  {
+      // since the seeder is executed only one time, we can remove the truncate method
+      //$this->truncate();
+
+      // and then we are going to insert some data
+      $this->insert(
+      "(id, zone, country, isocode, currency, symbol, symbol_html, code, tax, continent, status)
+      VALUES
+      	(1,'','Mauritania','MR','Mauritanian Ouguiya','','','MRO',0.00,'africa','publish')");
+  }
+}
+```
+
+In this case the table name will be `my_plugin_products`.
+
 ## Use a model
 
 You can use a model to seed your database.
@@ -113,6 +159,73 @@ return new class extends Seeder {
         ['name' => 'iPod', 'price' => '10000'],
       ]
     );
+  }
+}
+```
+### Remove the WordPress prefix
+
+If you want to remove the WordPress prefix, and you are using a model, you have to set the `usePrefix` property to `false` in the seeder class.
+
+```php copy {18} filename="The seeder"
+<?php
+// remember that your namespace will be different
+use WPKirk\WPBones\Database\Seeder;
+
+// you have to use your model
+use WPKirk\Models\MyPluginBooks;
+
+// you have to return an instance of WPKirk\WPBones\Database\Seeder
+return new class extends Seeder {
+  /**
+   * It will be converted to lowercase and with the WordPress prefix.
+   *
+   * @var string The table name.
+   */
+  protected $tablename = "my_plugin_books";
+
+  // Remove the WordPress prefix
+  protected $usePrefix = false;
+
+  // the seeder run method is called automatically
+  // here you can do everything you need to do
+  public function run()
+  {
+    // insert by using the model class
+    MyPluginBooks::insert([
+        ['name' => 'iMac', 'price' => '100000'],
+        ['name' => 'iPhone', 'price' => '20000'],
+        ['name' => 'iPad', 'price' => '30000'],
+        ['name' => 'iPod', 'price' => '10000'],
+      ]
+    );
+  }
+}
+```
+
+In the Model class, you have to set to false the second parameter of the `DB::getTableName` method.
+
+```php copy {21} filename="The model"
+<?php
+namespace WPKirk\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use WPKirk\WPBones\Database\DB;
+
+class EloquentBook extends Model
+{
+  /**
+   * Disable Illuminate timestamp columns.
+   *
+   * @var bool
+   */
+  public $timestamps = false;
+
+  /**
+   * Get the table associated with the model.
+   */
+  public function getTable(): string
+  {
+    return DB::getTableName('MyPluginBooks', false);
   }
 }
 ```

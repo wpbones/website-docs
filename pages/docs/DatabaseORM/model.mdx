@@ -48,6 +48,30 @@ class Users extends Model
 
 Using the `php bones make:model` Bones command, we can quickly create a `Model`.
 
+## WordPress prefix
+
+As you know, the real name of the table `logged_users` is `{prefix}_logged_users`. Usually, `{prefix}` is `wp_` for default. Anyway, you don't need to use the WordPress prefix, WP Bones will do that for you.
+
+### Remove the WordPress prefix
+
+Starting from version `1.7.0`, you can remove the WordPress prefix. You may use the `usePrefix` property in the model class:
+
+```php copy {12}
+use WPKirk\WPBones\Database\Model;
+
+class Users extends Model
+{
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'logged_users';
+
+    protected $usePrefix = false;
+}
+```
+
 ## Primary Keys
 
 Model will also assume that each model's corresponding database table has a primary key column named `id`. If necessary, you may define a protected `$primaryKey` property on your model to specify a different column that serves as your model's primary key:

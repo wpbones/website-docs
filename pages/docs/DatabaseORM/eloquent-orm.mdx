@@ -42,21 +42,55 @@ Remember that the Namespace inside the WordPress plugins architecture should be 
 
 To get started, let's create a database model. Models typically live in the `plugin` directory, but you are free to place them anywhere that can be auto-loaded according to your `composer.json` file. All database models extend `Illuminate\Database\Eloquent\Model` class.
 
-<Callout>
-As you can see, the `Illuminate\Database\Eloquent\Model` is not defined within your plugin namespace, for example, `WPKirk\Illuminate\Database\Eloquent\Model`.
-</Callout>
-
-The easiest way to create a model instance is by using the `make:model` artisan command. You can create a model for either existing WordPress tables or your own database table:
+The easiest way to create a model instance is by using the `make:eloquent-model` artisan command. You can create a model for either existing WordPress tables or your own database table:
 
 ```sh copy
-php bones make:model Product
+php bones make:eloquent-model Product
 ```
 
-The above command will create a file `Product.php` within the `plugin/Http/Controllers` folder:
+The above command will create a file `Product.php` within the `plugin/Models` folder:
 
 ```php copy
 <?php
-namespace WPKirk\Http\Controllers;
+namespace WPKirk\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Product extends Model
+{
+
+}
+```
+
+### Table names with WordPress prefix
+
+By convention, the "snake case", the plural name of the class will be used as the table name unless another name is explicitly specified. So, in this case, the model will assume the `Product` model stores records in the `products` table. If your table is following the WordPress prefix, the table name will be `{prefix}_products`. In this case, the correct model to support the WordPress prefix is:
+
+```php copy
+namespace WPKirk\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use WPKirk\WPBones\Database\DB;
+
+class Product extends Model
+{
+  /**
+   * Get the table associated with the model.
+   *
+   * @return string
+   */
+  public function getTable()
+  {
+    return DB::getTableName('Products');
+  }
+}
+```
+
+The `DB::getTableName('Products');` method or `DB::getTableName('products');` will return the table name with the WordPress prefix. In this case `{prefix}_products`.
+Another way is to use the `protected $table` property:
+
+```php copy
+namespace WPKirk\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -67,49 +101,10 @@ class Product extends Model
    *
    * @var string
    */
-  protected $table = "products";
-
-  /**
-   * The primary key for the model.
-   *
-   * @var string
-   */
-  protected $primaryKey = "log_id";
-
-  /**
-   * Get the table associated with the model.
-   *
-   * @return string
-   */
-  public function getTable()
-  {
-    global $wpdb;
-
-    return $wpdb->prefix . preg_replace("/[[:<:]]" . $wpdb->prefix . "/", "", parent::getTable(), 1);
-  }
+  protected $table = 'wp_products';
 }
 ```
 
-Using the `php bones make:eloquent-model` Bones command, we can quickly create an Eloquent `Model`.
-
-### Table names with WordPress prefix
-
-By convention, the "snake case", the plural name of the class will be used as the table name unless another name is explicitly specified. So, in this case, the model will assume the `Product` model stores records in the `product` table. You may specify a custom table by changing the `table` property on your model.
-
-However, as you know, the real name of the table `products` is `{prefix}_products`. Usually, `{prefix}` is `wp_` for default. Anyway, you don't need to use the WordPress prefix, WP Bones will do that for you:
-
-```php copy
-/**
- * Get the table associated with the model.
- *
- * @return string
- */
-public function getTable()
-{
-    global $wpdb;
-
-    return $wpdb->prefix . preg_replace('/[[:<:]]' . $wpdb->prefix . '/', '', parent::getTable(), 1);
-}
-```
+### Laravel Eloquent ORM
 
 Since WP Bones uses the complete Illuminate database package, for further documentation on using the various database facilities this library provides, consult the [Laravel framework documentation](https://laravel.com/docs/10.x/eloquent)
