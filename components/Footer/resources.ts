@@ -14,7 +14,6 @@ export const resources = [
     key: "discussions",
     title: "Discussions",
     href: "https://github.com/wpbones/WPBones/discussions ",
-    new: true,
   },
   {
     key: "wpbones-news",
