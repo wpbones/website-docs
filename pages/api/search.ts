@@ -12,7 +12,7 @@ interface Section {
 }
 
 type Data = {
-  data?: DocumentationData;
+  data?: DocumentationData[];
   error?: string;
 };
 
@@ -28,23 +28,30 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     const searchData: DocumentationData = await index.json();
 
     const { keyword } = req.query;
+
     if (keyword && typeof keyword === "string") {
       const lowerCaseKeyword = keyword.toLowerCase();
-      const filteredData: DocumentationData = {};
-
-      for (const [path, section] of Object.entries(searchData)) {
+      const filteredArray = Object.entries(searchData).reduce((acc, [path, section]) => {
         const { title, data } = section;
         const dataValues = Object.values(data).join(" ").toLowerCase();
 
         if (title.toLowerCase().includes(lowerCaseKeyword) || dataValues.includes(lowerCaseKeyword)) {
-          filteredData[path] = section;
+          acc.push({
+            [path]: section,
+          });
         }
-      }
+        return acc;
+      }, [] as Array<{ [key: string]: Section }>);
 
-      return res.status(200).json({ data: filteredData });
+      return res.status(200).json({ data: filteredArray });
     }
 
-    res.status(200).json({ data: searchData });
+    // If no keyword is provided, return all data in the requested format.
+    const allDataArray = Object.entries(searchData).map(([path, section]) => ({
+      [path]: section,
+    }));
+
+    res.status(200).json({ data: allDataArray });
   } catch (error) {
     console.error("Error fetching data:", error);
     res.status(500).json({ error: "Error fetching data" });
