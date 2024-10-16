@@ -21,6 +21,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import cx from "clsx";
 import NextImage from "next/image";
+import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { HomeCard } from "../HomeCard";
 import classes from "./HomeContent.module.css";
@@ -80,10 +81,9 @@ const ProductHuntBadge = ({ mode = "light" }: { mode?: "light" | "neutral" | "da
   );
 
 export function HomeContent() {
-  const claims = [
-    "WP Bones allows for WordPress plugins with Laravel-like features",
-    "WP Bones makes WordPress plugin development more efficient and modern",
-  ];
+  const DEFAULT_LOCALE = "en-US";
+  const { locale = DEFAULT_LOCALE, basePath } = useRouter();
+  console.log("!!!!!!", { locale, basePath });
 
   useEffect(() => {
     AOS.init();
