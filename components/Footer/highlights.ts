@@ -13,19 +13,16 @@ export const highlights = [
     key: "internationalization",
     title: "Internationalization",
     href: "/docs/Internationalization/overview",
-    new: true,
   },
   {
     key: "core-classes",
     title: "Core Classes",
     href: "/docs/CoreClasses/overview",
-    new: true,
   },
   {
     key: "core-plugin-files",
     title: "Core Plugin Files",
     href: "/docs/CorePluginFiles/overview",
-    new: true,
   },
   {
     key: "faqs",
