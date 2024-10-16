@@ -15,6 +15,7 @@ import { AnimateBadge } from "../AnimateBadge";
 import wpBonesLogo from "../wpbones-logo.png";
 import classes from "./Footer.module.css";
 import { ecosystem, highlights, resources } from "./links";
+import NextraLogo from "./nextra.svg";
 
 type FooterProps = {};
 
@@ -116,7 +117,7 @@ export const Footer: React.FC<FooterProps> = () => {
           </Text>
           <Divider orientation="vertical" />
           <Text fz={12} inline>
-            <Group gap={4} component={"span"}>
+            <Group gap={4} component={"span"} justify="flex-start">
               Built with{" "}
               <Anchor fz={13} href="https://vercel.com/frameworks/nextjs">
                 <Group gap={0} component={"span"}>
@@ -126,10 +127,7 @@ export const Footer: React.FC<FooterProps> = () => {
               and
               <Anchor fz={13} href="https://nextra.site/">
                 <Group gap={0} component={"span"}>
-                  <img
-                    src="https://github.com/shuding/nextra/blob/main/docs/public/favicon-dark.png?raw=true"
-                    width={16}
-                  />{" "}
+                  <Image component={NextImage} w={16} c="red" src={NextraLogo} alt="Nextra" />
                   Nextra
                 </Group>
               </Anchor>
