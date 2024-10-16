@@ -11,6 +11,7 @@ type AvailableDemos =
   | "mantine-boilerplate"
   | "reactjs-boilerplate"
   | "routes-boilerplate"
+  | "database-boilerplate"
   | "internationalization-boilerplate";
 
 interface ActionButtonProps {
