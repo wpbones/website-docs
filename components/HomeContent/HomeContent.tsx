@@ -83,7 +83,6 @@ const ProductHuntBadge = ({ mode = "light" }: { mode?: "light" | "neutral" | "da
 export function HomeContent() {
   const DEFAULT_LOCALE = "en-US";
   const { locale = DEFAULT_LOCALE, basePath } = useRouter();
-  console.log("!!!!!!", { locale, basePath });
 
   useEffect(() => {
     AOS.init();
