@@ -100,7 +100,7 @@ export const Footer: React.FC<FooterProps> = () => {
         <Group justify="right">
           <Text fz={12} inline>
             Made with ❤️ by{" "}
-            <Anchor fz={13} href="https://undolog.substack.com/">
+            <Anchor fz={13} href="https://undolog.com/">
               Undolog
             </Anchor>
           </Text>
