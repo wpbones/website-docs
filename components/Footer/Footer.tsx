@@ -97,42 +97,51 @@ export const Footer: React.FC<FooterProps> = () => {
           </Grid.Col>
         </Grid>
         <Divider my={16} className={classes.lastDivider} />
-        <Group justify="right">
-          <Text fz={12} inline>
-            Made with ❤️ by{" "}
-            <Anchor fz={13} href="https://undolog.com/">
-              Undolog
-            </Anchor>
-          </Text>
-          <Divider orientation="vertical" />
-          <Text fz={12} inline>
-            <Group gap={4} component={"span"}>
-              Hosted on{" "}
-              <Anchor fz={13} href="https://vercel.com/">
-                <Group gap={0} component={"span"}>
-                  <IconBrandVercel size={16} /> Vercel
-                </Group>
+        <Group justify="space-between">
+          <iframe
+            src="https://github.com/sponsors/wpbones/button"
+            title="Sponsor WP Bones"
+            height="32"
+            width="114"
+            style={{ border: 0, borderRadius: "6px" }}></iframe>
+
+          <Group justify="right">
+            <Text fz={12} inline>
+              Made with ❤️ by{" "}
+              <Anchor fz={13} href="https://undolog.com/">
+                Undolog
               </Anchor>
-            </Group>
-          </Text>
-          <Divider orientation="vertical" />
-          <Text fz={12} inline>
-            <Group gap={4} component={"span"} justify="flex-start">
-              Built with{" "}
-              <Anchor fz={13} href="https://vercel.com/frameworks/nextjs">
-                <Group gap={0} component={"span"}>
-                  <IconBrandNextjs size={16} /> Next.js
-                </Group>
-              </Anchor>
-              and
-              <Anchor fz={13} href="https://nextra.site/">
-                <Group gap={0} component={"span"}>
-                  <Image component={NextImage} w={16} c="red" src={NextraLogo} alt="Nextra" />
-                  Nextra
-                </Group>
-              </Anchor>
-            </Group>
-          </Text>
+            </Text>
+            <Divider orientation="vertical" />
+            <Text fz={12} inline>
+              <Group gap={4} component={"span"}>
+                Hosted on{" "}
+                <Anchor fz={13} href="https://vercel.com/">
+                  <Group gap={0} component={"span"}>
+                    <IconBrandVercel size={16} /> Vercel
+                  </Group>
+                </Anchor>
+              </Group>
+            </Text>
+            <Divider orientation="vertical" />
+            <Text fz={12} inline>
+              <Group gap={4} component={"span"} justify="flex-start">
+                Built with{" "}
+                <Anchor fz={13} href="https://vercel.com/frameworks/nextjs">
+                  <Group gap={0} component={"span"}>
+                    <IconBrandNextjs size={16} /> Next.js
+                  </Group>
+                </Anchor>
+                and
+                <Anchor fz={13} href="https://nextra.site/">
+                  <Group gap={0} component={"span"}>
+                    <Image component={NextImage} w={16} c="red" src={NextraLogo} alt="Nextra" />
+                    Nextra
+                  </Group>
+                </Anchor>
+              </Group>
+            </Text>
+          </Group>
         </Group>
       </Container>
     </div>

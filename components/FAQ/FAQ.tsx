@@ -1,7 +1,8 @@
 "use client";
 
-import { Accordion, Anchor, Code } from "@mantine/core";
+import { Accordion, Anchor, Box } from "@mantine/core";
 import { IconBrandDiscordFilled, IconBrandWordpress, IconCode, IconQuestionMark } from "@tabler/icons-react";
+import { Pre } from "nextra/components";
 import classes from "./FAQ.module.css";
 
 type FAQsProps = {
@@ -32,6 +33,29 @@ const faqs: FAQsProps[] = [
     question: "Is WP Bones free?",
     emoji: "💰",
     answer: "Yes, WP Bones is free to use.",
+  },
+  {
+    question: "Can I use WP Bones for commercial projects?",
+    emoji: "💼",
+    answer: "Yes, you can use WP Bones for commercial projects.",
+  },
+  {
+    question: "How can I support WP Bones?",
+    emoji: "💖",
+    answer: (
+      <>
+        Yes, you can sponsor WP Bones on GitHub. Click the button below to sponsor WP Bones:
+        <div style={{ display: "flex", justifyContent: "left", margin: "20px 0" }}>
+          <iframe
+            src="https://github.com/sponsors/wpbones/button"
+            title="Sponsor wpbones"
+            height="32"
+            width="114"
+            style={{ border: 0, borderRadius: "6px" }}
+          />
+        </div>
+      </>
+    ),
   },
   {
     question: "Can I use WP Bones on my client websites?",
@@ -100,8 +124,13 @@ const faqs: FAQsProps[] = [
     answer: (
       <>
         You can update your WP Bones plugin by running the following command in your plugin directory:
-        <Code>php bones update</Code> and check the{" "}
-        <Anchor href="/docs/CorePluginFiles/overview">Core Plugin Files</Anchor>.
+        <Box my={8}>
+          <Pre data-language="sh" data-copy="">
+            {" "}
+            php bones update
+          </Pre>{" "}
+        </Box>
+        and check the <Anchor href="/docs/CorePluginFiles/overview">Core Plugin Files</Anchor>.
       </>
     ),
   },
