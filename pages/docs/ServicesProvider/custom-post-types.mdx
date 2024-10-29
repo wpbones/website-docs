@@ -2,24 +2,17 @@ import { Callout, FileTree } from 'nextra/components'
 
 # Custom Post Types
 
-You can add your *Custom Post Type (CPT)* by editing the `/config/plugin.php` file. This file is very important because it returns several important pieces of information used when the plugin is started. Let's see a typical structure of this file:
+WordPress provides a powerful way to create your own content types. WP Bones provides a simple way to add your own Custom Post Types.
 
-```php filename="config/plugin.php" copy
-  /*
-  |--------------------------------------------------------------------------
-  | Custom Post Types
-  |--------------------------------------------------------------------------
-  |
-  | Here is where you can register the Custom Post Types.
-  |
-  */
+## Create a Custom Post Type Service Provider
 
-  'custom_post_types' => [ '\WPKirk\CustomPostTypes\MyCustomPostType' ],
+You may create your own Custom Post Type Service Provider by following the steps below:
+
+```sh copy
+php bones make:cpt MyCustomPostType
 ```
 
-## Typical structure of a Custom Post Type Service Provider
-
-Let's see a typical class
+By default, the new provider will be created in the `plugins/CustomPostTypes` directory. Of course, you may create your Service Provider manually and in any directory you prefer. You have to change the namespace accordingly.
 
 ```php filename="/plugin/CustomPostTypes/MyCustomPostType.php" copy
 <?php
@@ -58,10 +51,19 @@ class MyCustomPostType extends WordPressCustomPostTypeServiceProvider {
 }
 ```
 
-## PHP Bones Command
+## Load the Custom Post Type Service Provider
 
-Using the `php bones make:cpt` Bones command, we can quickly create a Custom Post Type Service Provider.
+Add this new Service Provider to the list of providers in the `/config/plugin.php` file:
 
-```sh copy
-php bones make:cpt MyCustomPostType
+```php filename="config/plugin.php" copy
+  /*
+  |--------------------------------------------------------------------------
+  | Custom Post Types
+  |--------------------------------------------------------------------------
+  |
+  | Here is where you can register the Custom Post Types.
+  |
+  */
+
+  'custom_post_types' => [ '\WPKirk\CustomPostTypes\MyCustomPostType' ],
 ```

@@ -2,23 +2,33 @@ import { Callout, FileTree } from 'nextra/components'
 
 # Widgets
 
-You may register your widgets in the `/config/plugin.php` files in the `widgets` key:
+WordPress provides a powerful way to create your own widgets. WP Bones provides a simple way to add your own Widgets.
 
-```php filename="config/plugin.php" copy
-<?php
-  /*
-  |--------------------------------------------------------------------------
-  | Widgets
-  |--------------------------------------------------------------------------
-  |
-  | Here is where you can register all of the Widget for a plugin.
-  |
-  */
+## Create a Widget Service Provider
 
-  'widgets' => [ ],
+You may create your own widget service provider by following the steps below:
+
+```sh copy
+php bones make:widget MyWidget
 ```
 
-WP Bones provides a new `Widget` class to manage a WordPress widget. Let's see a simple example of a Widget:
+By default, the new provider will be created in the `plugins/Widgets` directory. Of course, you may create your Service Provider manually and in any directory you prefer. You have to change the namespace accordingly.
+
+```php filename="/plugin/Widgets/MyWidget.php" copy
+<?php
+namespace WPKirk\Widgets;
+
+use WPKirk\WPBones\Support\Widget;
+
+class MyWidget extends Widget
+{
+  // TODO
+}
+```
+
+## Edit the Widget Service Provider 
+
+Below is an example of a simple Widget Service Provider:
 
 ```php filename="/plugin/Widgets/MyWidget.php" copy
 <?php
@@ -135,6 +145,19 @@ return WPKirk()->view( 'widgets.form' )->with( 'instance', $instance );
 </div>
 ```
 
-## PHP Bones Command
+## Load the Widget Service Provider
 
-Using the `php bones make:widget` Bones command, we can quickly create a Widget Service Provider.
+Add this new Service Provider to the list of providers in the `/config/plugin.php` file:
+
+```php filename="config/plugin.php" copy
+  /*
+  |--------------------------------------------------------------------------
+  | Widgets
+  |--------------------------------------------------------------------------
+  |
+  | Here is where you can register all of the Widget for a plugin.
+  |
+  */
+
+  'widgets' => [ '\WPKirk\Widgets\MyWidget' ],
+```
