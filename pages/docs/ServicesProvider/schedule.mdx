@@ -1,0 +1,72 @@
+import { Callout, FileTree } from 'nextra/components'
+
+# Shortcodes
+
+A very powerful feature of WordPress is the shortcodes. You can add your own shortcodes very easily. First of all, similar to Ajax, we will need to add the list of your shortcode classes in the `/config/plugin.php` file:
+
+```php filename="config/plugin.php" copy
+  /*
+  |--------------------------------------------------------------------------
+  | Shortcodes
+  |--------------------------------------------------------------------------
+  |
+  | Here is where you can register the Shortcodes.
+  |
+  */
+
+  'shortcodes' => [ '\WPKirk\Shortcodes\MyShortcodes' ],
+```
+<Callout>
+Of course, you can add one or more classes in the `shortcodes` array.
+</Callout>
+
+## Typical Shortcode
+
+Let's see a simple implementation of `MyShortcodes` class:
+
+```php filename="/plugin/Shortcodes/MyShortcodes.php" copy
+<?php
+namespace WPKirk\Shortcodes;
+
+use WPKirk\WPBones\Foundation\WordPressShortcodesServiceProvider;
+
+class MyShortcodes extends WordPressShortcodesServiceProvider {
+
+  /**
+   * List of registred shortcodes. {shortcode}/method
+   *
+   * @var array
+   */
+  protected $shortcodes = [
+    'my-shortcode' => 'myShortcodeMethod'
+  ];
+
+
+  /**
+   * Example of shortcode.
+   *
+   * @param array $atts    Optional.Attribute into the shortcode
+   * @param null  $content Optional. HTML content
+   *
+   * @return string
+   */
+  public function myShortcodeMethod( $atts = [ ], $content = null )
+  {
+    // Default values for shortcode
+    $defaults = array(
+      'computer' => false,
+    );
+
+    $atts = shortcode_atts( $defaults, $atts, 'wp_kirk' );
+
+    return 'Computer, engage';
+  }
+
+}
+```
+
+## PHP Bones Command
+
+By utilizing the `php bones make:shortcode` Bones command, you can promptly generate a Shortcode Service Provider.
+
+The `MyShortcodes` class is an extension of the `WordPressShortcodesServiceProvider` class in WP Bones, offering the fundamental setup for WordPress shortcodes. Creating your own shortcodes is a simple process, as demonstrated here.
