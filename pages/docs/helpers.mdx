@@ -98,6 +98,10 @@ function wpbones_array_insert($arr, $key, $val, $index = 0): array
 ```php copy
   /**
    * Utility to cache a value.
+   * If the cache key exists, the value is returned.
+   * If the cache key does not exist, the value is cached and returned.
+   * If the expire time is 0, the cache key is deleted.
+   * Under the hood, this function uses the WordPress Transients API.
    *
    * @param string $key    The cache key.
    * @param mixed  $value  The value to cache.

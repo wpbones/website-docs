@@ -2,27 +2,17 @@ import { Callout, FileTree } from 'nextra/components'
 
 # Shortcodes
 
-A very powerful feature of WordPress is the shortcodes. You can add your own shortcodes very easily. First of all, similar to Ajax, we will need to add the list of your shortcode classes in the `/config/plugin.php` file:
+WordPress provides a powerful way to create your own shortcodes. WP Bones provides a simple way to add your own Shortcodes.
 
-```php filename="config/plugin.php" copy
-  /*
-  |--------------------------------------------------------------------------
-  | Shortcodes
-  |--------------------------------------------------------------------------
-  |
-  | Here is where you can register the Shortcodes.
-  |
-  */
+## Create a Shortcode Service Provider
 
-  'shortcodes' => [ '\WPKirk\Shortcodes\MyShortcodes' ],
+You may create your own shortcode service provider by following the steps below:
+
+```sh copy
+php bones make:shortcode MyShortcodes
 ```
-<Callout>
-Of course, you can add one or more classes in the `shortcodes` array.
-</Callout>
 
-## Typical Shortcode
-
-Let's see a simple implementation of `MyShortcodes` class:
+By default, the new provider will be created in the `plugins/Shortcodes` directory. Of course, you may create your Service Provider manually and in any directory you prefer. You have to change the namespace accordingly.
 
 ```php filename="/plugin/Shortcodes/MyShortcodes.php" copy
 <?php
@@ -40,7 +30,6 @@ class MyShortcodes extends WordPressShortcodesServiceProvider {
   protected $shortcodes = [
     'my-shortcode' => 'myShortcodeMethod'
   ];
-
 
   /**
    * Example of shortcode.
@@ -65,8 +54,23 @@ class MyShortcodes extends WordPressShortcodesServiceProvider {
 }
 ```
 
-## PHP Bones Command
+## Load the Shortcode Service Provider
 
-By utilizing the `php bones make:shortcode` Bones command, you can promptly generate a Shortcode Service Provider.
+Add this new Service Provider to the list of providers in the `/config/plugin.php` file:
 
-The `MyShortcodes` class is an extension of the `WordPressShortcodesServiceProvider` class in WP Bones, offering the fundamental setup for WordPress shortcodes. Creating your own shortcodes is a simple process, as demonstrated here.
+```php filename="config/plugin.php" copy
+  /*
+  |--------------------------------------------------------------------------
+  | Shortcodes
+  |--------------------------------------------------------------------------
+  |
+  | Here is where you can register the Shortcodes.
+  |
+  */
+
+  'shortcodes' => [ '\WPKirk\Shortcodes\MyShortcodes' ],
+```
+
+<Callout type="info">
+Of course, you can add one or more classes in the `shortcodes` array.
+</Callout>

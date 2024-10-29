@@ -2,47 +2,37 @@ import { Callout, FileTree } from 'nextra/components'
 
 # Autoload Service Providers
 
-In the `config/plugin.php` file, you might have noticed the `providers` key. It is used to load your custom providers on the load of a plugin.
+WP Bones allows you to create your own service providers. Service providers are used to register services, actions, filters, and other services you require.
 
-```php filename="config/plugin.php" copy
-  /*
-  |--------------------------------------------------------------------------
-  | Autoloaded Service Providers
-  |--------------------------------------------------------------------------
-  |
-  | The service providers listed here will be automatically loaded on the
-  | init of your plugin. Feel free to add your own services to
-  | this array to grant expanded functionality to your applications.
-  |
-  */
+## Create a new Service Provider
 
-  'providers' => [ 'YourNamespace\Providers\YourServiceProvider' ],
-```
+You may create your own service provider by following the steps below:
 
-## PHP Bones Command
+```sh copy
+php bones make:provider MyProvider
+``
+By default, the new provider will be created in the `plugins/Providers` directory.
 
-Using the PHP Bones `make:provider` Bones command, we can quickly create a Service Provider.
+Of course, you may create your Service Provider manually and in any directory you prefer. You have to change the namespace accordingly.
 
-## Typical Service Provider
+## Edit the Service Provider bootstrap
 
-Let me show you a typical service provider.
-
-```php filename="plugin/Providers/YourServiceProvider.php" copy
+```php copy
 <?php
-
+ 
 namespace YourNamespace\Providers;
-
+ 
 use YourNamespace\WPBones\Support\ServiceProvider;
-
+ 
 class YourServiceProvider extends ServiceProvider
 {
-
+ 
   public function register()
   {
     // TODO
   }
 }
-``` 
+```
 
 The service providers are useful because they are loaded at the start (init) of the plugin. For example, you may use them to add the plugin row data in the plugin list view:
 
@@ -88,3 +78,30 @@ class YourServiceProvider extends ServiceProvider
 
 }
 ``` 
+
+## Load the Service Provider
+
+The service providers are loaded through the `config/plugin.php` file.
+
+```php copy
+  /*
+  |--------------------------------------------------------------------------
+  | Autoload Service Providers
+  |--------------------------------------------------------------------------
+  |
+  | The service providers listed here will be automatically loaded on the
+  | initialization of your plugin. Feel free to add your own services to
+  | this array to provide expanded functionality to your applications.
+  |
+  */
+
+  "providers" => [
+    "YourNamespace\Providers\YourServiceProvider",
+  ],
+```
+
+<Callout type="info">
+Of course, you can add one or more classes in the `providers` array.
+
+</Callout>
+

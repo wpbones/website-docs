@@ -8,22 +8,15 @@ In WordPress, you can have three different Ajax access:
 -  Only for not-logged-in users
 -  For everyone
 
-To allow Ajax calls, you need to edit the `/config/plugin.php` file. In the Ajax section, you can insert the list of your own Ajax classes, for example:
+## Create an Ajax Service Provider
 
-```php copy
-  /*
-  |--------------------------------------------------------------------------
-  | Ajax
-  |--------------------------------------------------------------------------
-  |
-  | Here is where you can register your own Ajax actions.
-  |
-  */
+To create an Ajax Service Provider, you can use the following command:
 
-  'ajax' => [ '\WPKirk\Ajax\MyAjax' ],
+```sh copy
+php bones make:ajax MyAjax
 ```
 
-In the `\WPKirk\Ajax\MyAjax` class, you will list your methods/actions for logged-in, not logged-in, or trusted users:
+By default, the new provider will be created in the `plugins/Ajax` directory. Of course, you may create your Service Provider manually and in any directory you prefer. You have to change the namespace accordingly.
 
 ```php filename="/plugin/Ajax/MyAjax.php" copy
 <?php
@@ -74,7 +67,10 @@ class MyAjax extends WordPressAjaxServiceProvider
 }
 ```
 
-Using the `php bones make:ajax` Bones command, we can quickly create an Ajax Service Provider.
+
+## Edit the Ajax Service Provider
+
+In the `\WPKirk\Ajax\MyAjax` class, you will list your methods/actions for logged-in, not logged-in, or trusted users:
 
 The parent class `WordPressAjaxServiceProvider` will register on your behalf the WordPress actions that you need. So, let's have a look at a complete example:
 
@@ -267,7 +263,7 @@ post("logged").then(response => {
 });
 ```
 
-<Callout>
+<Callout type="info" emoji="💡">
 You may use the same also in Vanilla JavaScript or any other JavaScript framework. Most probably, in WordPress you are used to jQuery, so you can use the `$.post` method.
 
 ```javascript copy
@@ -282,5 +278,21 @@ $.post(
   }
 );
 ```
-
 </Callout>
+
+## Load the Ajax Service Provider
+
+To allow Ajax calls, you need to edit the `/config/plugin.php` file. In the Ajax section, you can insert the list of your own Ajax classes, for example:
+
+```php copy filename="/config/plugin.php"
+  /*
+  |--------------------------------------------------------------------------
+  | Ajax
+  |--------------------------------------------------------------------------
+  |
+  | Here is where you can register your own Ajax actions.
+  |
+  */
+
+  'ajax' => [ '\WPKirk\Ajax\MyAjax' ],
+```

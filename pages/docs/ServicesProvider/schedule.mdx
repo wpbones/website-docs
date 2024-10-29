@@ -1,10 +1,12 @@
-import { Callout, FileTree } from 'nextra/components'
+import { Badge, Button, Group } from '@mantine/core';
+import { IconArticle, IconBrandGithub, IconBrandSlack, IconBrandWordpress, IconExternalLink, IconPlug } from "@tabler/icons-react";
+import { Callout, Cards, FileTree } from 'nextra/components';
 
 # Schedule
 
 As you probably know, WordPress has a built-in scheduling system. It is called also Cron Jobs. WP Bones provides a simple way to add your own schedules.
 
-## Schedule Service Provider
+## Create a Schedule Service Provider
 
 You may create your own schedule service provider by following the steps below:
 
@@ -13,23 +15,6 @@ php bones make:schedule MySchedule
 ```
 
 In the `plugins/Provider` directory, the new provider will be created by default. Of course, you may create your schedule service provider manually and in any directory you prefer. You have to change the namespace accordingly.
-
-Add this new Service Provider to the list of providers in the `/config/plugin.php` file:
-
-```php filename="config/plugin.php" copy
-  /*
-  |--------------------------------------------------------------------------
-  | Providers
-  |--------------------------------------------------------------------------
-  |
-  | Here is where you can register the Service Providers.
-  |
-  */
-
-  "providers" => [
-    "WPKirk\Providers\MySchedule",
-  ],
-```
 
 ### Edit the Schedule Service Provider bootstrap
 
@@ -110,3 +95,28 @@ class MySchedule extends ServiceProvider
 }
 ```
 
+## Load the Schedule Service Provider
+
+Add this new Service Provider to the list of providers in the `/config/plugin.php` file:
+
+```php filename="config/plugin.php" copy
+  /*
+  |--------------------------------------------------------------------------
+  | Providers
+  |--------------------------------------------------------------------------
+  |
+  | Here is where you can register the Service Providers.
+  |
+  */
+
+  "providers" => [
+    "WPKirk\Providers\MySchedule",
+  ],
+```
+
+
+## Schedule Boilerplate
+
+<Cards num={1}>
+<Cards.Card arrow icon={<IconBrandGithub />} title={<Group>Cron Schedule</Group>} target="_blank" href="https://github.com/new?template_name=WPKirk-Cron-Boilerplate&template_owner=wpbones"/>
+</Cards>
