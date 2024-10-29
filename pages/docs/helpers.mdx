@@ -1,4 +1,5 @@
-import { Callout, FileTree } from 'nextra/components'
+import { ActionButton, AnimateBadge } from "@components";
+import { Callout, FileTree } from 'nextra/components';
 
 # Helpers
 
@@ -10,6 +11,7 @@ WP Bones includes a variety of "helper" PHP functions, many of which are used by
 * [logger](#logger)
 * [wpbones_array_assoc_default](#wpbones_array_assoc_default)
 * [wpbones_array_insert](#wpbones_array_insert)
+* <AnimateBadge /> [wpbones_cache](#wpbones_cache)
 * [wpbones_checked](#wpbones_checked)
 * [wpbones_env](#wpbones_env)
 * [wpbones_flatten_and_uniquify](#wpbones_flatten_and_uniquify)
@@ -87,6 +89,44 @@ function wpbones_array_assoc_default($default, $merge): array
  */
 function wpbones_array_insert($arr, $key, $val, $index = 0): array
 ```
+---------------------------------------------------------------------------------------------
+
+### `wpbones_cache()`
+
+#### Synopsis
+
+```php copy
+  /**
+   * Utility to cache a value.
+   *
+   * @param string $key    The cache key.
+   * @param mixed  $value  The value to cache.
+   * @param int    $expire The expiration time in seconds. Default is 12 hours.
+   *
+   * @since 1.8.0
+   *
+   * @return mixed
+   */
+  function wpbones_cache($key, $value, $expire = 12 * HOUR_IN_SECONDS)
+```
+
+#### Usage
+
+The `wpbones_cache()` function caches a value for a specified amount of time. The default expiration time is 12 hours.
+
+```php copy
+$value = wpbones_cache('my_key', 'my_value');
+```
+
+#### Clearing the cache
+
+To clear the cache, you can set the `$expire` parameter to `0` or `false`:
+
+```php copy
+wpbones_cache('my_key', 'my_value', 0);
+```
+
+
 ---------------------------------------------------------------------------------------------
 
 ### `wpbones_checked()`
