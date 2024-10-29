@@ -1,72 +1,112 @@
 import { Callout, FileTree } from 'nextra/components'
 
-# Shortcodes
+# Schedule
 
-A very powerful feature of WordPress is the shortcodes. You can add your own shortcodes very easily. First of all, similar to Ajax, we will need to add the list of your shortcode classes in the `/config/plugin.php` file:
+As you probably know, WordPress has a built-in scheduling system. It is called also Cron Jobs. WP Bones provides a simple way to add your own schedules.
+
+## Schedule Service Provider
+
+You may create your own schedule service provider by following the steps below:
+
+```sh copy
+php bones make:schedule MySchedule
+```
+
+In the `plugins/Provider` directory, the new provider will be created by default. Of course, you may create your schedule service provider manually and in any directory you prefer. You have to change the namespace accordingly.
+
+Add this new Service Provider to the list of providers in the `/config/plugin.php` file:
 
 ```php filename="config/plugin.php" copy
   /*
   |--------------------------------------------------------------------------
-  | Shortcodes
+  | Providers
   |--------------------------------------------------------------------------
   |
-  | Here is where you can register the Shortcodes.
+  | Here is where you can register the Service Providers.
   |
   */
 
-  'shortcodes' => [ '\WPKirk\Shortcodes\MyShortcodes' ],
+  "providers" => [
+    "WPKirk\Providers\MySchedule",
+  ],
 ```
-<Callout>
-Of course, you can add one or more classes in the `shortcodes` array.
-</Callout>
 
-## Typical Shortcode
+### Edit the Schedule Service Provider bootstrap
 
-Let's see a simple implementation of `MyShortcodes` class:
-
-```php filename="/plugin/Shortcodes/MyShortcodes.php" copy
+```php copy
 <?php
-namespace WPKirk\Shortcodes;
+namespace WPKirk\Providers;
 
-use WPKirk\WPBones\Foundation\WordPressShortcodesServiceProvider;
+if (!defined('ABSPATH')) {
+  exit();
+}
 
-class MyShortcodes extends WordPressShortcodesServiceProvider {
+use WPKirk\WPBones\Foundation\WordPressScheduleServiceProvider as ServiceProvider;
 
-  /**
-   * List of registred shortcodes. {shortcode}/method
-   *
-   * @var array
-   */
-  protected $shortcodes = [
-    'my-shortcode' => 'myShortcodeMethod'
-  ];
+class MySchedule extends ServiceProvider
+{
 
+  // Hook name - used in the WordPress schedule event
+  protected $hook = 'schedule_example_event';
 
-  /**
-   * Example of shortcode.
-   *
-   * @param array $atts    Optional.Attribute into the shortcode
-   * @param null  $content Optional. HTML content
-   *
-   * @return string
-   */
-  public function myShortcodeMethod( $atts = [ ], $content = null )
+  // Recurrence - used in the WordPress schedule event
+  protected $recurrence = 'twicedaily';
+
+  public function boot()
   {
-    // Default values for shortcode
-    $defaults = array(
-      'computer' => false,
-    );
-
-    $atts = shortcode_atts( $defaults, $atts, 'wp_kirk' );
-
-    return 'Computer, engage';
+    // You may override this method to set the properties
+    // $this->hook = 'schedule_example_event';
+    // $this->recurrence = 'twicedaily';
   }
 
+  /**
+   * Run the scheduled event.
+   *
+   */
+  public function run()
+  {
+    wpbones_logger()->info('Schedule example event triggered');
+  }
 }
 ```
 
-## PHP Bones Command
+The `run` method is the method that will be executed when the schedule event is triggered.
+You should define a unique hook name and recurrence for your schedule event.
+You may use the protected properties `$hook` and `$recurrence` to set the hook name and recurrence. Of course, you may override the `boot` method to set these properties.
+For example, you may set the recurrence from the database or from a configuration file.
 
-By utilizing the `php bones make:shortcode` Bones command, you can promptly generate a Shortcode Service Provider.
+```php copy
+<?php
+namespace WPKirk\Providers;
 
-The `MyShortcodes` class is an extension of the `WordPressShortcodesServiceProvider` class in WP Bones, offering the fundamental setup for WordPress shortcodes. Creating your own shortcodes is a simple process, as demonstrated here.
+if (!defined('ABSPATH')) {
+  exit();
+}
+
+use WPKirk\WPBones\Foundation\WordPressScheduleServiceProvider as ServiceProvider;
+
+class MySchedule extends ServiceProvider
+{
+
+  // Hook name - used in the WordPress schedule event
+  protected $hook = 'schedule_example_event';
+
+  public function boot()
+  {
+    // You may override this method to set the properties
+    // $this->hook = 'schedule_example_event';
+    
+    $this->recurrence = $this->plugin->config('schedule.recurrence', 'twicedaily');
+  }
+
+  /**
+   * Run the scheduled event.
+   *
+   */
+  public function run()
+  {
+    wpbones_logger()->info('Schedule example event triggered');
+  }
+}
+```
+
