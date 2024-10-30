@@ -4,6 +4,24 @@ import { Badge, Flex, Group } from "@mantine/core";
 
 Here you will find the Release Notes of the **most important versions** of [WP Bones](https://github.com/wpbones/WPBones/releases). The versions that change in the **minor** and **major**. Therefore, the patches that can be found [here](https://github.com/wpbones/WPBones/releases) directly in the GitHub repository are excluded.
 
+## 1.8.0
+
+<Flex mt={-34} justify="right"><Badge>November 16, 2024</Badge></Flex>
+
+### ✨ Added
+
+- Added new `WordPressScheduleServiceProvider` service provider to manage the WordPress cron jobs.
+- Added new [WPKirk-Cron-Boilerplate](https://github.com/wpbones/WPKirk-Cron-Boilerplate) example plugin.
+- Added new `wpbones_cache()` helper function to manage a simple cached data in the WordPress transients.
+- Added new `file` property in the [`Plugin Class`](https://wpbones.com/docs/CoreClasses/plugin) as alias of `__FILE__` constant.
+- Added new `hooks` folder to load all PHP files within it.
+
+### 💎 Changed and Improved
+
+- Reorganized the command list in `php bones` for better readability.
+- Updated the [Service Providers](https://wpbones.com/docs/ServicesProvider/services) documentation to reflect the new changes.
+
+
 ## 1.7.0
 
 <Flex mt={-34} justify="right"><Badge>October 16, 2024</Badge></Flex>
