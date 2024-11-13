@@ -1,6 +1,11 @@
-import { Callout, FileTree } from 'nextra/components'
+import { BoilerplateDemoButton } from "@components";
+import { Callout, FileTree } from 'nextra/components';
 
 # Seeding
+
+<BoilerplateDemoButton slug="database" />
+
+## Overview
 
 Similarly to Laravel, WP Bones includes the ability to seed your database with data using seed classes. All seed classes are stored in the `database/seeders` directory.
 The seeder classes will be loaded and executed when the plugin is activated.
@@ -229,3 +234,6 @@ class EloquentBook extends Model
   }
 }
 ```
+
+---
+<BoilerplateDemoButton slug="database" />

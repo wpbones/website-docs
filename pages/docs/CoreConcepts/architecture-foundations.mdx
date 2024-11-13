@@ -110,13 +110,15 @@ Also, you will find a set of files in the root of the plugin:
 However, the most important folder is `/plugin/`. In this folder, you will find the main controllers of your plugin:
 
 <FileTree>
-  <FileTree.Folder name="myPlugin" defaultOpen>
+  <FileTree.Folder name="my_plugin" defaultOpen>
     <FileTree.Folder name="plugin" defaultOpen>
       <FileTree.Folder name="Ajax" />
       <FileTree.Folder name="CustomPostTypes" />
       <FileTree.Folder name="CustomTaxonomyTypes" />
       <FileTree.Folder name="Http" />
       <FileTree.Folder name="Shortcodes" />
+      <FileTree.Folder label={<FileTreeLabel name="hooks" color="yellow">available as optional starting v1.8</FileTreeLabel>} />
+      <FileTree.Folder label={<FileTreeLabel name="modules" color="yellow">available as optional starting v1.8</FileTreeLabel>} />
       <FileTree.File name="activation.php" />
       <FileTree.File name="deactivation.php" />
     </FileTree.Folder>

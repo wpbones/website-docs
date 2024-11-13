@@ -1,6 +1,12 @@
-import { Callout, FileTree } from 'nextra/components'
+import { BoilerplateDemoButton } from "@components";
+import { Callout, FileTree } from 'nextra/components';
+
 
 # Model
+
+<BoilerplateDemoButton slug="database" />
+
+## Overview
 
 In your plugin, you may use the Database Model class instead of the Query Builder.
 
@@ -117,11 +123,11 @@ $users = Users::where('id', '>', 1)
                ->get();
 ```
 
-# Accessors & Mutators
+## Accessors & Mutators
 
 An accessor transforms an attribute value when it is accessed. To define an accessor, create a `get{Attribute}Attribute` method on your model where `{Attribute}` is the "studly" cased name of the column you wish to access.
 
-## Defining An Accessor
+### Defining An Accessor
 
 In this example, we'll define an accessor for the `display_name` attribute. The accessor will automatically be called by WP Bones model when attempting to retrieve the value of the `display_name` attribute:
 
@@ -170,7 +176,7 @@ public function getFullNameAttribute()
 }
 ```
 
-## Defining a Mutator
+### Defining a Mutator
 
 A mutator transforms an attribute value when it is set. To define a mutator, define a `set{Attribute}Attribute` method on your model where `{Attribute}` is the "studly" cased name of the column you wish to access.
 
@@ -207,3 +213,5 @@ $user = Users::find(1);
 $user->display_name = 'JOHN'; // will be stored in lower case
 $user->save();
 ```
+---
+<BoilerplateDemoButton slug="database" />
