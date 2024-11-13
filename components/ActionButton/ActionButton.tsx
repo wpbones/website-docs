@@ -6,19 +6,23 @@ import classes from "./ActionButton.module.css";
 
 type AvailableDemos =
   | "demo"
-  | "boilerplate"
   | "api-boilerplate"
+  | "boilerplate"
+  | "cron-boilerplate"
+  | "database-boilerplate"
+  | "hooks-boilerplate"
+  | "internationalization-boilerplate"
   | "mantine-boilerplate"
   | "reactjs-boilerplate"
   | "routes-boilerplate"
-  | "database-boilerplate"
-  | "internationalization-boilerplate";
+  | "typescript-boilerplate";
 
 interface ActionButtonProps {
   demo?: AvailableDemos;
   colorFrom?: MantineColor;
   colorTo?: MantineColor;
   layout?: "default" | "square";
+  title?: string;
 }
 
 export function ActionButton({
@@ -26,7 +30,12 @@ export function ActionButton({
   colorFrom = "orange",
   colorTo = "violet",
   layout = "default",
+  title,
 }: ActionButtonProps) {
+  const sanitizeDemo = demo.charAt(0).toUpperCase() + demo.replace("-boilerplate", "").slice(1);
+
+  const titleText = title || `See WP Bones Plugin ${sanitizeDemo} in action`;
+
   return (
     <Button
       color="orange"
@@ -39,7 +48,7 @@ export function ActionButton({
       className={classes.buttonAction}
       rightSection={<IconExternalLink />}
       radius={"xl"}>
-      See WP Bones Plugin {demo} in action
+      {titleText}
     </Button>
   );
 }

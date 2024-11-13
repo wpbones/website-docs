@@ -1,10 +1,14 @@
-import { AnimateBadge } from "@components/AnimateBadge";
-import { Badge, Button, Group } from '@mantine/core';
+import { ActionButton, AnimateBadge, Boilerplate, BoilerplateDemoButton } from "@components";
+import { Badge, Button, Center, Group } from '@mantine/core';
 import { IconArticle, IconBrandGithub, IconBrandSlack, IconBrandWordpress, IconExternalLink, IconPlug } from "@tabler/icons-react";
 import { Callout, Cards, FileTree } from 'nextra/components';
 
 
 # Query Builder
+
+<BoilerplateDemoButton slug="database" />
+
+## Overview
 
 WP Bones's database query builder provides a convenient, fluent interface for creating and running database queries. It can be used to perform most database operations in your WordPress instance.
 
@@ -91,9 +95,9 @@ use WPKirk\WPBones\Database\DB;
 $users = DB::table('users')->count();
 ```
 
-# Select Statements
+## Select Statements
 
-## Specifying a Select Clause
+### Specifying a Select Clause
 
 You may not always want to select all columns from a database table. Using the `select` method, you can specify a custom "select" clause for the query:
 
@@ -105,9 +109,9 @@ $users = DB::table('users')
             ->get();
 ```
 
-# Basic Where Clauses
+## Basic Where Clauses
 
-## Where Clauses
+### Where Clauses
 
 You can utilize the query builder's `where` method to add "where" clauses to the query. The most basic call to the `where` method requires three arguments. The first argument is the name of the column. The second argument is an operator, which can be any of the database's supported operators. The third argument is the value to compare against the column's value.
 
@@ -151,7 +155,7 @@ $users = DB::table('users')->where([
 ])->get();
 ```
 
-## Or Where Clauses
+### Or Where Clauses
 
 When chaining together calls to the query builder's `where` method, the "where" clauses will be joined together using the `and` operator. However, you may use the `orWhere` method to join a clause to the query using the or operator. The `orWhere` method accepts the same arguments as the `where` method:
 
@@ -162,9 +166,9 @@ $users = DB::table('users')
                     ->get();
 ```
 
-## Additional Where Clauses
+### Additional Where Clauses
 
-### `whereBetween` / `orWhereBetween`
+#### `whereBetween` / `orWhereBetween`
 
 The `whereBetween` method verifies that a column's value is between two values:
 
@@ -174,7 +178,7 @@ $users = DB::table('users')
            ->get();
 ```
 
-### `whereNotBetween` / `orWhereNotBetween`
+#### `whereNotBetween` / `orWhereNotBetween`
 
 The `whereNotBetween` method verifies that a column's value lies outside of two values:
 
@@ -184,7 +188,7 @@ $users = DB::table('users')
            ->get();
 ```
 
-### `whereIn` / `whereNotIn` / `orWhereIn` / `orWhereNotIn`
+#### `whereIn` / `whereNotIn` / `orWhereIn` / `orWhereNotIn`
 
 The `whereIn` method verifies that a given column's value is contained within the given array:
 
@@ -194,11 +198,11 @@ $users = DB::table('users')
                     ->get();
 ```
 
-# Ordering, Limit & Offset
+## Ordering, Limit & Offset
 
-## Ordering
+### Ordering
 
-## The `orderBy` Method
+#### The `orderBy` Method
 
 The `orderBy` method allows you to sort the results of the query by a given column. The first argument accepted by the `orderBy` method should be the column you wish to sort by, while the second argument determines the direction of the sort and may be either asc or desc:
 
@@ -217,7 +221,7 @@ $users = DB::table('users')
                 ->get();
 ```
 
-# Limit & Offset
+## Limit & Offset
 
 You may use the `limit` and `offset` methods to limit the number of results returned from the query or to skip a given number of results in the query:
 
@@ -228,7 +232,7 @@ $users = DB::table('users')
                 ->get();
 ```
 
-# Insert Statements
+## Insert Statements
 
 The query builder also provides an `insert` method that may be used to insert records into the database table. The `insert` method accepts an array of column names and values:
 
@@ -248,7 +252,7 @@ DB::table('users')->insert([
 ]);
 ```
 
-# Update Statements
+## Update Statements
 
 In addition to inserting records into the database, the query builder can also update existing records using the `update` method. The `update` method, like the insert method, accepts an array of column and value pairs indicating the columns to be updated. You may constrain the `update` query using `where` clauses:
 
@@ -266,7 +270,7 @@ $user->user_email = 'janeway@example.com';
 $user->save();
 ```
 
-# Delete Statements
+## Delete Statements
 
 The query builder's `delete` method may be used to delete records from the table. You may constrain `delete` statements by adding "where" clauses before calling the `delete` method:
 
@@ -282,7 +286,7 @@ If you wish to truncate an entire table, which will remove all records from the 
 DB::table('users')->truncate();
 ```
 
-# Debugging
+## Debugging
 
 You may use the `dump` methods while building a query to dump the current query bindings and SQL. The `dump` method will display the records returned by the query in a JSON pretty-printed format:
 
@@ -323,7 +327,5 @@ You may use the short syntax to set the table name:
 ```php copy
 DB::tableWithoutPrefix('my_table');
 ```
-
-<Cards num={1}>
-<Cards.Card arrow icon={<IconBrandGithub color="white" />} title={<Group><AnimateBadge />WP Bones Database Boilerplate</Group>} target="_blank" href="https://github.com/new?template_name=WPKirk-API-Boilerplate&template_owner=wpbones"/>
-</Cards>
+---
+<BoilerplateDemoButton slug="database" />

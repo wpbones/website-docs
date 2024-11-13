@@ -1,19 +1,15 @@
-import { AnimateBadge } from "@components/AnimateBadge";
+import { AnimateBadge, BoilerplateDemoButton } from "@components";
 import { Badge, Button, Group } from '@mantine/core';
 import { IconArticle, IconBrandGithub, IconBrandSlack, IconBrandWordpress, IconExternalLink, IconPlug } from "@tabler/icons-react";
 import { Callout, Cards, FileTree } from 'nextra/components';
 
 # REST API
 
+<BoilerplateDemoButton slug="api" />
+
+## Overview
+
 WP Bones provides a simple way to create your own REST API. You may use the WordPress REST API as well.
-
-<Cards num={2}>
-
-<Cards.Card arrow icon={<IconBrandGithub color="white" />} title={<Group><AnimateBadge />WP Bones API Boilerplate</Group>} target="_blank" href="https://github.com/new?template_name=WPKirk-API-Boilerplate&template_owner=wpbones"/>
-
-<Cards.Card arrow icon={<IconBrandWordpress />} title="WordPress Developer API Documentation" target="_blank" href="https://developer.wordpress.org/rest-api/extending-the-rest-api/"/>
-
-</Cards>
 
 ## Configuration
 
@@ -413,4 +409,4 @@ The above setting will affect all routes.
 From a browser request, you won't receive the error message if you're logged in.
 </Callout>
 
-
+<BoilerplateDemoButton slug="api" />

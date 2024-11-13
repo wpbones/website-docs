@@ -1,7 +1,9 @@
-import { FileTreeLabel } from '@components/FileTreeLabel'
+import { BoilerplateDemoButton, FileTreeLabel } from '@components'
 import { Callout, FileTree } from 'nextra/components'
 
 # Menus
+
+<BoilerplateDemoButton slug="routes" />
 
 You can set your custom menu in `/config/menus.php` file. This file returns an array representing the menu structure. You can leave this array empty if you don't need a menu. Let me show you a typical menu structure.
 
@@ -163,6 +165,10 @@ The submenu "Main View" capability will be set to `manage_options`.
 
 If you set the icon key to something like `dashicons-admin-plugins`, the official icon font of the WordPress admin will be used. Otherwise, if the value doesn't start with `dashicons-`, it will be used as an image filename in the `public/images/` folder.
 
+```php filename="config/menus.php" copy
+'icon' => 'wpbones-logo-menu.png', // /public/images/wpbones-logo-menu.png
+```
+
 ## Custom Post Type attachment
 
 You could have your own Custom Post Type as a standard WordPress menu. To attach your custom menu below the Custom Post item menu, just replace the first menu key with something like the following one:
@@ -179,6 +185,8 @@ Where `your_cpt_id`, enter the Custom Post Type ID. So, your menu will be attach
 
 As you can see from the code above, the view is handled by a **Laravel**-style syntax. In other words, the `view` key is bound to a View Controller's methods. The syntax is very easy: `ViewController@method`.
 
-<Callout>
+<Callout type="info">
 Of course, you will add the namespace as necessary.
 </Callout>
+
+<BoilerplateDemoButton slug="routes" />

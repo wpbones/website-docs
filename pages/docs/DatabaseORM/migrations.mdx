@@ -1,6 +1,11 @@
-import { Callout, FileTree } from 'nextra/components'
+import { BoilerplateDemoButton } from "@components";
+import { Callout, FileTree } from 'nextra/components';
 
 # Migrations
+
+<BoilerplateDemoButton slug="database" />
+
+## Overview
 
 WP Bones provides a simple implementation of the migration. Of course, this implementation is a little bit different from Laravel migration. First of all, you can use `php bones migrate:create` to create a migration file:
 
@@ -90,3 +95,6 @@ return new class extends Migration {
 };
 ```
 In this case the table will be named `products`.
+
+---
+<BoilerplateDemoButton slug="database" />

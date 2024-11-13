@@ -1,5 +1,6 @@
 export { ActionButton } from "./ActionButton";
 export { AnimateBadge } from "./AnimateBadge";
+export { Boilerplate, BoilerplateDemoButton } from "./Boilerplate";
 export { FAQs } from "./FAQ";
 export { FileTreeLabel } from "./FileTreeLabel";
 export { Footer } from "./Footer";

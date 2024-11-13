@@ -1,7 +1,11 @@
-import { FileTreeLabel } from '@components/FileTreeLabel'
+import { BoilerplateDemoButton, FileTreeLabel } from '@components'
 import { Callout, FileTree, Steps } from 'nextra/components'
 
 # Javascript Localization
+
+<BoilerplateDemoButton slug="internationalization" />
+
+## Overview 
 
 WordPress provides the [`wp_localize_script()`](https://developer.wordpress.org/reference/functions/wp_localize_script/) function to pass data from PHP to JavaScript. This function is used to pass the localized strings to the JavaScript file.
 
@@ -10,6 +14,8 @@ More generally, the function [`wp_localize_script()`](https://developer.wordpres
 
 So you should follow the same rule in WP Bones and use the fluent method `withLocalizeScript()` to pass the localized strings to the JavaScript file. And use the fluent `withInlineScript()` method to pass any other type of data to the JavaScript file.
 </Callout>
+
+## Basic usage
 
 In WP Bones you can use the fluent `withLocalizeScript()` method to pass the localized strings to the JavaScript file.
 
@@ -36,3 +42,6 @@ return WPKirk()->view( 'dashboard.index' )
 
 })(jQuery);
 ```
+
+
+<BoilerplateDemoButton slug="internationalization" />

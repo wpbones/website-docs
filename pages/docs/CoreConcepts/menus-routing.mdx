@@ -1,7 +1,9 @@
-import { FileTreeLabel } from '@components/FileTreeLabel'
+import { BoilerplateDemoButton, FileTreeLabel } from '@components'
 import { Callout, FileTree } from 'nextra/components'
 
 # Menus Routing
+
+<BoilerplateDemoButton slug="routes" />
 
 In WordPress as well as WP Bones architecture, the routing is quite different from Laravel. Instead of a true routing system, there is menu routing. However, you can still handle basic HTTP verbs such as GET, POST, PUT, PATCH, and DELETE. In the example above, we used the `get` verb in the `route` key. If your view contains a form with a POST method, you can use:
 
@@ -132,3 +134,4 @@ public function load()
   }
 }
 ```
+<BoilerplateDemoButton slug="routes" />

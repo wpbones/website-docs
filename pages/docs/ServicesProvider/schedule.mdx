@@ -1,8 +1,13 @@
+import { BoilerplateDemoButton } from "@components";
 import { Badge, Button, Group } from '@mantine/core';
 import { IconArticle, IconBrandGithub, IconBrandSlack, IconBrandWordpress, IconExternalLink, IconPlug } from "@tabler/icons-react";
 import { Callout, Cards, FileTree } from 'nextra/components';
 
 # Schedule
+
+<BoilerplateDemoButton slug="cron" />
+
+# Overview
 
 As you probably know, WordPress has a built-in scheduling system. It is called also Cron Jobs. WP Bones provides a simple way to add your own schedules.
 
@@ -163,9 +168,4 @@ class MySchedule extends ServiceProvider
 }
 ```
 
-
-## Schedule Boilerplate
-
-<Cards num={1}>
-<Cards.Card arrow icon={<IconBrandGithub />} title={<Group>Cron Schedule</Group>} target="_blank" href="https://github.com/new?template_name=WPKirk-Cron-Boilerplate&template_owner=wpbones"/>
-</Cards>
+<BoilerplateDemoButton slug="cron" />
