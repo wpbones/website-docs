@@ -166,6 +166,7 @@ export function HomeContent() {
             </Group>
             <Stack>
               <Text
+                component="div"
                 ta={"center"}
                 fz={24}
                 style={{
