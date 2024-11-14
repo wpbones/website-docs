@@ -1,18 +1,15 @@
-import { ActionButton, AnimateBadge, Boilerplate, BoilerplateDemoButton, FileTreeLabel } from "@components";
+import { ActionButton, AnimateBadge, Boilerplate, DocsBoilerplateDemo, FileTreeLabel } from "@components";
 import { Badge, Button, Group } from '@mantine/core';
 import { IconArticle, IconBrandGithub, IconBrandSlack, IconBrandWordpress, IconExternalLink, IconPlug } from "@tabler/icons-react";
 import { Callout, Cards, FileTree, Steps } from 'nextra/components';
 
 # ReactJS Components
 
-<BoilerplateDemoButton slug="reactjs" />
+---
+<DocsBoilerplateDemo slug="reactjs" />
 
 If you want to use simple ReactJS components in your plugin, you can use the `resources/js/` folder.
 First of all, you need to install the dependencies as described in the [Assets section](../GettingStarted/assets).
-
-<Boilerplate column={1} display={['react']} title={{
-  react: 'Try the WP Bones ReactJS Boilerplate',
-}} />
 
 <Steps>
 ### Create the Menu
@@ -161,5 +158,5 @@ After completion, remember to execute the build command:
 ```shell copy
 npm run build
 ```
-
-<BoilerplateDemoButton slug="reactjs" />
+---
+<DocsBoilerplateDemo slug="reactjs" />

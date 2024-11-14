@@ -3,6 +3,11 @@ export const resources = [
     key: "demo",
     title: "WP Bones Demo in action",
     href: "https://playground.wordpress.net/?blueprint-url=https://www.wpbones.com/wpkirk-demo.json",
+  },
+  {
+    key: "wpbones-raycast",
+    title: "Raycast Extension",
+    href: "https://www.raycast.com/Undolog/wp-bones",
     new: true,
   },
   {

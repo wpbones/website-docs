@@ -1,6 +1,8 @@
 import "@mantine/core/styles.css";
 import "./styles.css";
 
+import "@gfazioli/mantine-marquee/styles.css";
+
 import { docsTheme } from "@components/docs-theme";
 import { ColorSchemeScript, createTheme, MantineProvider } from "@mantine/core";
 import { GoogleTagManager } from "@next/third-parties/google";

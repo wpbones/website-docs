@@ -1,11 +1,12 @@
-import { ActionButton, AnimateBadge, Boilerplate, BoilerplateDemoButton, FileTreeLabel } from "@components";
+import { ActionButton, AnimateBadge, Boilerplate, DocsBoilerplateDemo, FileTreeLabel } from "@components";
 import { Badge, Button, Center, Group } from '@mantine/core';
 import { IconArticle, IconBrandGithub, IconBrandSlack, IconBrandWordpress, IconExternalLink, IconPlug } from "@tabler/icons-react";
 import { Callout, Cards, FileTree, Steps } from 'nextra/components';
 
 # ReactJS Applications
 
-<BoilerplateDemoButton slug="mantine" />
+---
+<DocsBoilerplateDemo slug="mantine" />
 
 If you want to create a more complex ReactJS application, you can use the `resources/apps/` folder.
 
@@ -15,9 +16,6 @@ First of all, you need to install the dependencies as described in the [Assets s
 Feel free to also install any other dependencies you need. You could install Mantine UI, React Router, etc.
 </Callout>
 
-## Boilerplate
-
-<Boilerplate column={2} display={['react','mantine']}  />
 
 <Steps>
 ## Create the Menu
@@ -191,4 +189,5 @@ Obviously, once completed, remember to run the build command:
 npm run build:apps
 ```
 
-<BoilerplateDemoButton slug="mantine" />
+---
+<DocsBoilerplateDemo slug="mantine" />
