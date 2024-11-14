@@ -2,7 +2,6 @@
 
 import { Button, MantineColor } from "@mantine/core";
 import { IconExternalLink } from "@tabler/icons-react";
-import { Cards } from "nextra/components";
 import { boilerplateList } from "./List";
 
 type DemoButtonProps = {
@@ -41,13 +40,7 @@ function DemoButton({
 }
 
 function DemoButtons({ column = 2 }) {
-  return (
-    <Cards num={column}>
-      {Object.keys(boilerplateList).map(slug => (
-        <DemoButton key={slug} slug={slug} />
-      ))}
-    </Cards>
-  );
+  return Object.keys(boilerplateList).map(slug => <DemoButton key={slug} slug={slug} />);
 }
 
 export const Demo = {

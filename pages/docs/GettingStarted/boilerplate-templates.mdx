@@ -1,5 +1,5 @@
 import { ActionButton, AnimateBadge, Boilerplate, Demo, DocsBoilerplateDemo } from "@components";
-import { Badge, Button, Group, SimpleGrid } from '@mantine/core';
+import { Badge, Button, Group, SimpleGrid, Stack } from '@mantine/core';
 import { IconArticle, IconBrandGithub, IconBrandSlack, IconBrandWordpress, IconExternalLink, IconPlug } from "@tabler/icons-react";
 import { Callout, Cards, Steps } from 'nextra/components';
 
@@ -11,9 +11,15 @@ To create your WP Bones plugin, you can use one of our **ready-made boilerplate 
 
 ## GitHub repository & Demo
 
-<SimpleGrid cols={2}>
-<Boilerplate.Buttons column={1} />
-<Demo.Buttons column={1} />
+<SimpleGrid cols={2} py="md">
+
+<Stack align="self-start">
+    <Boilerplate.Buttons />
+</Stack>
+
+<Stack align="self-end">
+    <Demo.Buttons />
+</Stack>
 </SimpleGrid>
 
 

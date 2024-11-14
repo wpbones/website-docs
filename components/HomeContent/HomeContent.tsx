@@ -2,7 +2,7 @@
 
 import { Demo } from "@components";
 import { Marquee } from "@gfazioli/mantine-marquee";
-import { Button, Container, Flex, Group, Image, SimpleGrid, Stack, Text } from "@mantine/core";
+import { Button, Center, Container, Flex, Group, Image, List, SimpleGrid, Stack, Text } from "@mantine/core";
 import {
   IconApi,
   IconBrandJavascript,
@@ -38,6 +38,7 @@ import menuImage from "./menu.png";
 import migrationImage from "./migration.png";
 import optionsImage from "./option.png";
 import pageImage from "./page.png";
+import raycast from "./raycast.png";
 import reactImage from "./react-js.png";
 import phpBones from "./wpbones-window-removebg.png";
 
@@ -148,6 +149,41 @@ export function HomeContent() {
             </Button>
           </Flex>
         </Group>
+
+        <Center
+          component="a"
+          href="https://www.raycast.com/Undolog/wp-bones"
+          target="_blank"
+          mt={64}
+          mb={16}
+          data-aos-duration="500"
+          data-aos-delay="200"
+          data-aos="zoom-out"
+          data-aoss-once="true">
+          <Group align="center" justify="center">
+            <Group>
+              <Image component={NextImage} mx="auto" maw="240px" fit="fill" src={raycast} alt="PHP Bones" />
+            </Group>
+            <Stack>
+              <Text
+                ta={"center"}
+                fz={24}
+                style={{
+                  textShadow: "0 0 10px rgba(255,0,200,0.8)",
+                }}>
+                If you love ❤️ Raycast, you will love the WP Bones extension too!
+                <List mt={16} icon="✨">
+                  <List.Item>Search in documentation</List.Item>
+                  <List.Item>Read the abstract and Open in the browser</List.Item>
+                  <List.Item>Search plugin template</List.Item>
+                  <List.Item>Direct link to create a WP Bones Plugin</List.Item>
+                  <List.Item>Menu Bar to check the latest version</List.Item>
+                  <List.Item>Useful Links to Issue, FAQs and more</List.Item>
+                </List>
+              </Text>
+            </Stack>
+          </Group>
+        </Center>
 
         <SimpleGrid
           mt={64}
