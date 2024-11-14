@@ -100,15 +100,9 @@ function BoilerplateCards({ column = 2, display = [], title: overrideTitle }: Bo
 }
 
 function BoilerplateButtons({ column = 2, display = [], title: overrideTitle }: BoilerplateCardsProps) {
-  return (
-    <Cards num={column}>
-      {Object.entries(boilerplateList)
-        .filter(([key]) => display.length === 0 || display.includes(key as BoilerplateSlugs))
-        .map(([key, value]) => (
-          <BoilerplateButton slug={key} {...value} />
-        ))}
-    </Cards>
-  );
+  return Object.entries(boilerplateList)
+    .filter(([key]) => display.length === 0 || display.includes(key as BoilerplateSlugs))
+    .map(([key, value]) => <BoilerplateButton slug={key} {...value} />);
 }
 
 export const Boilerplate = {
