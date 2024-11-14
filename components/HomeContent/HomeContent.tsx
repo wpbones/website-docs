@@ -1,6 +1,7 @@
 "use client";
 
-import { ActionButton } from "@components/ActionButton/ActionButton";
+import { Demo } from "@components";
+import { Marquee } from "@gfazioli/mantine-marquee";
 import { Button, Container, Flex, Group, Image, SimpleGrid, Stack, Text } from "@mantine/core";
 import {
   IconApi,
@@ -111,11 +112,9 @@ export function HomeContent() {
           <Image component={NextImage} mx="auto" maw="1024px" fit="fill" src={phpBones} alt="PHP Bones" />
         </div>
 
-        <Group justify="center">
-          <Flex data-aos-duration="500" data-aos-delay="100" data-aos="zoom-in" data-aos-once="true">
-            <ActionButton />
-          </Flex>
-        </Group>
+        <Marquee fadeEdges pauseOnHover duration={80} fadeEdgesColor="#111">
+          <Demo.Buttons />
+        </Marquee>
 
         <div data-aos-duration="500" data-aos-delay="100" data-aos="fade-up" data-aos-once="true">
           <Text my="xl" ta={"center"} fz={24}>

@@ -6,16 +6,17 @@ export const ecosystem = [
     newWindow: true,
   },
   {
-    key: "wp-kirk-demo",
-    title: "WP Bones Demo",
-    href: "https://github.com/wpbones/WPKirk",
-    newWindow: true,
-  },
-  {
     key: "wp-bones-plugin-boilerplate",
     title: "WP Bones Plugin Boilerplate",
     href: "https://github.com/wpbones/WPKirk-Boilerplate",
     newWindow: true,
+  },
+  {
+    key: "wpkirk-cron-boilerplate",
+    title: "Cron Boilerplate",
+    href: "https://github.com/wpbones/WPKirk-Cron-Boilerplate",
+    newWindow: true,
+    new: true,
   },
   {
     key: "wp-bones-website-docs",

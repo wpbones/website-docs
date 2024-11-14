@@ -1,5 +1,5 @@
-import { ActionButton, AnimateBadge, Boilerplate, BoilerplateDemoButton } from "@components";
-import { Badge, Button, Group } from '@mantine/core';
+import { ActionButton, AnimateBadge, Boilerplate, Demo, DocsBoilerplateDemo } from "@components";
+import { Badge, Button, Group, SimpleGrid } from '@mantine/core';
 import { IconArticle, IconBrandGithub, IconBrandSlack, IconBrandWordpress, IconExternalLink, IconPlug } from "@tabler/icons-react";
 import { Callout, Cards, Steps } from 'nextra/components';
 
@@ -11,9 +11,11 @@ To create your WP Bones plugin, you can use one of our **ready-made boilerplate 
 
 ## GitHub repository & Demo
 
+<SimpleGrid cols={2}>
+<Boilerplate.Buttons column={1} />
+<Demo.Buttons column={1} />
+</SimpleGrid>
 
-
-<BoilerplateDemoButton.All />
 
 <Callout type="info" emoji={"🙌"}>
 > The Complete Demo will soon be deprecated. Please use the individual templates ad Demos instead.
