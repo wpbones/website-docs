@@ -21,7 +21,9 @@ function DemoButton({
 }: DemoButtonProps) {
   const { name, icon, mostUsed, title, owner = "wpbones" } = boilerplateList[slug];
 
-  const hrefPlayground = `https://playground.wordpress.net/?blueprint-url=https://www.wpbones.com/wpkirk-${slug}-boilerplate.json`;
+  const json = slug === "base" ? "" : `-${slug}`;
+
+  const hrefPlayground = `https://playground.wordpress.net/?blueprint-url=https://www.wpbones.com/wpkirk${json}-boilerplate.json`;
 
   return (
     <Button
