@@ -14,6 +14,8 @@ You can fork the project and create a pull request to contribute to the document
 
 ### Thanks to all contributors
 
-<a href="https://github.com/wpbones/website-docs/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=wpbones/website-docs" />
-</a>
+<div align="center">
+  <a href="https://github.com/wpbones/website-docs/graphs/contributors">
+    <img src="https://contrib.rocks/image?repo=wpbones/website-docs" />
+  </a>
+</div>
