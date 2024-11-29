@@ -89,6 +89,14 @@ export default async (req: NextApiRequest, res: NextApiResponse<Boilerplate[]>) 
       keywords: ["reactjs", "react", "javascript", "jsx", "components", "mantine", "ui"],
     },
     {
+      slug: "options",
+      name: "WPKirk-Options-Boilerplate",
+      title: "Options",
+      subtitle: "How to use Options with WP Bones",
+      icon: { source: "Code" },
+      keywords: ["options", "form", "controller", "resource", "post"],
+    },
+    {
       slug: "reactjs",
       name: "WPKirk-ReactJS-Boilerplate",
       title: "ReactJS",

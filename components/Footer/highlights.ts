@@ -28,7 +28,6 @@ export const highlights = [
     key: "faqs",
     title: "FAQs",
     href: "/docs/faqs",
-    new: true,
   },
   {
     key: "routing",

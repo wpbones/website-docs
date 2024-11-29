@@ -12,9 +12,9 @@ export const ecosystem = [
     newWindow: true,
   },
   {
-    key: "wpkirk-cron-boilerplate",
-    title: "Cron Boilerplate",
-    href: "https://github.com/wpbones/WPKirk-Cron-Boilerplate",
+    key: "wpkirk-options-boilerplate",
+    title: "Options Boilerplate",
+    href: "https://github.com/wpbones/WPKirk-Options-Boilerplate",
     newWindow: true,
     new: true,
   },
@@ -33,7 +33,6 @@ export const ecosystem = [
     key: "flags",
     title: "Flags",
     href: "/docs/Packages/flags",
-    new: true,
   },
   {
     key: "geolocalizer",
