@@ -19,7 +19,7 @@
   "homepage": "https://wpbones.com/",
   "dependencies": {
     "@gfazioli/mantine-marquee": "^2.0.8",
-    "@gfazioli/mantine-parallax": "^1.0.3",
+    "@gfazioli/mantine-parallax": "^2.0.0",
     "@mantine/core": "^7.14.3",
     "@mantine/hooks": "^7.14.3",
     "@next/third-parties": "^14.2.18",

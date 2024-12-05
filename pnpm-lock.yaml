@@ -12,8 +12,8 @@ importers:
         specifier: ^2.0.8
         version: 2.0.8(@mantine/core@7.14.3(@mantine/hooks@7.14.3(react@18.3.1))(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@mantine/hooks@7.14.3(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@gfazioli/mantine-parallax':
-        specifier: ^1.0.3
-        version: 1.0.3(@mantine/core@7.14.3(@mantine/hooks@7.14.3(react@18.3.1))(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@mantine/hooks@7.14.3(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^2.0.0
+        version: 2.0.0(@mantine/core@7.14.3(@mantine/hooks@7.14.3(react@18.3.1))(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@mantine/hooks@7.14.3(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@mantine/core':
         specifier: ^7.14.3
         version: 7.14.3(@mantine/hooks@7.14.3(react@18.3.1))(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -138,8 +138,8 @@ packages:
       react: ^18.2.0
       react-dom: ^18.2.0
 
-  '@gfazioli/mantine-parallax@1.0.3':
-    resolution: {integrity: sha512-mV6FRzfe71ntk95JpibIGgGfTZAeu73C2HhlHW0rcMmydqwOp67eCO558zLoEMiuzpdqNqiHw5ZbdjgIbaBv7Q==}
+  '@gfazioli/mantine-parallax@2.0.0':
+    resolution: {integrity: sha512-3nFbU7jT98UDo/OQsbalVH1suOb184q31VZv1gfsC6251pkBsIP0GH+dm+brqNZDY3NVWANf2BF4XSBrO7LwMg==}
     peerDependencies:
       '@mantine/core': '>=7.0.0'
       '@mantine/hooks': '>=7.0.0'
@@ -2274,7 +2274,7 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  '@gfazioli/mantine-parallax@1.0.3(@mantine/core@7.14.3(@mantine/hooks@7.14.3(react@18.3.1))(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@mantine/hooks@7.14.3(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@gfazioli/mantine-parallax@2.0.0(@mantine/core@7.14.3(@mantine/hooks@7.14.3(react@18.3.1))(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@mantine/hooks@7.14.3(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@mantine/core': 7.14.3(@mantine/hooks@7.14.3(react@18.3.1))(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@mantine/hooks': 7.14.3(react@18.3.1)
