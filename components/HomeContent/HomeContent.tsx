@@ -1,6 +1,6 @@
 "use client";
 
-import { Demo } from "@components";
+import { Demo, PHPBonesCommand } from "@components";
 import { Marquee } from "@gfazioli/mantine-marquee";
 import { Button, Center, Container, Flex, Group, Image, List, SimpleGrid, Stack, Text } from "@mantine/core";
 import {
@@ -20,12 +20,10 @@ import {
 } from "@tabler/icons-react";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import cx from "clsx";
 import NextImage from "next/image";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { HomeCard } from "../HomeCard";
-import classes from "./HomeContent.module.css";
 import ajaxImage from "./ajax.png";
 import apiImage from "./api.png";
 import consoleImage from "./console.png";
@@ -33,6 +31,7 @@ import controllerImage from "./controller.png";
 import cptImage from "./cpt.png";
 import dbImage from "./db.png";
 import footer from "./footer-removebg.png";
+import classes from "./HomeContent.module.css";
 import logsImage from "./logs.png";
 import menuImage from "./menu.png";
 import migrationImage from "./migration.png";
@@ -40,7 +39,6 @@ import optionsImage from "./option.png";
 import pageImage from "./page.png";
 import raycast from "./raycast.png";
 import reactImage from "./react-js.png";
-import phpBones from "./wpbones-window-removebg.png";
 
 const ProductHuntBadge = ({ mode = "light" }: { mode?: "light" | "neutral" | "dark" }) =>
   mode === "light" ? (
@@ -109,9 +107,9 @@ export function HomeContent() {
           <ProductHuntBadge />
         </Group>
 
-        <div className={cx(classes.imageHero, classes.fadeIn, classes["delay-300ms"])}>
-          <Image component={NextImage} mx="auto" maw="1024px" fit="fill" src={phpBones} alt="PHP Bones" />
-        </div>
+        <Center w={{ base: 400, sm: 600, lg: 800 }} mx="auto" my={48}>
+          <PHPBonesCommand initialRotationX={16} />
+        </Center>
 
         <Marquee fadeEdges pauseOnHover duration={80} fadeEdgesColor="#111">
           <Demo.Buttons />

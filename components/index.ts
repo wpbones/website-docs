@@ -6,4 +6,5 @@ export { FileTreeLabel } from "./FileTreeLabel";
 export { Footer } from "./Footer";
 export { HomeCard } from "./HomeCard";
 export { HomeContent } from "./HomeContent";
+export { PHPBonesCommand } from "./PHPBonesCommand/";
 export { Poser } from "./Poser";
