@@ -1,5 +1,6 @@
 "use client";
 
+import { Parallax } from "@gfazioli/mantine-parallax";
 import { Group, Image, Paper, Text } from "@mantine/core";
 import NextImage from "next/image";
 import { forwardRef } from "react";
@@ -23,29 +24,40 @@ interface HomeCardProps {
 export const HomeCard = forwardRef<HTMLAnchorElement, HomeCardProps>(
   ({ title, description, children, icon, image, href, ...others }, ref) => {
     return (
-      <Paper
-        component="a"
-        href={href}
-        ref={ref}
-        withBorder
-        shadow="md"
-        radius={"lg"}
-        p={"md"}
-        className={classes.card}
-        {...others}>
-        <Group>
-          {icon}
-          <Text fz={24} fw={700}>
-            {title}
+      <Parallax
+        threshold={15}
+        styles={{
+          root: {
+            display: "flex",
+            height: "100%",
+          },
+          content: {
+            display: "flex",
+          },
+        }}>
+        <Paper
+          component="a"
+          href={href}
+          ref={ref}
+          withBorder
+          shadow="md"
+          radius={"lg"}
+          p={"md"}
+          className={classes.card}
+          {...others}>
+          <Group>
+            {icon}
+            <Text fz={24} fw={700}>
+              {title}
+            </Text>
+          </Group>
+          {image && <Image component={NextImage} radius="md" w="100%" fit="contain" src={image} alt="Card image" />}
+          <Text c="dimmed" fz={16} fw={400}>
+            {description}
           </Text>
-        </Group>
-        {image && <Image component={NextImage} radius="md" w="100%" fit="contain" src={image} alt="Card image" />}
-        <Text c="dimmed" fz={16} fw={400}>
-          {description}
-        </Text>
-
-        {children}
-      </Paper>
+          {children}
+        </Paper>
+      </Parallax>
     );
   },
 );
