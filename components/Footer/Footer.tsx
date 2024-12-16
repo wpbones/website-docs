@@ -4,6 +4,7 @@ import { ActionIcon, Anchor, Container, Divider, Grid, Group, Image, Stack, Text
 import {
   IconBrandDiscordFilled,
   IconBrandGithubFilled,
+  IconBrandMantine,
   IconBrandNextjs,
   IconBrandVercel,
   IconBrandX,
@@ -130,6 +131,12 @@ export const Footer: React.FC<FooterProps> = () => {
                 <Anchor fz={13} href="https://vercel.com/frameworks/nextjs">
                   <Group gap={0} component={"span"}>
                     <IconBrandNextjs size={16} /> Next.js
+                  </Group>
+                </Anchor>
+                ,
+                <Anchor fz={13} href="https://mantine.dev/">
+                  <Group gap={0} component={"span"}>
+                    <IconBrandMantine size={16} /> Mantine
                   </Group>
                 </Anchor>
                 and
