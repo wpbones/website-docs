@@ -11,6 +11,8 @@ import { Callout, Cards, FileTree } from 'nextra/components';
 <Title order={2} ta="center">we are working using a WordPress plugin...</Title>
 </Callout>
 
+This document explains the architecture foundations of a WP Bones plugin. It covers the request lifecycle, starting with the main plugin file `{plugin-name}.php`, which contains WordPress comments to identify the plugin. The main file is renamed by WP Bones based on the plugin name. It also discusses the default plugin structure, which provides a flexible starting point for organizing both large and small plugins, similar to Laravel, with no restrictions on class locations as long as Composer can autoload them.
+
 ## Request Lifecycle
 
 The entry point is the `<plugin name>/{plugin-name}.php`. The `{plugin-name}.php` contains the WordPress comments used to identify the plugin:

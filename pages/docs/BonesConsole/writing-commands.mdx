@@ -2,6 +2,10 @@ import { Callout, FileTree } from 'nextra/components'
 
 # Writing Commands
 
+This document explains how to write custom commands in WP Bones. Commands are typically stored in the `plugin/Console/Commands` directory. To create a new command, use the `php bones make:console MyCommand` command, which generates a new command class. The document provides an example of a generated command class and explains the structure, including setting the signature and description properties and implementing the `handle` method. It also covers adding the command class to the `plugin/Console/Commands/Kernel.php` file.
+
+## Overview
+
 In addition to the commands provided within Bones, you may also build your own custom commands.
 Commands are typically stored in the `plugin/Console/Commands` directory; however, you are free to choose your own storage location as long as your commands can be loaded by Composer.
 

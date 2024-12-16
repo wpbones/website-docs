@@ -4,8 +4,13 @@ import { Callout, Cards, FileTree } from 'nextra/components';
 
 # Options
 
+This document explains how to manage plugin options in WP Bones. Options are defined in the `config/options.php` file as an array and stored in the WordPress `wp_options` table upon the first activation of the plugin. The options can be accessed using the `$plugin->options` property. The document provides an example options model and notes that options are case-sensitive. The options array is converted to JSON and stored in the `option_value` field.
+
 ---
 <DocsBoilerplateDemo slug="options" />
+---
+
+## Overview
 
 All plugins need some options. You may put your options model array in `config/options.php`:
 

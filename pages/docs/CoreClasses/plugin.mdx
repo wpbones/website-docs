@@ -3,6 +3,10 @@ import { Callout, FileTree } from 'nextra/components'
 
 # Plugin Class
 
+This document explains the `Plugin` class in WP Bones, which is responsible for plugin initialization, registration, and loading. You can access the `Plugin` class using the `WPKirk()` helper function. The document details the `config()` method, which is used to get or set configuration values stored in the `config` directory of the plugin. Examples demonstrate how to retrieve configuration values from files like `plugin.php`.
+
+## Overview
+
 The most important class in WP Bones is the `Plugin` class. This class is the main class that is responsible for the plugin initialization. It is the class that is responsible for registering the plugin, loading the plugin, and initializing the plugin.
 
 ## Accessing the Plugin Class
@@ -199,7 +203,7 @@ See the [View Class](/docs/CoreClasses/view) documentation for more information.
 
 `string` Return the public css URL. Eg. `http://example.com/wp-content/plugins/my-plugin/public/css`
 
-### `file``
+### `file`
 
 `string` Return the main plugin file path. Eg. `/var/www/html/wp-content/plugins/my-plugin/my-plugin.php`
 

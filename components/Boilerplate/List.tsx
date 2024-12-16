@@ -21,6 +21,11 @@ export const boilerplateList: Record<string, BoilerplateType> = {
     icon: <IconBrandGithub />,
     highlight: true,
   },
+  cpt: {
+    title: "Custom Post Type Boilerplate",
+    name: "WPKirk-CPT-Boilerplate",
+    icon: <IconBrandGithub />,
+  },
   database: {
     title: "Database Boilerplate",
     name: "WPKirk-Database-Boilerplate",

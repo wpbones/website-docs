@@ -9,6 +9,7 @@ type AvailableDemos =
   | "api-boilerplate"
   | "boilerplate"
   | "cron-boilerplate"
+  | "cpt-boilerplate"
   | "database-boilerplate"
   | "hooks-boilerplate"
   | "internationalization-boilerplate"

@@ -2,15 +2,16 @@ import { FileTreeLabel } from '@components/FileTreeLabel'
 import { Callout, FileTree, Steps } from 'nextra/components'
 
 # Assets
----
+
+This document explains how to compile assets in WP Bones using Gulp. It covers the installation of necessary packages, the `package.json` scripts for building and watching assets, and the structure of source and compiled assets. It also provides guidance on modifying the `gulpfile.js` and references additional resources for creating complex ReactJS components or applications.
 
 ## Overview
 
-WP Bones uses [Gulp](https://gulpjs.com/) to compile and copy the assets from the `resources/assets` folder to the `public` folder. It supports:
+WP Bones uses [Gulp](https://gulpjs.com/) to compile and copy assets from `resources/assets` to `public`. It supports:
 
 - CSS (Less, Sass)
-- Javascript (ES6, Typescript)
-- ReactJS
+- Javascript (ES6, TypeScript)
+- React
 
 ## Installation
 
@@ -55,9 +56,9 @@ Your development source assets:
             <FileTree.File label={<FileTreeLabel type="file" name="my-styles-2.scss">Sass</FileTreeLabel>} />
         </FileTree.Folder>
         <FileTree.Folder name="js" defaultOpen>
-            <FileTree.File label={<FileTreeLabel type="file" name="my-script.js">Javascript</FileTreeLabel>} />
+            <FileTree.File label={<FileTreeLabel type="file" name="my-script.js">JavaScript</FileTreeLabel>} />
             <FileTree.File label={<FileTreeLabel type="file" name="my-hook.ts">Typescript</FileTreeLabel>} />
-            <FileTree.File label={<FileTreeLabel type="file" name="my-react-component.jsx">ReactJS</FileTreeLabel>} />
+            <FileTree.File label={<FileTreeLabel type="file" name="my-react-component.jsx">React</FileTreeLabel>} />
         </FileTree.Folder>
       </FileTree.Folder>
   </FileTree.Folder>
@@ -72,9 +73,9 @@ Will be compiled and copied to the `public` folder:
           <FileTree.File label={<FileTreeLabel type="file" name="my-styles-2.css">CSS</FileTreeLabel>} />
       </FileTree.Folder>
       <FileTree.Folder name="js" defaultOpen>
-          <FileTree.File label={<FileTreeLabel type="file" name="my-script.js">Javascript</FileTreeLabel>} />
-          <FileTree.File label={<FileTreeLabel type="file" name="my-hook.js">Javascript</FileTreeLabel>} />
-          <FileTree.File label={<FileTreeLabel type="file" name="my-react-component.js">Javascript</FileTreeLabel>} />
+          <FileTree.File label={<FileTreeLabel type="file" name="my-script.js">JavaScript</FileTreeLabel>} />
+          <FileTree.File label={<FileTreeLabel type="file" name="my-hook.js">JavaScript</FileTreeLabel>} />
+          <FileTree.File label={<FileTreeLabel type="file" name="my-react-component.js">React</FileTreeLabel>} />
       </FileTree.Folder>
   </FileTree.Folder>
 </FileTree>

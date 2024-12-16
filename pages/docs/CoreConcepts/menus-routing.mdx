@@ -3,8 +3,13 @@ import { Callout, FileTree } from 'nextra/components'
 
 # Menus Routing
 
+This document explains menu routing in WP Bones, which differs from Laravel's routing system. It supports basic HTTP verbs like GET, POST, PUT, PATCH, and DELETE. Examples show how to define routes for different HTTP methods and handle form method spoofing for unsupported actions. Additionally, it introduces the `resource` key for calling default methods in view controllers, simplifying route definitions by using standard methods like `index` and `store`.
+
 ---
 <DocsBoilerplateDemo slug="routes" />
+---
+
+## Overview
 
 In WordPress as well as WP Bones architecture, the routing is quite different from Laravel. Instead of a true routing system, there is menu routing. However, you can still handle basic HTTP verbs such as GET, POST, PUT, PATCH, and DELETE. In the example above, we used the `get` verb in the `route` key. If your view contains a form with a POST method, you can use:
 

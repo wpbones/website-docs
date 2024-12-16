@@ -1,6 +1,13 @@
-import { Callout, FileTree } from 'nextra/components'
+import { DocsBoilerplateDemo } from "@components";
+import { Callout, FileTree } from 'nextra/components';
 
 # Custom Post Types
+
+This document explains how to create and manage Custom Post Types in WP Bones. It provides steps to create a Custom Post Type Service Provider using the `php bones make:cpt MyCustomPostType` command and how to manually create one. The new provider will be created in the `plugins/CustomPostTypes` directory. The document also covers defining the post type key, name, and plural name, and how to override the `boot` method to register custom actions and filters.
+
+---
+<DocsBoilerplateDemo slug="cpt" />
+---
 
 ## Overview
 
@@ -24,9 +31,29 @@ use WPKirk\WPBones\Foundation\WordPressCustomPostTypeServiceProvider;
 
 class MyCustomPostType extends WordPressCustomPostTypeServiceProvider {
 
-  protected $id     = 'wp_kirk_cpt';
-  protected $name   = 'Captain';
-  protected $plural = 'Captains';
+  /**
+   * Post type key. Must not exceed 20 characters and may only contain
+   * lowercase alphanumeric characters, dashes, and underscores. See sanitize_key().
+   *
+   * `register_post_type( $post_type, $args = array() )`
+   *
+   * @var string
+   */
+  protected $id = 'wp_kirk_startship';
+
+  /**
+   * Name of the post type shown in the menu. Usually plural.
+   *
+   * @var string
+   */
+  protected $name = 'Starship';
+
+  /**
+   * Name of the post type shown in the menu as plural.
+   *
+   * @var string
+   */
+  protected $plural = 'Starships';
 
   /**
    * You may override this method in order to register your own actions and filters.
@@ -68,4 +95,127 @@ Add this new Service Provider to the list of providers in the `/config/plugin.ph
   */
 
   'custom_post_types' => [ '\WPKirk\CustomPostTypes\MyCustomPostType' ],
+```
+
+## Meta post type
+
+You may register a meta post type by adding the following code to your Service Provider:
+
+```php filename="/plugin/CustomPostTypes/MyCustomPostType.php" copy
+
+  /**
+   * Register post meta
+   */
+  public function registerPostMeta()
+  {
+    // You may override this method
+    return [
+      'wp_kirk_startship_code_name' => [
+        'single' => true,
+        'show_in_rest' => true,
+        'type' => 'string',
+      ]
+    ];
+  }
+
+```
+
+## Meta boxes
+
+You may register a meta box by adding the following code to your Service Provider:
+
+```php filename="/plugin/CustomPostTypes/MyCustomPostType.php" copy
+
+  /**
+   * This action is called when you can add the meta box
+   */
+  public function registerMetaBoxes()
+  {
+    return [
+      [
+        'id' => 'wp_kirk_startship_code_name',
+        'title' => __('Starship Code', 'wp-kirk'),
+        'view' => [$this, 'metaBoxStartshipCodeView'],
+        'context' => 'normal',
+        'priority' => 'high',
+        'callback_args' => null
+      ]
+    ];
+  }
+
+  /**
+   * This method is called by the meta box
+   */
+  public function metaBoxStartshipCodeView($post)
+  {
+    echo WPKirk()->view('cpt.code')->with('starship', $post);
+  }
+
+```
+
+### Meta box props 
+
+Every meta box has the following props:
+
+| Prop           | Type     | Required | Description                                                                                                                                                                                                 |
+|----------------|----------|----------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `id`           | string   | Yes      | Meta box ID (used in the 'id' attribute for the meta box).                                                                                                                                                   |
+| `title`        | string   | Yes      | Title of the meta box.                                                                                                                                                                                       |
+| `view`         | callable | Yes      | The view to render the meta box.                                                                                                                                                                             |
+| `context`      | string   | No       | The context within the screen where the boxes should display. Available contexts vary from screen to screen. Post edit screen contexts include 'normal', 'side', and 'advanced'. Default is 'advanced'.       |
+| `priority`     | string   | No       | The priority within the context where the boxes should show ('high', 'low'). Default 'default'.                                                                                                              |
+| `callback_args`| mixed    | No       | Data that should be set as the $args property of the box array (which is the second parameter passed to your callback). Default null.                                                                         |
+
+## Columns
+
+You may add columns to your post type by adding the following code to your Service Provider:
+
+```php filename="/plugin/CustomPostTypes/MyCustomPostType.php" copy
+
+  /**
+   * Register columns
+   */
+  public function registerColumns()
+  {
+    return [
+      [
+        'id' => 'wp_kirk_startship_code_name',
+        'title' => __('Starship Code', 'wp-kirk'),
+      ]
+    ];
+  }
+
+```
+
+You may also add a custom column content by adding the following code to your Service Provider:
+
+```php filename="/plugin/CustomPostTypes/MyCustomPostType.php" copy
+
+  /**
+   * This action is called when you can add the column content
+   */
+  public function columnContent($column_id, $value, $post_id)
+  {
+    if ($column_id === 'wp_kirk_startship_code_name') {
+      echo "[{$value}]";
+    }
+  }
+```
+This can be useful if you want to display a custom column content as date, image, etc.
+
+
+## Placeholder Title
+
+You may add a placeholder title to your post type by adding the following code to your Service Provider:
+
+```php filename="/plugin/CustomPostTypes/MyCustomPostType.php" copy
+
+  /**
+   * Register placeholder title
+   */
+  public function registerPlaceholderTitle()
+  {
+    return __('Enter the starship name here', 'wp-kirk');
+  }
+
 ```

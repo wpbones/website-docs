@@ -3,8 +3,13 @@ import { Callout, FileTree } from 'nextra/components'
 
 # Menus
 
+This document explains how to set custom menus in WP Bones using the `/config/menus.php` file. The file returns an array representing the menu structure, which can be left empty if no menu is needed. It provides an example of a typical menu structure and explains how menu slugs are generated. The menu page slug for the first item will be `wp_kirk_slug_menu`, and subsequent items will have slugs like `wp_kirk_1`, `wp_kirk_2`, etc.
+
 ---
 <DocsBoilerplateDemo slug="routes" />
+---
+
+## Overview
 
 You can set your custom menu in `/config/menus.php` file. This file returns an array representing the menu structure. You can leave this array empty if you don't need a menu. Let me show you a typical menu structure.
 

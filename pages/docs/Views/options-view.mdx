@@ -3,8 +3,13 @@ import { Callout, FileTree } from 'nextra/components'
 
 # Options View
 
+This document explains how to display and edit plugin options in WP Bones. It provides a complete example of an options view, including defining routes in the `config/menus.php` file, creating a method in the `DashboardController` to display the form, and creating the form in the `resources/views/dashboard/optionsview.php` file. It also covers updating options using the `saveOptions` method in the controller. Note that slashes should be used instead of dots in field names.
+
 ---
 <DocsBoilerplateDemo slug="options" />
+---
+
+## Overview
 
 Of course, you will need to display your options in order to edit them. Let's have a look at a complete sample of the options view. First, let's assume we have the following routes defined in our `config/menus.php` file:
 

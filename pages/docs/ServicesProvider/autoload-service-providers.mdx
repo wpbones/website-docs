@@ -2,6 +2,8 @@ import { Callout, FileTree } from 'nextra/components'
 
 # Autoload Service Providers
 
+This document explains how to create and autoload service providers in WP Bones. Service providers are used to register services, actions, filters, and other necessary components. It provides steps to create a new service provider using the `php bones make:provider MyProvider` command and how to manually create one. The document also covers editing the service provider bootstrap and demonstrates how to use service providers to add plugin row data in the plugin list view.
+
 ## Overview
 
 WP Bones allows you to create your own service providers. Service providers are used to register services, actions, filters, and other services you require.
@@ -12,7 +14,8 @@ You may create your own service provider by following the steps below:
 
 ```sh copy
 php bones make:provider MyProvider
-``
+```
+
 By default, the new provider will be created in the `plugins/Providers` directory.
 
 Of course, you may create your Service Provider manually and in any directory you prefer. You have to change the namespace accordingly.

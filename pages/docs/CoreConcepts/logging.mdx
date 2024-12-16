@@ -4,6 +4,10 @@ import { Callout, FileTree } from 'nextra/components'
 
 # Logging
 
+This document explains how to use logging in WP Bones. It describes enabling logging in WordPress by modifying the `wp-config.php` file and creating a `debug.log` file in the `wp-content` folder. WP Bones provides an advanced logging system with different levels such as `debug`, `info`, `warning`, and `error`. The document also covers configuring logging behavior in the `config/plugin.php` file, including setting the logging type and level.
+
+## Overview
+
 To help you learn more about what's happening within your plugin, you can use the `error_log()` function. As you know, within WordPress, you can enable logging by adding the following lines in the `wp-config.php` file:
 
 ```php filename="wp-config.php" copy
