@@ -32,7 +32,7 @@ The `hooks` folder is intended to hold all the files that we want to be automati
 
 To use the `hooks` folder, you may create one or more PHP files. For example, you can create a file named `my-hooks.php` and add the following code:
 
-```php copy filename="/plugin/hooks/my-hooks.php"
+```php copy filename="plugin/hooks/my-hooks.php"
 <?php
 
 /**
@@ -52,7 +52,7 @@ Now the function `my_hooks()` will be available throughout the plugin.
 
 You can also use the `hooks` folder to create a file for each hook. For example, you can create a file named `my-action.php` and add the following code:
 
-```php copy filename="/plugin/hooks/my-action.php"
+```php copy filename="plugin/hooks/my-action.php"
 <?php
 
 /**
@@ -72,7 +72,7 @@ function my_action()
 
 If you're a React developer and love ❤️ hooks, you can also approach PHP programming with the same concept. For example, you can create a file named `use-option.php` and add the following code:
 
-```php copy filename="/plugin/hooks/use-option.php"
+```php copy filename="plugin/hooks/use-option.php"
 <?php
 
 function useOption($name, $default = '')
@@ -104,7 +104,7 @@ Modules are similar to hooks, but unlike hooks, they must be explicitly loaded. 
 
 To load a module, you can use the `wpbones_module()` function. For example, you can create a file named `my-module.php` and add the following code:
 
-```php copy filename="/plugin/modules/my-module.php"
+```php copy filename="plugin/modules/my-module.php"
 <?php
 
 function my_simple_function()
@@ -137,7 +137,7 @@ The modules can also be used for more interesting and advanced cases like the fo
 
 For example, you can create in the `/plugin/modules/my-awesome-function.php`
 
-```php copy filename="/plugin/modules/my-awesome-function.php"
+```php copy filename="plugin/modules/my-awesome-function.php"
 <?php
 
 return function () {
@@ -155,7 +155,7 @@ $awesome_function(); // Hello, I'm a awesome function!
 
 Another example is to create a module that returns an array. For example, you can create in the `/plugin/modules/config.php`
 
-```php copy filename="/plugin/modules/config.php"
+```php copy filename="plugin/modules/config.php"
 <?php
 
 return [
@@ -182,7 +182,7 @@ echo $mul(2, 3); // 6
 
 Of course, you may return any type of data from a module, not just an array. For example, you can return a string, an object, or even a function. For example, you may return an instance of a class:
 
-```php copy filename="/plugin/modules/my-class.php"
+```php copy filename="plugin/modules/my-class.php"
 <?php
 
 class MyClass

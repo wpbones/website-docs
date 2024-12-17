@@ -19,7 +19,7 @@ export default {
   },
   newsletter: {
     type: "page",
-    title: "Newsletter",
+    title: "Blog",
     newWindow: true,
     href: "https://wpbones.substack.com/",
   },

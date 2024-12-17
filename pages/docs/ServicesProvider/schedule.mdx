@@ -27,7 +27,7 @@ In the `plugins/Provider` directory, the new provider will be created by default
 
 ### Edit the Schedule Service Provider bootstrap
 
-```php copy filename="/plugin/Providers/MySchedule.php" {30}
+```php copy filename="plugin/Providers/MySchedule.php" {30}
 <?php
 namespace WPKirk\Providers;
 
@@ -69,7 +69,7 @@ You should define a unique hook name and recurrence for your schedule event.
 You may use the protected properties `$hook` and `$recurrence` to set the hook name and recurrence. Of course, you may override the `boot` method to set these properties.
 For example, you may set the recurrence from the database or from a configuration file.
 
-```php copy filename="/plugin/Providers/MySchedule.php" {21}
+```php copy filename="plugin/Providers/MySchedule.php" {21}
 <?php
 namespace WPKirk\Providers;
 
@@ -128,7 +128,7 @@ Add this new Service Provider to the list of providers in the `/config/plugin.ph
 You don't need to clear the schedule event when you deactivate the plugin. WP Bones will do it for you.
 Anyway, you may use the `clear` method to do any cleanup when the plugin is deactivated.
 
-```php copy filename="/plugin/Providers/MySchedule.php" {28}
+```php copy filename="plugin/Providers/MySchedule.php" {28}
 <?php
 namespace WPKirk\Providers;
 

@@ -23,7 +23,7 @@ php bones make:cpt MyCustomPostType
 
 By default, the new provider will be created in the `plugins/CustomPostTypes` directory. Of course, you may create your Service Provider manually and in any directory you prefer. You have to change the namespace accordingly.
 
-```php filename="/plugin/CustomPostTypes/MyCustomPostType.php" copy
+```php filename="plugin/CustomPostTypes/MyCustomPostType.php" copy
 <?php
 namespace WPKirk\CustomPostTypes;
 
@@ -101,8 +101,7 @@ Add this new Service Provider to the list of providers in the `/config/plugin.ph
 
 You may register a meta post type by adding the following code to your Service Provider:
 
-```php filename="/plugin/CustomPostTypes/MyCustomPostType.php" copy
-
+```php filename="plugin/CustomPostTypes/MyCustomPostType.php" copy
   /**
    * Register post meta
    */
@@ -124,8 +123,7 @@ You may register a meta post type by adding the following code to your Service P
 
 You may register a meta box by adding the following code to your Service Provider:
 
-```php filename="/plugin/CustomPostTypes/MyCustomPostType.php" copy
-
+```php filename="plugin/CustomPostTypes/MyCustomPostType.php" copy
   /**
    * This action is called when you can add the meta box
    */
@@ -170,8 +168,7 @@ Every meta box has the following props:
 
 You may add columns to your post type by adding the following code to your Service Provider:
 
-```php filename="/plugin/CustomPostTypes/MyCustomPostType.php" copy
-
+```php filename="plugin/CustomPostTypes/MyCustomPostType.php" copy
   /**
    * Register columns
    */
@@ -189,12 +186,11 @@ You may add columns to your post type by adding the following code to your Servi
 
 You may also add a custom column content by adding the following code to your Service Provider:
 
-```php filename="/plugin/CustomPostTypes/MyCustomPostType.php" copy
-
+```php filename="plugin/CustomPostTypes/MyCustomPostType.php" copy
   /**
    * This action is called when you can add the column content
    */
-  public function columnContent($column_id, $value, $post_id)
+  public function columnContent($column_id, $value, $post)
   {
     if ($column_id === 'wp_kirk_startship_code_name') {
       echo "[{$value}]";
@@ -208,8 +204,7 @@ This can be useful if you want to display a custom column content as date, image
 
 You may add a placeholder title to your post type by adding the following code to your Service Provider:
 
-```php filename="/plugin/CustomPostTypes/MyCustomPostType.php" copy
-
+```php filename="plugin/CustomPostTypes/MyCustomPostType.php" copy
   /**
    * Register placeholder title
    */
@@ -217,5 +212,84 @@ You may add a placeholder title to your post type by adding the following code t
   {
     return __('Enter the starship name here', 'wp-kirk');
   }
-
 ```
+
+## Add MetaBox after the title
+
+You may add a meta box after the title by adding the following code to your Service Provider:
+
+```php filename="plugin/CustomPostTypes/MyCustomPostType.php" copy
+  /**
+   * Register meta box after the title
+   */
+  public function registerAfterTitleView()
+  {
+    global $post;
+
+    echo WPKirk()->view('cpt.after-title')->with('starship', $post);
+  }
+```
+
+```php filename="resources/views/cpt/after-title.php" copy
+<?php
+// in $startship you will have the post object
+
+if (!defined('ABSPATH')) exit;
+?>
+
+<h3>
+  <?php _e('Any view after the title', 'wp-kirk'); ?>
+  <?php echo $starship->ID ?>
+</h3>
+```
+
+
+
+
+## Add submenu and view to the post type
+
+You may add a submenu to the custom post type menu directly in the `config/menu.php` file, by using `'edit.php?post_type={cpt_id}'` menu key:
+
+```php filename="config/menus.php" copy {27}
+  /*
+  |--------------------------------------------------------------------------
+  | Menu
+  |--------------------------------------------------------------------------
+  |
+  | Here is where you can register the menu.
+  |
+  */
+
+return [
+  'wp_kirk_slug_menu' => [
+    "page_title" => "WP Kirk Page",
+    "menu_title" => "WP Kirk Menu",
+    'capability' => 'read',
+    'icon' => 'wpbones-logo-menu.png',
+    'items' => [
+      [
+        "page_title" => "Main View",
+        "menu_title" => "Main View",
+        'capability' => 'read',
+        'route' => [
+          'get' => 'Dashboard\DashboardController@index'
+        ],
+      ],
+    ]
+  ],
+  'edit.php?post_type=wp_kirk_startship' => [
+    "menu_title" => "Custom Post Type Settings",
+    'capability' => 'read',
+    'items' => [
+      'overview' => [
+        "menu_title" => __("Settings", 'wp-kirk'),
+        'capability' => 'read',
+        'route' => [
+          'get' => 'Dashboard\SettingsController@index'
+        ],
+      ],
+    ]
+  ]
+];
+```
+You will be able to use it as WP Bones submenu, following the same structure as the main menu.
