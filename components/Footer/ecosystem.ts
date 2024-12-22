@@ -13,7 +13,7 @@ export const ecosystem = [
   },
   {
     key: "wpkirk-cpt-boilerplate",
-    title: "Custom Post Type Boilerplate",
+    title: "Custom Post Boilerplate",
     href: "https://github.com/wpbones/WPKirk-CPT-Boilerplate",
     newWindow: true,
     new: true,
