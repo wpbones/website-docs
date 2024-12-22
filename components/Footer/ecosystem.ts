@@ -12,9 +12,9 @@ export const ecosystem = [
     newWindow: true,
   },
   {
-    key: "wpkirk-options-boilerplate",
-    title: "Options Boilerplate",
-    href: "https://github.com/wpbones/WPKirk-Options-Boilerplate",
+    key: "wpkirk-cpt-boilerplate",
+    title: "Custom Post Type Boilerplate",
+    href: "https://github.com/wpbones/WPKirk-CPT-Boilerplate",
     newWindow: true,
     new: true,
   },
