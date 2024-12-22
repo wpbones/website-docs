@@ -10,27 +10,30 @@ It is very important to note that WP Bones uses actions and filters at several p
 
 ## Actions
 
-### `\{your_plugin_slug\}\_loaded`
+### `{your_plugin_slug}_loaded`
 
 ```php copy
 /**
-* Fired when your plugin is started
-*
-*/
+ * Fired when your plugin is started
+ *
+ */
 add_action('{your_plugin_slug}_loaded', function () {
     // Do something
 });
 ```
 
+### 
+
+
 ### `wpbones_console_deploy_start`
 
 ```php copy
 /**
-* Fired when the deploy command is started
-*
-* @param object $console Instance of WPBones Console
-* @param string $path Destination path
-*/
+ * Fired when the deploy command is started
+ *
+ * @param object $console Instance of WPBones Console
+ * @param string $path Destination path
+ */
 add_action('wpbones_console_deploy_start', function ($console, $path) {
     // Do something
 }, 10, 2);
@@ -40,11 +43,11 @@ add_action('wpbones_console_deploy_start', function ($console, $path) {
 
 ```php copy
 /**
-* Fired before building assets
-*
-* @param object $console Instance of WPBones Console
-* @param string $path Destination path
-*/
+ * Fired before building assets
+ *
+ * @param object $console Instance of WPBones Console
+ * @param string $path Destination path
+ */
 add_action('wpbones_console_deploy_before_build_assets', function ($console, $path) {
     // Do something
 }, 10, 2);
@@ -54,11 +57,11 @@ add_action('wpbones_console_deploy_before_build_assets', function ($console, $pa
 
 ```php copy
 /**
-* Fired after building assets
-*
-* @param object $console Instance of WPBones Console
-* @param string $path Destination path
-*/
+ * Fired after building assets
+ *
+ * @param object $console Instance of WPBones Console
+ * @param string $path Destination path
+ */
 add_action('wpbones_console_deploy_after_build_assets', function ($console, $path) {
     // Do something
 }, 10, 2);
@@ -78,16 +81,59 @@ do_action('wpbones_console_deploy_completed', $this, $path);
 
 ## Filters
 
+### `wpbones_console_deploy_build_assets`
+
+```php copy
+/**
+ * Filter to enable or disable the build assets during the deployment.
+ *
+ * @since 1.9.0
+ * @param bool $buildAssets True to build assets, false to skip the build.
+ */
+add_filter('wpbones_console_deploy_build_assets', function ($buildAssets) {
+    return $buildAssets;
+});
+```
+
+### `wpbones_console_deploy_dont_skip_files_folders`
+
+```php copy
+/**
+ * Filter the list of files and folders that won't be skipped during the deployment.
+ *
+ * @since 1.9.0
+ * @param array $array The files and folders are relative to the root of plugin.
+ */
+add_filter('wpbones_console_deploy_dont_skip_files_folders', function ($array) {
+    return $array;
+});
+```      
+
+### `wpbones_console_deploy_default_skip_files_folders`
+
+```php copy
+/**
+ * Filter the default list of files and folders to skip during the deployment.
+ * Applied before `wpbones_console_deploy_skip_folders`
+ *
+ * @since 1.9.0
+ * @param array $array The files and folders are relative to the root of plugin.
+ */
+add_filter('wpbones_console_deploy_default_skip_files_folders', function ($array) {
+    return $array;
+});
+```
+
 ### `wpbones_console_deploy_skip_folders`
 
 ```php copy
 /**
-* Filter the list of the folder to skip for the deploy version
-*
-* @param array $folders List of folders to skip
-* @return array List of folders to skip
-*/
-add_filter('wpbones_console_deploy_skip_folders', function ($folders) {
-    return $folders;
+ * Filter the list of files and folders to skip during the deployment.
+ *
+ * @param array $array The files and folders are relative to the root of plugin.
+ * @return array List of folders to skip
+ */
+add_filter('wpbones_console_deploy_skip_folders', function ($array) {
+    return $array;
 });
 ```
