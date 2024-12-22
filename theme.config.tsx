@@ -51,6 +51,12 @@ const config: DocsThemeConfig = {
         <meta property="og:site_name" content="WP Bones" />
         <meta property="og:image" content={socialCard} />
         <meta name="apple-mobile-web-app-title" content="WP Bones" />
+
+        <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <link rel="manifest" href="/site.webmanifest" />
         <style>
           {`
             body {
