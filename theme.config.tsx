@@ -87,7 +87,7 @@ const config: DocsThemeConfig = {
   },
   banner: {
     key: "v1-9-0-released",
-    content: <a href="/docs/release-notes">🎄🎁 v1.9.0 Released - Review the release notes →</a>,
+    content: <a href="/docs/release-notes">✨ v1.9.0 Released - Review the release notes →</a>,
   },
 };
 
