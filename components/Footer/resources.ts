@@ -18,7 +18,13 @@ export const resources = [
   {
     key: "discussions",
     title: "Discussions",
-    href: "https://github.com/wpbones/WPBones/discussions ",
+    href: "https://github.com/wpbones/WPBones/discussions",
+  },
+  {
+    key: "roadmap",
+    title: "Roadmap",
+    href: "https://github.com/orgs/wpbones/projects/4",
+    new: true,
   },
   {
     key: "wpbones-news",
@@ -38,6 +44,6 @@ export const resources = [
   {
     key: "reactjs-mantine-ui-extensions",
     title: "ReactJS Mantine UI Extensions",
-    href: "https://mantine-extensions.vercel.app/projects",
+    href: "https://mantine-extensions.vercel.app",
   },
 ];
