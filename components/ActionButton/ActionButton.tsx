@@ -8,6 +8,7 @@ type AvailableDemos =
   | "demo"
   | "api-boilerplate"
   | "boilerplate"
+  | "blade-boilerplate"
   | "cron-boilerplate"
   | "cpt-boilerplate"
   | "database-boilerplate"

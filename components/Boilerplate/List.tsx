@@ -15,6 +15,11 @@ export const boilerplateList: Record<string, BoilerplateType> = {
     icon: <IconBrandGithub />,
     mostUsed: true,
   },
+  blade: {
+    title: "Blade Boilerplate",
+    name: "WPKirk-Blade-Boilerplate",
+    icon: <IconBrandGithub />,
+  },
   cron: {
     title: "Cron Schedule Boilerplate",
     name: "WPKirk-Cron-Boilerplate",

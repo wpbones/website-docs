@@ -17,9 +17,17 @@ export default async (req: NextApiRequest, res: NextApiResponse<Boilerplate[]>) 
       name: "WPKirk-Boilerplate",
       title: "Starter Boilerplate",
       subtitle: "The most used starting point for WP Bones plugins",
-      icon: "star.svg",
+      icon: { source: "Heart" },
       shortcut: { modifiers: ["cmd", "shift"], key: "b" },
       keywords: ["starter", "routes"],
+    },
+    {
+      slug: "blade",
+      name: "WPKirk-Blade-Boilerplate",
+      title: "Blade",
+      subtitle: "How to use Blade with WP Bones",
+      icon: { source: "CodeBlock" },
+      keywords: ["blade", "template", "templates", "view", "views"],
     },
     {
       slug: "api",
