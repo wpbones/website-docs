@@ -5,7 +5,7 @@ interface Boilerplate {
   name: string;
   title: string;
   subtitle: string;
-  icon: string | { source: string };
+  icon: string | { source: string; tintColor: string };
   shortcut?: { modifiers: string[]; key: string };
   keywords: string[];
 }
@@ -17,7 +17,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<Boilerplate[]>) 
       name: "WPKirk-Boilerplate",
       title: "Starter Boilerplate",
       subtitle: "The most used starting point for WP Bones plugins",
-      icon: { source: "Heart" },
+      icon: { source: "Heart", tintColor: "white" },
       shortcut: { modifiers: ["cmd", "shift"], key: "b" },
       keywords: ["starter", "routes"],
     },
@@ -26,7 +26,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<Boilerplate[]>) 
       name: "WPKirk-Blade-Boilerplate",
       title: "Blade",
       subtitle: "How to use Blade with WP Bones",
-      icon: { source: "CodeBlock" },
+      icon: { source: "CodeBlock", tintColor: "white" },
       keywords: ["blade", "template", "templates", "view", "views"],
     },
     {
@@ -42,7 +42,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<Boilerplate[]>) 
       name: "WPKirk-Cron-Boilerplate",
       title: "Cron",
       subtitle: "How to create a Cron Schedule for WP Bones",
-      icon: { source: "Clock" },
+      icon: { source: "Clock", tintColor: "white" },
       keywords: ["cron", "schedule", "schedules", "task", "tasks"],
     },
     {
@@ -50,7 +50,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<Boilerplate[]>) 
       name: "WPKirk-CPT-Boilerplate",
       title: "Custom Post Type",
       subtitle: "How to create a Custom Post Type and taxonomy for WP Bones",
-      icon: { source: "Document" },
+      icon: { source: "Document", tintColor: "white" },
       keywords: [
         "cpt",
         "post",
@@ -97,7 +97,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<Boilerplate[]>) 
       name: "WPKirk-Hooks-Boilerplate",
       title: "Hooks",
       subtitle: "How to use Hooks and Modules for WP Bones",
-      icon: { source: "Code" },
+      icon: { source: "Code", tintColor: "white" },
       keywords: ["hooks", "actions", "filters", "modules"],
     },
     {
@@ -121,7 +121,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<Boilerplate[]>) 
       name: "WPKirk-Options-Boilerplate",
       title: "Options",
       subtitle: "How to use Options with WP Bones",
-      icon: { source: "CheckList" },
+      icon: { source: "CheckList", tintColor: "white" },
       keywords: ["options", "form", "controller", "resource", "post"],
     },
     {
@@ -145,7 +145,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<Boilerplate[]>) 
       name: "WPKirk-Typescript-Boilerplate",
       title: "Typescript",
       subtitle: "How to create a Typescript application for WP Bones",
-      icon: { source: "Code" },
+      icon: { source: "Code", tintColor: "white" },
       keywords: ["typescript", "js", "javascript", "ts", "types"],
     },
     {
