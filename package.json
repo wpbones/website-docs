@@ -20,8 +20,8 @@
   "dependencies": {
     "@gfazioli/mantine-marquee": "^2.0.10",
     "@gfazioli/mantine-parallax": "^2.0.3",
-    "@mantine/core": "^7.15.3",
-    "@mantine/hooks": "^7.15.3",
+    "@mantine/core": "^7.16.2",
+    "@mantine/hooks": "^7.16.2",
     "@next/third-parties": "^14.2.23",
     "@tabler/icons-react": "^3.28.1",
     "@vercel/analytics": "^1.4.1",
