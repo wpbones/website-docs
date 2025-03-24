@@ -56,3 +56,27 @@ Add this new Service Provider to the list of providers in the `config/plugin.php
 
   'custom_taxonomy_types' => [ '\WPKirk\CustomTaxonomyTypes\MyCustomTaxonomy' ],
 ```
+
+## Columns
+You may add columns to your Custom Taxonomy Type by adding the following code to your Service Provider:
+```php filename="plugin/CustomTaxonomyTypes/MyCustomTaxonomy.php" copy
+public function registerColumns()
+{
+  return [
+    'my_new_column_name' => 'Column Name',       
+  ];
+}
+```
+
+and also set the Column Content (where you can process the output), is *mandatory* to use `return` and not an `echo` statement
+
+```php filename="plugin/CustomTaxonomyTypes/MyCustomTaxonomy.php" copy
+public function columnContent($string, $column_name, $term_id)
+  {
+  if ($column_name === 'my_new_column_name') {
+      //... your logic here
+      return 'your_new_content_here';
+    }
+    return $string;
+  }
+```
