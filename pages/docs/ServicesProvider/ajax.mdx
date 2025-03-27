@@ -20,7 +20,7 @@ To create an Ajax Service Provider, you can use the following command:
 php bones make:ajax MyAjax
 ```
 
-By default, the new provider will be created in the `plugins/Ajax` directory. Of course, you may create your Service Provider manually and in any directory you prefer. You have to change the namespace accordingly.
+By default, the new provider will be created in the `plugin/Ajax` directory. Of course, you may create your Service Provider manually and in any directory you prefer. You have to change the namespace accordingly.
 
 ```php filename="plugin/Ajax/MyAjax.php" copy
 <?php
@@ -286,7 +286,7 @@ $.post(
 
 ## Load the Ajax Service Provider
 
-To allow Ajax calls, you need to edit the `/config/plugin.php` file. In the Ajax section, you can insert the list of your own Ajax classes, for example:
+To allow Ajax calls, you need to edit the `config/plugin.php` file. In the Ajax section, you can insert the list of your own Ajax classes, for example:
 
 ```php copy filename="config/plugin.php"
   /*

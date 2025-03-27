@@ -77,10 +77,10 @@ Every HTML tag provides its HTML interface to set the attributes. For example, l
 </div>
 ```
 
-Of course, there are some attributes with a dash character like `accept-charset`. In this case, you have to use a camel version of attributes to set it fluently:
+Of course, there are some attributes with a dash character like `accept-charset`. In this case, you have to use a camel case version of attributes to set it fluently:
 
 ```php copy
-<?php echo WPKirk\Html::form()->acceptcharset('ISO-8859-1') ?>
+<?php echo WPKirk\Html::form()->acceptCharset('ISO-8859-1') ?>
 ```
 
 If you prefer an array, then you can use the original attribute name:
@@ -104,7 +104,7 @@ You'll see it looks like
 <button hello="world">Click me!</button>
 ```
 
-## Currently HTML tags
+## Currently supported HTML tags
 
 - `Html::a`
 - `Html::button`

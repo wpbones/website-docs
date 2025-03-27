@@ -2,7 +2,7 @@ import { Callout, FileTree } from 'nextra/components'
 
 # Shortcodes
 
-This document explains how to create and manage shortcodes in WP Bones. It provides steps to create a Shortcode Service Provider using the `php bones make:shortcode MyShortcodes` command and how to manually create one. The new provider will be created in the `plugins/Shortcodes` directory. The document also covers defining shortcodes and their methods, and how to load the Shortcode Service Provider by adding it to the list of providers in the `config/plugin.php` file.
+This document explains how to create and manage shortcodes in WP Bones. It provides steps to create a Shortcode Service Provider using the `php bones make:shortcode MyShortcodes` command and how to manually create one. The new provider will be created in the `plugin/Shortcodes` directory. The document also covers defining shortcodes and their methods, and how to load the Shortcode Service Provider by adding it to the list of providers in the `config/plugin.php` file.
 
 ## Overview
 
@@ -16,7 +16,7 @@ You may create your own shortcode service provider by following the steps below:
 php bones make:shortcode MyShortcodes
 ```
 
-By default, the new provider will be created in the `plugins/Shortcodes` directory. Of course, you may create your Service Provider manually and in any directory you prefer. You have to change the namespace accordingly.
+By default, the new provider will be created in the `plugin/Shortcodes` directory. Of course, you may create your Service Provider manually and in any directory you prefer. You have to change the namespace accordingly.
 
 ```php filename="plugin/Shortcodes/MyShortcodes.php" copy
 <?php
@@ -60,7 +60,7 @@ class MyShortcodes extends WordPressShortcodesServiceProvider {
 
 ## Load the Shortcode Service Provider
 
-Add this new Service Provider to the list of providers in the `/config/plugin.php` file:
+Add this new Service Provider to the list of providers in the `config/plugin.php` file:
 
 ```php filename="config/plugin.php" copy
   /*

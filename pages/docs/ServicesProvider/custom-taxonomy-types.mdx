@@ -3,7 +3,7 @@ import { Callout, FileTree } from 'nextra/components';
 
 # Custom Taxonomy Types
 
-This document explains how to create and manage Custom Taxonomy Types in WP Bones. It provides steps to create a Custom Taxonomy Type Service Provider using the `php bones make:ctt MyCustomTaxonomy` command and how to manually create one. The new provider will be created in the `plugins/CustomTaxonomyTypes` directory. The document also covers loading the Custom Taxonomy Type Service Provider by adding it to the list of providers in the `config/plugin.php` file.
+This document explains how to create and manage Custom Taxonomy Types in WP Bones. It provides steps to create a Custom Taxonomy Type Service Provider using the `php bones make:ctt MyCustomTaxonomy` command and how to manually create one. The new provider will be created in the `plugin/CustomTaxonomyTypes` directory. The document also covers loading the Custom Taxonomy Type Service Provider by adding it to the list of providers in the `config/plugin.php` file.
 
 ---
 <DocsBoilerplateDemo slug="cpt" />
@@ -21,7 +21,7 @@ You may create your own Custom Taxonomy Type Service Provider by following the s
 php bones make:ctt MyCustomTaxonomy
 ```
 
-By default, the new provider will be created in the `plugins/CustomTaxonomyTypes` directory. Of course, you may create your Service Provider manually and in any directory you prefer. You have to change the namespace accordingly.
+By default, the new provider will be created in the `plugin/CustomTaxonomyTypes` directory. Of course, you may create your Service Provider manually and in any directory you prefer. You have to change the namespace accordingly.
 
 ```php filename="plugin/CustomTaxonomyTypes/MyCustomTaxonomy.php" copy
 <?php
@@ -42,7 +42,7 @@ class MyCustomTaxonomy extends WordPressCustomTaxonomyTypeServiceProvider {
 
 ## Load the Custom Taxonomy Type Service Provider
 
-Add this new Service Provider to the list of providers in the `/config/plugin.php` file:
+Add this new Service Provider to the list of providers in the `config/plugin.php` file:
 
 ```php filename="config/plugin.php" copy
   /*
