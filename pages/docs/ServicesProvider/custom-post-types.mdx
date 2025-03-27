@@ -21,7 +21,7 @@ You may create your own Custom Post Type Service Provider by following the steps
 php bones make:cpt MyCustomPostType
 ```
 
-By default, the new provider will be created in the `plugins/CustomPostTypes` directory. Of course, you may create your Service Provider manually and in any directory you prefer. You have to change the namespace accordingly.
+By default, the new provider will be created in the `plugin/CustomPostTypes` directory. Of course, you may create your Service Provider manually and in any directory you prefer. You have to change the namespace accordingly.
 
 ```php filename="plugin/CustomPostTypes/MyCustomPostType.php" copy
 <?php
@@ -87,7 +87,7 @@ For more details about the `WordPressCustomPostTypeServiceProvider` class, pleas
 
 ## Load the Custom Post Type Service Provider
 
-Add this new Service Provider to the list of providers in the `/config/plugin.php` file:
+Add this new Service Provider to the list of providers in the `config/plugin.php` file:
 
 ```php filename="config/plugin.php" copy
   /*
