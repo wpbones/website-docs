@@ -155,14 +155,14 @@ class MyCustomPostType extends WordPressCustomPostTypeServiceProvider {
 ### `excludeFromSearch`
 ```php
 /** 
- * Whether to exclude posts with this post type from front end search results.
+ * Whether to exclude posts with this post type from frontend search results.
  * If not set, the opposite of public's current value is used.
  * 
  * @var bool
  */
 protected $excludeFromSearch;
 ```
-This property determines whether posts of this type should be excluded from search results on the front end.
+This property determines whether posts of this type should be excluded from search results on the frontend.
 
 **Example:**
 ```php
@@ -432,7 +432,7 @@ class MyCustomPostType extends WordPressCustomPostTypeServiceProvider {
 ### `public`
 ```php
 /** 
- * Whether a post type is intended for use publicly either via the admin interface or by front-end users.
+ * Whether a post type is intended for use publicly either via the admin interface or by frontend users.
  * Defaults to false.
  * While the default settings of exclude_from_search, publicly_queryable, show_ui, and show_in_nav_menus are
  * inherited from public, each does not rely on this relationship and controls a very specific intention.
@@ -441,7 +441,7 @@ class MyCustomPostType extends WordPressCustomPostTypeServiceProvider {
  */
 protected $public = false;
 ```
-This property determines whether the custom post type is publicly accessible through the WordPress admin interface and front-end.
+This property determines whether the custom post type is publicly accessible through the WordPress admin interface and frontend.
 
 **Example:**
 ```php
@@ -453,7 +453,7 @@ class MyCustomPostType extends WordPressCustomPostTypeServiceProvider {
 ### `publiclyQueryable`
 ```php
 /** 
- * Whether queries can be performed on the front end for the post type as part of parse_request().
+ * Whether queries can be performed on the frontend for the post type as part of parse_request().
  * 
  * ?post_type={post_type_key}
  * ?{post_type_key}={single_post_slug}
@@ -465,7 +465,7 @@ class MyCustomPostType extends WordPressCustomPostTypeServiceProvider {
  */
 protected $publiclyQueryable;
 ```
-This property specifies whether the custom post type can be queried on the front end.
+This property specifies whether the custom post type can be queried on the frontend.
 
 **Example:**
 ```php
