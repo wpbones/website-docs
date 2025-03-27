@@ -44,12 +44,12 @@ and run
 composer install
 ```
 
-## How to
+## How to use
 
 You will be able to use `wpbones_user_agent()` function to get an instance of Mobile Detect.
 
 ```php copy
-if(wpbones_user_agent()->isMobile()) {
+if ( wpbones_user_agent()->isMobile() ) {
   echo "You're by Mobile";
 } else {
   echo "You're by Desktop";
@@ -84,21 +84,21 @@ if ( wpbones_user_agent()->isMobile() ) {
 }
 
 // Any tablet device.
-if( wpbones_user_agent()->isTablet() ){
+if ( wpbones_user_agent()->isTablet() ) {
 
 }
 
 // Exclude tablets.
-if( wpbones_user_agent()->isMobile() && !wpbones_user_agent()->isTablet() ){
+if ( wpbones_user_agent()->isMobile() && !wpbones_user_agent()->isTablet() ) {
 
 }
 
 // Check for a specific platform with the help of the magic methods:
-if( wpbones_user_agent()->isiOS() ){
+if ( wpbones_user_agent()->isiOS() ) {
 
 }
 
-if( wpbones_user_agent()->isAndroidOS() ){
+if ( wpbones_user_agent()->isAndroidOS() ) {
 
 }
 

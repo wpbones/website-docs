@@ -3,7 +3,7 @@ import { Callout, FileTree } from 'nextra/components';
 
 # Migrations
 
-This document explains the implementation of migrations in WP Bones. It covers creating a migration file using the `php bones migrate:create` command, which generates a new file in the `/database/migrations/` folder. The document provides an example of editing the migration file to create a table, demonstrating how to define the table structure and columns. This implementation is similar to Laravel migrations but tailored for WP Bones.
+This document explains the implementation of migrations in WP Bones. It covers creating a migration file using the `php bones migrate:create` command, which generates a new file in the `database/migrations/` folder. The document provides an example of editing the migration file to create a table, demonstrating how to define the table structure and columns. This implementation is similar to Laravel migrations but tailored for WP Bones.
 
 ---
 <DocsBoilerplateDemo slug="database" />
@@ -17,7 +17,7 @@ WP Bones provides a simple implementation of the migration. Of course, this impl
 php bones migrate:create MyTable
 ```
 
-You'll see a new file in `/database/migrations/` folder, resembling `/database/migrations/2016_01_28_131206_create_mytable_table.php`. This file contains your class migration:
+You'll see a new file in `database/migrations/` folder, resembling `database/migrations/2016_01_28_131206_create_mytable_table.php`. This file contains your class migration:
 
 ```php copy
 use WPKirk\WPBones\Database\Migrations\Migration;

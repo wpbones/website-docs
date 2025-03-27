@@ -19,7 +19,7 @@ This package works with a WordPress plugin written with [WP Bones framework libr
 You can install third party packages by using:
 
 ```sh copy
-php bones require  wpbones/pure-css-switch
+php bones require wpbones/pure-css-switch
 ```
 
 I advise to use this command instead of `composer require` because doing this an automatic renaming will done.
@@ -27,7 +27,7 @@ I advise to use this command instead of `composer require` because doing this an
 You can use composer to install this package:
 
 ```sh copy
-composer require  wpbones/pure-css-switch
+composer require wpbones/pure-css-switch
 ```
 
 You may also to add `" wpbones/pure-css-switch": "~0.7"` in the `composer.json` file of your plugin:
@@ -76,10 +76,10 @@ PureCSSSwitchProvider::enqueueStyles();
 // enqueue the flat version
 PureCSSSwitchProvider::enqueueStyles( false );
     
-// return the absolute path of the minified css
+// return the absolute path of the minified CSS
 PureCSSSwitchProvider::css();
 
-// return the absolute path of the flat css
+// return the absolute path of the flat CSS
 PureCSSSwitchProvider::css();   
 ```
 
