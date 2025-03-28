@@ -56,6 +56,31 @@ class MyCustomPostType extends WordPressCustomPostTypeServiceProvider {
   protected $plural = 'Starships';
 
   /**
+   * Whether to include the post type in the REST API.
+   * Set this to true for the post type to be available in the block editor.
+   *
+   * @var bool
+   */
+  protected $showInRest = true;
+
+ /**
+   * Whether to generate a default UI for managing this post type in the admin.
+   * If not set, the default is inherited from public.
+   *
+   * @var bool
+   */
+  protected $showUI     = true;
+
+  /**
+   * An alias for calling add_post_type_support() directly. Defaults to title and editor.
+   * See {@link add_post_type_support()} for documentation.
+   *
+   * @var array
+   */
+  protected $supports   = ['title', 'editor', 'thumbnail', 'excerpt']; // etc..
+
+
+  /**
    * You may override this method in order to register your own actions and filters.
    *
    */
