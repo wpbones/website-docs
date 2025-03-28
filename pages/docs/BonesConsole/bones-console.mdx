@@ -10,7 +10,7 @@ This document explains the Bones command-line interface included with WP Bones B
 
 Bones is also the name of the command-line interface included with all our [WP Bones Boilerplate](/docs/GettingStarted/boilerplate-templates). It provides a number of helpful commands for your use while developing your plugin. You will use the Bones command-line interface to start your development. First of all, try the command-line console by running:
 
-```ansi 
+```ansi
 [38;5;76m>[0m php bones
 ```
 <PHPBonesCommand my={32}  />
@@ -53,6 +53,8 @@ Usage:
 Arguments:
   path		The complete path of deploy.
   [--wp]	You are going to release this plugin in the WordPress.org public repository.
+  --pkgm=<package-manager>	Forces the deployment to use the specified package manager, Eg. npm, yarn, ...
+  --no-build			Forces the deployment to skip the build process.
 ```
 The `--wp` option will create a deploy folder with the necessary files to submit your plugin to the WordPress repository. For further information, see [here](../GettingStarted/before-submit-to-wordpress-repository).
 
@@ -62,7 +64,7 @@ The `--wp` option will create a deploy folder with the necessary files to submit
 Starting from WP Bones `v1.5.0` we added a new option `--wp` to deploy the plugin to the WordPress repository. This option will create a deploy folder with the necessary files to submit your plugin to the WordPress repository. For further information, see [here](../GettingStarted/before-submit-to-wordpress-repository).
 </Callout>
 
-In the `mydeploy` folder, you will find only the necessary files to run your plugin. 
+In the `mydeploy` folder, you will find only the necessary files to run your plugin.
 Without the `--wp` option the developer's `resources/assets` folder will be removed.
 
 ### Customize Deploy
@@ -226,7 +228,7 @@ Increment the patch version number. For example, if the current version is `1.0.
 
 You can also use the `--pre-patch`, `--pre-minor`, and `--pre-major` options to increment the version with a prefix. For example, if the current version is `1.0.0`, the new version will be `1.0.1-rc.1`.
 
-The default prefix is `rc`. But you can change it by using: 
+The default prefix is `rc`. But you can change it by using:
 
 ```sh copy
 php bones version 1.0.0 --pre-patch beta
