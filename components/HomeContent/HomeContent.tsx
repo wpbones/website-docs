@@ -2,7 +2,19 @@
 
 import { Demo, PHPBonesCommand } from "@components";
 import { Marquee } from "@gfazioli/mantine-marquee";
-import { Button, Center, Container, Flex, Group, Image, List, SimpleGrid, Stack, Text } from "@mantine/core";
+import {
+  Button,
+  Center,
+  Container,
+  Flex,
+  Group,
+  Image,
+  List,
+  SimpleGrid,
+  Stack,
+  Text,
+  useMantineColorScheme,
+} from "@mantine/core";
 import {
   IconApi,
   IconBrandJavascript,
@@ -21,7 +33,6 @@ import {
 import AOS from "aos";
 import "aos/dist/aos.css";
 import NextImage from "next/image";
-import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { HomeCard } from "../HomeCard";
 import ajaxImage from "./ajax.png";
@@ -81,10 +92,14 @@ const ProductHuntBadge = ({ mode = "light" }: { mode?: "light" | "neutral" | "da
   );
 
 export function HomeContent() {
-  const DEFAULT_LOCALE = "en-US";
-  const { locale = DEFAULT_LOCALE, basePath } = useRouter();
+  const { colorScheme, setColorScheme } = useMantineColorScheme();
 
   useEffect(() => {
+    const htmlElement = document.documentElement;
+    const colorScheme = htmlElement.getAttribute("data-mantine-color-scheme");
+    if (colorScheme) {
+      setColorScheme(colorScheme as any);
+    }
     AOS.init();
   }, []);
 
@@ -111,7 +126,7 @@ export function HomeContent() {
           <PHPBonesCommand initialRotationX={16} />
         </Center>
 
-        <Marquee fadeEdges pauseOnHover duration={80} fadeEdgesColor="#111">
+        <Marquee fadeEdges pauseOnHover duration={80} fadeEdgesColor={colorScheme === "dark" ? "#111111" : "#ffffff"}>
           <Demo.Buttons />
         </Marquee>
 
@@ -168,7 +183,7 @@ export function HomeContent() {
                 ta={"center"}
                 fz={24}
                 style={{
-                  textShadow: "0 0 10px rgba(255,0,200,0.8)",
+                  textShadow: `0 0 10px ${colorScheme === "light" ? "rgba(0,0,200,0.2)" : "rgba(255,0,200,0.8)"} `,
                 }}>
                 If you love ❤️ Raycast, you will love the WP Bones extension too!
                 <List mt={16} icon="✨">
