@@ -86,7 +86,7 @@ return new class extends Seeder {
       VALUES
       	(1,'','Mauritania','MR','Mauritanian Ouguiya','','','MRO',0.00,'africa','publish')");
   }
-}
+};
 ```
 
 ## WordPress prefix
@@ -130,7 +130,7 @@ return new class extends Seeder {
       VALUES
       	(1,'','Mauritania','MR','Mauritanian Ouguiya','','','MRO',0.00,'africa','publish')");
   }
-}
+};
 ```
 
 In this case the table name will be `my_plugin_products`.
@@ -169,7 +169,7 @@ return new class extends Seeder {
       ]
     );
   }
-}
+};
 ```
 ### Remove the WordPress prefix
 
@@ -208,7 +208,7 @@ return new class extends Seeder {
       ]
     );
   }
-}
+};
 ```
 
 In the Model class, you have to set to false the second parameter of the `DB::getTableName` method.
