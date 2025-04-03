@@ -46,6 +46,12 @@ class MyCommand extends Command
 }
 ```
 
+### Call a command
+To run a command, you must call it from `php bones`, not from `wp cli`, i.e.:
+```
+php bones wpkirk:sample --name "your name"
+```
+
 ## Command Structure
 
 Once your command is generated, you should fill out the signature and description properties of the class, which will be used when displaying your command on the list screen.
