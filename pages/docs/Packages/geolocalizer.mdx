@@ -95,11 +95,11 @@ class WPMyPluginShortcode extends ServiceProvider
    * @var array
    */
   protected $shortcodes = [
-    'my_shortocde_geo' => 'my_shortocde_geo',
+    'my_shortcode_geo' => 'my_shortcode_geo',
   ];
 
 
-  public function my_shortocde_geo( $atts = [], $content = null )
+  public function my_shortcode_geo( $atts = [], $content = null )
   {
     return GeoLocalizerProvider::shortcode( $atts, $content );
   }
@@ -109,55 +109,55 @@ class WPMyPluginShortcode extends ServiceProvider
 The you can use:
 
 ```txt copy
-[my_shortocde_geo city="Rome"]
+[my_shortcode_geo city="Rome"]
   Only for Rome
-[/my_shortocde_geo]
+[/my_shortcode_geo]
 ```
 
 ```txt copy
-[my_shortocde_geo city="rome"]
+[my_shortcode_geo city="rome"]
   Only for Rome
-[/my_shortocde_geo]
+[/my_shortcode_geo]
 ```
 
 ```txt copy
-[my_shortocde_geo city="rome,london"]
-  Only for Rome and Landon
-[/my_shortocde_geo]
+[my_shortcode_geo city="rome,london"]
+  Only for Rome and London
+[/my_shortcode_geo]
 ```
 
 ```txt copy
-[my_shortocde_geo region_name="lazio"]
-  Only for region (Italy) Lazio
-[/my_shortocde_geo]
+[my_shortcode_geo region_name="lazio"]
+  Only for region Lazio (Italy)
+[/my_shortcode_geo]
 ```
 
 ```txt copy
-[my_shortocde_geo country_code="IT"]
-  Italian only
-[/my_shortocde_geo]
+[my_shortcode_geo country_code="IT"]
+  Italy only
+[/my_shortcode_geo]
 ```
 
 ```txt copy
-[my_shortocde_geo country_name="italy"]
-  Italian only
-[/my_shortocde_geo]
+[my_shortcode_geo country_name="italy"]
+  Italy only
+[/my_shortcode_geo]
 ```
 
 ```txt copy
-[my_shortocde_geo zip_code="00137"]
+[my_shortcode_geo zip_code="00137"]
   Wow
-[/my_shortocde_geo]
+[/my_shortcode_geo]
 ```
 
 ```txt copy
-[my_shortocde_geo ip="80.182.82.82"]
+[my_shortcode_geo ip="80.182.82.82"]
   Only for me
-[/my_shortocde_geo]
+[/my_shortcode_geo]
 ```
 
 ```txt copy
-[my_shortocde_geo time_zone="europe\rome"]
-  Rome/Berlin time zone
-[/my_shortocde_geo]
+[my_shortcode_geo time_zone="europe\rome"]
+  Rome/Berlin timezone
+[/my_shortcode_geo]
 ```

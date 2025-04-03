@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 
 export default function WPBonesDocsApp({ Component, pageProps }) {
   // DON'T REMOVE THIS CODE - IT'S REQUIRED FOR COLOR SCHEME SUPPORT
-  const [colorScheme, setColorScheme] = useState();
+  const [colorScheme] = useState();
 
   const theme = createTheme(docsTheme);
 

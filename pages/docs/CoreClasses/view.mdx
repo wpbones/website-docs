@@ -106,9 +106,9 @@ $view->with(['title' => 'My Page'])->render();
 
 ```php copy filename="Your Controller"
 return WPKirk()->view( 'dashboard.index' )
-               ->with( 'kirk', 'Class' );
+               ->with( 'kirk', 'Captain' );
 ```
-A variable named `$kirk` will be inject and available in the view file.
+A variable named `$kirk` will be injected and available in the view file.
 
 ```php copy filename="resources/views/dashboard/index.php" {3}
 <div class="my-class">
@@ -134,10 +134,10 @@ return WPKirk()->view( 'dashboard.index' )
 ### `withAdminAppsScript`
 ```php
 /**
- * Load new Javascript (React bundle) resource in admin area.
+ * Load new JavaScript (React bundle) resource in admin area.
  *
  * @param string $name Script handle the data will be attached to.
- * @param bool $module Optional. There is a module css.
+ * @param bool $module Optional. There is a module CSS.
  * @param string $variable Optional. Name for the JavaScript object
  * @param array $data Optional. The data itself. The data can be either a single or multi-dimensional array.
  * @return $this
@@ -154,7 +154,7 @@ $view->withAdminAppsScript('my-react-app', true, 'MyAppData', ['key' => 'value']
 ### `withAdminScript`
 ```php
 /**
- * Load a new Javascript resource in admin area.
+ * Load a new JavaScript resource in admin area.
  *
  * @param string $name Name of script.
  * @param array $deps Optional. Array of slug deps
@@ -179,7 +179,7 @@ The file `public/js/wp-kirk-common.js` will be loaded in the admin area.
 ### `withAdminStyle`
 ```php
 /**
- * Load a new css resource in admin area.
+ * Load a new CSS resource in admin area.
  *
  * @param string $name Name of style.
  * @param array $deps Optional. Array of slug deps
@@ -285,7 +285,7 @@ return WPKirk()->view( 'dashboard.index' )
 ### `withScript`
 ```php
 /**
- * Load a new css resource in theme.
+ * Load a new CSS resource in theme.
  *
  * @param string $name Name of script.
  * @param array $deps Optional. Array of slug deps
@@ -304,7 +304,7 @@ $view->withScript('theme-script', ['jquery'], '1.0.0');
 ### `withStyle`
 ```php
 /**
- * Load a new css resource in theme.
+ * Load a new CSS resource in theme.
  *
  * @param string $name Name of style.
  * @param array $deps Optional. Array of slug deps

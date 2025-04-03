@@ -61,7 +61,7 @@ To create your custom API, you have to create a new folder in `/api` at the root
 You can change the name of your folder, but you will need to update the `path` in the `api.php` configuration file. Check the highlighted line in the snippet above.
 </Callout>
 
-The main folder will be the `vendor`. Typically, within the **vendor** folder, you will also create the `version` folder.
+The main folder will be the `vendor` (the name of your project). Typically, within the **vendor** folder, you will also create the `version` folder.
 
 For instance, you could create
 
@@ -100,7 +100,7 @@ Route::get('/example', function () {
 });
 ```
 
-You may use your browser to test `/api/vendor/v1/example` route.
+You may use your browser to test `/wp-json/vendor/v1/example` route.
 
 ### HTTP Methods
 

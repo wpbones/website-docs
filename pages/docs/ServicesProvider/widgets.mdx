@@ -2,7 +2,7 @@ import { Callout, FileTree } from 'nextra/components'
 
 # Widgets
 
-This document explains how to create and manage widgets in WP Bones. It provides steps to create a Widget Service Provider using the `php bones make:widget MyWidget` command and how to manually create one. The new provider will be created in the `plugins/Widgets` directory. The document also covers editing the Widget Service Provider, including setting the widget's base ID, name, and other properties.
+This document explains how to create and manage widgets in WP Bones. It provides steps to create a Widget Service Provider using the `php bones make:widget MyWidget` command and how to manually create one. The new provider will be created in the `plugin/Widgets` directory. The document also covers editing the Widget Service Provider, including setting the widget's base ID, name, and other properties.
 
 ## Overview
 
@@ -16,7 +16,7 @@ You may create your own widget service provider by following the steps below:
 php bones make:widget MyWidget
 ```
 
-By default, the new provider will be created in the `plugins/Widgets` directory. Of course, you may create your Service Provider manually and in any directory you prefer. You have to change the namespace accordingly.
+By default, the new provider will be created in the `plugin/Widgets` directory. Of course, you may create your Service Provider manually and in any directory you prefer. You have to change the namespace accordingly.
 
 ```php filename="plugin/Widgets/MyWidget.php" copy
 <?php
@@ -151,7 +151,7 @@ return WPKirk()->view( 'widgets.form' )->with( 'instance', $instance );
 
 ## Load the Widget Service Provider
 
-Add this new Service Provider to the list of providers in the `/config/plugin.php` file:
+Add this new Service Provider to the list of providers in the `config/plugin.php` file:
 
 ```php filename="config/plugin.php" copy
   /*

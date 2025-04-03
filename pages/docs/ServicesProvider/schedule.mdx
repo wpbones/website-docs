@@ -5,7 +5,7 @@ import { Callout, Cards, FileTree } from 'nextra/components';
 
 # Schedule
 
-This document explains how to create and manage schedules in WP Bones. It provides steps to create a Schedule Service Provider using the `php bones make:schedule MySchedule` command and how to manually create one. The new provider will be created in the `plugins/Provider` directory. The document also covers editing the Schedule Service Provider bootstrap to set properties like hook name and recurrence, and how to run the scheduled event.
+This document explains how to create and manage schedules in WP Bones. It provides steps to create a Schedule Service Provider using the `php bones make:schedule MySchedule` command and how to manually create one. The new provider will be created in the `plugin/Providers` directory. The document also covers editing the Schedule Service Provider bootstrap to set properties like hook name and recurrence, and how to run the scheduled event.
 
 ---
 <DocsBoilerplateDemo slug="cron" />
@@ -23,7 +23,7 @@ You may create your own schedule service provider by following the steps below:
 php bones make:schedule MySchedule
 ```
 
-In the `plugins/Provider` directory, the new provider will be created by default. Of course, you may create your schedule service provider manually and in any directory you prefer. You have to change the namespace accordingly.
+In the `plugin/Providers` directory, the new provider will be created by default. Of course, you may create your schedule service provider manually and in any directory you prefer. You have to change the namespace accordingly.
 
 ### Edit the Schedule Service Provider bootstrap
 
@@ -106,7 +106,7 @@ class MySchedule extends ServiceProvider
 
 ## Load the Schedule Service Provider
 
-Add this new Service Provider to the list of providers in the `/config/plugin.php` file:
+Add this new Service Provider to the list of providers in the `config/plugin.php` file:
 
 ```php filename="config/plugin.php" copy
   /*
