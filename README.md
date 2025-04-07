@@ -19,3 +19,6 @@ You can fork the project and create a pull request to contribute to the document
     <img src="https://contrib.rocks/image?repo=wpbones/website-docs" />
   </a>
 </div>
+
+---
+Join [Discord](https://discord.gg/5bdVyycU8F)
