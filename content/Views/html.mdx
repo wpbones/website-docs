@@ -1,0 +1,128 @@
+import { ActionButton, FileTreeLabel } from "@/components";
+import { Center } from '@mantine/core';
+import { Callout, FileTree } from 'nextra/components';
+
+# HTML
+
+This document explains how to use the `Html` class in WP Bones to create, manage, and display HTML tags using object-oriented programming. The `Html` class provides a fluent interface for generating HTML elements. Examples include creating a button and setting its attributes. The document notes that the `Html` class is designed for WordPress and that the plugin namespace will be prefixed to the aliased class.
+
+<Callout type="important" emoji="🙌">
+We are considering the possibility of turning this feature into an __📦 external package__. If you would like to join the discussion, [jump in here](https://github.com/orgs/wpbones/discussions/57).
+</Callout>
+
+## Overview
+
+WP Bones provides a great alternative to HTML markup writing in your view. If you wish to use object-oriented programming, then the `Html` class is for you. Inside a view file, you may use the `Html` class to create, manage, and display HTML tags.
+
+<Callout type="info">
+Due to WordPress plugins architecture, your plugin namespace will be prefixed to the *aliased* class. So, if your namespace is `MyAwesomePlugin`, then you should use `MyAwesomePlugin\Html` to get the `Html` facade.
+</Callout>
+
+For example, if you would like to display a button, you may use a code such as:
+
+```html copy
+<div class="wrap">
+  <?php echo WPKirk\Html::button( "Hello, world!" ) ?>
+</div>
+```
+
+<Callout type="info">
+The `Html` class is designed for WordPress. This means that you'll find several advantages while working with HTML.
+</Callout>
+
+Also, the `Html` class works like a facade and provides a fluent behavior. For example, the above code can be written as:
+
+```html copy
+<div class="wrap">
+  <?php WPKirk\Html::button( "Hello, world!" )
+        ->html() ?>
+</div>
+```
+
+or
+
+```html copy
+<div class="wrap">
+  <?php 
+     $button = WPKirk\Html::button( "Hello, world!" );
+     echo $button; // or $button->render();	
+  ?>
+</div>
+```
+
+<Callout>
+If you prefer to get the HTML markup, please use `$button->html()`.
+</Callout>
+
+Every HTML tag provides its HTML interface to set the attributes. For example, let's see how to set some button attributes:
+
+```html copy
+<div>
+  <?php echo WPKirk\Html::button( "Hello, world!" )
+        ->class( 'button') ?>
+</div>
+
+<div>
+  <?php echo WPKirk\Html::button( "Hello, world!" )
+        ->class( 'button button-primary') ?>
+</div>
+
+<div>
+  <?php echo WPKirk\Html::button( "Hello, world!" )
+        ->class( [ 'button', 'button-primary' ]) ?>
+</div>
+
+<div>
+  <?php echo WPKirk\Html::button( [ 'content' => "Hello, world!", 'class' => 'button button-hero' ] ) ?>
+</div>
+```
+
+Of course, there are some attributes with a dash character like `accept-charset`. In this case, you have to use a camel case version of attributes to set it fluently:
+
+```php copy
+<?php echo WPKirk\Html::form()->acceptCharset('ISO-8859-1') ?>
+```
+
+If you prefer an array, then you can use the original attribute name:
+
+```php copy
+<?php echo WPKirk\Html::form(['accept-charset' => 'ISO-8859-1']) ?>
+```
+
+## Custom attributes
+
+Of course, you may wish to add your own custom attribute. You can do this by using the `attributes` method. For example:
+
+```php copy
+<?php echo WPKirk\Html::button('Click me!')
+      ->attributes('hello', 'world') ?>
+```
+
+You'll see it looks like
+
+```html copy
+<button hello="world">Click me!</button>
+```
+
+## Currently supported HTML tags
+
+- `Html::a`
+- `Html::button`
+- `Html::checkbox`
+- `Html::datetime`
+- `Html::fieldset`
+- `Html::form`
+- `Html::input`
+- `Html::label`
+- `Html::optgroup`
+- `Html::option`
+- `Html::select`
+- `Html::textarea`
+
+## See HTML in action
+
+Click below to see the `Html` class in action in the WP Bones Demo plugin.
+
+<Center mt="md">
+    <ActionButton />
+</Center>

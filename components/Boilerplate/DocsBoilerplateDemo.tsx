@@ -1,8 +1,8 @@
-"use client";
+// "use client";
 
-import { Group } from "@mantine/core";
-import { Boilerplate } from "./Boilerplate";
-import { Demo } from "./Demo";
+import { Group } from '@mantine/core';
+import { Boilerplate } from './Boilerplate';
+import { Demo } from './Demo';
 
 type DocsBoilerplateDemoProps = {
   slug: string;

@@ -1,0 +1,56 @@
+import { Callout, FileTree, Steps } from 'nextra/components'
+
+# Official WP Bones packages
+
+This document lists official WP Bones packages, which are tested for compatibility with WP Bones. It advises using the [bones](/docs/BonesConsole/bones-console) command to install them. It also explains how to write a WP Bones package using the WP Kirk template and namespace. Steps include cloning the WP Kirk template, editing the `composer.json` file, and running `php bones update` to perform a namespace rename. The document encourages users to submit their own packages for inclusion in the list.
+
+## Overview
+
+In this section, you will find some official WP Bones packages. These packages have been created for use with WP Bones and have been tested to ensure compatibility.
+You will able able to install these packages as you would any other composer package.
+Anyway, we advise you to use the `bones` command to install them.
+
+<Callout type="important" emoji="📦">
+If you have created a package for WP Bones, please let us know. We will be happy to add it to the list of official packages.
+</Callout>
+
+## How to write a WP Bones package
+
+Although WordPress doesn't support Composer, we can use the `composer.json` to install third-party packages.
+Of course, to write a WP Bones package, you should follow some special rules.
+
+To write a WP Bones package, you have to use the WP Kirk template and the WP Kirk namespace
+
+<Steps>
+
+### Clone the WP Kirk template plugin
+
+```sh copy
+git clone -b main https://github.com/wpbones/WPKirk.git <your plugin folder>
+```
+
+### Edit composer.json
+
+Edit the `composer.json` file of your package and use the following syntax:
+
+```json copy
+...
+  "autoload": {
+    "psr-4": {
+       "WPKirk\\YourPackage\\": "src/"
+    }
+  },
+...
+```
+
+```sh copy
+php bones update
+```
+
+The `bones` command will perform a namespace rename.
+
+For more details, check the source code of [Morris php](https://github.com/wpbones/morris-php).
+
+There you'll find a list of the official WP Bones packages. Feel free to create your own WP Bones package and send me a request to add it.
+
+</Steps>

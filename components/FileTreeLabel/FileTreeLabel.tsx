@@ -1,12 +1,14 @@
-import { Anchor, Code, Group } from "@mantine/core";
-import { IconCornerRightDown } from "@tabler/icons-react";
-import React from "react";
+'use client';
 
-import "@mantine/core/styles.css";
+import React from 'react';
+import { IconCornerRightDown } from '@tabler/icons-react';
+import { Anchor, Code, Group } from '@mantine/core';
+
+import '@mantine/core/styles.css';
 
 type FileTreeLabelProps = {
   name: string;
-  type: "folder" | "file";
+  type: 'folder' | 'file';
   children: React.ReactNode;
   color: string;
   href: string;
@@ -15,24 +17,24 @@ type FileTreeLabelProps = {
 
 export function FileTreeLabel({
   name,
-  type = "folder",
+  type = 'folder',
   children,
-  color = "green",
+  color = 'green',
   href,
-  target = "_self",
+  target = '_self',
 }: FileTreeLabelProps) {
   return (
-    <Group align="left">
+    <Group>
       {href ? (
-        <Anchor href={href} target={target} color="blue">
+        <Anchor href={href} target={target} c="blue" fz={13}>
           {name}
         </Anchor>
       ) : (
         name
       )}
-      {type === "folder" && <IconCornerRightDown size={20} color="grey" />}
+      {type === 'folder' && <IconCornerRightDown size={20} color="grey" />}
       {children && (
-        <Code fz={12} color={color} px={8}>
+        <Code fz={12} color={color} px={6} py={0}>
           {children}
         </Code>
       )}

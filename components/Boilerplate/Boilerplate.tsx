@@ -1,28 +1,26 @@
-"use client";
+// 'use client';
 
-import { AnimateBadge } from "@components";
-import { Badge, Button, Group, MantineColor } from "@mantine/core";
-import { IconBrandGithub } from "@tabler/icons-react";
-import { Cards } from "nextra/components";
-import ReactElement from "react";
-import { boilerplateList, BoilerplateSlugs } from "./List";
+import { IconBrandGithub } from '@tabler/icons-react';
+import { Cards } from 'nextra/components';
+import { Badge, Button, Group, MantineColor } from '@mantine/core';
+import { AnimateBadge } from '@/components';
+import { boilerplateList, BoilerplateSlugs } from './List';
 
 type BoilerplateButtonProps = {
   slug: string;
   colorFrom?: MantineColor;
   colorTo?: MantineColor;
-  layout?: "default" | "square";
-  justify?: React.CSSProperties["justifyContent"];
+  layout?: 'default' | 'square';
+  justify?: React.CSSProperties['justifyContent'];
 };
 
 function BoilerplateButton({
   slug,
-  colorFrom = "orange",
-  colorTo = "violet",
-  layout = "default",
-  justify = "space-between",
+  colorFrom = 'dark.9',
+  colorTo = 'dark.8',
+  layout = 'default',
 }: BoilerplateButtonProps) {
-  const { name, icon, mostUsed, title, owner = "wpbones" } = boilerplateList[slug];
+  const { name, mostUsed, title, owner = 'wpbones' } = boilerplateList[slug];
 
   const hrefGitHub = `https://github.com/new?template_name=${name}&template_owner=${owner}`;
 
@@ -34,9 +32,10 @@ function BoilerplateButton({
       variant="gradient"
       size="sm"
       data-layout={layout}
-      gradient={{ from: "dark", to: colorTo, deg: 45 }}
+      gradient={{ from: colorFrom, to: colorTo, deg: 45 }}
       leftSection={<IconBrandGithub size={18} />}
-      radius={"xl"}>
+      radius="xl"
+    >
       {mostUsed ? (
         <Group gap={4}>
           <Badge color="lime" fz={10} size="xs">
@@ -58,7 +57,7 @@ type BoilerplateCardProps = {
 };
 
 function BoilerplateCard({ slug, overrideTitle, highlight }: BoilerplateCardProps) {
-  const { name, icon = <IconBrandGithub />, title, owner = "wpbones" } = boilerplateList[slug];
+  const { name, icon = <IconBrandGithub />, title, owner = 'wpbones' } = boilerplateList[slug];
 
   function Title() {
     if (overrideTitle) {
@@ -78,7 +77,7 @@ function BoilerplateCard({ slug, overrideTitle, highlight }: BoilerplateCardProp
 
   const href = `https://github.com/new?template_name=${name}&template_owner=${owner}`;
 
-  return <Cards.Card key={slug} arrow icon={icon} title={(<Title />) as ReactElement} href={href} />;
+  return <Cards.Card key={slug} arrow icon={icon} title={(<Title />) as any} href={href} />;
 }
 
 type BoilerplateCardsProps = {
@@ -87,7 +86,7 @@ type BoilerplateCardsProps = {
   title?: Record<string, string>;
 };
 
-function BoilerplateCards({ column = 2, display = [], title: overrideTitle }: BoilerplateCardsProps) {
+function BoilerplateCards({ column = 2, display = [] }: BoilerplateCardsProps) {
   return (
     <Cards num={column}>
       {Object.entries(boilerplateList)
@@ -99,7 +98,7 @@ function BoilerplateCards({ column = 2, display = [], title: overrideTitle }: Bo
   );
 }
 
-function BoilerplateButtons({ column = 2, display = [], title: overrideTitle }: BoilerplateCardsProps) {
+function BoilerplateButtons({ display = [] }: BoilerplateCardsProps) {
   return Object.entries(boilerplateList)
     .filter(([key]) => display.length === 0 || display.includes(key as BoilerplateSlugs))
     .map(([key, value]) => <BoilerplateButton slug={key} {...value} />);
@@ -110,4 +109,4 @@ export const Boilerplate = {
   Cards: BoilerplateCards,
   Button: BoilerplateButton,
   Buttons: BoilerplateButtons,
-};
+} as const;

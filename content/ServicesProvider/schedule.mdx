@@ -1,0 +1,175 @@
+import { DocsBoilerplateDemo } from "@/components";
+import { Badge, Button, Group } from '@mantine/core';
+import { IconArticle, IconBrandGithub, IconBrandSlack, IconBrandWordpress, IconExternalLink, IconPlug } from "@tabler/icons-react";
+import { Callout, Cards, FileTree } from 'nextra/components';
+
+# Schedule
+
+This document explains how to create and manage schedules in WP Bones. It provides steps to create a Schedule Service Provider using the `php bones make:schedule MySchedule` command and how to manually create one. The new provider will be created in the `plugin/Providers` directory. The document also covers editing the Schedule Service Provider bootstrap to set properties like hook name and recurrence, and how to run the scheduled event.
+
+---
+<DocsBoilerplateDemo slug="cron" />
+---
+
+# Overview
+
+As you probably know, WordPress has a built-in scheduling system. It is called also Cron Jobs. WP Bones provides a simple way to add your own schedules.
+
+## Create a Schedule Service Provider
+
+You may create your own schedule service provider by following the steps below:
+
+```sh copy
+php bones make:schedule MySchedule
+```
+
+In the `plugin/Providers` directory, the new provider will be created by default. Of course, you may create your schedule service provider manually and in any directory you prefer. You have to change the namespace accordingly.
+
+### Edit the Schedule Service Provider bootstrap
+
+```php copy filename="plugin/Providers/MySchedule.php" {30}
+<?php
+namespace WPKirk\Providers;
+
+if (!defined('ABSPATH')) {
+  exit();
+}
+
+use WPKirk\WPBones\Foundation\WordPressScheduleServiceProvider as ServiceProvider;
+
+class MySchedule extends ServiceProvider
+{
+
+  // Hook name - used in the WordPress schedule event
+  protected $hook = 'schedule_example_event';
+
+  // Recurrence - used in the WordPress schedule event
+  protected $recurrence = 'twicedaily';
+
+  public function boot()
+  {
+    // You may override this method to set the properties
+    // $this->hook = 'schedule_example_event';
+    // $this->recurrence = 'twicedaily';
+  }
+
+  /**
+   * Run the scheduled event.
+   *
+   */
+  public function run()
+  {
+    wpbones_logger()->info('Schedule example event triggered');
+  }
+}
+```
+
+The `run` method is the method that will be executed when the schedule event is triggered.
+You should define a unique hook name and recurrence for your schedule event.
+You may use the protected properties `$hook` and `$recurrence` to set the hook name and recurrence. Of course, you may override the `boot` method to set these properties.
+For example, you may set the recurrence from the database or from a configuration file.
+
+```php copy filename="plugin/Providers/MySchedule.php" {21}
+<?php
+namespace WPKirk\Providers;
+
+if (!defined('ABSPATH')) {
+  exit();
+}
+
+use WPKirk\WPBones\Foundation\WordPressScheduleServiceProvider as ServiceProvider;
+
+class MySchedule extends ServiceProvider
+{
+
+  // Hook name - used in the WordPress schedule event
+  protected $hook = 'schedule_example_event';
+
+  public function boot()
+  {
+    // You may override this method to set the properties
+    // $this->hook = 'schedule_example_event';
+    
+    $this->recurrence = $this->plugin->config('schedule.recurrence', 'twicedaily');
+  }
+
+  /**
+   * Run the scheduled event.
+   *
+   */
+  public function run()
+  {
+    wpbones_logger()->info('Schedule example event triggered');
+  }
+}
+```
+
+## Load the Schedule Service Provider
+
+Add this new Service Provider to the list of providers in the `config/plugin.php` file:
+
+```php filename="config/plugin.php" copy
+  /*
+  |--------------------------------------------------------------------------
+  | Providers
+  |--------------------------------------------------------------------------
+  |
+  | Here is where you can register the Service Providers.
+  |
+  */
+
+  "providers" => [
+    "WPKirk\Providers\MySchedule",
+  ],
+```
+
+## Clear the schedule event
+
+You don't need to clear the schedule event when you deactivate the plugin. WP Bones will do it for you.
+Anyway, you may use the `clear` method to do any cleanup when the plugin is deactivated.
+
+```php copy filename="plugin/Providers/MySchedule.php" {28}
+<?php
+namespace WPKirk\Providers;
+
+if (!defined('ABSPATH')) {
+  exit();
+}
+
+use WPKirk\WPBones\Foundation\WordPressScheduleServiceProvider as ServiceProvider;
+
+class MySchedule extends ServiceProvider
+{
+
+  // Hook name - used in the WordPress schedule event
+  protected $hook = 'schedule_example_event';
+
+  public function boot()
+  {
+    // You may override this method to set the properties
+    // $this->hook = 'schedule_example_event';
+    
+    $this->recurrence = $this->plugin->config('schedule.recurrence', 'twicedaily');
+  }
+
+  /**
+   * Optional method to do any cleanup when the plugin is deactivated.
+   *
+   */
+  public function clear()
+  {
+    // Do any cleanup here
+  }
+
+  /**
+   * Run the scheduled event.
+   *
+   */
+  public function run()
+  {
+    wpbones_logger()->info('Schedule example event triggered');
+  }
+}
+```
+---
+<DocsBoilerplateDemo slug="cron" />

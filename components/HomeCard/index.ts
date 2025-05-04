@@ -1,1 +1,1 @@
-export { HomeCard } from "./HomeCard";
+export { HomeCard } from './HomeCard';

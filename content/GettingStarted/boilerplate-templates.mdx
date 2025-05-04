@@ -1,0 +1,36 @@
+import { ActionButton, AnimateBadge, Boilerplate, Demo, DocsBoilerplateDemo } from "@/components";
+import { Badge, Button, Group, SimpleGrid, Stack } from '@mantine/core';
+import { IconArticle, IconBrandGithub, IconBrandSlack, IconBrandWordpress, IconExternalLink, IconPlug } from "@tabler/icons-react";
+import { Callout, Cards, Steps } from 'nextra/components';
+
+# Boilerplate templates
+
+This document provides an overview of ready-made boilerplate templates for creating WP Bones plugins. It includes links to GitHub repositories and demos, and highlights the deprecation of the complete demo in favor of individual templates and demos.
+
+## Overview
+
+To create your WP Bones plugin, you can use one of our **ready-made boilerplate templates** available on GitHub. You can choose one of the following:
+
+## GitHub repository & Demo
+
+On left you can use the **GitHub template** and on the right the **Demo** of the template.
+
+<SimpleGrid cols={2} py="md">
+
+    <Stack align="self-start">
+        <Boilerplate.Buttons />
+    </Stack>
+
+    <Stack align="self-end">
+        <Demo.Buttons />
+    </Stack>
+</SimpleGrid>
+
+
+<Callout type="important" emoji={"🙌"}>
+> The Complete Demo will soon be deprecated. Please use the individual templates ad Demos instead.
+</Callout>
+
+<Cards num={1}>
+<Cards.Card arrow icon={<IconBrandGithub />} title="The complete Demo with several examples inside" target="\_blank" href="https://github.com/new?template_name=WPKirk&template_owner=wpbones"/>
+</Cards>

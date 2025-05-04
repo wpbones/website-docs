@@ -1,0 +1,34 @@
+import { FileTreeLabel } from '@/components/FileTreeLabel'
+import { Callout, FileTree } from 'nextra/components'
+
+# Core Plugin Files
+
+This document explains how to update the WP Bones framework using the `php bones update` command, which executes a `composer update` along with other tasks. It highlights that only the framework is updated, not your plugin. The document provides an overview of the core plugin files included in the WP Bones boilerplate, noting that these files may undergo changes. It is advised checking for updates to these files if you have a plugin created with an earlier version of WP Bones.
+
+## Overview
+
+You can update the WP Bones framework by using the bones command:
+  
+```bash copy
+php bones update
+```
+
+Under the hood, the bones command will execute a `composer update` along with other tasks.
+Of course, you are updating just the framework, not your plugin.
+
+In this section, you will find the latest versions of the files included in the WP Bones boilerplate. These files may undergo changes, including breaking changes.
+
+So, if you have a plugin created with an earlier version of WP Bones, you can check here which files have changed in the latest versions. You can then copy and update these files in your plugin.
+
+<FileTree>
+  <FileTree.Folder name="myPlugin" defaultOpen>
+    <FileTree.Folder name="config" defaultOpen>
+      <FileTree.File name={<FileTreeLabel type="file" href="./config/plugin" name="plugin.php" color="yellow">main plugin config</FileTreeLabel>} />
+    </FileTree.Folder>
+    <FileTree.File name={<FileTreeLabel type="file" href="./composer-json" name="composer.json" color="yellow">used by composer</FileTreeLabel>} />
+    <FileTree.File name={<FileTreeLabel type="file" href="./gulpfile-js" name="gulpfile.js">script used by Gulp</FileTreeLabel>} />
+    {/* <FileTree.File name={<FileTreeLabel type="file" name="{your-plugin-name}.php">entry point of plugin</FileTreeLabel>} /> */}
+    <FileTree.File name={<FileTreeLabel type="file" href="./package-json" name="package.json">used by npm</FileTreeLabel>} />
+    {/* <FileTree.File name={<FileTreeLabel type="file" name="readme.txt">WordPress readme file</FileTreeLabel>} /> */}
+  </FileTree.Folder>
+</FileTree>

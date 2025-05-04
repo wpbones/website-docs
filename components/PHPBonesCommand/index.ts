@@ -1,1 +1,1 @@
-export { PHPBonesCommand } from "./PHPBonesCommand";
+export { PHPBonesCommand } from './PHPBonesCommand';

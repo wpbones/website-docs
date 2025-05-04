@@ -1,0 +1,82 @@
+import { DocsBoilerplateDemo } from "@/components";
+import { Callout, FileTree } from 'nextra/components';
+
+# Custom Taxonomy Types
+
+This document explains how to create and manage Custom Taxonomy Types in WP Bones. It provides steps to create a Custom Taxonomy Type Service Provider using the `php bones make:ctt MyCustomTaxonomy` command and how to manually create one. The new provider will be created in the `plugin/CustomTaxonomyTypes` directory. The document also covers loading the Custom Taxonomy Type Service Provider by adding it to the list of providers in the `config/plugin.php` file.
+
+---
+<DocsBoilerplateDemo slug="cpt" />
+---
+
+## Overview
+
+WordPress provides a powerful way to create your own taxonomy types. WP Bones provides a simple way to add your own Custom Taxonomy Types.
+
+## Create a Custom Taxonomy Type Service Provider
+
+You may create your own Custom Taxonomy Type Service Provider by following the steps below:
+
+```sh copy
+php bones make:ctt MyCustomTaxonomy
+```
+
+By default, the new provider will be created in the `plugin/CustomTaxonomyTypes` directory. Of course, you may create your Service Provider manually and in any directory you prefer. You have to change the namespace accordingly.
+
+```php filename="plugin/CustomTaxonomyTypes/MyCustomTaxonomy.php" copy
+<?php
+namespace WPKirk\CustomTaxonomyTypes;
+
+use WPKirk\WPBones\Foundation\WordPressCustomTaxonomyTypeServiceProvider;
+
+class MyCustomTaxonomy extends WordPressCustomTaxonomyTypeServiceProvider {
+
+  protected $id     = 'wp_kirk_tax';
+  protected $name   = 'Ship';
+  protected $plural = 'Ships';
+
+  protected $objectType = 'wp_kirk_cpt';
+
+}
+```
+
+## Load the Custom Taxonomy Type Service Provider
+
+Add this new Service Provider to the list of providers in the `config/plugin.php` file:
+
+```php filename="config/plugin.php" copy
+  /*
+  |--------------------------------------------------------------------------
+  | Custom Taxonomy Types
+  |--------------------------------------------------------------------------
+  |
+  | Here is where you can register the Custom Taxonomy Types.
+  |
+  */
+
+  'custom_taxonomy_types' => [ '\WPKirk\CustomTaxonomyTypes\MyCustomTaxonomy' ],
+```
+
+## Columns
+You may add columns to your Custom Taxonomy Type by adding the following code to your Service Provider:
+```php filename="plugin/CustomTaxonomyTypes/MyCustomTaxonomy.php" copy
+public function registerColumns()
+{
+  return [
+    'my_new_column_name' => 'Column Name',       
+  ];
+}
+```
+
+and also set the Column Content (where you can process the output), is *mandatory* to use `return` and not an `echo` statement
+
+```php filename="plugin/CustomTaxonomyTypes/MyCustomTaxonomy.php" copy
+public function columnContent($string, $column_name, $term_id)
+  {
+  if ($column_name === 'my_new_column_name') {
+      //... your logic here
+      return 'your_new_content_here';
+    }
+    return $string;
+  }
+```

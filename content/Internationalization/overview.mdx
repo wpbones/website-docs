@@ -1,0 +1,71 @@
+import { ActionButton, AnimateBadge, DocsBoilerplateDemo } from "@/components";
+import { Badge, Button, Group } from '@mantine/core';
+import { IconArticle, IconBrandGithub, IconBrandSlack, IconBrandWordpress, IconExternalLink, IconPlug } from "@tabler/icons-react";
+import { Callout, Cards, FileTree, Steps } from 'nextra/components';
+
+# Internationalization
+
+This document provides an overview of internationalization in WP Bones. It includes a demo of how to implement internationalization features in your plugin, using the `DocsBoilerplateDemo` component with the `internationalization` slug. The demo showcases the process of making your plugin translatable and managing translations effectively.
+
+---
+<DocsBoilerplateDemo slug="internationalization" />
+---
+
+## Overview
+
+Internationalization (i18n) is the process of designing and developing a software application so that it can be adapted to various languages and regions without engineering changes. Localization (l10n) is the process of adapting internationalized software for a specific region or language by adding locale-specific components and translating text.
+
+You will find more information about the internationalization process in the [WordPress Codex](https://developer.wordpress.org/apis/internationalization/).
+
+## Overview
+
+WP Bones already supports the internationalization process for the PHP code. 
+You can find the `.pot` file in the `languages` folder in our [WPBones Boilerplate plugin](https://github.com/wpbones/WPKirk-Boilerplate).
+
+<Callout type="info">
+Previously the `.pot` file was in the `localization` folder. Starting from WP Bones `1.6.0` we have renamed the folder to `languages`.
+Anyway, you can still change the folder name used for the translations in the main plugin file by using the `Domain Path` header.
+```php copy filename="your-plugin.php" {15}
+<?php
+
+/**
+ * Plugin Name: WP Kirk
+ * Plugin URI: https://github.com/wpbones/WPKirk
+ * Description: WP Bones template WordPress plugin
+ * Version: 1.6.0
+ * Requires at least: 6.2
+ * Requires PHP: 7.4
+ * Author: Giovambattista Fazioli
+ * Author URI: https://wpbones.com/
+ * License: GPLv2 or later
+ * License URI: http://www.gnu.org/licenses/gpl-2.0.html
+ * Text Domain: wp-kirk
+ * Domain Path: languages
+ *
+ */
+```
+</Callout>
+    
+Under the hood WP bones uses the `load_plugin_textdomain()` function to load the translations.
+
+Starting from WP Bones `1.6.0` you will be able to use the internationalization process to translate the React components and the Blocks. The plugin uses the [`make-pot`](https://developer.wordpress.org/cli/commands/i18n/make-pot/) and [`make-json`](https://developer.wordpress.org/cli/commands/i18n/make-json/) scripts to generate the `.pot` and `.json` files.
+
+## Useful additional tools
+
+You can also use a text editor to enter the translation. In a text editor the strings will look like this.
+
+```
+#: plugin-name.php:123 
+msgid "Page Title" 
+msgstr ""
+```
+Here are a few tools that can be used to translate PO files online:
+
+- [Transifex](https://www.transifex.com/)
+- [WebTranslateIt](https://webtranslateit.com/en)
+- [Poeditor](https://poeditor.com/)
+- [Google Translator Toolkit](http://translate.google.com/toolkit/)
+- [GlotPress](http://blog.glotpress.org/)
+
+---
+<DocsBoilerplateDemo slug="internationalization" />

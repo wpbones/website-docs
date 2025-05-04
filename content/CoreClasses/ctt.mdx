@@ -1,0 +1,575 @@
+import { FileTreeLabel } from '@/components/FileTreeLabel'
+import { Callout, FileTree } from 'nextra/components'
+
+# Custom Taxonomy Type Service Provider
+
+## Properties
+
+### `args`
+```php
+/**
+ * Array of arguments to automatically use inside `wp_get_object_terms()`
+ * for this taxonomy.
+ *
+ * @var array
+ */
+```
+An array of arguments that are automatically used within `wp_get_object_terms()` for this taxonomy.
+
+Example:
+```php
+$args = $taxonomyServiceProvider->args;
+```
+
+### `capabilities`
+```php
+/**
+ * Array of capabilities for this taxonomy.
+ *
+ * @type string $manage_terms Default 'manage_categories'.
+ * @type string $edit_terms   Default 'manage_categories'.
+ * @type string $delete_terms Default 'manage_categories'.
+ * @type string $assign_terms Default 'edit_posts'.
+ *
+ * @var array
+ */
+```
+Defines the capabilities for managing terms within this taxonomy.
+
+Example:
+```php
+$capabilities = $taxonomyServiceProvider->capabilities;
+```
+
+### `defaultTerm`
+```php
+/**
+ * Default term to be used for the taxonomy.
+ *
+ * @type string $name         Name of default term.
+ * @type string $slug         Slug for default term. Default empty.
+ * @type string $description  Description for default term. Default empty.
+ *
+ * @var string|array
+ */
+```
+Specifies the default term for the taxonomy, which can include a name, slug, and description.
+
+Example:
+```php
+$defaultTerm = $taxonomyServiceProvider->defaultTerm;
+```
+
+### `description`
+```php
+/**
+ * A short descriptive summary of what the taxonomy is for. Defaults to blank.
+ *
+ * @var string
+ */
+```
+Provides a brief description of the taxonomy's purpose.
+
+Example:
+```php
+$description = $taxonomyServiceProvider->description;
+```
+
+### `epMask`
+```php
+/**
+ * Assign an endpoint mask.
+ *
+ * @var int
+ */
+```
+Defines the endpoint mask for the taxonomy's rewrite rules.
+
+Example:
+```php
+$epMask = $taxonomyServiceProvider->epMask;
+```
+
+### `hierarchical`
+```php
+/**
+ * Whether the taxonomy is hierarchical (e.g. category).
+ * Defaults to false.
+ *
+ * @var bool
+ */
+```
+Indicates if the taxonomy is hierarchical, similar to categories.
+
+Example:
+```php
+$isHierarchical = $taxonomyServiceProvider->hierarchical;
+```
+
+### `id`
+```php
+/**
+ * Taxonomy key. Must not exceed 32 characters and may only contain
+ * lowercase alphanumeric characters, dashes, and underscores. See sanitize_key().
+ *
+ * It's the `$taxonomy` parameter used in
+ * `register_taxonomy( $taxonomy, $object_type, $args = array() )`
+ *
+ * @var string
+ */
+```
+The unique identifier for the taxonomy, used in registration.
+
+Example:
+```php
+$taxonomyId = $taxonomyServiceProvider->id;
+```
+
+### `labels`
+```php
+/**
+ * Taxonomy labels object. The first default value is for non-hierarchical taxonomies
+ * (like tags) and the second one is for hierarchical taxonomies (like categories).
+ *
+ * @var string[]
+ */
+```
+An array of labels used for the taxonomy in various contexts.
+
+Example:
+```php
+$labels = $taxonomyServiceProvider->labels;
+```
+
+### `metaBoxCb`
+```php
+/**
+ * Provide a callback function for the meta box display.
+ * If not set, defaults to post_categories_meta_box for hierarchical taxonomies and post_tags_meta_box for
+ * non-hierarchical. If false, no meta box is shown.
+ *
+ * @var null
+ */
+```
+Specifies a callback function for displaying the taxonomy's meta box.
+
+Example:
+```php
+$metaBoxCallback = $taxonomyServiceProvider->metaBoxCb;
+```
+
+### `metaBoxSanitizeCb`
+```php
+/**
+ * Callback function for sanitizing taxonomy data saved from a meta box.
+ * If no callback is defined, an appropriate one is determined
+ * based on the value of `$metaBoxCb`.
+ *
+ * @var null
+ */
+```
+Defines a callback for sanitizing data saved from the taxonomy's meta box.
+
+Example:
+```php
+$sanitizeCallback = $taxonomyServiceProvider->metaBoxSanitizeCb;
+```
+
+### `name`
+```php
+/**
+ * Name for one object of this taxonomy. Default 'Tag'/'Category'.
+ *
+ * @var string
+ */
+```
+The singular name for an object within this taxonomy.
+
+Example:
+```php
+$taxonomyName = $taxonomyServiceProvider->name;
+```
+
+### `objectType`
+```php
+/**
+ * Object type or array of object types with which the taxonomy should be associated.
+ *
+ * It's the `$object_type` parameter used in
+ * `register_taxonomy( $taxonomy, $object_type, $args = array() )`
+ *
+ * @var string
+ */
+```
+Specifies the object type(s) associated with the taxonomy.
+
+Example:
+```php
+$objectType = $taxonomyServiceProvider->objectType;
+```
+
+### `plural`
+```php
+/**
+ * General name for the taxonomy, usually plural.
+ * The same as and overridden by `$tax->label`. Default 'Tags'/'Categories'.
+ *
+ * @var string
+ */
+```
+The plural form of the taxonomy's name.
+
+Example:
+```php
+$pluralName = $taxonomyServiceProvider->plural;
+```
+
+### `public`
+```php
+/**
+ * If the taxonomy should be publicly queryable; //@TODO not implemented.
+ * Defaults to true.
+ *
+ * @var bool
+ */
+```
+Determines if the taxonomy can be publicly queried.
+
+Example:
+```php
+$isPublic = $taxonomyServiceProvider->public;
+```
+
+### `publiclyQueryable`
+```php
+/**
+ * Whether the taxonomy is publicly queryable.
+ * If not set, the default is inherited from `$public`.
+ *
+ * @var bool
+ */
+```
+Indicates if the taxonomy is publicly queryable, inheriting from `public` if not explicitly set.
+
+Example:
+```php
+$isPubliclyQueryable = $taxonomyServiceProvider->publiclyQueryable;
+```
+
+### `queryVar`
+```php
+/**
+ * Sets the query_var key for this taxonomy. Defaults to $taxonomy key
+ * If false, a taxonomy cannot be loaded at ?{query_var}={term_slug}
+ * If specified as a string, the query ?{query_var_string}={term_slug} will be valid.
+ *
+ * @var string
+ */
+```
+Defines the query variable for the taxonomy, allowing it to be queried via URL parameters.
+
+Example:
+```php
+$queryVar = $taxonomyServiceProvider->queryVar;
+```
+
+### `restBase`
+```php
+/**
+ * To change the base url of REST API route. Default is $taxonomy.
+ *
+ * @var string
+ */
+```
+Specifies the base URL for the taxonomy's REST API route.
+
+Example:
+```php
+$restBase = $taxonomyServiceProvider->restBase;
+```
+
+### `restControllerClass`
+```php
+/**
+ * REST API Controller class name. Default is 'WP_REST_Terms_Controller'.
+ *
+ * @var string
+ */
+```
+The class name of the REST API controller for the taxonomy.
+
+Example:
+```php
+$restController = $taxonomyServiceProvider->restControllerClass;
+```
+
+### `restNamespace`
+```php
+/**
+ * To change the namespace of REST API route. Default is wp/v2.
+ *
+ * @var string
+ */
+```
+Defines the namespace for the taxonomy's REST API route.
+
+Example:
+```php
+$restNamespace = $taxonomyServiceProvider->restNamespace;
+```
+
+### `rewrite`
+```php
+/**
+ * Triggers the handling of rewrites for this taxonomy. Defaults to true, using $taxonomy as slug.
+ * To prevent rewrite, set to false.
+ * To specify rewrite rules, an array can be passed with any of these keys:
+ *
+ * @type string $slug         Customize the permastruct slug. Default `$taxonomy` key.
+ * @type bool   $with_front   Should the permastruct be prepended with WP_Rewrite::$front. Default true.
+ * @type bool   $hierarchical Either hierarchical rewrite tag or not. Default false.
+ * @type int    $ep_mask      Assign an endpoint mask. Default `EP_NONE`.
+ *
+ * @var array
+ */
+```
+Controls the rewrite rules for the taxonomy, allowing customization of the URL structure.
+
+Example:
+```php
+$rewriteRules = $taxonomyServiceProvider->rewrite;
+```
+
+### `rewriteHierarchical`
+```php
+/**
+ * Either hierarchical rewrite tag or not. Defaults to false.
+ *
+ * @var bool
+ */
+```
+Indicates if the rewrite rules should be hierarchical.
+
+Example:
+```php
+$isRewriteHierarchical = $taxonomyServiceProvider->rewriteHierarchical;
+```
+
+### `showAdminColumn`
+```php
+/**
+ * Whether to display a column for the taxonomy on its post type listing screens.
+ *
+ * @var bool
+ */
+```
+Determines if a column for the taxonomy should be shown in the admin post type listings.
+
+Example:
+```php
+$showAdminColumn = $taxonomyServiceProvider->showAdminColumn;
+```
+
+### `showInMenu`
+```php
+/**
+ * Whether to show the taxonomy in the admin menu.
+ * If true, the taxonomy is shown as a submenu of the object type menu.
+ * If false, no menu is shown.
+ * show_ui must be true.
+ * If not set, the default is inherited from show_ui.
+ *
+ * @var bool
+ */
+```
+Specifies if the taxonomy should appear in the WordPress admin menu.
+
+Example:
+```php
+$showInMenu = $taxonomyServiceProvider->showInMenu;
+```
+
+### `showInNavMenus`
+```php
+/**
+ * Makes this taxonomy available for selection in navigation menus.
+ * If not set, the default is inherited from public.
+ *
+ * @var bool
+ */
+```
+Determines if the taxonomy can be selected in navigation menus.
+
+Example:
+```php
+$showInNavMenus = $taxonomyServiceProvider->showInNavMenus;
+```
+
+### `showInQuickEdit`
+```php
+/**
+ * Whether to show the taxonomy in the quick/bulk edit panel.
+ * It not set, the default is inherited from show_ui.
+ *
+ * @var bool
+ */
+```
+Indicates if the taxonomy should be available in the quick edit panel.
+
+Example:
+```php
+$showInQuickEdit = $taxonomyServiceProvider->showInQuickEdit;
+```
+
+### `showInRest`
+```php
+/**
+ * Whether to include the taxonomy in the REST API.
+ * Set this to true for the taxonomy to be available in the block editor.
+ *
+ * @var bool
+ */
+```
+Specifies if the taxonomy should be included in the REST API.
+
+Example:
+```php
+$showInRest = $taxonomyServiceProvider->showInRest;
+```
+
+### `showTagcloud`
+```php
+/**
+ * Whether to list the taxonomy in the Tag Cloud Widget.
+ * If not set, the default is inherited from show_ui.
+ *
+ * @var bool
+ */
+```
+Determines if the taxonomy should be listed in the Tag Cloud Widget.
+
+Example:
+```php
+$showTagcloud = $taxonomyServiceProvider->showTagcloud;
+```
+
+### `showTagCloud`
+```php
+/**
+ * Whether to list the taxonomy in the Tag Cloud Widget controls.
+ * If not set, the default is inherited from `$show_ui` (default true).
+ *
+ * @var bool
+ */
+```
+Indicates if the taxonomy should appear in the Tag Cloud Widget controls.
+
+Example:
+```php
+$showTagCloud = $taxonomyServiceProvider->showTagCloud;
+```
+
+### `showUI`
+```php
+/**
+ * Whether to generate a default UI for managing this taxonomy in the admin.
+ * If not set, the default is inherited from public.
+ *
+ * @var bool
+ */
+```
+Specifies if a default UI should be generated for managing the taxonomy.
+
+Example:
+```php
+$showUI = $taxonomyServiceProvider->showUI;
+```
+
+### `slug`
+```php
+/**
+ * Customize the permastruct slug. Defaults to $taxonomy key
+ *
+ * @var string
+ */
+```
+Allows customization of the taxonomy's URL slug.
+
+Example:
+```php
+$slug = $taxonomyServiceProvider->slug;
+```
+
+### `sort`
+```php
+/**
+ * Whether terms in this taxonomy should be sorted in the order they are
+ * provided to `wp_set_object_terms()`. Default null which equates to false.
+ *
+ * @var bool
+ */
+```
+Indicates if terms should be sorted in the order provided to `wp_set_object_terms()`.
+
+Example:
+```php
+$sortTerms = $taxonomyServiceProvider->sort;
+```
+
+### `updateCountCallback`
+```php
+/**
+ * Works much like a hook, in that it will be called when the count is updated.
+ * Defaults to _update_post_term_count() for taxonomies attached to post types, which then confirms that the objects
+ * are published before counting them.
+ * Defaults to _update_generic_term_count() for taxonomies attached to other
+ * object types, such as links.
+ *
+ * @var string
+ */
+```
+Specifies a callback function that is triggered when the term count is updated.
+
+Example:
+```php
+$updateCountCallback = $taxonomyServiceProvider->updateCountCallback;
+```
+
+### `withFront`
+```php
+/**
+ * Should the permastruct be prepended with WP_Rewrite::$front. Defaults to true.
+ *
+ * @var bool
+ */
+```
+Determines if the permastruct should be prepended with `WP_Rewrite::$front`.
+
+Example:
+```php
+$withFront = $taxonomyServiceProvider->withFront;
+```
+---
+
+## Methods
+
+Based on the provided class `WordPressCustomTaxonomyTypeServiceProvider`, here is the list of public methods in alphabetical order, formatted according to your specifications:
+
+### `boot`
+```php
+/**
+ * You may override this method in order to register your own actions and filters.
+ */
+```
+**Synopsis:** `public function boot()`
+
+This method is intended to be overridden to register custom actions and filters specific to the taxonomy. It provides a hook for developers to extend the functionality of the taxonomy service provider.
+
+Example:
+```php
+class MyTaxonomyServiceProvider extends WordPressCustomTaxonomyTypeServiceProvider {
+    public function boot() {
+        $this->plural = 'Categories';
+    }
+}
+```

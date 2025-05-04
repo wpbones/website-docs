@@ -1,0 +1,401 @@
+import { ActionButton, AnimateBadge } from "@/components";
+import { Callout, FileTree } from 'nextra/components';
+
+# Helpers
+
+This document explains the various helper PHP functions included in WP Bones, many of which are used by the framework itself. These functions are available for use in your own applications and include some clones of Laravel helper functions. The document lists available methods such as `import()`, `logger()`, `wpbones_array_assoc_default()`, `wpbones_cache()`, and more, providing a brief synopsis and usage examples for each function.
+
+## Overview
+
+WP Bones includes a variety of "helper" PHP functions, many of which are used by the framework itself; however, you are free to use them in your own applications if you find them convenient. Some of these functions are a clone of the Laravel helper functions.
+
+
+## Available Methods
+
+* <AnimateBadge /> [import()](#import)
+* [logger()](#logger)
+* [wpbones_array_assoc_default()](#wpbones_array_assoc_default)
+* [wpbones_array_insert()](#wpbones_array_insert)
+* <AnimateBadge /> [wpbones_cache()](#wpbones_cache)
+* [wpbones_checked()](#wpbones_checked)
+* [wpbones_env()](#wpbones_env)
+* [wpbones_flatten_and_uniquify()](#wpbones_flatten_and_uniquify)
+* [wpbones_is_true()](#wpbones_is_true)
+* <AnimateBadge /> [wpbones_module()](#wpbones_module)
+* [wpbones_logger()](#wpbones_logger)
+* [wpbones_provider()](#wpbones_provider)
+* [wpbones_selected()](#wpbones_selected)
+* [wpbones_value()](#wpbones_value)
+
+---------------------------------------------------------------------------------------------
+### `import()`
+
+#### Synopsis
+
+```php copy
+/**
+ * Import a file from the `/plugin/modules` directory.
+ *
+ * @param string $module The module name.
+ *
+ * @return mixed
+ */
+function import($module)
+```
+#### See also
+
+> Since this function is not using the prefix `wpbones_` you should be careful to use it in your code. In fact, if you have another plugin or theme that uses the same function, you will have a conflict. 
+
+See [`wpbones_module()`](#wpbones_module) for a safer way to get the logger instance.
+
+
+---------------------------------------------------------------------------------------------
+
+### `logger()`
+
+#### Synopsis
+
+```php copy
+/* Utility to get an instance of Logger. */
+function logger()
+```
+
+#### Usage
+
+```php copy
+logger()->info('Your message here');
+```
+
+That's a shortcut to get the instance of the logger. You may use also
+  
+```php copy
+$logger = WPKirk()->log();
+```
+
+#### See also
+
+> Since this function is not using the prefix `wpbones_` you should be careful to use it in your code. In fact, if you have another plugin or theme that uses the same function, you will have a conflict. 
+
+See [`wpbones_logger()`](#wpbones_logger) for a safer way to get the logger instance.
+
+
+---------------------------------------------------------------------------------------------
+
+### `wpbones_array_assoc_default()` 
+
+#### Synopsis
+
+```php copy
+/**
+ * Return a new associative array with $default values +/- $merge values.
+ *
+ * @param array $default The default array values.
+ * @param array $merge   An associate (+) or key values (-) array. 
+ *                       For example, if you'll use [ 'foo' ] the 'foo' will
+ *                       be added to $default array. 
+ *                       If you'll use [ 'foo', 'bar' => false ], then 'foo' will be added
+ *                       and 'bar' will be removed.
+ *
+ * @return array
+ */
+function wpbones_array_assoc_default($default, $merge): array
+```
+---------------------------------------------------------------------------------------------
+
+### `wpbones_array_insert()`
+
+#### Synopsis
+
+```php copy
+/**
+ * Insert a key => value into a second array to a specify index
+ *
+ * @brief Insert a key value pairs in array
+ *
+ * @param array  $arr   Source array
+ * @param string $key   Key
+ * @param mixed  $val   Value
+ * @param int    $index Optional. Index zero base
+ *
+ * @return array
+ */
+function wpbones_array_insert($arr, $key, $val, $index = 0): array
+```
+---------------------------------------------------------------------------------------------
+
+### `wpbones_cache()`
+
+#### Synopsis
+
+```php copy
+  /**
+   * Utility to cache a value.
+   * If the cache key exists, the value is returned.
+   * If the cache key does not exist, the value is cached and returned.
+   * If the expire time is 0, the cache key is deleted.
+   * Under the hood, this function uses the WordPress Transients API.
+   *
+   * @param string $key    The cache key.
+   * @param mixed  $value  The value to cache.
+   * @param int    $expire The expiration time in seconds. Default is 12 hours.
+   *
+   * @since 1.8.0
+   *
+   * @return mixed
+   */
+  function wpbones_cache($key, $value, $expire = 12 * HOUR_IN_SECONDS)
+```
+
+#### Usage
+
+The `wpbones_cache()` function caches a value for a specified amount of time. The default expiration time is 12 hours.
+
+```php copy
+$value = wpbones_cache('my_key', 'my_value');
+```
+
+#### Clearing the cache
+
+To clear the cache, you can set the `$expire` parameter to `0` or `false`:
+
+```php copy
+wpbones_cache('my_key', 'my_value', 0);
+```
+
+
+---------------------------------------------------------------------------------------------
+
+### `wpbones_checked()`
+
+#### Synopsis
+
+```php copy
+/**
+ * Commodity to extends checked() WordPress function with array check
+ *
+ * @param string|array $haystack Single value or array
+ * @param mixed        $current  (true) The other value to compare if not just true
+ * @param bool         $echo     Whether to echo or just return the string
+ *
+ * @return string html attribute or empty string
+ */
+function wpbones_checked($haystack, $current, $echo = true)
+```
+
+#### Usage
+
+The `wpbones_checked()` function is similar to WordPress `checked()` except for array support:
+
+```php copy
+<input type="checkbox" <?php wpbones_checked( [1,2,3], $current ) ?> name="product" />
+```
+---------------------------------------------------------------------------------------------
+
+### `wpbones_env()`
+
+#### Synopsis
+
+```php copy
+/**
+ * Gets the value of an environment variable. Supports boolean, empty and null.
+ *
+ * @param string $key
+ * @param mixed  $default
+ *
+ * @return mixed
+ */
+function wpbones_env($key, $default = null)
+```
+#### Usage
+
+The `wpbones_env()` function retrieves the value of an environment variable or returns a default value.
+
+```php copy
+$env = wpbones_env('APP_ENV');
+
+// Return a default value if the variable does not exist...
+$env = wpbones_env('APP_ENV', 'production');
+```
+---------------------------------------------------------------------------------------------
+
+### `wpbones_flatten_and_uniquify()`
+
+#### Synopsis
+
+```php copy
+  /**
+   * Flattens a multi-dimensional array or comma-separated string and removes duplicates.
+   *
+   * This function takes an input which can be either a multi-dimensional array
+   * or a comma-separated string, flattens it into a single-dimensional array,
+   * and removes any duplicate values.
+   *
+   * @param array|string $input The input to be flattened and uniquified.
+   *                            Can be a multi-dimensional array or a comma-separated string.
+   * @return array A flat array with unique values.
+   */
+  function wpbones_flatten_and_uniquify($input): array
+```
+
+#### Usage
+
+The `wpbones_flatten_and_uniquify()` function takes an input that can be either a multi-dimensional array or a comma-separated string, flattens it into a single-dimensional array, and removes any duplicate values.
+
+```php copy
+$flattened = wpbones_flatten_and_uniquify('item1');
+// Output: ['item1']
+
+$flattened = wpbones_flatten_and_uniquify('item1, item2, item3');
+// Output: ['item1', 'item2', 'item3']
+
+$flattened = wpbones_flatten_and_uniquify(['item1', 'item2', 'item3']);
+// Output: ['item1', 'item2', 'item3']
+
+$flattened = wpbones_flatten_and_uniquify(['item1', 'item2', ['item3', 'item4']]);
+// Output: ['item1', 'item2', 'item3', 'item4']
+```
+
+---------------------------------------------------------------------------------------------
+
+### `wpbones_is_true()`
+
+#### Synopsis
+
+```php copy
+/**
+ * Utility to check if a value is true.
+ *
+ * @param mixed $value String, boolean or integer.
+ *
+ * @return bool
+ */
+function wpbones_is_true($value): bool
+```
+
+#### Usage
+
+The `wpbones_is_true()` function determines if a value is true. This function is useful when you need to check if a value is true, regardless of its type.
+
+```php copy
+if ( wpbones_is_true('true') ) {
+  // Do something...
+}
+```
+---------------------------------------------------------------------------------------------
+
+### `wpbones_module()`
+
+#### Synopsis
+
+```php copy
+/**
+ * Import a file from the `/plugin/modules` directory.
+ *
+ * @param string $module The module name.
+ *
+ * @return mixed
+ */
+function wpbones_module($module)
+```
+
+
+
+---------------------------------------------------------------------------------------------
+
+### `wpbones_logger()`
+
+#### Synopsis
+
+```php copy
+/* Utility to get an instance of Logger. */
+function wpbones_logger()
+```
+
+#### Usage
+
+```php copy
+wpbones_logger()->info('Your message here');
+```
+
+That's a shortcut to get the instance of the logger. You may use also
+  
+```php copy
+$logger = WPKirk()->log();
+```
+---------------------------------------------------------------------------------------------
+
+### `wpbones_provider()`
+
+#### Synopsis
+
+```php copy
+/**
+ * Return a provider by name
+ *
+ * @param string  $name The Class name of the provider.
+ *
+ * @return mixed|null
+ */
+function wpbones_provider($provider)
+```
+
+#### Usage
+
+That's a shortcode of `WPKirk()->provider()` to get an instance of a provider. You may use also
+
+```php copy
+$provider = WPKirk()->provider('my_provider');
+``` 
+
+---------------------------------------------------------------------------------------------
+
+### `wpbones_selected()`
+
+#### Synopsis
+
+```php copy
+/**
+ * Commodity to extends selected() WordPress function with array check
+ *
+ * @param string|array $haystack Single value or array
+ * @param mixed        $current  (true) The other value to compare if not just true
+ * @param bool         $echo     Whether to echo or just return the string
+ *
+ * @return string html attribute or empty string
+ */
+function wpbones_selected($haystack, $current, $echo = true)
+```
+
+#### Usage
+
+The `wpbones_selected()` function is similar to WordPress `selected()` except for array support :
+
+```php copy
+<select name="products">
+  <?php foreach( $products as $key => $value ) : ?>
+  <option <?php wpbones_selected( [1,2,3], $key ) ?>><?php echo $value ?></option>
+  <?php endforeach; ?>
+</select>
+```
+---------------------------------------------------------------------------------------------
+
+### `wpbones_value()`
+
+#### Synopsis
+
+```php copy
+/**
+ * Return the default value of the given value.
+ *
+ * @param mixed $value
+ *
+ * @return mixed
+ */
+function wpbones_value($value)
+```
+
+The `wpbones_value` function's behavior will simply return the value it is given. However, if you pass a `Closure` to the function, the `Closure` will be executed, and then its result will be returned:
+
+```php copy
+$value = wpbones_value( function() { return 'bar'; });
+```
