@@ -1,1 +1,0 @@
-export { HomeContent } from "./HomeContent";

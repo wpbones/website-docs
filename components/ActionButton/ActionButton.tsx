@@ -1,40 +1,40 @@
-"use client";
+'use client';
 
-import { Button, MantineColor } from "@mantine/core";
-import { IconExternalLink } from "@tabler/icons-react";
-import classes from "./ActionButton.module.css";
+import { IconExternalLink } from '@tabler/icons-react';
+import { Button, MantineColor } from '@mantine/core';
+import classes from './ActionButton.module.css';
 
 type AvailableDemos =
-  | "demo"
-  | "api-boilerplate"
-  | "boilerplate"
-  | "blade-boilerplate"
-  | "cron-boilerplate"
-  | "cpt-boilerplate"
-  | "database-boilerplate"
-  | "hooks-boilerplate"
-  | "internationalization-boilerplate"
-  | "mantine-boilerplate"
-  | "reactjs-boilerplate"
-  | "routes-boilerplate"
-  | "typescript-boilerplate";
+  | 'demo'
+  | 'api-boilerplate'
+  | 'boilerplate'
+  | 'blade-boilerplate'
+  | 'cron-boilerplate'
+  | 'cpt-boilerplate'
+  | 'database-boilerplate'
+  | 'hooks-boilerplate'
+  | 'internationalization-boilerplate'
+  | 'mantine-boilerplate'
+  | 'reactjs-boilerplate'
+  | 'routes-boilerplate'
+  | 'typescript-boilerplate';
 
 interface ActionButtonProps {
   demo?: AvailableDemos;
   colorFrom?: MantineColor;
   colorTo?: MantineColor;
-  layout?: "default" | "square";
+  layout?: 'default' | 'square';
   title?: string;
 }
 
 export function ActionButton({
-  demo = "demo",
-  colorFrom = "orange",
-  colorTo = "violet",
-  layout = "default",
+  demo = 'demo',
+  colorFrom = 'orange',
+  colorTo = 'violet',
+  layout = 'default',
   title,
 }: ActionButtonProps) {
-  const sanitizeDemo = demo.charAt(0).toUpperCase() + demo.replace("-boilerplate", "").slice(1);
+  const sanitizeDemo = demo.charAt(0).toUpperCase() + demo.replace('-boilerplate', '').slice(1);
 
   const titleText = title || `See WP Bones Plugin ${sanitizeDemo} in action`;
 
@@ -49,7 +49,8 @@ export function ActionButton({
       gradient={{ from: colorFrom, to: colorTo, deg: 45 }}
       className={classes.buttonAction}
       rightSection={<IconExternalLink />}
-      radius={"xl"}>
+      radius="xl"
+    >
       {titleText}
     </Button>
   );

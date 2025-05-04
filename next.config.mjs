@@ -1,14 +1,26 @@
-import nextra from 'nextra'
+import bundleAnalyzer from '@next/bundle-analyzer';
+import nextra from 'nextra';
+
+const withBundleAnalyzer = bundleAnalyzer({
+  enabled: process.env.ANALYZE === 'true',
+});
 
 const withNextra = nextra({
-  theme: 'nextra-theme-docs',
-  themeConfig: './theme.config.tsx',
   latex: true,
   search: {
     codeblocks: false
-  }
+  },
+  contentDirBasePath: '/docs',
 })
 
-export default withNextra({
-  reactStrictMode: true
-})
+export default withNextra(
+  withBundleAnalyzer({
+    reactStrictMode: false,
+    cleanDistDir: true,
+    eslint: {
+      ignoreDuringBuilds: true,
+    },
+    experimental: {
+      optimizePackageImports: ['@mantine/core', '@mantine/hooks'],
+    },
+  }));

@@ -1,7 +1,9 @@
+import { ReactElement, ReactNode } from 'react';
+
 export type BoilerplateType = {
-  title: string | JSX.Element;
+  title: ReactNode;
   name: string;
-  icon?: JSX.Element;
+  icon?: ReactElement;
   owner?: string;
   highlight?: boolean;
   mostUsed?: boolean;

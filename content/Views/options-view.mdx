@@ -1,0 +1,211 @@
+import { DocsBoilerplateDemo, FileTreeLabel } from '@/components'
+import { Callout, FileTree } from 'nextra/components'
+
+# Options View
+
+This document explains how to display and edit plugin options in WP Bones. It provides a complete example of an options view, including defining routes in the `config/menus.php` file, creating a method in the `DashboardController` to display the form, and creating the form in the `resources/views/dashboard/optionsview.php` file. It also covers updating options using the `saveOptions` method in the controller. Note that slashes should be used instead of dots in field names.
+
+---
+<DocsBoilerplateDemo slug="options" />
+---
+
+## Overview
+
+Of course, you will need to display your options in order to edit them. Let's have a look at a complete sample of the options view. First, let's assume we have the following routes defined in our `config/menus.php` file:
+
+```php filename="config/menus.php" copy
+  'route' => [
+    'get'  => 'Dashboard\DashboardController@optionsView',
+    'post' => 'Dashboard\DashboardController@saveOptions'
+  ]
+```
+
+In the `DashboardController` view controller we will create the `optionView` method so as to display the form:
+
+```php filename="plugin/Controllers/DashboardController.php" copy
+public function optionView() {
+  return WPKirk()->view( 'dashboard.optionsview' );
+}
+```
+
+Now, we will create a file `optionview.php` in the `resources/views/dashboard/` folder: 
+
+```html filename="resources/views/dashboard/optionsview.php" copy
+<form action="" method="post">
+
+  <label>Special.Name</label>
+  <input type="text"
+         name="Special/Name"
+         value="<?php echo $plugin->options->get( 'Special.Name' ) ?>" />
+
+  <button>Update</button>
+
+</form>
+```
+
+<Callout>
+You can't use the dot (`.`) in the name of the field because it will be replaced by an underscore (`_`) character. Instead, use a slash to separate the options branch.
+</Callout>
+
+Next, in the updating method, we will use:
+
+```php filename="plugin/Controllers/DashboardController.php" copy
+public function saveOptions()
+{
+  WPKirk()->options
+          ->set( 'Special.Name', $this->request->get( 'Special.Name' ) );
+
+  return WPKirk()->view( 'dashboard.optionsview' );
+}
+```
+
+That's all.
+
+<Callout>
+You may use the dot notation as well as slash notation when getting a post value by the `request` property. For example, you may use `$this->request->get('Special.Name')` or `$this->request->get('Special/Name')`.
+</Callout>
+
+
+## Massive update
+
+Instead of specifying each single option, you may use `$this->request->getAsOptions` method in order to get all options post fields:
+
+```php filename="plugin/Controllers/DashboardController.php" copy
+public function saveOptions()
+{
+  WPKirk()->options
+          ->update( $this->request->getAsOptions() );
+
+  return WPKirk()->view( 'dashboard.optionsview' );
+}
+```
+
+<Callout type="info">
+The method `$this->request->getAsOptions` will only retrieve the POST keys formatted as `Branch/subbranch`.
+</Callout>
+
+
+## Checkbox workaround
+
+When you are using the massive update by `update($this->request->getAsOptions())`, remember that any checkbox input fields cannot be sent if unchecked. However, you can use a workaround to send an unchecked value even when the checkboxes are unchecked. You can achieve this by adding a **hidden input field** with the same name as the input checkbox and setting the value to a negative or null value:
+
+```html copy
+<form action="" method="post">
+
+  <label>General.option_1</label>
+    
+  <input type="hidden" 
+           name="General/option_1" 
+           value="false" />
+    
+  <input type="checkbox"
+           name="General/option_1"
+      <?php checked( 'true', $plugin->options->get( 'General.option_1' ) ) ?>
+           value="true"/>
+
+  <button>Update</button>
+
+</form>
+```
+
+As you can see from the above code, the second "real" input checkbox will overwrite the first one when it is checked.
+
+Alternatively, instead of using the HTML markup, you may use the `Html` class to create a checkbox input control:
+
+```php copy
+echo WPKirk\Html::checkbox()->name( 'myname')->value( 'on');
+```
+
+Then you'll get:
+
+```html copy
+<input type="hidden" name="myname" value="off" />
+<input type="checkbox" name="myname" value="on" />
+```
+
+Currently, you'll get an "off" as an unchecked value. You can also use:
+
+```php copy
+echo WPKirk\Html::checkbox()
+  ->name( 'myname')
+  ->checked( $plugin->options->get( 'options.value' ) )
+  ->value( 'on');
+```
+
+If `options.value` is `empty`, `false`, `null` or `off` then the checkbox will be unchecked.
+
+## Feedback
+
+If you prefer to display a message after updating, you may use the `with` fluent method:
+
+```php copy
+public function saveOptions()
+{
+  WPKirk()->options
+          ->set( 'Special.Name', $this->request->get( 'Special.Name' ) );
+
+  return WPKirk()->view( 'dashboard.optionsview' )
+          ->with( 'feedback', 'Options Updated!' );
+}
+```
+
+And get it in the view:
+
+```html copy
+<?php if ( isset( $feedback ) ) : ?>
+  <h3><?php echo $feedback ?></h3>
+<?php endif; ?>
+  
+<form action="" method="post">
+
+  <label>Special / Name</label>
+  <input type="text"
+         name="Special.Name"
+         value="<?php echo $plugin->options->get( 'Special.Name' ) ?>" />
+
+  <button>Update</button>
+
+</form>
+```
+
+## CSRF Security and nonce
+
+You wish to use the WordPress nonce function to prevent CSRF attacks. You can do this by adding the `wp_nonce_field` WordPress function in your HTML form:
+
+```html copy
+<?php if ( isset( $feedback ) ) : ?>
+  <h3><?php echo $feedback ?></h3>
+<?php endif; ?>
+  
+<form action="" method="post">
+
+  <?php wp_nonce_field( 'Options' ); ?>
+
+  <label>Special / Name</label>
+  <input type="text"
+         name="Special.Name"
+         value="<?php echo $plugin->options->get( 'Special.Name' ) ?>" />
+
+  <button>Update</button>
+
+</form>
+```
+
+Next, in the `saveOptions` you may use the `wp_verify_nonce` WordPress function or the more useful `$this->request->verifyNonce` WP Bones method:
+
+```php copy
+public function saveOptions()
+{
+  if ( $this->request->verifyNonce( 'Options' ) ) {
+    WPKirk()->options
+            ->set( 'Special.Name', $this->request->get( 'Special.Name' ) );
+
+    return WPKirk()->view( 'dashboard.optionsview' )
+            ->with( 'feedback', 'Options Updated!' );
+  }
+  else {
+    return WPKirk()->view( 'dashboard.optionsview' )
+            ->with( 'feedback', 'Action Not Allowed!' );
+  }
+}
+```
