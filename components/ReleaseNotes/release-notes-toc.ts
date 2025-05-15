@@ -2,11 +2,17 @@ import config from '@/config';
 import type { Release, TOC } from './use-release-notes';
 
 export async function releaseNotesToc() {
-  const fetcher = (url: string) => fetch(url).then((res) => res.json());
+  const fetcher = (url: string, options?: RequestInit) =>
+    fetch(url, options).then((res) => res.json());
 
   try {
     const releases = await fetcher(
-      `${config.gitHub.releasesUrl}?per_page=${config.releaseNotes.maxReleases}`
+      `${config.gitHub.releasesUrl}?per_page=${config.releaseNotes.maxReleases}`,
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+        },
+      }
     ).catch((error) => {
       // eslint-disable-next-line no-console
       console.error('Error fetching releases:', error);
