@@ -2,7 +2,7 @@ import { Callout, FileTree, Tabs } from 'nextra/components'
 
 ## `>= v1.9.5`
 
-```php copy filename="config/plugin.php - New in v1.6.6" {16,31,43, 50}
+```php copy filename="config/plugin.php - New starting from v1.9.5" {17-22}
 <?php
 
 if (!defined("ABSPATH")) {
@@ -12,15 +12,18 @@ if (!defined("ABSPATH")) {
 return [
   /*
   |--------------------------------------------------------------------------
-  | Logging Configuration
+  | Plugin priorities
   |--------------------------------------------------------------------------
   |
-  | Here you may configure the log settings for your plugin.
+  | Here you may configure the priority of each hook your plugin uses.
+  | Defaults to 10 if you don’t override them.
   |
   */
-
-  "priorities" => [
-
+  'priorities' => [
+      'init'              => 10,
+      'widgets_init'      => 10,
+      'admin_init'        => 10,
+      'set_screen_option' => 10,
   ],
 ];
 ```
