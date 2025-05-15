@@ -3,6 +3,8 @@ import '@gfazioli/mantine-parallax/styles.layer.css';
 import '@gfazioli/mantine-text-animate/styles.layer.css';
 import '@mantine/core/styles.layer.css';
 
+import { GoogleTagManager } from '@next/third-parties/google';
+import { Analytics } from '@vercel/analytics/react';
 import { Layout } from 'nextra-theme-docs';
 import { Banner, Head } from 'nextra/components';
 import { getPageMap } from 'nextra/page-map';
@@ -61,6 +63,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           >
             {children}
           </Layout>
+          <GoogleTagManager gtmId={process.env.GTM as string} />
+          <Analytics />
         </MantineProvider>
       </body>
     </html>
