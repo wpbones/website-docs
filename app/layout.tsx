@@ -48,7 +48,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <Layout
             banner={
               <Banner storageKey="release-195">
-                ✨ WP Bones 1.9.5 is out! Check the Release Notes →
+                ✨ WP Bones 1.9.5 is out!{' '}
+                <a href="/docs/release-notes">Check the Release Notes →</a>
               </Banner>
             }
             navbar={<MantineNavBar />}
