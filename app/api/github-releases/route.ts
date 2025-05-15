@@ -19,7 +19,7 @@ export async function GET(request: Request) {
       {
         headers: {
           Accept: 'application/vnd.github+json',
-          // Authorization: `Bearer ${process.env.GITHUB_TOKEN}`, // Optional for rate limit
+          Authorization: `Bearer ${process.env.GITHUB_TOKEN}`, // Optional for rate limit
         },
       }
     );
