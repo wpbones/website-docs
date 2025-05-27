@@ -1,6 +1,11 @@
 import { Poser } from '@/components/Poser';
 import { Badge, Flex, Group } from "@mantine/core";
 import { Callout, FileTree, Steps } from 'nextra/components';
+import { DocsBoilerplateDemo, FileTreeLabel } from '@/components';
+
+---
+<DocsBoilerplateDemo slug="packages" />
+---
 
 # Pure CSS Switch Button for WP Bones
 
@@ -59,9 +64,9 @@ public function index()
 {
   // enqueue the minified version
   PureCSSSwitchProvider::enqueueStyles();
-  
+
   // ...
-  
+
 }
 ```
 
@@ -75,12 +80,12 @@ PureCSSSwitchProvider::enqueueStyles();
 
 // enqueue the flat version
 PureCSSSwitchProvider::enqueueStyles( false );
-    
+
 // return the absolute path of the minified CSS
 PureCSSSwitchProvider::css();
 
 // return the absolute path of the flat CSS
-PureCSSSwitchProvider::css();   
+PureCSSSwitchProvider::css();
 ```
 
 ## Mode
@@ -121,40 +126,43 @@ echo WPKirk\PureCSSSwitch\Html\HtmlTagSwitchButton::name( 'test-switch-1' );
 
 ```php copy filename="Left Label"
 echo WPKirk\PureCSSSwitch\Html\HtmlTagSwitchButton::name( 'test-switch-2' )
-  ->left_label( 'Swipe me' ); 
+  ->left_label( 'Swipe me' );
 ```
 
 ```php copy filename="Right Label"
 echo WPKirk\PureCSSSwitch\Html\HtmlTagSwitchButton::name( 'test-switch-3' )
-  ->right_label( 'Swipe me' ); 
+  ->right_label( 'Swipe me' );
 ```
 
 ```php copy filename="Both Labels"
 echo WPKirk\PureCSSSwitch\Html\HtmlTagSwitchButton::name( 'test-switch-4' )
   ->left_label( 'Swipe me' )
-  ->right_label( 'Swipe me' ); 
+  ->right_label( 'Swipe me' );
 ```
 
 ```php copy filename="Checked"
 echo WPKirk\PureCSSSwitch\Html\HtmlTagSwitchButton::name( 'test-switch-5' )
   ->left_label( 'Swipe me' )
-  ->checked( true ); 
+  ->checked( true );
 ```
 
 ```php copy filename="Disabled"
 echo WPKirk\PureCSSSwitch\Html\HtmlTagSwitchButton::name( 'test-switch-6' )
   ->left_label( 'Swipe me' )
-  ->disabled( true ); 
+  ->disabled( true );
 ```
 
 ```php copy filename="Theme"
 echo WPKirk\PureCSSSwitch\Html\HtmlTagSwitchButton::name( 'test-switch-7' )
-  ->theme( 'flat-square' ); 
+  ->theme( 'flat-square' );
 ```
 
 ```php copy filename="Mode"
 echo WPKirk\PureCSSSwitch\Html\HtmlTagSwitchButton::name( 'test-switch-8' )
   ->left_label( 'Turn left' )
   ->right_label( 'Turn right' )
-  ->mode( 'select' ); 
+  ->mode( 'select' );
 ```
+
+---
+<DocsBoilerplateDemo slug="packages" />

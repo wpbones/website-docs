@@ -1,6 +1,11 @@
 import { Poser } from '@/components/Poser';
 import { Badge, Flex, Group } from "@mantine/core";
 import { Callout, FileTree, Steps } from 'nextra/components';
+import { DocsBoilerplateDemo, FileTreeLabel } from '@/components';
+
+---
+<DocsBoilerplateDemo slug="packages" />
+---
 
 # Pure CSS Tabs for WordPress/WP Bones
 
@@ -55,9 +60,9 @@ public function index()
 {
   // enqueue the minified version
   PureCSSTabsProvider::enqueueStyles();
-  
+
   // ...
-  
+
 }
 ```
 
@@ -71,12 +76,12 @@ PureCSSTabsProvider::enqueueStyles();
 
 // enqueue the flat version
 PureCSSTabsProvider::enqueueStyles( false );
-    
+
 // return the absolute path of the minified CSS
 PureCSSTabsProvider::css();
 
 // return the absolute path of the flat CSS
-PureCSSTabsProvider::css();   
+PureCSSTabsProvider::css();
 ```
 
 ## HTML markup
@@ -91,16 +96,16 @@ PureCSSTabsProvider::css();
   <div class="wpbones-tab">
     <h3>Content</h3>
   </div>
-  
+
   <!-- second tab -->
   <input id="tab-2" type="radio" name="tabs" aria-hidden="true">
   <label for="tab-2" tabindex="0"><?php _e( 'Posts' ) ?></label>
   <div class="wpbones-tab">
     <h3>Content</h3>
-  </div>  
-  
+  </div>
+
   <!-- son on... -->
-  
+
 </div>
 ```
 
@@ -112,16 +117,16 @@ Of course, you may use the **fragment** feature to include the single tabs:
 
   <!-- first tab -->
   <?php echo WPkirk()->view( 'folder.tab1' ) ?>
-  
+
   <!-- second tab -->
   <?php echo WPkirk()->view( 'folder.tab2' ) ?>
-  
+
   <!-- son on... -->
-  
+
 </div>
 ```
  In `/folder/tab1.php` you just insert the following markup:
- 
+
  ```html copy
 <!-- first tab -->
 <input id="tab-1" type="radio" name="tabs" checked="checked" aria-hidden="true">
@@ -191,14 +196,17 @@ Also, you can use `openTab()` and `closeTab()` methods:
   <?php WPKirk\PureCSSTabs\PureCSSTabsProvider::openTab( 'Tab 1', null, true ) ?>
     <h2>Hello, world! I'm the content of tab-1</h2>
   <?php WPKirk\PureCSSTabs\PureCSSTabsProvider::closeTab ?>
-    
+
   <?php WPKirk\PureCSSTabs\PureCSSTabsProvider::openTab( 'Tab 2' ) ?>
     <h2>Hello, world! I'm the content of tab-2</h2>
   <?php WPKirk\PureCSSTabs\PureCSSTabsProvider::closeTab ?>
-    
-</div>    
+
+</div>
 ```
 
 <Callout type="info" emoji="👆">
 Remember, in the example above I have used `WPKirk` base namespace. You should replace it with your own namespace.
 </Callout>
+
+---
+<DocsBoilerplateDemo slug="packages" />

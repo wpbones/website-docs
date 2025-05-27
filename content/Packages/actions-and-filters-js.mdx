@@ -1,6 +1,11 @@
 import { Poser } from '@/components/Poser';
 import { Badge, Flex, Group } from "@mantine/core";
 import { Callout, FileTree, Steps } from 'nextra/components';
+import { DocsBoilerplateDemo, FileTreeLabel } from '@/components';
+
+---
+<DocsBoilerplateDemo slug="packages" />
+---
 
 # WordPress Actions and Filters for JavaScript
 
@@ -19,8 +24,8 @@ You can install third party packages by using:
 ```sh copy
 php bones require wpbones/actions-and-filters-js
 ```
-   
-I advise to use this command instead of `composer require` because doing this an automatic renaming will done.  
+
+I advise to use this command instead of `composer require` because doing this an automatic renaming will done.
 
 You can use composer to install this package:
 
@@ -29,7 +34,7 @@ composer require wpbones/actions-and-filters-js
 ```
 
 You may also to add `"wpbones/actions-and-filters-js": "^1.0"` in the `composer.json` file of your plugin:
- 
+
 ```json copy filename="composer.json" {4}
   "require": {
     "php": ">=7.4",
@@ -38,13 +43,13 @@ You may also to add `"wpbones/actions-and-filters-js": "^1.0"` in the `composer.
   },
 ```
 
-and run 
+and run
 
 ```sh copy
 composer install
 ```
 
-Alternatively, you can get the single files `src/resources/assets/js/actions-and-filters.js` in your WP Bones plugin and compile it with `gulp`. 
+Alternatively, you can get the single files `src/resources/assets/js/actions-and-filters.js` in your WP Bones plugin and compile it with `gulp`.
 Also, you can get pre-compiled minified version `src/public/js/actions-and-filters.min.js`.
 
 ## Enqueue for Controller
@@ -56,9 +61,9 @@ public function index()
 {
   // enqueue the minified version
   ActionsAndFiltersJSProvider::enqueueScripts();
-  
+
   // ...
-  
+
 }
 ```
 
@@ -72,12 +77,12 @@ ActionsAndFiltersJSProvider::enqueueScripts();
 
 // enqueue the flat version
 ActionsAndFiltersJSProvider::enqueueScripts( false );
-    
+
 // return the absolute path of the minified CSS
 ActionsAndFiltersJSProvider::js();
 
 // return the absolute path of the flat CSS
-ActionsAndFiltersJSProvider::js();   
+ActionsAndFiltersJSProvider::js();
 ```
 
 ## Usage
@@ -95,3 +100,6 @@ wpbones_do_action( 'my-action' );
 ```
 
 This JavaScript version works in the same way as PHP version in WordPress.
+
+---
+<DocsBoilerplateDemo slug="packages" />

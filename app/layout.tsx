@@ -49,8 +49,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <MantineProvider theme={theme} defaultColorScheme={head.mantine.defaultColorScheme}>
           <Layout
             banner={
-              <Banner storageKey="release-195">
-                ✨ WP Bones 1.9.5 is out!{' '}
+              <Banner storageKey="release-196">
+                ✨ WP Bones 1.9.6 is out!{' '}
                 <a href="/docs/release-notes">Check the Release Notes →</a>
               </Banner>
             }

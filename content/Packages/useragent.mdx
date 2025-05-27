@@ -1,6 +1,11 @@
 import { Poser } from '@/components/Poser';
 import { Badge, Flex, Group } from "@mantine/core";
 import { Callout, FileTree, Steps } from 'nextra/components';
+import { DocsBoilerplateDemo, FileTreeLabel } from '@/components';
+
+---
+<DocsBoilerplateDemo slug="packages" />
+---
 
 # User Agent for WP Bones
 
@@ -19,8 +24,8 @@ You can install third party packages by using:
 ```sh copy
 php bones require wpbones/useragent
 ```
-   
-I advise to use this command instead of `composer require` because doing this an automatic renaming will done.  
+
+I advise to use this command instead of `composer require` because doing this an automatic renaming will done.
 
 You can use composer to install this package:
 
@@ -29,7 +34,7 @@ composer require wpbones/useragent
 ```
 
 You may also to add `"wpbones/useragent": "^1.0"` in the `composer.json` file of your plugin:
- 
+
 ```json copy filename="composer.json" {4}
   "require": {
     "php": ">=7.4",
@@ -38,7 +43,7 @@ You may also to add `"wpbones/useragent": "^1.0"` in the `composer.json` file of
   },
 ```
 
-and run 
+and run
 
 ```sh copy
 composer install
@@ -110,3 +115,5 @@ wpbones_user_agent()->is('UCBrowser')
 wpbones_user_agent()->is('Opera')
 // [...]
 ```
+---
+<DocsBoilerplateDemo slug="packages" />

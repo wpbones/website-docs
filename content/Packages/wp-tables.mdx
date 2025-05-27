@@ -1,6 +1,11 @@
 import { Poser } from '@/components/Poser';
 import { Badge, Flex, Group } from "@mantine/core";
 import { Callout, FileTree, Steps } from 'nextra/components';
+import { DocsBoilerplateDemo, FileTreeLabel } from '@/components';
+
+---
+<DocsBoilerplateDemo slug="packages" />
+---
 
 # WP Tables for WP Bones
 
@@ -21,8 +26,8 @@ You can install third party packages by using:
 ```sh copy
 php bones require wpbones/wptables
 ```
-   
-I advise to use this command instead of `composer require` because doing this an automatic renaming will done.  
+
+I advise to use this command instead of `composer require` because doing this an automatic renaming will done.
 
 You can use composer to install this package:
 
@@ -31,7 +36,7 @@ composer require wpbones/wptables
 ```
 
 You may also to add `"wpbones/wptables": "^1.0"` in the `composer.json` file of your plugin:
- 
+
 ```json copy filename="composer.json" {4}
   "require": {
     "php": ">=7.4",
@@ -40,7 +45,7 @@ You may also to add `"wpbones/wptables": "^1.0"` in the `composer.json` file of 
   },
 ```
 
-and run 
+and run
 
 ```sh copy
 composer install
@@ -53,7 +58,7 @@ You can use WP Tables either like subclass or like fluent class instance.
 ### Subclassing
 
 As subclass class instance you may create a your own class as show below:
- 
+
 ```php copy
 <?php
 
@@ -63,7 +68,7 @@ use WPKirk\WPTables\Html\WPTable;
 
 class ExampleTable extends WPTable
 {
-  
+
   protected $name = 'Discos';
 
   public function getColumnsAttribute()
@@ -90,7 +95,7 @@ class ExampleTable extends WPTable
 
   }
 }
-``` 
+```
 
 In your view controller you have to use the `load` method in order to register the screen options:
 
@@ -109,7 +114,7 @@ In your view controller you have to use the `load` method in order to register t
       ->view( 'dashboard.table' )
       ->with( 'table', $table );
   }
-...  
+...
 ```
 In your `ExampleTable` you may override:
 
@@ -149,7 +154,7 @@ If you like use the `WPTable` as fluent instance, you have to set the columns tw
            ->screenOptionLabel( 'Rows' )
            ->registerScreenOption();
   }
-  
+
   public function indexFluentExample()
   {
 
@@ -179,3 +184,6 @@ If you like use the `WPTable` as fluent instance, you have to set the columns tw
   }
 
 ```
+
+---
+<DocsBoilerplateDemo slug="packages" />
