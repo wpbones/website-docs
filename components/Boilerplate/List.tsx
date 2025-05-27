@@ -58,6 +58,11 @@ export const boilerplateList: Record<string, BoilerplateType> = {
     name: 'WPKirk-Options-Boilerplate',
     icon: <IconBrandGithub />,
   },
+  packages: {
+    title: 'Packages Boilerplate',
+    name: 'WPKirk-Packages-Boilerplate',
+    icon: <IconBrandGithub />,
+  },
   reactjs: {
     title: 'ReactJS Boilerplate',
     name: 'WPKirk-Reactjs-Boilerplate',

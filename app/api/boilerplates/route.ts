@@ -123,6 +123,14 @@ export async function GET() {
       keywords: ['options', 'form', 'controller', 'resource', 'post'],
     },
     {
+      slug: 'packages',
+      name: 'WPKirk-Packages-Boilerplate',
+      title: 'Packages',
+      subtitle: 'How to use Packages with WP Bones',
+      icon: { source: 'CheckList', tintColor: 'white' },
+      keywords: ['packages', 'flags', 'geolocalizer', 'useragent', 'wptables', 'actions', 'filters', 'morris', 'css tab', 'css switch'],
+    },
+    {
       slug: 'reactjs',
       name: 'WPKirk-ReactJS-Boilerplate',
       title: 'ReactJS',

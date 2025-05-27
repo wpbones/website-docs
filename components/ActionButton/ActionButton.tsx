@@ -15,6 +15,8 @@ type AvailableDemos =
   | 'hooks-boilerplate'
   | 'internationalization-boilerplate'
   | 'mantine-boilerplate'
+  | 'options-boilerplate'
+  | 'packages-boilerplate'
   | 'reactjs-boilerplate'
   | 'routes-boilerplate'
   | 'typescript-boilerplate';
