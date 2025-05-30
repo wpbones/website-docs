@@ -127,7 +127,7 @@ export async function GET() {
       name: 'WPKirk-Packages-Boilerplate',
       title: 'Packages',
       subtitle: 'How to use Packages with WP Bones',
-      icon: { source: 'CheckList', tintColor: 'white' },
+      icon: { source: 'Box', tintColor: 'white' },
       keywords: ['packages', 'flags', 'geolocalizer', 'useragent', 'wptables', 'actions', 'filters', 'morris', 'css tab', 'css switch'],
     },
     {
