@@ -21,7 +21,7 @@ export default {
       },
       medium: {
         title: 'Discord',
-        href: 'https://discord.gg/5bdVyycU8Fv',
+        href: 'https://discord.gg/5bdVyycU8F',
       },
     },
   },

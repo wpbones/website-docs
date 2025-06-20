@@ -13,7 +13,7 @@ export const resources = [
   {
     key: 'forum',
     title: 'Forum',
-    href: 'https://discord.gg/5bdVyycU8Fv',
+    href: 'https://discord.gg/5bdVyycU8F',
   },
   {
     key: 'discussions',

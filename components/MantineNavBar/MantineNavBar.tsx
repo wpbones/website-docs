@@ -24,7 +24,7 @@ export const MantineNavBar = () => {
           </Group>
         }
         // Mantine discord server
-        chatLink="https://discord.gg/5bdVyycU8Fv"
+        chatLink="https://discord.gg/5bdVyycU8F"
         projectLink="https://github.com/wpbones/wpbones"
       >
         <>

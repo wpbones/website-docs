@@ -88,7 +88,7 @@ export const Footer: React.FC<FooterProps> = () => {
                 >
                   <IconBrandGithubFilled size={24} />
                 </ActionIcon>
-                <ActionIcon variant="subtle" component="a" href="https://discord.gg/5bdVyycU8Fv">
+                <ActionIcon variant="subtle" component="a" href="https://discord.gg/5bdVyycU8F">
                   <IconBrandDiscordFilled size={24} />
                 </ActionIcon>
                 <ActionIcon variant="subtle" component="a" href="https://wpbones.substack.com/">
