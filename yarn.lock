@@ -3192,6 +3192,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@isaacs/balanced-match@npm:^4.0.1":
+  version: 4.0.1
+  resolution: "@isaacs/balanced-match@npm:4.0.1"
+  checksum: 10c0/7da011805b259ec5c955f01cee903da72ad97c5e6f01ca96197267d3f33103d5b2f8a1af192140f3aa64526c593c8d098ae366c2b11f7f17645d12387c2fd420
+  languageName: node
+  linkType: hard
+
+"@isaacs/brace-expansion@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "@isaacs/brace-expansion@npm:5.0.0"
+  dependencies:
+    "@isaacs/balanced-match": "npm:^4.0.1"
+  checksum: 10c0/b4d4812f4be53afc2c5b6c545001ff7a4659af68d4484804e9d514e183d20269bb81def8682c01a22b17c4d6aed14292c8494f7d2ac664e547101c1a905aa977
+  languageName: node
+  linkType: hard
+
 "@isaacs/cliui@npm:^8.0.2":
   version: 8.0.2
   resolution: "@isaacs/cliui@npm:8.0.2"
@@ -5069,14 +5085,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ts-morph/common@npm:~0.26.0":
-  version: 0.26.1
-  resolution: "@ts-morph/common@npm:0.26.1"
+"@ts-morph/common@npm:~0.27.0":
+  version: 0.27.0
+  resolution: "@ts-morph/common@npm:0.27.0"
   dependencies:
-    fast-glob: "npm:^3.3.2"
-    minimatch: "npm:^9.0.4"
+    fast-glob: "npm:^3.3.3"
+    minimatch: "npm:^10.0.1"
     path-browserify: "npm:^1.0.1"
-  checksum: 10c0/49d33162de3f09fb2a242e38c04a7fa30966977a5282d97d0e27c1d68541956e917ac4de9aac6b41182dbae188482665da6e919c3f6ef0dcb90cea24e4d637e0
+  checksum: 10c0/3daa267bd78114ff504eb064c5215da6e46589e775b781ec0da4998d999b0d7130eff287e70d6e13e0a0a897ea16e9387f4cd885b4b9d6d628f318cecb81d473
   languageName: node
   linkType: hard
 
@@ -7009,14 +7025,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"better-react-mathjax@npm:^2.0.3":
-  version: 2.1.0
-  resolution: "better-react-mathjax@npm:2.1.0"
+"better-react-mathjax@npm:^2.3.0":
+  version: 2.3.0
+  resolution: "better-react-mathjax@npm:2.3.0"
   dependencies:
     mathjax-full: "npm:^3.2.2"
   peerDependencies:
     react: ">=16.8"
-  checksum: 10c0/795aa833da031a00912b3e5634f79a797369cdb55cb18c6fc9a09e8e4c353e19110da0f6989f5169062b6b97a9b3725fbd793e329c3dbd025604530280acbf04
+  checksum: 10c0/ed529432224879b6acfc301af03df2548dba0af4805da5d03b8d5ba9eca6b1fdb16e24b272d48a76cf4233b62d58e5a9d1241b51e7281d1153044a46b1f01dc2
   languageName: node
   linkType: hard
 
@@ -13383,8 +13399,8 @@ __metadata:
     jest: "npm:^29.7.0"
     jest-environment-jsdom: "npm:^29.7.0"
     next: "npm:15.3.4"
-    nextra: "npm:4.3.0-alpha.23"
-    nextra-theme-docs: "npm:4.3.0-alpha.23"
+    nextra: "npm:4.3.0-alpha.27"
+    nextra-theme-docs: "npm:4.3.0-alpha.27"
     pagefind: "npm:^1.3.0"
     postcss: "npm:^8.5.6"
     postcss-import: "npm:^16.1.1"
@@ -14360,6 +14376,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"minimatch@npm:^10.0.1":
+  version: 10.0.3
+  resolution: "minimatch@npm:10.0.3"
+  dependencies:
+    "@isaacs/brace-expansion": "npm:^5.0.0"
+  checksum: 10c0/e43e4a905c5d70ac4cec8530ceaeccb9c544b1ba8ac45238e2a78121a01c17ff0c373346472d221872563204eabe929ad02669bb575cb1f0cc30facab369f70f
+  languageName: node
+  linkType: hard
+
 "minimatch@npm:^3.0.4, minimatch@npm:^3.1.1, minimatch@npm:^3.1.2":
   version: 3.1.2
   resolution: "minimatch@npm:3.1.2"
@@ -14669,29 +14694,29 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nextra-theme-docs@npm:4.3.0-alpha.23":
-  version: 4.3.0-alpha.23
-  resolution: "nextra-theme-docs@npm:4.3.0-alpha.23"
+"nextra-theme-docs@npm:4.3.0-alpha.27":
+  version: 4.3.0-alpha.27
+  resolution: "nextra-theme-docs@npm:4.3.0-alpha.27"
   dependencies:
     "@headlessui/react": "npm:^2.1.2"
     clsx: "npm:^2.1.0"
     next-themes: "npm:^0.4.0"
-    react-compiler-runtime: "npm:0.0.0-experimental-e993439-20250328"
+    react-compiler-runtime: "npm:^19.1.0-rc.2"
     scroll-into-view-if-needed: "npm:^3.1.0"
     zod: "npm:4.0.0-beta.20250424T163858"
     zustand: "npm:^5.0.1"
   peerDependencies:
     next: ">=14"
-    nextra: 4.3.0-alpha.23
+    nextra: 4.3.0-alpha.27
     react: ">=18"
     react-dom: ">=18"
-  checksum: 10c0/4b4a310f41c1bc327aa422e427f3776a45e070ca15f5eb8aa8aca7f4da7e844671609089fc7d32319d7e262b0261255239e3ea887404e43219439ba6c5eda856
+  checksum: 10c0/119845035fc175b1880d5d1b90cac566546a6e0830e5c5345f4071fecf0efc9177e6d6ef24d39c85e9ec9281b56c6eb146cf98a872cf63c75147f60069ead976
   languageName: node
   linkType: hard
 
-"nextra@npm:4.3.0-alpha.23":
-  version: 4.3.0-alpha.23
-  resolution: "nextra@npm:4.3.0-alpha.23"
+"nextra@npm:4.3.0-alpha.27":
+  version: 4.3.0-alpha.27
+  resolution: "nextra@npm:4.3.0-alpha.27"
   dependencies:
     "@formatjs/intl-localematcher": "npm:^0.6.0"
     "@headlessui/react": "npm:^2.1.2"
@@ -14700,7 +14725,7 @@ __metadata:
     "@shikijs/twoslash": "npm:^3.2.1"
     "@theguild/remark-mermaid": "npm:^0.3.0"
     "@theguild/remark-npm2yarn": "npm:^0.3.2"
-    better-react-mathjax: "npm:^2.0.3"
+    better-react-mathjax: "npm:^2.3.0"
     clsx: "npm:^2.1.0"
     estree-util-to-js: "npm:^2.0.0"
     estree-util-value-to-estree: "npm:^3.3.3"
@@ -14712,7 +14737,7 @@ __metadata:
     mdast-util-gfm: "npm:^3.0.0"
     mdast-util-to-hast: "npm:^13.2.0"
     negotiator: "npm:^1.0.0"
-    react-compiler-runtime: "npm:0.0.0-experimental-e993439-20250328"
+    react-compiler-runtime: "npm:^19.1.0-rc.2"
     react-medium-image-zoom: "npm:^5.2.12"
     rehype-katex: "npm:^7.0.0"
     rehype-pretty-code: "npm:0.14.1"
@@ -14726,7 +14751,7 @@ __metadata:
     shiki: "npm:^3.2.1"
     slash: "npm:^5.1.0"
     title: "npm:^4.0.1"
-    ts-morph: "npm:^25.0.1"
+    ts-morph: "npm:^26.0.0"
     unist-util-remove: "npm:^4.0.0"
     unist-util-visit: "npm:^5.0.0"
     unist-util-visit-children: "npm:^3.0.0"
@@ -14736,7 +14761,7 @@ __metadata:
     next: ">=14"
     react: ">=18"
     react-dom: ">=18"
-  checksum: 10c0/bb6f64d681223b5a2113d721cdb8e52d9dcef1b884ad4d6fa953409f83e3e94590ed9c3821513e3bd1e53c767c76e3f850253b8dd03cc08ac46c620653fc8dd4
+  checksum: 10c0/90f6d920199ccec9ef08ccf5962dab2840f735bafc127e55db0a5dda7abb0f6d847bd06526433971487a209c62f4206d816109d64ef55787249e40da8d85ad46
   languageName: node
   linkType: hard
 
@@ -16016,12 +16041,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-compiler-runtime@npm:0.0.0-experimental-e993439-20250328":
-  version: 0.0.0-experimental-e993439-20250328
-  resolution: "react-compiler-runtime@npm:0.0.0-experimental-e993439-20250328"
+"react-compiler-runtime@npm:^19.1.0-rc.2":
+  version: 19.1.0-rc.2
+  resolution: "react-compiler-runtime@npm:19.1.0-rc.2"
   peerDependencies:
     react: ^17.0.0 || ^18.0.0 || ^19.0.0 || ^0.0.0-experimental
-  checksum: 10c0/60b8dee988eab4d7f6ef5e372adbaa99e29cf8d9849f7e3f626972a0a6e7b8cd3bf5eb97be1bafd966e6f3ba1dc3b9027286e75570f76c692585af7ba9a86881
+  checksum: 10c0/4d5a78453c490457269741519040a9dc723fc0e3b83441ff6e225f71a35c5ea96da84cd86d464f5916f9a139ff73570db62e8d1d77c32221c9a93df5a00ef3f9
   languageName: node
   linkType: hard
 
@@ -18567,13 +18592,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-morph@npm:^25.0.1":
-  version: 25.0.1
-  resolution: "ts-morph@npm:25.0.1"
+"ts-morph@npm:^26.0.0":
+  version: 26.0.0
+  resolution: "ts-morph@npm:26.0.0"
   dependencies:
-    "@ts-morph/common": "npm:~0.26.0"
+    "@ts-morph/common": "npm:~0.27.0"
     code-block-writer: "npm:^13.0.3"
-  checksum: 10c0/4e8b67d7fc521d5dcc7e4e6dfb2e10bc63fcaaef8c31b91d3c9eb98eacd42db70bde3359075dcb8e988a5510f02e2ee6f98a02f89045d648bfda72a5207d78ba
+  checksum: 10c0/c6880d90a1eefe0ce6555bf8c11cc104b1f36f84bd36a37a82b9ae0b974f51fe6b1bc91bb0ec42550158dc1c812329d6433e1237cba64f1ef515c129b321dd5d
   languageName: node
   linkType: hard
 
