@@ -92,7 +92,7 @@ function BoilerplateCards({ column = 2, display = [] }: BoilerplateCardsProps) {
       {Object.entries(boilerplateList)
         .filter(([key]) => display.length === 0 || display.includes(key as BoilerplateSlugs))
         .map(([key, value]) => (
-          <BoilerplateCard slug={key} {...value} />
+          <BoilerplateCard key={key} slug={key} {...value} />
         ))}
     </Cards>
   );
@@ -101,7 +101,7 @@ function BoilerplateCards({ column = 2, display = [] }: BoilerplateCardsProps) {
 function BoilerplateButtons({ display = [] }: BoilerplateCardsProps) {
   return Object.entries(boilerplateList)
     .filter(([key]) => display.length === 0 || display.includes(key as BoilerplateSlugs))
-    .map(([key, value]) => <BoilerplateButton slug={key} {...value} />);
+    .map(([key, value]) => <BoilerplateButton key={key} slug={key} {...value} />);
 }
 
 export const Boilerplate = {
