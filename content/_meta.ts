@@ -22,6 +22,7 @@ export default {
   },
   helpers: 'Helpers',
   contributing: 'Contributing',
+  sponsor: 'Became a Sponsor',
   versioning: 'Versioning',
   'security-vulnerabilities': 'Security Vulnerabilities',
   license: 'License',

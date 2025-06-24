@@ -1,4 +1,4 @@
-import { Callout, Cards, FileTree } from 'nextra/components'
+import { Callout, Cards, FileTree, Steps } from 'nextra/components'
 import { Center, Title } from "@mantine/core";
 
 # Contributing to WP Bones
@@ -16,19 +16,92 @@ This document explains how to contribute to the WP Bones framework. It encourage
   </a>
 </Cards>
 
-## Became a Sponsor
+## How to Contribute
 
-If you like WP Bones and want to support its development, consider becoming a sponsor. Your contributions help maintain and improve the framework, ensuring its continued growth and success.
+Contributing to the WP Bones framework is a great way to help improve the project and support the WordPress community. Here are some ways you can contribute:
 
-<div style={{ display: 'flex', justifyContent: 'center', margin: '20px 0' }}>
-  <iframe 
-    src="https://github.com/sponsors/wpbones/button" 
-    title="Sponsor wpbones" 
-    height="32" 
-    width="114" 
-    style={{ border: 0, borderRadius: '6px' }} 
-  />
-</div>
+<Steps>
+
+### Fork the WP Bones repository
+
+1. Go to the [WP Bones GitHub repository](https://github.com/wpbones/wpbones).
+2. Click the "Fork" button in the top right corner to create a copy of the repository in your own GitHub account.
+
+Clone your forked repository to your local machine in your desired location. This folder will serve as the destination for the WP Bones framework. You may also create a new branch for your changes.
+
+
+```sh copy
+git clone https://github.com/<your-username>/wpbones.git <forked-repo>
+cd <forked-repo>
+git checkout -b my-feature-branch
+```
+
+### Clone a WP Kirk repository
+
+Due to the nature of the WP Bones framework, and the WordPress ecosystem, it is recommended to clone any WP Kirk boilerplate to get started. This will provide you with a solid foundation for your development work. We recommend using the [WP Kirk Boilerplate](https://github.com/wpbones/WPKirk-Boilerplate) as a starting point.
+
+Follow the instructions in the [Installation](/docs/GettingStarted/installation) and remember **DO NOT RENAME AND CHANGE THE NAMESPACE** of the plugin folder.
+
+```sh copy
+git clone -b main https://github.com/wpbones/WPKirk-Boilerplate.git <your-plugin-folder>
+```
+
+You can now use this plugin to edit the WP Bones framework in the `vendor/wpbones/wpbones` folder. You may also modify the `bones` command in the root of the plugin.
+
+### Make your changes
+
+You can now modify the WP Bones framework. Ensure you follow best practices and coding standards when making changes.
+
+### Copy/sync your changes
+
+You can copy or sync your changes to the original forked repository. Begin from the root of your boilerplate plugin folder.
+
+```sh copy
+cd <your-plugin-folder>
+```
+```sh copy
+rsync -aE --delete --exclude=".git/" "vendor/wpbones/wpbones/" "<forked-repo>/WPBones/"
+```
+
+<Callout emoji="💡">
+Certainly, you can use any tool you prefer for syncing files, like `rsync`, `cp`, or another file synchronization tool. 
+
+- For instance, [Kaleidoscope](https://kaleidoscope.app/) is excellent for comparing and syncing files. 
+- If you are using [Raycast](https://www.raycast.com/), you can install the [Sync Folders](https://www.raycast.com/Undolog/sync-folders) extension to sync files easily.
+</Callout>
+
+<Callout type="important" emoji="😎">
+We already planned to add a `bones sync` command to the WP Bones framework, which will automate this process in the future.
+</Callout>
+
+If you have modified the `bones` command, you need to copy those changes too.
+
+```sh copy
+cp bones <forked-repo>/WPBones/src/Console/bin/bones
+```
+
+### Commit your changes
+
+Now you can commit your changes to the forked repository. Make sure to write clear and descriptive commit messages.
+
+```sh copy
+cd <forked-repo>
+git add .
+git commit -m "Describe your changes here"
+```
+### Push your changes
+```sh copy
+git push origin my-feature-branch
+```
+### Create a pull request
+1. Go to your forked repository on GitHub.
+2. Click the "Pull requests" tab.
+3. Click the "New pull request" button.
+4. Select the branch you created and compare it with the main branch of the WP Bones repository.
+5. Add a title and description for your pull request, explaining the changes you made and why they are important.
+6. Click the "Create pull request" button.  
+
+</Steps>
 
 ## Framework Bug Reports
 
@@ -37,7 +110,7 @@ When encountering issues with software or applications, submitting a detailed bu
 Furthermore, providing information such as system specifications, error messages, and screenshots can aid in pinpointing the root cause of the bug. By utilizing platforms like GitHub, users can create issue tickets with relevant details, facilitating effective communication between users and developers. Remember, a comprehensive bug report not only assists in bug resolution but also improves the overall quality of the software.
 
 <Cards num={1}>
-<Cards.Card arrow title="🐛 Click here to submit a Framework issue" target="_blank"  href="https://github.com/wpbones/WPBones/issues"/>
+<Cards.Card arrow title="🐛 Click here to submit a Framework issue" target="_blank"  href="https://github.com/wpbones/WPBones/issues/new"/>
 </Cards>
 
 ## Documentation Contributions
@@ -51,7 +124,11 @@ Furthermore, providing information such as system specifications, error messages
 Documentation is an essential component of software development, providing users with valuable information on how to use and understand the software. By contributing to documentation, users can help improve the clarity, accuracy, and accessibility of information, making it easier for others to learn and utilize the software effectively. 
 
 <Cards num={1}>
-  <Cards.Card arrow title="🐛 Click here to submit a Documentation issue" target="_blank"  href="https://github.com/wpbones/website-docs"/>
+  <Cards.Card arrow title="🐛 Click here to fork the WP Bones docs" target="_blank"  href="https://github.com/wpbones/website-docs/fork"/>
+</Cards>
+
+<Cards num={1}>
+  <Cards.Card arrow title="🐛 Click here to submit a Documentation issue" target="_blank"  href="https://github.com/wpbones/website-docs/issues/new"/>
 </Cards>
 
 ## Core Development Discussion

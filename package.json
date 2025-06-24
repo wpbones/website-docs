@@ -33,8 +33,8 @@
     "@tabler/icons-react": "^3.34.0",
     "@vercel/analytics": "^1.5.0",
     "next": "15.3.4",
-    "nextra": "4.3.0-alpha.27",
-    "nextra-theme-docs": "4.3.0-alpha.27",
+    "nextra": "4.3.0-alpha.28",
+    "nextra-theme-docs": "4.3.0-alpha.28",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "swr": "^2.3.3"
@@ -65,14 +65,14 @@
     "postcss-import": "^16.1.1",
     "postcss-preset-mantine": "1.17.0",
     "postcss-simple-vars": "^7.0.1",
-    "prettier": "^3.5.3",
+    "prettier": "^3.6.0",
     "storybook": "^8.6.14",
     "storybook-dark-mode": "^4.0.2",
     "stylelint": "^16.21.0",
     "stylelint-config-standard-scss": "^14.0.0",
     "ts-jest": "^29.4.0",
     "typescript": "5.8.3",
-    "typescript-eslint": "^8.34.1"
+    "typescript-eslint": "^8.35.0"
   },
   "packageManager": "yarn@4.9.2"
 }

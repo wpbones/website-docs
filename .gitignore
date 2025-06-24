@@ -134,3 +134,6 @@ dist
 .pnp.*
 
 .DS_Store
+
+certificates
+*.pem
