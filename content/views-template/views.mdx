@@ -65,7 +65,7 @@ So, inside your view, you can then access the data by using its corresponding ke
 </div>
 ```
 
-As an alternative to passing a complete array of data to the view, you may use the [`with()`](/docs/CoreClasses/view#with) method to add individual pieces of data to the view:
+As an alternative to passing a complete array of data to the view, you may use the [`with()`](/docs/core-classes/view#with) method to add individual pieces of data to the view:
 
 ```php copy
 return WPKirk()->view( 'dashboard.index' )->with( 'kirk', 'Captain' );
@@ -81,7 +81,7 @@ In this release, you'll find the `$plugin` variable automatically set to the plu
 
 You can enqueue all registered styles and scripts when a view is displayed. All styles and scripts files must be located in the `public/` folder. The `.css` files will be found in the `public/css/` folder, and the `.js` files will be found in the `public/js/` folder. 
 
-Currently, you can use [`withAdminStyle()`](/docs/CoreClasses/view#withadminstyle) and [`withAdminScript()`](/docs/CoreClasses/view#withadminscript) to enqueue styles and scripts in the admin area.
+Currently, you can use [`withAdminStyle()`](/docs/core-classes/view#withadminstyle) and [`withAdminScript()`](/docs/core-classes/view#withadminscript) to enqueue styles and scripts in the admin area.
 
 For example:
 
@@ -113,7 +113,7 @@ Both files will be registered and enqueued when the view is displayed.
 
 ## Enqueue Style and Scripts in Theme
 
-Also, you can enqueue scripts and styles just in the theme, for example when you will display a view for a widget. In this case, you can use [`withStyle()`](/docs/CoreClasses/view#withstyle) and [`withScript()`](/docs/CoreClasses/view#withscript) fluent methods. All these methods accept three parameters: name, dependencies, and version:
+Also, you can enqueue scripts and styles just in the theme, for example when you will display a view for a widget. In this case, you can use [`withStyle()`](/docs/core-classes/view#withstyle) and [`withScript()`](/docs/core-classes/view#withscript) fluent methods. All these methods accept three parameters: name, dependencies, and version:
 
 For Example:
 
@@ -145,7 +145,7 @@ Both files will be registered and enqueued when the view is displayed.
 
 ## Inline Style and Scripts
 
-You may add inline style to your view by using the [`withInlineStyle()`](/docs/CoreClasses/view#withinlinestyle) method. 
+You may add inline style to your view by using the [`withInlineStyle()`](/docs/core-classes/view#withinlinestyle) method.
 
 ```php copy
 return WPKirk()->view( 'dashboard.index' )
@@ -153,7 +153,7 @@ return WPKirk()->view( 'dashboard.index' )
                ->withInlineStyle('wp-kirk-common', 'body { background-color: #f00; }');
 ```
 
-You may add inline scripts to your view by using the [`withInlineScript()`](/docs/CoreClasses/view#withinlinescript) method. 
+You may add inline scripts to your view by using the [`withInlineScript()`](/docs/core-classes/view#withinlinescript) method.
 
 ```php copy
 return WPKirk()->view( 'dashboard.index' )
@@ -229,7 +229,7 @@ return WPKirk()->view( 'dashboard.index' )
 
 ## Localize Scripts
 
-You may localize your scripts by using the [`withLocalizeScript()`](/docs/CoreClasses/view#withlocalizescript) method. For example:
+You may localize your scripts by using the [`withLocalizeScript()`](/docs/core-classes/view#withlocalizescript) method. For example:
 
 ```php copy
 $localization_data = array(
@@ -325,5 +325,5 @@ wp_send_json_success(
 The `render` method will verify if the call is by Ajax and it will return the processed HTML.
 
 <Cards num={1}>
-<Cards.Card arrow title="Learn more about the View class"  href="/docs/CoreClasses/view"/>
+<Cards.Card arrow title="Learn more about the View class"  href="/docs/core-classes/view"/>
 </Cards>

@@ -8,7 +8,7 @@ This document explains the Bones command-line interface included with WP Bones B
 
 ## Overview
 
-Bones is also the name of the command-line interface included with all our [WP Bones Boilerplate](/docs/GettingStarted/boilerplate-templates). It provides a number of helpful commands for your use while developing your plugin. You will use the Bones command-line interface to start your development. First of all, try the command-line console by running:
+Bones is also the name of the command-line interface included with all our [WP Bones Boilerplate](/docs/getting-started/boilerplate-templates). It provides a number of helpful commands for your use while developing your plugin. You will use the Bones command-line interface to start your development. First of all, try the command-line console by running:
 
 ```ansi
 [38;5;76m>[0m php bones
@@ -57,12 +57,12 @@ Arguments:
   --pkgm=<package-manager>	Forces the deployment to use the specified package manager, Eg. npm, yarn, ...
   --no-build			Forces the deployment to skip the build process.
 ```
-The `--wp` option will create a deploy folder with the necessary files to submit your plugin to the WordPress repository. For further information, see [here](../GettingStarted/before-submit-to-wordpress-repository).
+The `--wp` option will create a deploy folder with the necessary files to submit your plugin to the WordPress repository. For further information, see [here](../getting-started/before-submit-to-wordpress-repository).
 
 #### `--wp`
 
 <Callout emoji={<IconBrandWordpress />}>
-Starting from WP Bones `v1.5.0` we added a new option `--wp` to deploy the plugin to the WordPress repository. This option will create a deploy folder with the necessary files to submit your plugin to the WordPress repository. For further information, see [here](../GettingStarted/before-submit-to-wordpress-repository).
+Starting from WP Bones `v1.5.0` we added a new option `--wp` to deploy the plugin to the WordPress repository. This option will create a deploy folder with the necessary files to submit your plugin to the WordPress repository. For further information, see [here](../getting-started/before-submit-to-wordpress-repository).
 </Callout>
 
 In the `mydeploy` folder, you will find only the necessary files to run your plugin.
@@ -100,7 +100,7 @@ add_filter('wpbones_console_deploy_skip_folders', function ($folders) {
 });
 ```
 
-→ See more about [Actions & Filters](../WordpressIntegration/actions-and-filters).
+→ See more about [Actions & Filters](../wordpress-integration/actions-and-filters).
 
 
 ### `install`
@@ -111,7 +111,7 @@ The `install` command is used to install the WP Bones framework. You can use the
 php bones install
 ```
 
-→ See more about [Installing WP Bones](../GettingStarted/installation).
+→ See more about [Installing WP Bones](../getting-started/installation).
 
 ### `optimize`
 
@@ -129,7 +129,7 @@ The `rename` command is used to rename the plugin namespace. You can use the `re
 php bones rename "My First WP Bones Plugin"
 ```
 
-→ See more about [Naming your Plugin](../GettingStarted/naming-your-plugin).
+→ See more about [Naming your Plugin](../getting-started/naming-your-plugin).
 
 ### `require`
 
@@ -174,7 +174,7 @@ php bones update
 ```
 
 → After updating the WP Bones framework, have a look at the [Changelog](../release-notes) to see what's new.<br/>
-→ And you may also check the [Core Plugin Files](../CorePluginFiles/overview) to see if there are any changes.
+→ And you may also check the [Core Plugin Files](../core-plugin-files/overview) to see if there are any changes.
 
 ### `version`
 
