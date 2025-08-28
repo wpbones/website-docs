@@ -33,7 +33,7 @@ const features = [
     title: 'Laravel-like',
     image: controllerImage,
     icon: <IconBrandLaravel />,
-    href: '/docs/CoreConcepts/architecture-foundations',
+    href: '/docs/core-concepts/architecture-foundations',
     description: (
       <Text c="dimmed" fz={16} fw={400} mx={8}>
         A revolutionary framework that combines Composer, npm, Laravel coding style,{' '}
@@ -44,7 +44,7 @@ const features = [
   },
   {
     title: 'Console Commands',
-    href: '/docs/BonesConsole/bones-console',
+    href: '/docs/bones-console/bones-console',
     icon: <IconTerminal />,
     image: consoleImage,
     description:
@@ -52,7 +52,7 @@ const features = [
   },
   {
     title: 'ReactJS',
-    href: '/docs/GettingStarted/assets',
+    href: '/docs/getting-started/assets',
     icon: <IconBrandReact />,
     image: reactImage,
     description:
@@ -60,7 +60,7 @@ const features = [
   },
   {
     title: 'ORM',
-    href: '/docs/DatabaseORM/query-builder',
+    href: '/docs/database-orm/query-builder',
     icon: <IconDatabase />,
     image: dbImage,
     description:
@@ -68,7 +68,7 @@ const features = [
   },
   {
     title: 'Migration and seeding',
-    href: '/docs/DatabaseORM/migrations',
+    href: '/docs/database-orm/migrations',
     icon: <IconDatabase />,
     image: migrationImage,
     description:
@@ -76,7 +76,7 @@ const features = [
   },
   {
     title: 'Menu',
-    href: '/docs/CoreConcepts/menus',
+    href: '/docs/core-concepts/menus',
     icon: <IconMenuDeep />,
     image: menuImage,
     description:
@@ -84,7 +84,7 @@ const features = [
   },
   {
     title: 'Pages',
-    href: '/docs/CoreConcepts/pages-routing',
+    href: '/docs/core-concepts/pages-routing',
     icon: <IconPaperclip />,
     image: pageImage,
     description:
@@ -92,7 +92,7 @@ const features = [
   },
   {
     title: 'Logging',
-    href: '/docs/CoreConcepts/logging',
+    href: '/docs/core-concepts/logging',
     icon: <IconPaperclip />,
     image: logsImage,
     description:
@@ -100,7 +100,7 @@ const features = [
   },
   {
     title: 'Ajax Calls',
-    href: '/docs/ServicesProvider/ajax',
+    href: '/docs/services-provider/ajax',
     icon: <IconBrandJavascript />,
     image: ajaxImage,
     description:
@@ -108,14 +108,14 @@ const features = [
   },
   {
     title: 'Custom Post and Taxonomy',
-    href: '/docs/ServicesProvider/custom-post-types',
+    href: '/docs/services-provider/custom-post-types',
     icon: <IconBrandWordpress />,
     image: cptImage,
     description: 'You can easily create a custom post type and custom taxonomy service provider.',
   },
   {
     title: 'Rest API',
-    href: '/docs/ServicesProvider/rest-api',
+    href: '/docs/services-provider/rest-api',
     icon: <IconApi />,
     image: apiImage,
     description:
@@ -123,7 +123,7 @@ const features = [
   },
   {
     title: 'Options',
-    href: '/docs/CoreConcepts/options',
+    href: '/docs/core-concepts/options',
     icon: <IconSettings2 />,
     image: optionsImage,
     description:
@@ -131,14 +131,14 @@ const features = [
   },
   {
     title: 'Shortcodes',
-    href: '/docs/ServicesProvider/shortcodes',
+    href: '/docs/services-provider/shortcodes',
     icon: <IconCode />,
     description:
       'A powerful and easy way to add custom functionality to WordPress. Simply add your shortcode classes to the config file and let the magic begin!',
   },
   {
     title: 'Widgets',
-    href: '/docs/ServicesProvider/widgets',
+    href: '/docs/services-provider/widgets',
     icon: <IconRectangle />,
     description:
       'Widgets are a powerful way to add custom functionality to WordPress. Simply add your widget classes to the config file and let the magic begin!',
