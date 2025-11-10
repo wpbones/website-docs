@@ -1,11 +1,11 @@
-import { Poser } from '@/components/Poser';
-import { Badge, Flex, Group } from "@mantine/core";
 import { Callout, FileTree, Steps } from 'nextra/components';
+import { Badge, Flex, Group } from '@mantine/core';
 import { DocsBoilerplateDemo, FileTreeLabel } from '@/components';
+import { Poser } from '@/components/Poser';
 
 ---
-<DocsBoilerplateDemo slug="packages" />
----
+
+## <DocsBoilerplateDemo slug="packages" />
 
 # WordPress Actions and Filters for JavaScript
 
@@ -37,8 +37,8 @@ You may also to add `"wpbones/actions-and-filters-js": "^1.0"` in the `composer.
 
 ```json copy filename="composer.json" {4}
   "require": {
-    "php": ">=7.4",
-    "wpbones/wpbones": "~1.5",
+    "php": ">=8.1",
+    "wpbones/wpbones": "~1.10",
     "wpbones/actions-and-filters-js": "~1.0"
   },
 ```
@@ -102,4 +102,5 @@ wpbones_do_action( 'my-action' );
 This JavaScript version works in the same way as PHP version in WordPress.
 
 ---
+
 <DocsBoilerplateDemo slug="packages" />

@@ -1,11 +1,11 @@
-import { Poser } from '@/components/Poser';
-import { Badge, Flex, Group } from "@mantine/core";
 import { Callout, FileTree, Steps } from 'nextra/components';
+import { Badge, Flex, Group } from '@mantine/core';
 import { DocsBoilerplateDemo, FileTreeLabel } from '@/components';
+import { Poser } from '@/components/Poser';
 
 ---
-<DocsBoilerplateDemo slug="packages" />
----
+
+## <DocsBoilerplateDemo slug="packages" />
 
 # Flags for WP Bones
 
@@ -15,12 +15,13 @@ Flags for [WP Bones](https://wpbones.com) is a PHP package designed for the WP B
 This approach simplifies feature management and makes the plugin more flexible and easy to configure, even for non-technical users.
 
 ## Key features
- - Enable and Disable Features: Using flags, you can easily activate or deactivate specific plugin features.
- - YAML Configuration: YAML files are easy to read and modify, and can be used to configure various plugin options.
- - Flexibility: The path and name of the YAML file can be customized through the plugin configuration.
- - Reusability: The same YAML file can be used across different plugins, improving code consistency and maintenance.
 
- ## Requirements
+- Enable and Disable Features: Using flags, you can easily activate or deactivate specific plugin features.
+- YAML Configuration: YAML files are easy to read and modify, and can be used to configure various plugin options.
+- Flexibility: The path and name of the YAML file can be customized through the plugin configuration.
+- Reusability: The same YAML file can be used across different plugins, improving code consistency and maintenance.
+
+## Requirements
 
 This package works with a WordPress plugin written with [WP Bones framework library](https://github.com/wpbones/WPBones).
 
@@ -44,8 +45,8 @@ You may also to add `"wpbones/flags": "~0.7"` in the `composer.json` file of you
 
 ```json copy filename="composer.json" {4}
   "require": {
-    "php": ">=7.4",
-    "wpbones/wpbones": "~1.5",
+    "php": ">=8.1",
+    "wpbones/wpbones": "~1.10",
     "wpbones/flags": "~1.0"
   },
 ```
@@ -60,7 +61,7 @@ composer install
 
 ```yaml copy filename="config/flags.yaml"
 # The version of the file is 1.0.0
-version: "1.0.0"
+version: '1.0.0'
 example:
   # Enable or disable the Example feature
   enabled: true
@@ -160,4 +161,5 @@ Flags::withPath('config/flags.yaml')->get('logger.enabled', false);
 ```
 
 ---
+
 <DocsBoilerplateDemo slug="packages" />

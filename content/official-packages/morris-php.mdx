@@ -1,11 +1,11 @@
-import { Poser } from '@/components/Poser';
-import { Badge, Flex, Group } from "@mantine/core";
 import { Callout, FileTree, Steps } from 'nextra/components';
+import { Badge, Flex, Group } from '@mantine/core';
 import { DocsBoilerplateDemo, FileTreeLabel } from '@/components';
+import { Poser } from '@/components/Poser';
 
 ---
-<DocsBoilerplateDemo slug="packages" />
----
+
+## <DocsBoilerplateDemo slug="packages" />
 
 # MorrisJS PHP version for WP Bones
 
@@ -18,7 +18,6 @@ This package provides a simple way to use the [MorrisJS](https://morrisjs.github
 ## Requirements
 
 This package works with a WordPress plugin written with [WP Bones framework library](https://github.com/wpbones/WPBones).
-
 
 ## Installation
 
@@ -40,8 +39,8 @@ You may also to add `"wpbones/morris-php": "~0.7"` in the `composer.json` file o
 
 ```json copy filename="composer.json" {4}
   "require": {
-    "php": ">=7.4",
-    "wpbones/wpbones": "~1.5",
+    "php": ">=8.1",
+    "wpbones/wpbones": "~1.10",
     "wpbones/morris-php": "~1.0"
   },
 ```
@@ -91,6 +90,5 @@ echo Morris::area( 'morris-area' )
 ```
 
 ---
+
 <DocsBoilerplateDemo slug="packages" />
-
-

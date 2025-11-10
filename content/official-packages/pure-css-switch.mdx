@@ -1,11 +1,11 @@
-import { Poser } from '@/components/Poser';
-import { Badge, Flex, Group } from "@mantine/core";
 import { Callout, FileTree, Steps } from 'nextra/components';
+import { Badge, Flex, Group } from '@mantine/core';
 import { DocsBoilerplateDemo, FileTreeLabel } from '@/components';
+import { Poser } from '@/components/Poser';
 
 ---
-<DocsBoilerplateDemo slug="packages" />
----
+
+## <DocsBoilerplateDemo slug="packages" />
 
 # Pure CSS Switch Button for WP Bones
 
@@ -39,8 +39,8 @@ You may also to add `" wpbones/pure-css-switch": "~0.7"` in the `composer.json` 
 
 ```json copy filename="composer.json" {4}
   "require": {
-    "php": ">=7.4",
-    "wpbones/wpbones": "~1.5",
+    "php": ">=8.1",
+    "wpbones/wpbones": "~1.10",
     " wpbones/pure-css-tabs": "~1.0"
   },
 ```
@@ -99,14 +99,13 @@ To default the switch works as on/off button. You can change the mode by setting
 
 In the above example, you can use it as selector instead of on/off button.
 
-
 ## Theme
 
 Of course, you can switch theme by using `theme` property ot its fluent version.
 Currently, we support two theme:
 
-* `flat-round` - default
-* `flat-square`
+- `flat-round` - default
+- `flat-square`
 
 You should use something look like:
 
@@ -114,7 +113,6 @@ You should use something look like:
 <?php echo WPKirk\PureCSSSwitch\Html\HtmlTagSwitchButton::name( 'test-switch-7' )
             ->theme( 'flat-square' ); ?>
 ```
-
 
 ## Examples
 
@@ -165,4 +163,5 @@ echo WPKirk\PureCSSSwitch\Html\HtmlTagSwitchButton::name( 'test-switch-8' )
 ```
 
 ---
+
 <DocsBoilerplateDemo slug="packages" />

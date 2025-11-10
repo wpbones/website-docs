@@ -1,14 +1,20 @@
-import { FileTreeLabel } from '@/components/FileTreeLabel';
-import { Center, Title } from "@mantine/core";
-import { IconBrandWordpress } from "@tabler/icons-react";
+import { IconBrandWordpress } from '@tabler/icons-react';
 import { Callout, Cards, FileTree } from 'nextra/components';
+import { Center, Title } from '@mantine/core';
+import { FileTreeLabel } from '@/components/FileTreeLabel';
 
 # Architecture Foundations
 
 <Callout type="info" emoji="">
-<Center><IconBrandWordpress size={64} /></Center>
-<Title order={2} ta="center">Don't forget that</Title>
-<Title order={2} ta="center">we are working using a WordPress plugin...</Title>
+  <Center>
+    <IconBrandWordpress size={64} />
+  </Center>
+  <Title order={2} ta="center">
+    Don't forget that
+  </Title>
+  <Title order={2} ta="center">
+    we are working using a WordPress plugin...
+  </Title>
 </Callout>
 
 This document explains the architecture foundations of a WP Bones plugin. It covers the request lifecycle, starting with the main plugin file `{plugin-name}.php`, which contains WordPress comments to identify the plugin. The main file is renamed by WP Bones based on the plugin name. It also discusses the default plugin structure, which provides a flexible starting point for organizing both large and small plugins, similar to Laravel, with no restrictions on class locations as long as Composer can autoload them.
@@ -24,9 +30,9 @@ The entry point is the `<plugin name>/{plugin-name}.php`. The `{plugin-name}.php
  * Plugin Name: WP Kirk
  * Plugin URI: https://github.com/wpbones/WPKirk
  * Description: WP Bones template WordPress plugin
- * Version: 1.6.0
+ * Version: 1.9.7
  * Requires at least: 6.2
- * Requires PHP: 7.4
+ * Requires PHP: 8.1
  * Author: Giovambattista Fazioli
  * Author URI: https://wpbones.com/
  * License: GPLv2 or later
@@ -37,7 +43,7 @@ The entry point is the `<plugin name>/{plugin-name}.php`. The `{plugin-name}.php
  */
 ```
 
-As you know, you may use any filename for your main PHP file. In fact, WordPress will recognize the main plugin file by the PHP comment in the file head. 
+As you know, you may use any filename for your main PHP file. In fact, WordPress will recognize the main plugin file by the PHP comment in the file head.
 The main plugin file will be renamed to `your-plugin.php` by the WP Bones command line tool. For example, if you create a plugin named `My Plugin`, the main file will be `my-plugin.php`.
 See [Get plugin information](#get-plugin-information) for more details.
 
@@ -55,14 +61,62 @@ Let's look at a default standard WP Bones plugin folder tree:
 
 <FileTree>
   <FileTree.Folder name="myPlugin" defaultOpen>
-    <FileTree.Folder name={<FileTreeLabel name="bootstrap" color="yellow">bootstrapping framework and autoloading</FileTreeLabel>} />
-    <FileTree.Folder name={<FileTreeLabel name="config">contains all of your configuration plugin's files</FileTreeLabel>} />
-    <FileTree.Folder name={<FileTreeLabel name="database">contains your database migration</FileTreeLabel>} />
-    <FileTree.Folder name={<FileTreeLabel name="languages">contains the `.mo` and `.pot` to localize your plugin</FileTreeLabel>} />
-    <FileTree.Folder name={<FileTreeLabel name="plugin">contains the core code of your plugin</FileTreeLabel>} />
-    <FileTree.Folder name={<FileTreeLabel name="public">contains the front controller and your assets</FileTreeLabel>} />
-    <FileTree.Folder name={<FileTreeLabel name="resources">contains your views, raw assets</FileTreeLabel>} />
-    <FileTree.Folder name={<FileTreeLabel name="vendor" color="red">contains (at this moment) the WP Bones Framework</FileTreeLabel>} />
+    <FileTree.Folder
+      name={
+        <FileTreeLabel name="bootstrap" color="yellow">
+          bootstrapping framework and autoloading
+        </FileTreeLabel>
+      }
+    />
+    <FileTree.Folder
+      name={
+        <FileTreeLabel name="config">
+          contains all of your configuration plugin's files
+        </FileTreeLabel>
+      }
+    />
+    <FileTree.Folder
+      name={
+        <FileTreeLabel name="database">
+          contains your database migration
+        </FileTreeLabel>
+      }
+    />
+    <FileTree.Folder
+      name={
+        <FileTreeLabel name="languages">
+          contains the `.mo` and `.pot` to localize your plugin
+        </FileTreeLabel>
+      }
+    />
+    <FileTree.Folder
+      name={
+        <FileTreeLabel name="plugin">
+          contains the core code of your plugin
+        </FileTreeLabel>
+      }
+    />
+    <FileTree.Folder
+      name={
+        <FileTreeLabel name="public">
+          contains the front controller and your assets
+        </FileTreeLabel>
+      }
+    />
+    <FileTree.Folder
+      name={
+        <FileTreeLabel name="resources">
+          contains your views, raw assets
+        </FileTreeLabel>
+      }
+    />
+    <FileTree.Folder
+      name={
+        <FileTreeLabel name="vendor" color="red">
+          contains (at this moment) the WP Bones Framework
+        </FileTreeLabel>
+      }
+    />
   </FileTree.Folder>
 </FileTree>
 
@@ -72,40 +126,105 @@ You may use the following additional directories:
 
 <FileTree>
   <FileTree.Folder name="myPlugin" defaultOpen>
-    <FileTree.Folder name={<FileTreeLabel name="api">contains your REST API endpoints</FileTreeLabel>} />
-    <FileTree.Folder name={<FileTreeLabel name="pages">contains your plugin's custom page</FileTreeLabel>} />
+    <FileTree.Folder
+      name={
+        <FileTreeLabel name="api">
+          contains your REST API endpoints
+        </FileTreeLabel>
+      }
+    />
+    <FileTree.Folder
+      name={
+        <FileTreeLabel name="pages">
+          contains your plugin's custom page
+        </FileTreeLabel>
+      }
+    />
   </FileTree.Folder>
 </FileTree>
 
 <Callout type="info">
-Check out [REST API](/docs/services-provider/rest-api) and [custom pages](pages-routing#custom-admin-pages-folder) for more information.
+  Check out [REST API](/docs/services-provider/rest-api) and [custom
+  pages](pages-routing#custom-admin-pages-folder) for more
+  information.
 </Callout>
 
 ### The root files
 
 Also, you will find a set of files in the root of the plugin:
 
-
 <FileTree>
-  <FileTree.Folder name="myPlugin" defaultOpen >
-    <FileTree.File name={<FileTreeLabel type="file" name="bones" color="orange">command line PHP script</FileTreeLabel>} />
-    <FileTree.File name={<FileTreeLabel type="file" name="composer.json" color="yellow">used by composer</FileTreeLabel>} />
-    <FileTree.File name={<FileTreeLabel type="file" name="composer.lock" color="red">used by composer</FileTreeLabel>} />
-    <FileTree.File name={<FileTreeLabel type="file" name="gulpfile.js">script used by Gulp</FileTreeLabel>} />
-    <FileTree.File name={<FileTreeLabel type="file" name="{your-plugin-name}.php">entry point of plugin</FileTreeLabel>} />
-    <FileTree.File name={<FileTreeLabel type="file" name="namespace" color="red">used by bones command</FileTreeLabel>} />
-    <FileTree.File name={<FileTreeLabel type="file" name="package.json">used by npm</FileTreeLabel>} />
-    <FileTree.File name={<FileTreeLabel type="file" name="readme.txt">WordPress readme file</FileTreeLabel>} />
+  <FileTree.Folder name="myPlugin" defaultOpen>
+    <FileTree.File
+      name={
+        <FileTreeLabel type="file" name="bones" color="orange">
+          command line PHP script
+        </FileTreeLabel>
+      }
+    />
+    <FileTree.File
+      name={
+        <FileTreeLabel
+          type="file"
+          name="composer.json"
+          color="yellow"
+        >
+          used by composer
+        </FileTreeLabel>
+      }
+    />
+    <FileTree.File
+      name={
+        <FileTreeLabel type="file" name="composer.lock" color="red">
+          used by composer
+        </FileTreeLabel>
+      }
+    />
+    <FileTree.File
+      name={
+        <FileTreeLabel type="file" name="gulpfile.js">
+          script used by Gulp
+        </FileTreeLabel>
+      }
+    />
+    <FileTree.File
+      name={
+        <FileTreeLabel type="file" name="{your-plugin-name}.php">
+          entry point of plugin
+        </FileTreeLabel>
+      }
+    />
+    <FileTree.File
+      name={
+        <FileTreeLabel type="file" name="namespace" color="red">
+          used by bones command
+        </FileTreeLabel>
+      }
+    />
+    <FileTree.File
+      name={
+        <FileTreeLabel type="file" name="package.json">
+          used by npm
+        </FileTreeLabel>
+      }
+    />
+    <FileTree.File
+      name={
+        <FileTreeLabel type="file" name="readme.txt">
+          WordPress readme file
+        </FileTreeLabel>
+      }
+    />
   </FileTree.Folder>
 </FileTree>
 
 - The `bones` file is the command line PHP script, likewise `artisan` in Laravel environment.
--  The `composer.json` and `composer.lock` are used by Composer.
--  The `gulpfile.js` is the script used by Gulp. This file is prepared with the main tasks to process styles and scripts. Before using it, you should install Gulp and npm.
--  The `{your-plugin-name}.php` is the entry point of the plugin.
--  The `namespace` is a file used by the bones command. You can ignore it.
--  The `package.json` is used by npm. Feel free to add your own packages.
--  The `readme.txt` is the WordPress readme file to be used when you'll submit your plugin to the WordPress repository.
+- The `composer.json` and `composer.lock` are used by Composer.
+- The `gulpfile.js` is the script used by Gulp. This file is prepared with the main tasks to process styles and scripts. Before using it, you should install Gulp and npm.
+- The `{your-plugin-name}.php` is the entry point of the plugin.
+- The `namespace` is a file used by the bones command. You can ignore it.
+- The `package.json` is used by npm. Feel free to add your own packages.
+- The `readme.txt` is the WordPress readme file to be used when you'll submit your plugin to the WordPress repository.
 
 ### The plugin directory
 
@@ -119,14 +238,25 @@ However, the most important folder is `/plugin/`. In this folder, you will find 
       <FileTree.Folder name="CustomTaxonomyTypes" />
       <FileTree.Folder name="Http" />
       <FileTree.Folder name="Shortcodes" />
-      <FileTree.Folder name={<FileTreeLabel name="hooks" color="yellow">available as optional starting v1.8</FileTreeLabel>} />
-      <FileTree.Folder name={<FileTreeLabel name="modules" color="yellow">available as optional starting v1.8</FileTreeLabel>} />
+      <FileTree.Folder
+        name={
+          <FileTreeLabel name="hooks" color="yellow">
+            available as optional starting v1.8
+          </FileTreeLabel>
+        }
+      />
+      <FileTree.Folder
+        name={
+          <FileTreeLabel name="modules" color="yellow">
+            available as optional starting v1.8
+          </FileTreeLabel>
+        }
+      />
       <FileTree.File name="activation.php" />
       <FileTree.File name="deactivation.php" />
     </FileTree.Folder>
   </FileTree.Folder>
 </FileTree>
-
 
 ### The config directory
 
@@ -196,9 +326,9 @@ In the `{your-plugin-name}.php` file you may use the comment to insert some plug
  * Plugin Name: WP Kirk
  * Plugin URI: https://github.com/wpbones/WPKirk
  * Description: WP Bones template WordPress plugin
- * Version: 1.6.0
+ * Version: 1.9.7
  * Requires at least: 6.2
- * Requires PHP: 7.4
+ * Requires PHP: 8.1
  * Author: Giovambattista Fazioli
  * Author URI: https://wpbones.com/
  * License: GPLv2 or later
@@ -215,6 +345,11 @@ You can get this information by using the **plugin instance**:
 echo $plugin->Author;
 echo $plugin->TextDomain;
 ```
+
 <Cards num={1}>
-<Cards.Card arrow title="Learn more about the Plugin class"  href="/docs/core-classes/plugin"/>
+  <Cards.Card
+    arrow
+    title="Learn more about the Plugin class"
+    href="/docs/core-classes/plugin"
+  />
 </Cards>

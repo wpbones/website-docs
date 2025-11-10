@@ -1,11 +1,13 @@
-import { Callout, FileTree } from 'nextra/components'
+import { Callout, FileTree } from 'nextra/components';
 
 # Before submitting your plugin to the WordPress repository
 
 This document provides guidelines for submitting a plugin to the WordPress repository. It covers installing the Plugin Check plugin, addressing potential code issues, deploying the plugin, and ensuring compliance with WordPress.org requirements. It also includes examples of common errors and how to fix them, as well as tips on maintaining a GPL-compatible license and including necessary files like `composer.json` and non-compressed source code.
 
 <Callout type="important">
-__Before submitting your plugin to the WordPress repository directory__, you should know some **important** information about code style.
+  __Before submitting your plugin to the WordPress repository
+  directory__, you should know some **important** information about
+  code style.
 </Callout>
 
 ## Install Plugin Check (PCP)
@@ -33,27 +35,29 @@ $list = [
 
 ```php copy
 // will be rejected by WordPress.org
-if( empty( MyInstance::method() ) ) { 
-  ... 
+if( empty( MyInstance::method() ) ) {
+  ...
 }
 
 // correct
 $result = MyInstance::method();
-if( empty( $result ) ) { 
-   ... 
+if( empty( $result ) ) {
+   ...
 }
 ```
 
 ```php copy
 // will be rejected by WordPress.org
 static::class
-  
+
 // right
 get_called_class();
 ```
 
 <Callout type="info">
-If you know of any other issues that could be rejected by the WordPress repository, [please let us know](https://discord.gg/5bdVyycU8F).
+  If you know of any other issues that could be rejected by the
+  WordPress repository, [please let us
+  know](https://discord.gg/5bdVyycU8F).
 </Callout>
 
 ## Deploy version
@@ -92,9 +96,9 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
  * Plugin Name: WP Kirk
  * Plugin URI: https://github.com/wpbones/WPKirk
  * Description: WP Bones template WordPress plugin
- * Version: 1.6.0
+ * Version: 1.9.7
  * Requires at least: 6.2
- * Requires PHP: 7.4
+ * Requires PHP: 8.1
  * Author: Giovambattista Fazioli
  * Author URI: https://wpbones.com/
  * License: GPLv2 or later
@@ -104,8 +108,6 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
  *
  */
 ```
-
-
 
 ### No GPL-compatible license declared
 
@@ -140,9 +142,9 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
  * Plugin Name: WP Kirk
  * Plugin URI: https://github.com/wpbones/WPKirk
  * Description: WP Bones template WordPress plugin
- * Version: 1.6.0
+ * Version: 1.9.7
  * Requires at least: 6.2
- * Requires PHP: 7.4
+ * Requires PHP: 8.1
  * Author: Giovambattista Fazioli
  * Author URI: https://wpbones.com/
  * License: GPLv2 or later
@@ -161,10 +163,11 @@ The main file of this plugin is named index.php
 
 > We expect the main plugin file (the file containing the plugin headers) to have the same name as the plugin folder, which is also the same name as the slug / permalink of the plugin. For example, if your plugin slug is ecpt-social-manager we expect your main plugin filename to be ecpt-social-manager.php
 
-> Note that using some common names as the filename for the main plugin file can lead to issues in some configurations. Please check out our tips on how to structure files and folders in a plugin. 
+> Note that using some common names as the filename for the main plugin file can lead to issues in some configurations. Please check out our tips on how to structure files and folders in a plugin.
 
 <Callout type="info">
-This is already handled by the Bones framework starting from `v1.5.0`. The main file of the plugin is named `your-plugin.php`.
+  This is already handled by the Bones framework starting from
+  `v1.5.0`. The main file of the plugin is named `your-plugin.php`.
 </Callout>
 
 ### Using composer but could not find composer.json file

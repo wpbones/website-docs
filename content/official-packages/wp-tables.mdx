@@ -1,15 +1,15 @@
-import { Poser } from '@/components/Poser';
-import { Badge, Flex, Group } from "@mantine/core";
 import { Callout, FileTree, Steps } from 'nextra/components';
+import { Badge, Flex, Group } from '@mantine/core';
 import { DocsBoilerplateDemo, FileTreeLabel } from '@/components';
+import { Poser } from '@/components/Poser';
 
 ---
-<DocsBoilerplateDemo slug="packages" />
----
+
+## <DocsBoilerplateDemo slug="packages" />
 
 # WP Tables for WP Bones
 
-<Poser name="wpbones/wptables" contributors/>
+<Poser name="wpbones/wptables" contributors />
 
 A fluent implementation of WordPress WP List Table for WP Bones
 
@@ -39,8 +39,8 @@ You may also to add `"wpbones/wptables": "^1.0"` in the `composer.json` file of 
 
 ```json copy filename="composer.json" {4}
   "require": {
-    "php": ">=7.4",
-    "wpbones/wpbones": "~1.5",
+    "php": ">=8.1",
+    "wpbones/wpbones": "~1.10",
     "wpbones/wptables": "~1.0"
   },
 ```
@@ -116,6 +116,7 @@ In your view controller you have to use the `load` method in order to register t
   }
 ...
 ```
+
 In your `ExampleTable` you may override:
 
 ```php
@@ -186,4 +187,5 @@ If you like use the `WPTable` as fluent instance, you have to set the columns tw
 ```
 
 ---
+
 <DocsBoilerplateDemo slug="packages" />

@@ -1,13 +1,13 @@
-import { DocsBoilerplateDemo, FileTreeLabel } from '@/components'
-import { Callout, FileTree, Steps } from 'nextra/components'
+import { Callout, FileTree, Steps } from 'nextra/components';
+import { DocsBoilerplateDemo, FileTreeLabel } from '@/components';
 
 # PHP localization
 
 This document explains the PHP localization process in WP Bones. It covers using `gettext` functions to translate text strings in PHP code, defining the text domain in the main plugin file, and generating the `.pot` file using the `npm run make-pot` script. The `_e()` function is used to translate strings, and the text domain is defined in the plugin's main file to identify the translation file.
 
 ---
-<DocsBoilerplateDemo slug="internationalization" />
----
+
+## <DocsBoilerplateDemo slug="internationalization" />
 
 ## Overview
 
@@ -37,9 +37,9 @@ Here is an example of how to define the text domain in the main plugin file:
  * Plugin Name: WP Kirk
  * Plugin URI: https://github.com/wpbones/WPKirk
  * Description: WP Bones template WordPress plugin
- * Version: 1.6.0
+ * Version: 1.9.7
  * Requires at least: 6.2
- * Requires PHP: 7.4
+ * Requires PHP: 8.1
  * Author: Giovambattista Fazioli
  * Author URI: https://wpbones.com/
  * License: GPLv2 or later
@@ -62,9 +62,9 @@ npm run make-pot
 
 ## How to Translate the `.pot` File
 
-To translate the `.pot` file, you need to use a translation editor like [Poedit](https://poedit.net/). Poedit is a free translation editor that allows you to translate the `.pot` file into different languages. 
+To translate the `.pot` file, you need to use a translation editor like [Poedit](https://poedit.net/). Poedit is a free translation editor that allows you to translate the `.pot` file into different languages.
 
-Here is an example of how to translate the `.pot` file using Poedit: 
+Here is an example of how to translate the `.pot` file using Poedit:
 
 1. Open Poedit
 2. Click on `File` > `New Catalog from POT/PO file`
@@ -78,12 +78,13 @@ In your `languages` folder, you will find the `.po` and `.mo` files with the tra
 <FileTree>
   <FileTree.Folder name="wp-kirk" defaultOpen>
     <FileTree.Folder label="languages" defaultOpen>
-        <FileTree.File name="wp-kirk.pot" />
-        <FileTree.File name="wp-kirk-it_IT.po" />
-        <FileTree.File name="wp-kirk-it_IT.mo" />
+      <FileTree.File name="wp-kirk.pot" />
+      <FileTree.File name="wp-kirk-it_IT.po" />
+      <FileTree.File name="wp-kirk-it_IT.mo" />
     </FileTree.Folder>
   </FileTree.Folder>
 </FileTree>
 
 ---
+
 <DocsBoilerplateDemo slug="internationalization" />

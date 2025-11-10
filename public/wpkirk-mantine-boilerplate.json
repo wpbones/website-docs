@@ -1,12 +1,10 @@
 {
   "landingPage": "/wp-admin/admin.php?page=wp_kirk_mantine_slug_menu",
   "preferredVersions": {
-    "php": "7.4",
+    "php": "8.1",
     "wp": "latest"
   },
-  "phpExtensionBundles": [
-    "kitchen-sink"
-  ],
+  "phpExtensionBundles": ["kitchen-sink"],
   "features": {
     "networking": true
   },

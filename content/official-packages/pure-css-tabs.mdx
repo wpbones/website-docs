@@ -1,11 +1,11 @@
-import { Poser } from '@/components/Poser';
-import { Badge, Flex, Group } from "@mantine/core";
 import { Callout, FileTree, Steps } from 'nextra/components';
+import { Badge, Flex, Group } from '@mantine/core';
 import { DocsBoilerplateDemo, FileTreeLabel } from '@/components';
+import { Poser } from '@/components/Poser';
 
 ---
-<DocsBoilerplateDemo slug="packages" />
----
+
+## <DocsBoilerplateDemo slug="packages" />
 
 # Pure CSS Tabs for WordPress/WP Bones
 
@@ -15,7 +15,7 @@ This package provides a simple way to create tabs with pure CSS for WordPress/WP
 
 ![Pure CSS Tabs for WP Bones](https://github.com/user-attachments/assets/e8143a4c-8694-420b-b281-c0fb0d080f5a)
 
- ## Requirements
+## Requirements
 
 This package works with a WordPress plugin written with [WP Bones framework library](https://github.com/wpbones/WPBones).
 
@@ -39,8 +39,8 @@ You may also to add `" wpbones/pure-css-tabs": "~0.7"` in the `composer.json` fi
 
 ```json copy filename="composer.json" {4}
   "require": {
-    "php": ">=7.4",
-    "wpbones/wpbones": "~1.5",
+    "php": ">=8.1",
+    "wpbones/wpbones": "~1.10",
     " wpbones/pure-css-tabs": "~1.0"
   },
 ```
@@ -114,7 +114,6 @@ Of course, you may use the **fragment** feature to include the single tabs:
 ```html copy
 <!-- main tabs container -->
 <div class="wpbones-tabs">
-
   <!-- first tab -->
   <?php echo WPkirk()->view( 'folder.tab1' ) ?>
 
@@ -122,14 +121,20 @@ Of course, you may use the **fragment** feature to include the single tabs:
   <?php echo WPkirk()->view( 'folder.tab2' ) ?>
 
   <!-- son on... -->
-
 </div>
 ```
- In `/folder/tab1.php` you just insert the following markup:
 
- ```html copy
+In `/folder/tab1.php` you just insert the following markup:
+
+```html copy
 <!-- first tab -->
-<input id="tab-1" type="radio" name="tabs" checked="checked" aria-hidden="true">
+<input
+  id="tab-1"
+  type="radio"
+  name="tabs"
+  checked="checked"
+  aria-hidden="true"
+/>
 <label for="tab-1" tabindex="0"><?php _e( 'Database' ) ?></label>
 <div class="wpbones-tab">
   <h3>Content</h3>
@@ -142,15 +147,16 @@ Of course, you can edit both of CSS or LESS files in order to change the appeara
 In the LESS file, you'll find the color variable as well.
 
 ```less copy
-@wpbones-tab-border-color : #aaa;
-@wpbones-tab-responsive-accordion-border : #ddd;
-@wpbones-tab-disabled : #ddd;
-@wpbones-tab-content-color : #fff;
+@wpbones-tab-border-color: #aaa;
+@wpbones-tab-responsive-accordion-border: #ddd;
+@wpbones-tab-disabled: #ddd;
+@wpbones-tab-content-color: #fff;
 ```
 
-
 <Callout>
-Anyway, the best way to customize your tabs is override the default styles. Otherwise, when an update will be done you'll lose your customization.
+  Anyway, the best way to customize your tabs is override the default
+  styles. Otherwise, when an update will be done you'll lose your
+  customization.
 </Callout>
 
 ## Helper
@@ -192,21 +198,21 @@ Also, you can use `openTab()` and `closeTab()` methods:
 
 ```html copy
 <div class="wpbones-tabs">
-
-  <?php WPKirk\PureCSSTabs\PureCSSTabsProvider::openTab( 'Tab 1', null, true ) ?>
-    <h2>Hello, world! I'm the content of tab-1</h2>
+  <?php WPKirk\PureCSSTabs\PureCSSTabsProvider::openTab( 'Tab 1',
+  null, true ) ?>
+  <h2>Hello, world! I'm the content of tab-1</h2>
+  <?php WPKirk\PureCSSTabs\PureCSSTabsProvider::closeTab ?> <?php
+  WPKirk\PureCSSTabs\PureCSSTabsProvider::openTab( 'Tab 2' ) ?>
+  <h2>Hello, world! I'm the content of tab-2</h2>
   <?php WPKirk\PureCSSTabs\PureCSSTabsProvider::closeTab ?>
-
-  <?php WPKirk\PureCSSTabs\PureCSSTabsProvider::openTab( 'Tab 2' ) ?>
-    <h2>Hello, world! I'm the content of tab-2</h2>
-  <?php WPKirk\PureCSSTabs\PureCSSTabsProvider::closeTab ?>
-
 </div>
 ```
 
 <Callout type="info" emoji="👆">
-Remember, in the example above I have used `WPKirk` base namespace. You should replace it with your own namespace.
+  Remember, in the example above I have used `WPKirk` base namespace.
+  You should replace it with your own namespace.
 </Callout>
 
 ---
+
 <DocsBoilerplateDemo slug="packages" />
