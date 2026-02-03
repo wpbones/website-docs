@@ -15,7 +15,7 @@
 .card {
   &:hover {
     transform: scale(1.05) translate3d(0, -10px, 0);
-    box-shadow: 0 32px 32px 10px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 32px 32px 10px rgb(0, 0, 0, 0.5);
 
     @mixin light {
       background-image: linear-gradient(-45deg, #fff, #f0f0ff, #eee, #fff);

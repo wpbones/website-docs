@@ -19,8 +19,8 @@ import {
 This document provides an overview of internationalization in WP Bones. It includes a demo of how to implement internationalization features in your plugin, using the `DocsBoilerplateDemo` component with the `internationalization` slug. The demo showcases the process of making your plugin translatable and managing translations effectively.
 
 ---
-
-## <DocsBoilerplateDemo slug="internationalization" />
+<DocsBoilerplateDemo slug="internationalization" />
+---
 
 ## Overview
 
@@ -36,6 +36,7 @@ You can find the `.pot` file in the `languages` folder in our [WPBones Boilerpla
 <Callout type="info">
 Previously the `.pot` file was in the `localization` folder. Starting from WP Bones `1.6.0` we have renamed the folder to `languages`.
 Anyway, you can still change the folder name used for the translations in the main plugin file by using the `Domain Path` header.
+
 ```php copy filename="your-plugin.php" {15}
 <?php
 
@@ -82,5 +83,5 @@ Here are a few tools that can be used to translate PO files online:
 - [GlotPress](http://blog.glotpress.org/)
 
 ---
+
 <DocsBoilerplateDemo slug="internationalization" />
-```
