@@ -134,6 +134,4 @@ dist
 .pnp.*
 
 .DS_Store
-
-certificates
-*.pem
+next-env.d.ts
