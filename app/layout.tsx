@@ -1,7 +1,10 @@
-import '@gfazioli/mantine-marquee/styles.layer.css';
-import '@gfazioli/mantine-parallax/styles.layer.css';
-import '@gfazioli/mantine-text-animate/styles.layer.css';
-import '@mantine/core/styles.layer.css';
+import '@mantine/core/styles.css';
+// !! The order of these imports is important !!
+import '@gfazioli/mantine-marquee/styles.css';
+import '@gfazioli/mantine-parallax/styles.css';
+import '@gfazioli/mantine-text-animate/styles.css';
+// Mantine theme overrides (body background, marquee fade edges, etc.)
+import '@/theme/global.css';
 
 import { GoogleTagManager } from '@next/third-parties/google';
 import { Analytics } from '@vercel/analytics/react';
@@ -9,8 +12,11 @@ import { Layout } from 'nextra-theme-docs';
 import { Banner, Head } from 'nextra/components';
 import { getPageMap } from 'nextra/page-map';
 import { ColorSchemeScript, mantineHtmlProps, MantineProvider } from '@mantine/core';
+// !! End of important imports !!
+
 import { Footer, MantineNavBar } from '@/components';
 import config from '@/config';
+import pack from '../package.json';
 import { theme } from '../theme';
 
 import './global.css';
@@ -49,8 +55,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <MantineProvider theme={theme} defaultColorScheme={head.mantine.defaultColorScheme}>
           <Layout
             banner={
-              <Banner storageKey="release-196">
-                ✨ WP Bones 1.11.0 is out!{' '}
+              <Banner storageKey={`release-notes-${pack.version}`}>
+                ✨ WP Bones v{pack.version} is out!{' '}
                 <a href="/docs/release-notes">Check the Release Notes →</a>
               </Banner>
             }
