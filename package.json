@@ -56,7 +56,7 @@
     "typescript": "5.9.3",
     "typescript-eslint": "^8.57.2"
   },
-  "name": "mantine-next-nextra-template",
+  "name": "wpbones-docs",
   "packageManager": "yarn@4.13.0",
   "private": true,
   "scripts": {
@@ -67,14 +67,14 @@
     "eslint": "eslint .",
     "jest": "jest",
     "jest:watch": "jest --watch",
-    "lint": "npm run eslint && npm run stylelint",
+    "lint": "yarn eslint && yarn stylelint",
     "prettier:check": "prettier --check \"**/*.{ts,tsx}\"",
     "prettier:write": "prettier --write \"**/*.{ts,tsx}\"",
     "start": "next start",
     "storybook": "storybook dev -p 6006",
     "storybook:build": "storybook build",
     "stylelint": "stylelint '**/*.css' --cache",
-    "test": "npx next typegen && npm run prettier:check && npm run lint && npm run typecheck && npm run jest",
+    "test": "yarn next typegen && yarn prettier:check && yarn lint && yarn typecheck && yarn jest",
     "typecheck": "tsc --noEmit"
   },
   "version": "1.11.0"

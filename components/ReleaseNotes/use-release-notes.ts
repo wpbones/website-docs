@@ -45,12 +45,6 @@ export interface Release {
   body: string;
 }
 
-export interface TOC {
-  value: string;
-  depth: string;
-  id: string;
-}
-
 export function useReleaseNotes() {
   const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
@@ -88,7 +82,7 @@ export function useReleaseNotes() {
       };
       fetchReleases();
     }
-  }, [data, isLoading, error]); // Add isLoading and error to the dependency array
+  }, [data, isLoading, error]);
 
   return { data: compiledReleases, error: error || swrError, isLoading } as const;
 }

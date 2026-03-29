@@ -4,7 +4,22 @@
 
 ## Overview
 
-This is the main Website Documentation for the WP Bones Framework. You can see this Website Documentation live [here](https://wpbones.com/).
+This is the main Website Documentation for the [WP Bones](https://github.com/wpbones/WPBones) Framework. You can see this Website Documentation live at [wpbones.com](https://wpbones.com/).
+
+Built with [Next.js](https://nextjs.org/), [Nextra](https://nextra.site/), and [Mantine](https://mantine.dev/).
+
+## Getting Started
+
+```bash
+# Install dependencies
+yarn install
+
+# Start development server
+yarn dev
+
+# Build for production
+yarn build
+```
 
 ## Contributing
 

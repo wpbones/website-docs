@@ -27,41 +27,41 @@ export const ecosystem = [
   {
     key: 'action-and-filters',
     title: 'Actions & Filters for Javascript',
-    href: '/docs/Packages/actions-and-filters-js',
+    href: '/docs/official-packages/actions-and-filters-js',
   },
   {
     key: 'flags',
     title: 'Flags',
-    href: '/docs/Packages/flags',
+    href: '/docs/official-packages/flags',
   },
   {
     key: 'geolocalizer',
     title: 'Geolocalizer',
-    href: '/docs/Packages/geolocalizer',
+    href: '/docs/official-packages/geolocalizer',
   },
   {
     key: 'Morris php',
     title: 'Morris PHP',
-    href: '/docs/Packages/morris-php',
+    href: '/docs/official-packages/morris-php',
   },
   {
     key: 'Pure CSS Tabs',
     title: 'Pure CSS Tabs',
-    href: '/docs/Packages/pure-css-tabs',
+    href: '/docs/official-packages/pure-css-tabs',
   },
   {
     key: 'Pure CSS Switch',
     title: 'Pure CSS Switch',
-    href: '/docs/Packages/pure-css-switch',
+    href: '/docs/official-packages/pure-css-switch',
   },
   {
     key: 'User Agent',
     title: 'User Agent',
-    href: '/docs/Packages/useragent',
+    href: '/docs/official-packages/useragent',
   },
   {
     key: 'WP Tables',
     title: 'WP Tables',
-    href: '/docs/Packages/wp-tables',
+    href: '/docs/official-packages/wp-tables',
   },
 ];
