@@ -1,4 +1,2 @@
 {
-    "prettier.configPath": ".prettierrc.mjs",
-    "prettier.singleQuote": true
 }
