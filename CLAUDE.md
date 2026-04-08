@@ -4,19 +4,20 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Documentation website for the **WP Bones** WordPress framework, live at https://wpbones.com/. Built with Next.js 16, Nextra 4, Mantine 8, and TypeScript. Content is authored in MDX.
+Documentation website for the **WP Bones** WordPress framework, live at https://wpbones.com/. Built with Next.js 16, Nextra 4, Mantine 9, and TypeScript 6. Content is authored in MDX.
 
 ## Commands
 
 ```bash
 yarn dev              # Dev server on localhost:3000
 yarn build            # Production build + Pagefind search index
-yarn test             # Full suite: typegen → prettier-check → lint → typecheck → jest
+yarn test             # Full suite: typegen → oxfmt-check → lint → typecheck → jest
 yarn jest             # Run Jest tests only
 yarn jest:watch       # Jest in watch mode
-yarn lint             # ESLint + Stylelint
+yarn lint             # oxlint + Stylelint
 yarn typecheck        # TypeScript type checking
-yarn prettier:write   # Auto-format code
+yarn format:write     # Auto-format code (oxfmt)
+yarn format:test      # Check formatting (oxfmt)
 yarn storybook        # Storybook on port 6006
 ```
 
@@ -38,9 +39,10 @@ Package manager: **Yarn 4** (do not use npm). Node version: see `.nvmrc`.
 - **Pagefind** generates a static search index at build time (`yarn build:pagefind`), served from `public/_pagefind/`.
 - Custom Mantine extensions: `@gfazioli/mantine-marquee`, `@gfazioli/mantine-parallax`, `@gfazioli/mantine-text-animate`.
 
-## Conventions
+## Tooling
 
-- **Commit messages** use [gitmoji](https://gitmoji.dev/) style (e.g., `🚀 feat:`, `🔧 chore:`, `📦 update`).
-- **Prettier** config: 100 char width (70 for `.mdx`), single quotes, trailing comma es5, with import sorting.
-- **ESLint** extends Mantine config + TypeScript ESLint recommended.
+- **Formatter**: oxfmt (`.oxfmtrc.json`) — 100 char width, single quotes, trailing comma es5, with import sorting.
+- **Linter**: oxlint + stylelint
+- **TypeScript**: 6.x
+- **Package Manager**: Yarn 4 (Berry). Do not use npm or pnpm.
 - Path alias: `@/*` maps to project root (e.g., `@/components`, `@/config`).
