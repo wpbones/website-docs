@@ -2444,7 +2444,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@gfazioli/mantine-marquee@npm:^4.0.0":
+"@gfazioli/mantine-marquee@npm:^4.0.1":
   version: 4.0.1
   resolution: "@gfazioli/mantine-marquee@npm:4.0.1"
   peerDependencies:
@@ -16824,7 +16824,7 @@ __metadata:
   resolution: "wpbones-docs@workspace:."
   dependencies:
     "@babel/core": "npm:^7.29.0"
-    "@gfazioli/mantine-marquee": "npm:^4.0.0"
+    "@gfazioli/mantine-marquee": "npm:^4.0.1"
     "@gfazioli/mantine-parallax": "npm:^4.0.0"
     "@gfazioli/mantine-text-animate": "npm:^4.0.0"
     "@mantine/core": "npm:9.0.1"
