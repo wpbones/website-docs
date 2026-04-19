@@ -1,5 +1,6 @@
 export default {
   requirements: 'Requirements',
+  'wordpress-environments': 'WordPress environments',
   installation: 'Installation',
   'naming-your-plugin': 'Naming your plugin',
   assets: 'Assets',

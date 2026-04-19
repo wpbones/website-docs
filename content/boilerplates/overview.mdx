@@ -1,4 +1,5 @@
 import { Callout, Cards } from 'nextra/components'
+import { IconBrandTypescript, IconBrandReact, IconLayoutDashboard, IconTemplate } from '@tabler/icons-react'
 
 # Boilerplates
 
@@ -8,6 +9,8 @@ demonstrates. Pick the one that matches the stack you want to learn or start fro
 
 <Cards>
   <Cards.Card
+    arrow
+    icon={<IconTemplate color="#74C0FC" />}
     title="Base"
     href="/docs/boilerplates/base"
   >
@@ -15,6 +18,8 @@ demonstrates. Pick the one that matches the stack you want to learn or start fro
     want the leanest possible scaffold.
   </Cards.Card>
   <Cards.Card
+    arrow
+    icon={<IconBrandTypescript color="#3178C6" />}
     title="TypeScript"
     href="/docs/boilerplates/typescript"
   >
@@ -22,6 +27,8 @@ demonstrates. Pick the one that matches the stack you want to learn or start fro
     types. Great to learn idiomatic TS in a WordPress plugin.
   </Cards.Card>
   <Cards.Card
+    arrow
+    icon={<IconBrandReact color="#61DAFB" />}
     title="ReactJS (WP libraries)"
     href="/docs/boilerplates/reactjs"
   >
@@ -29,10 +36,12 @@ demonstrates. Pick the one that matches the stack you want to learn or start fro
     `@wordpress/hooks`, `@wordpress/i18n`. Native wp-admin look, no third-party UI kit.
   </Cards.Card>
   <Cards.Card
+    arrow
+    icon={<IconLayoutDashboard color="#339AF0" />}
     title="Mantine UI"
     href="/docs/boilerplates/mantine"
   >
-    A full admin app built on Mantine 8 — theme customization, dark mode toggle, tabs, form
+    A full admin app built on Mantine — theme customization, dark mode toggle, tabs, form
     validation, modals, notifications, and a DataTable fed by WordPress AJAX.
   </Cards.Card>
 </Cards>

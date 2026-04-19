@@ -2,10 +2,18 @@ import { Callout } from 'nextra/components'
 
 # Mantine UI Boilerplate
 
-A full admin application built on **Mantine 8**, end to end: theming, dark mode toggle, tabs, form
-validation, modals, notifications, and a DataTable backed by a real WordPress AJAX endpoint. A
-good starting point for any plugin that wants a modern, polished admin UI without reinventing the
-primitives.
+A full admin application built on **[Mantine](https://mantine.dev/) 8.x**, end to end: theming,
+dark mode toggle, tabs, form validation, modals, notifications, and a DataTable backed by a real
+WordPress AJAX endpoint. A good starting point for any plugin that wants a modern, polished admin
+UI without reinventing the primitives.
+
+<Callout type="info">
+  **Why Mantine 8 and not 9?** Mantine 9 requires **React 19** as a peer dependency, while
+  WordPress core currently ships **React 18** via `@wordpress/element`. Staying on Mantine 8 keeps
+  the plugin aligned with the WP runtime, lets us use `createRoot` from `@wordpress/element`, and
+  avoids shipping a second React bundle. WP Bones v3 will bump to Mantine 9 once WordPress core
+  moves to React 19.
+</Callout>
 
 ## Quick links
 

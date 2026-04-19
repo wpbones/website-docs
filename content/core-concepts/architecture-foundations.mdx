@@ -182,8 +182,29 @@ Also, you will find a set of files in the root of the plugin:
     />
     <FileTree.File
       name={
-        <FileTreeLabel type="file" name="gulpfile.js">
-          script used by Gulp
+        <FileTreeLabel type="file" name="webpack.config.js">
+          webpack config with auto-discovered entries
+        </FileTreeLabel>
+      }
+    />
+    <FileTree.File
+      name={
+        <FileTreeLabel type="file" name="tsconfig.json">
+          TypeScript config
+        </FileTreeLabel>
+      }
+    />
+    <FileTree.File
+      name={
+        <FileTreeLabel type="file" name="jest.config.js">
+          Jest config (WP preset)
+        </FileTreeLabel>
+      }
+    />
+    <FileTree.File
+      name={
+        <FileTreeLabel type="file" name=".prettierrc">
+          Prettier config
         </FileTreeLabel>
       }
     />
@@ -204,7 +225,7 @@ Also, you will find a set of files in the root of the plugin:
     <FileTree.File
       name={
         <FileTreeLabel type="file" name="package.json">
-          used by npm
+          used by yarn
         </FileTreeLabel>
       }
     />
@@ -220,7 +241,7 @@ Also, you will find a set of files in the root of the plugin:
 
 - The `bones` file is the command line PHP script, likewise `artisan` in Laravel environment.
 - The `composer.json` and `composer.lock` are used by Composer.
-- The `gulpfile.js` is the script used by Gulp. This file is prepared with the main tasks to process styles and scripts. Before using it, you should install Gulp and npm.
+- The `webpack.config.js`, `tsconfig.json`, `jest.config.js` and `.prettierrc` make up the v2 build + tooling pipeline. See [`webpack.config.js`](/docs/core-plugin-files/webpack-config) for the auto-discovery rules.
 - The `{your-plugin-name}.php` is the entry point of the plugin.
 - The `namespace` is a file used by the bones command. You can ignore it.
 - The `package.json` is used by npm. Feel free to add your own packages.
