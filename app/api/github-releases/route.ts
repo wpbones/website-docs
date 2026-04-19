@@ -14,19 +14,44 @@ export async function GET(request: Request) {
       return Response.json({ error: 'Bots are not allowed' }, { status: 403 });
     }
 
-    const response = await fetch(
-      `${config.gitHub.releasesUrl}?per_page=${config.releaseNotes.maxReleases}`,
-      {
-        headers: {
-          Accept: 'application/vnd.github+json',
-          Authorization: `Bearer ${process.env.GITHUB_TOKEN}`, // Optional for rate limit
-        },
+    const url = `${config.gitHub.releasesUrl}?per_page=${config.releaseNotes.maxReleases}`;
+    const baseHeaders: Record<string, string> = {
+      Accept: 'application/vnd.github+json',
+      'User-Agent': 'wpbones-docs-site',
+    };
+
+    // Try authenticated first if a token is configured (5000 req/hour vs 60/hour).
+    // If the token is invalid/expired (401) or rejected by org policy (403, e.g.
+    // fine-grained tokens with too-long lifetime), retry unauthenticated instead
+    // of failing — public releases are readable without auth.
+    let response: Response;
+    if (process.env.GITHUB_TOKEN) {
+      response = await fetch(url, {
+        headers: { ...baseHeaders, Authorization: `Bearer ${process.env.GITHUB_TOKEN}` },
+      });
+      if (response.status === 401 || response.status === 403) {
+        // eslint-disable-next-line no-console
+        console.warn(
+          `GITHUB_TOKEN returned ${response.status} — falling back to unauthenticated fetch`
+        );
+        response = await fetch(url, { headers: baseHeaders });
       }
-    );
+    } else {
+      response = await fetch(url, { headers: baseHeaders });
+    }
 
     if (!response.ok) {
+      const bodyText = await response.text();
+      const rateRemaining = response.headers.get('x-ratelimit-remaining');
+      const rateReset = response.headers.get('x-ratelimit-reset');
       // eslint-disable-next-line no-console
-      console.error('Error fetching releases:', response.statusText);
+      console.error('[github-releases] non-OK response', {
+        status: response.status,
+        statusText: response.statusText,
+        rateRemaining,
+        rateReset,
+        body: bodyText.slice(0, 300),
+      });
       return Response.json(response.statusText, { status: response.status });
     }
 
