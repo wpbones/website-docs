@@ -1,4 +1,4 @@
-import { Callout, Tabs } from 'nextra/components';
+import { Callout } from 'nextra/components';
 
 # WordPress environments
 
@@ -14,19 +14,55 @@ whichever best matches your OS and workflow.
 
 ## At a glance
 
-| Environment           | OS               | Setup time | Notes                                                             |
-| --------------------- | ---------------- | ---------- | ----------------------------------------------------------------- |
-| **Laravel Valet**     | macOS / Linux    | 5 min      | Zero-config, PHP on the host, fastest iteration.                  |
-| **Local**             | macOS / Win / Lx | 2 min      | GUI-based, zero CLI required, batteries included.                 |
-| **Lando**             | macOS / Win / Lx | 10 min     | Docker-backed, reproducible per-project `.lando.yml`.             |
-| **Docker (official)** | any              | 15 min     | Full control over images/versions, great for CI.                  |
-| **Playground**        | any (browser)    | 0 min      | Throwaway in-browser WordPress — perfect for demos / PRs.         |
-| **Vagrant / VM**      | any              | 20 min     | Legacy but still viable if you prefer a full VM.                  |
+| Environment           | OS               | Setup time | Notes                                                                 |
+| --------------------- | ---------------- | ---------- | --------------------------------------------------------------------- |
+| **wp-env**            | macOS / Win / Lx | 2 min      | Official WP Docker wrapper — `npx wp-env start`. Best for plugin dev. |
+| **Laravel Valet**     | macOS / Linux    | 5 min      | Zero-config, PHP on the host, fastest iteration.                      |
+| **Local**             | macOS / Win / Lx | 2 min      | GUI-based, zero CLI required, batteries included.                     |
+| **DDEV**              | macOS / Win / Lx | 10 min     | Docker-backed, reproducible, strong WP community support.             |
+| **Lando**             | macOS / Win / Lx | 10 min     | Docker-backed, per-project `.lando.yml`, Lando-managed domains.       |
+| **Playground**        | any (browser)    | 0 min      | Throwaway in-browser WordPress — perfect for demos / PRs.             |
+| **Docker Compose**    | any              | 15 min     | Full control over images / versions, great for CI.                    |
+| **Vagrant / VM**      | any              | 20 min     | Legacy but still viable if you prefer a full VM.                      |
 
-## Laravel Valet (recommended on macOS)
+## wp-env (recommended for plugin development)
+
+[`@wordpress/env`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-env/)
+is the official tool from the WordPress core team. It spins up a Docker-based WordPress and
+automatically mounts the plugin folder it runs from.
+
+```sh
+# From inside your WP Bones plugin folder
+npx wp-env start
+```
+
+That's it. The plugin is already active at [http://localhost:8888](http://localhost:8888).
+Default admin credentials: `admin` / `password`.
+
+Customize via a `.wp-env.json` in the plugin root:
+
+```json
+{
+  "core": "WordPress/WordPress#6.7",
+  "phpVersion": "8.3",
+  "plugins": ["."],
+  "themes": []
+}
+```
+
+Run WP-CLI inside the container: `npx wp-env run cli wp plugin list`. To run `php bones` inside
+the container: `npx wp-env run cli php bones`.
+
+<Callout type="info">
+  wp-env is maintained by the WordPress core team and tracks WP, PHP, and Node versions the
+  ecosystem officially supports — a safe default unless you need something specific.
+</Callout>
+
+## Laravel Valet (best on macOS)
 
 [Valet](https://laravel.com/docs/valet) serves projects over `.test` domains using Nginx + dnsmasq
-directly on the host. No VM, no containers, native PHP.
+directly on the host. No VM, no containers, native PHP — the fastest iteration loop if you're on
+macOS or Linux.
 
 ```sh
 # Homebrew prerequisites
@@ -48,13 +84,13 @@ wp db create
 wp core install --url=wpbones.test --title="WPBones" --admin_user=admin --admin_email=you@example.com
 ```
 
-Now drop a WP Bones plugin into `wp-content/plugins/` — it is immediately available at
+Drop a WP Bones plugin into `wp-content/plugins/` — it is immediately available at
 `http://wpbones.test/wp-admin`. This is the environment we use for all framework development.
 
 ## Local (by WP Engine)
 
 [Local](https://localwp.com) is a desktop app that provisions full WordPress stacks with a few
-clicks. Fantastic if you don't want to touch the CLI.
+clicks. Perfect if you don't want to touch the CLI.
 
 1. Install Local from [localwp.com](https://localwp.com).
 2. Create a new site — pick PHP ≥ 8.1.
@@ -62,10 +98,27 @@ clicks. Fantastic if you don't want to touch the CLI.
    `app/public/wp-content/plugins/`.
 4. Run `php bones ...` from Local's built-in shell (**Open Site Shell**).
 
+## DDEV
+
+[DDEV](https://ddev.com) is a Docker-based local dev platform with first-class WordPress support
+and a very active community. Great when you want something stronger than wp-env but less manual
+than raw Docker Compose.
+
+```sh
+mkdir wpbones && cd wpbones
+ddev config --project-type=wordpress --docroot=.
+ddev start
+ddev wp core download
+ddev wp core install --url=https://wpbones.ddev.site --title=WPBones \
+  --admin_user=admin --admin_email=you@example.com --admin_password=admin
+```
+
+Run the bones CLI inside the container: `ddev exec "cd wp-content/plugins/<your-plugin> && php bones"`.
+
 ## Lando
 
-[Lando](https://lando.dev) wraps Docker with a per-project `.lando.yml`, so teammates get the same
-stack regardless of OS.
+[Lando](https://lando.dev) also wraps Docker, with a per-project `.lando.yml` that teammates check
+into git for identical stacks regardless of OS.
 
 ```yaml
 # .lando.yml
@@ -84,9 +137,19 @@ lando wp core install --url=wpbones.lndo.site --title=WPBones \
 
 Run `lando php bones ...` to execute the bones CLI inside the container.
 
-## Docker (vanilla)
+## WordPress Playground
 
-If you want total control, the official WordPress Docker image plus a MariaDB container is enough.
+[Playground](https://wordpress.org/playground/) runs WordPress entirely in the browser via WASM.
+No install, no server — perfect for quick demos, issue reproductions, or trying a boilerplate.
+
+Every WP Bones boilerplate ships with a Playground blueprint — see the **Playground** link on each
+[boilerplate page](/docs/boilerplates/overview). You can't `php bones` from Playground (no shell),
+but you can test the runtime behavior of an already-built plugin.
+
+## Docker Compose (full control)
+
+If the wrappers above feel too opinionated and you want to pin every version yourself, the
+official WordPress image + a MariaDB container is enough.
 
 ```yaml
 # docker-compose.yml
@@ -113,20 +176,12 @@ docker compose up -d
 docker compose exec wp bash -c "cd wp-content/plugins/<your-plugin> && php bones"
 ```
 
-## WordPress Playground
-
-[Playground](https://wordpress.org/playground/) runs WordPress in the browser via WASM. No
-install, no server — perfect for quick demos, issue reproductions, or trying a boilerplate.
-
-Every WP Bones boilerplate ships with a Playground blueprint — see the **Playground** link on each
-[boilerplate page](/docs/boilerplates/overview). You can't `php bones` from Playground (no shell),
-but you can test the runtime behavior of an already-built plugin.
-
 ## Vagrant
 
-Still supported for VM-based workflows. The original WP Bones VM is at
-[gfazioli/VagrantUbuntu](https://github.com/gfazioli/VagrantUbuntu). If you're starting fresh,
-we recommend Valet/Local/Lando first — they're faster to boot and lighter on resources.
+Still viable for VM-based workflows. The original WP Bones VM is at
+[gfazioli/VagrantUbuntu](https://github.com/gfazioli/VagrantUbuntu) and is kept as a reference
+for anyone who prefers full-VM isolation. For new projects we recommend **wp-env**, **Valet**, or
+**Local** first — they boot faster and use far fewer resources.
 
 ## Troubleshooting
 
