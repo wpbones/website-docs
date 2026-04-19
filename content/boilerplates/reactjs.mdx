@@ -1,0 +1,54 @@
+import { Callout } from 'nextra/components'
+
+# ReactJS Boilerplate (WordPress libraries only)
+
+React built with **only** the `@wordpress/*` libraries WordPress already ships at runtime — no
+Mantine, no third-party UI kit. The result feels native in wp-admin and keeps your bundle tiny.
+
+## Quick links
+
+- **Repo**: [wpbones/WPKirk-ReactJS-Boilerplate](https://github.com/wpbones/WPKirk-ReactJS-Boilerplate)
+- **Playground**: [launch the blueprint](https://playground.wordpress.net/?blueprint-url=https://www.wpbones.com/wpkirk-reactjs-boilerplate.json)
+- **ZIP download**: [wpkirk-reactjs-boilerplate.zip](https://www.wpbones.com/wpkirk-reactjs-boilerplate.zip)
+
+## Runtime dependencies
+
+```json
+{
+  "dependencies": {
+    "@wordpress/components": "^32",
+    "@wordpress/data":       "^10",
+    "@wordpress/hooks":      "^4"
+  }
+}
+```
+
+`react`, `react-dom`, `@wordpress/element`, `@wordpress/i18n` are provided by WordPress at runtime
+(webpack externalises them via `@wordpress/scripts`' default config).
+
+## What the demo shows
+
+`apps/app.tsx` renders:
+
+- A `Notice` with a greeting string that's passed through `applyFilters('wpkirk.greeting', …)` —
+  other plugins can override it via `@wordpress/hooks`.
+- A **Counter card** with `Button` components and a `useCounter` custom hook.
+- A **controlled `TextControl`** with a live `Hello, {name}` output.
+
+`apps/use-counter.ts` is the tiny reusable hook, covered by 5 Jest tests that exercise it through
+`@testing-library/react`'s `renderHook` + `act`.
+
+## Highlights
+
+- **Native wp-admin look** — `Card`, `Button`, `TextControl`, `Notice`, `Flex` from
+  `@wordpress/components` match the surrounding admin UI.
+- **React 18 `createRoot`** from `@wordpress/element`.
+- **i18n** through `@wordpress/i18n` with `__` and `sprintf`.
+- **Extensibility** via `@wordpress/hooks` filters — other plugins can hook into your UI strings.
+- **Testing** via `@testing-library/react` + Jest.
+
+## Use this when
+
+You want to build a Gutenberg-friendly plugin, integrate with WordPress data stores, or stay on the
+WordPress-provided React runtime without adding a third-party UI library. This is the sweet spot
+for plugins that live in wp-admin and want to look native.

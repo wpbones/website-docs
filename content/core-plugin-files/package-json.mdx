@@ -1,42 +1,74 @@
-import { Callout, FileTree } from 'nextra/components'
+import { Callout } from 'nextra/components'
 
-## `latest`
+# `package.json`
 
-```json copy filename="package.json" {11-16}
+WP Bones v2 uses **yarn** and a single set of `wp-scripts`-backed commands. Adding a new app or
+widget no longer requires editing this file — [`webpack.config.js`](/docs/core-plugin-files/webpack-config)
+auto-discovers everything under `resources/assets/`.
+
+```json copy filename="package.json" {4-16}
 {
   "name": "@wpbones/wpkirk",
-  "version": "1.6.0",
+  "version": "2.0.0",
   "scripts": {
-    "start:gulp": "gulp watch",
-    "build:gulp": "gulp build",
-    "build:apps": "wp-scripts build resources/assets/apps/app --output-path=public/apps/",
-    "start:apps": "wp-scripts start resources/assets/apps/app --output-path=public/apps/",
-    "build": "run-s build:gulp build:apps",
-    "start": "run-s start:gulp start:apps",
-    "make-pot": "wp i18n make-pot . languages/wp-kirk.pot --slug=wp-kirk --domain=wp-kirk --exclude=node_modules,resources/assets",
-    "make-json": "wp i18n make-json languages/ --no-purge",
-    "packages-update": "wp-scripts packages-update",
+    "dev": "wp-scripts start",
+    "build": "wp-scripts build",
+    "test": "wp-scripts test-unit-js",
+    "test:watch": "wp-scripts test-unit-js --watch",
+    "format": "wp-scripts format",
+    "format:check": "wp-scripts format --check",
+    "lint": "wp-scripts lint-js resources/",
+    "lint:style": "wp-scripts lint-style 'resources/**/*.{css,scss}'",
     "check-engines": "wp-scripts check-engines",
     "check-licenses": "wp-scripts check-licenses",
-    "format": "wp-scripts format"
+    "packages-update": "wp-scripts packages-update",
+    "make-pot": "wp i18n make-pot . languages/wp-kirk.pot --slug=wp-kirk --domain=wp-kirk --exclude=node_modules,resources/assets",
+    "make-json": "wp i18n make-json languages/ --no-purge"
   },
   "license": "GPL-3.0",
   "author": "Giovambattista Fazioli <wpbones.info@gmail.com>",
   "devDependencies": {
-    "@babel/core": "^7.24.3",
-    "@babel/preset-env": "^7.24.3",
-    "@babel/preset-react": "^7.24.1",
-    "@wordpress/scripts": "^27.7.0",
-    "gulp": "^4.0.2",
-    "gulp-babel": "^8.0.0",
-    "gulp-clean-css": "^4.3.0",
-    "gulp-less": "^5.0.0",
-    "gulp-sass": "^5.1.0",
-    "gulp-typescript": "^2.12.2",
-    "gulp-uglify": "^3.0.2",
-    "gulp-watch": "^5.0.1",
-    "sass": "^1.72.0",
-    "npm-run-all": "^4.1.5"
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "@wordpress/jest-preset-default": "^12.44.0",
+    "@wordpress/scripts": "^31.7.0",
+    "glob": "^11.0.0",
+    "less": "^4.6.4",
+    "less-loader": "^12.2.0",
+    "typescript": "^5.9.3",
+    "webpack-remove-empty-scripts": "^1.1.0"
   }
 }
 ```
+
+## The command set
+
+| Command | What it does |
+|---------|--------------|
+| `yarn dev` | Webpack in watch mode, rebuilds on every change in `resources/assets/` |
+| `yarn build` | One-shot production build into `public/` |
+| `yarn test` | Runs Jest via `wp-scripts test-unit-js` on files under `__tests__/` |
+| `yarn test:watch` | Same as above, watch mode |
+| `yarn format` | Prettier over `resources/` |
+| `yarn format:check` | Prettier in check mode (CI-friendly) |
+| `yarn lint` | ESLint over JS/TS in `resources/` |
+| `yarn lint:style` | stylelint over CSS/SCSS in `resources/` |
+
+<Callout type="info">
+The scripts above are identical in every WP Bones v2 plugin and every boilerplate template. Once
+you know one, you know them all.
+</Callout>
+
+## Adding dependencies
+
+Runtime dependencies go under `dependencies`. Tooling goes under `devDependencies`. Examples:
+
+```sh copy
+yarn add swr                    # runtime
+yarn add --dev @types/lodash    # dev only
+```
+
+## Coming from v1.x?
+
+If your plugin still has the old `start:gulp`, `build:apps`, `run-s` set of scripts plus a
+`gulpfile.js`, run the automated migrator: [`php bones migrate:to-v2`](/docs/bones-console).

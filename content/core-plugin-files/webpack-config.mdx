@@ -1,0 +1,139 @@
+import { Callout, FileTree } from 'nextra/components'
+
+# `webpack.config.js`
+
+Starting from **WP Bones v2.0**, every plugin uses a single webpack configuration built on top of
+`@wordpress/scripts`. The v1.x `gulpfile.js` and the `run-s` wrapper scripts are gone.
+
+The config **auto-discovers** entries from `resources/assets/` — drop a file in the right folder and
+`yarn build` picks it up. No more editing `package.json` for each new React app, widget, stylesheet,
+or standalone script.
+
+## The file
+
+```js copy filename="webpack.config.js"
+const { glob } = require('glob');
+const path = require('path');
+const RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts');
+const defaultConfig = require('@wordpress/scripts/config/webpack.config');
+
+function autoEntries() {
+  const entries = {};
+
+  // React/TS apps — folder-based (for apps with multiple files)
+  glob.sync('resources/assets/apps/*/index.{ts,tsx,js,jsx}').forEach((file) => {
+    const name = path.basename(path.dirname(file));
+    entries[`apps/${name}`] = `./${file}`;
+  });
+
+  // React/TS apps — single-file (for lightweight apps)
+  glob.sync('resources/assets/apps/*.{ts,tsx,js,jsx}').forEach((file) => {
+    const name = path.basename(file).replace(/\.(ts|tsx|js|jsx)$/, '');
+    entries[`apps/${name}`] = `./${file}`;
+  });
+
+  // Standalone styles (CSS, SCSS, LESS)
+  glob.sync('resources/assets/css/*.{scss,less,css}').forEach((file) => {
+    const name = path.basename(file).replace(/\.(scss|less|css)$/, '');
+    entries[`css/${name}`] = `./${file}`;
+  });
+
+  // Standalone scripts (JS, TS)
+  glob.sync('resources/assets/js/*.{ts,js}').forEach((file) => {
+    const name = path.basename(file).replace(/\.(ts|js)$/, '');
+    entries[`js/${name}`] = `./${file}`;
+  });
+
+  return entries;
+}
+
+module.exports = {
+  ...defaultConfig,
+  entry: autoEntries(),
+  output: {
+    ...defaultConfig.output,
+    path: path.resolve(__dirname, 'public'),
+    filename: '[name].js',
+  },
+  plugins: [
+    ...defaultConfig.plugins,
+    new RemoveEmptyScriptsPlugin(),
+  ],
+};
+```
+
+## Auto-discovery rules
+
+<FileTree>
+  <FileTree.Folder name="resources/assets" defaultOpen>
+    <FileTree.Folder name="apps" defaultOpen>
+      <FileTree.Folder name="dashboard" defaultOpen>
+        <FileTree.File name="index.tsx" />
+        <FileTree.Folder name="components">
+          <FileTree.File name="..." />
+        </FileTree.Folder>
+      </FileTree.Folder>
+      <FileTree.File name="widget.tsx" />
+    </FileTree.Folder>
+    <FileTree.Folder name="css">
+      <FileTree.File name="admin.scss" />
+      <FileTree.File name="prism.css" />
+    </FileTree.Folder>
+    <FileTree.Folder name="js">
+      <FileTree.File name="prism.js" />
+    </FileTree.Folder>
+  </FileTree.Folder>
+  <FileTree.Folder name="public" defaultOpen>
+    <FileTree.Folder name="apps">
+      <FileTree.File name="dashboard.js" />
+      <FileTree.File name="dashboard.asset.php" />
+      <FileTree.File name="widget.js" />
+      <FileTree.File name="widget.asset.php" />
+    </FileTree.Folder>
+    <FileTree.Folder name="css">
+      <FileTree.File name="admin.css" />
+      <FileTree.File name="prism.css" />
+    </FileTree.Folder>
+    <FileTree.Folder name="js">
+      <FileTree.File name="prism.js" />
+    </FileTree.Folder>
+  </FileTree.Folder>
+</FileTree>
+
+| Source pattern | Output |
+|----------------|--------|
+| `apps/<name>/index.{ts,tsx,js,jsx}` | `public/apps/<name>.js` + `<name>.asset.php` + `<name>.css` |
+| `apps/<name>.{ts,tsx,js,jsx}` | `public/apps/<name>.js` + `<name>.asset.php` |
+| `css/<name>.{scss,less,css}` | `public/css/<name>.css` |
+| `js/<name>.{ts,js}` | `public/js/<name>.js` |
+
+The `RemoveEmptyScriptsPlugin` strips the tiny empty `.js` webpack would emit for pure-CSS entries.
+
+## Scaffolding a new app
+
+Use the bones CLI:
+
+```sh copy
+php bones make:app dashboard
+```
+
+<Callout type="info">
+The command refuses handles that WordPress core reserves (e.g. `dashboard`, `post`, `common`, `jquery`,
+`wp-element`). Use a distinctive name like `admin-ui`, `analytics`, or `my-plugin-settings`.
+</Callout>
+
+See the [bones console](/docs/bones-console) reference for full make:app / migrate:to-v2 docs.
+
+## Migrating from a v1.x gulp-based plugin
+
+Run the automated migrator from the plugin root:
+
+```sh copy
+php bones migrate:to-v2
+```
+
+It removes `gulpfile.js` and `package-lock.json`, creates `webpack.config.js` / `tsconfig.json` /
+`.prettierrc` / `jest.config.js`, rewrites `package.json` scripts, drops the gulp-era dev
+dependencies, and installs the v2 set. Afterwards run `yarn install && yarn build`.
+
+See the [Migrating to v2](/docs/migrating-to-v2) guide for the full diff.

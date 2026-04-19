@@ -1,0 +1,73 @@
+import { Callout } from 'nextra/components'
+
+# Mantine UI Boilerplate
+
+A full admin application built on **Mantine 8**, end to end: theming, dark mode toggle, tabs, form
+validation, modals, notifications, and a DataTable backed by a real WordPress AJAX endpoint. A
+good starting point for any plugin that wants a modern, polished admin UI without reinventing the
+primitives.
+
+## Quick links
+
+- **Repo**: [wpbones/WPKirk-Mantine-Boilerplate](https://github.com/wpbones/WPKirk-Mantine-Boilerplate)
+- **Playground**: [launch the blueprint](https://playground.wordpress.net/?blueprint-url=https://www.wpbones.com/wpkirk-mantine-boilerplate.json)
+- **ZIP download**: [wpkirk-mantine-boilerplate.zip](https://www.wpbones.com/wpkirk-mantine-boilerplate.zip)
+
+## Runtime dependencies
+
+```json
+{
+  "dependencies": {
+    "@mantine/core":          "^8.3",
+    "@mantine/form":          "^8.3",
+    "@mantine/hooks":         "^8.3",
+    "@mantine/modals":        "^8.3",
+    "@mantine/notifications": "^8.3",
+    "@tabler/icons-react":    "^3.41",
+    "mantine-datatable":      "^8.0",
+    "swr":                    "^2.4"
+  }
+}
+```
+
+## What the demo shows
+
+`apps/mantine-ui/index.tsx` wires a full four-tab admin page:
+
+### Form tab
+`@mantine/form` with validation — site name (min length) and email (regex). Submit fires a
+`@mantine/notifications` toast on success.
+
+### Table tab
+A `mantine-datatable` populated via `useSWR` from a real WordPress AJAX endpoint
+(`action=users`). Users are fetched through `get_users()` in `plugin/Ajax/MyAjax.php`, shaped to
+the typed `WPUser` interface on the React side.
+
+### Modals tab
+`@mantine/modals` with two patterns: `openConfirmModal` (confirm/cancel) and plain `modals.open`
+(arbitrary content). The confirm action fires a notification.
+
+### Notifications tab
+Three buttons for success (green) / warning (yellow) / error (red) notifications.
+
+### Theme & dark mode
+A dedicated `theme.ts` defines a custom `wpBlue` palette via `createTheme`. The app header has a
+sun/moon toggle that calls `useMantineColorScheme` to flip between light/dark — the whole
+interface responds live.
+
+## Architecture highlights
+
+- **React 18 `createRoot`** from `@wordpress/element`.
+- **Folder-based entry** — `apps/mantine-ui/` scales cleanly as you add components.
+- **Typed AJAX hook** — `use-ajax.ts` is a thin generic wrapper around SWR with the canonical
+  `{ data, error, isLoading }` shape.
+- **No router** — single admin page. If you need routing later, add `react-router-dom` and wrap
+  with `<BrowserRouter basename={...}>`.
+- **i18n** via `@wordpress/i18n` throughout.
+
+## Use this when
+
+You want a production-ready admin UI with modern UX (dark mode, notifications, form validation,
+data tables, modals) and you're happy to ship a ~750 KB bundle for the Mantine runtime. If bundle
+size is critical, look at the [ReactJS boilerplate](/docs/boilerplates/reactjs) instead — native
+WP components are much lighter.

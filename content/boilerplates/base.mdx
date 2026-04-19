@@ -1,0 +1,64 @@
+import { Callout } from 'nextra/components'
+
+# Base Boilerplate
+
+The lightest starter. Ships JS/TS + CSS/SCSS/LESS + a small React sample + a Jest test. Nothing
+opinionated about the UI.
+
+## Quick links
+
+- **Repo**: [wpbones/WPKirk-Boilerplate](https://github.com/wpbones/WPKirk-Boilerplate)
+- **Playground**: [launch the blueprint](https://playground.wordpress.net/?blueprint-url=https://www.wpbones.com/wpkirk-boilerplate.json)
+- **ZIP download**: [wpkirk-boilerplate.zip](https://www.wpbones.com/wpkirk-boilerplate.zip)
+
+## What's inside
+
+```
+WPKirk-Boilerplate/
+├── webpack.config.js         # auto-discovery
+├── tsconfig.json
+├── jest.config.js
+├── .prettierrc
+├── package.json              # yarn scripts: dev/build/test/format/lint
+├── resources/assets/
+│   ├── apps/
+│   │   ├── app.tsx           # React 18 + @wordpress/element + @wordpress/i18n
+│   │   └── __tests__/
+│   │       └── greet.test.ts # Jest example
+│   ├── css/
+│   │   ├── prism.css
+│   │   └── wp-kirk-common.scss
+│   └── js/
+│       ├── greet.ts          # TS module imported by app.tsx
+│       └── prism.js
+└── plugin/                   # PHP (PSR-4 `WPKirk\`)
+```
+
+## Runtime dependencies
+
+None — just the `@wordpress/*` packages provided by WordPress core at runtime.
+
+## Scripts
+
+```sh copy
+yarn install
+yarn build        # one-shot production build → public/
+yarn dev          # watch mode
+yarn test         # Jest, runs 2 tests against greet.ts
+yarn format       # Prettier
+yarn lint         # ESLint
+```
+
+## What the demo shows
+
+- **React bundle** (`apps/app.tsx`) that uses `createRoot` from `@wordpress/element` and `__` from
+  `@wordpress/i18n`.
+- **TypeScript module** (`js/greet.ts`) with a typed function, auto-discovered and compiled.
+- **SCSS + CSS entries** (`css/wp-kirk-common.scss`, `css/prism.css`) compiled to `public/css/`.
+- **Jest test** (`apps/__tests__/greet.test.ts`) covering `formatGreeting` positive and negative paths.
+
+## Use this when
+
+You want the smallest sensible starter and will layer your own UI kit on top. If you specifically
+want React with WordPress components or Mantine, jump to one of the specialised boilerplates
+instead.
