@@ -3,7 +3,7 @@ import { Callout, FileTree, Steps } from 'nextra/components'
 
 # ReactJS Applications Localization
 
-This document explains how to localize ReactJS applications in WP Bones. It covers building the application using `npm run build`, generating the `.pot` file with `npm run make-pot`, and editing the `.pot` file for translations. It lists tools for translating PO files online and describes generating the `.json` file with `npm run make-json`. Finally, it explains how to load translations in the application using the `withAdminAppsScript` method.
+This document explains how to localize ReactJS applications in WP Bones. It covers building the application using `yarn build`, generating the `.pot` file with `yarn make-pot`, and editing the `.pot` file for translations. It lists tools for translating PO files online and describes generating the `.json` file with `yarn make-json`. Finally, it explains how to load translations in the application using the `withAdminAppsScript` method.
 
 ---
 <DocsBoilerplateDemo slug="internationalization" />
@@ -50,7 +50,7 @@ const MyComponent = () => {
 After you have localized your ReactJS application, you can build it using the following command:
 
 ```bash copy
-npm run build
+yarn build
 ```
 In the `public/apps` folder, you will find the build files.
 
@@ -59,7 +59,7 @@ In the `public/apps` folder, you will find the build files.
 To generate the `.pot` file, you can use the following command:
 
 ```bash copy
-npm run make-pot
+yarn make-pot
 ```
 
 ### Edit the `.pot` file
@@ -81,7 +81,7 @@ And follow the [steps](/docs/int-locale/php-localization#how-to-translate-the-po
 To generate the `.json` file, you can use the following command:
 
 ```bash copy
-npm run make-json
+yarn make-json
 ```
 
 ### Load the translations

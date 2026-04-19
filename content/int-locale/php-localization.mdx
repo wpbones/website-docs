@@ -3,7 +3,7 @@ import { DocsBoilerplateDemo, FileTreeLabel } from '@/components';
 
 # PHP localization
 
-This document explains the PHP localization process in WP Bones. It covers using `gettext` functions to translate text strings in PHP code, defining the text domain in the main plugin file, and generating the `.pot` file using the `npm run make-pot` script. The `_e()` function is used to translate strings, and the text domain is defined in the plugin's main file to identify the translation file.
+This document explains the PHP localization process in WP Bones. It covers using `gettext` functions to translate text strings in PHP code, defining the text domain in the main plugin file, and generating the `.pot` file using the `yarn make-pot` script. The `_e()` function is used to translate strings, and the text domain is defined in the plugin's main file to identify the translation file.
 
 ---
 <DocsBoilerplateDemo slug="internationalization" />
@@ -52,12 +52,12 @@ Here is an example of how to define the text domain in the main plugin file:
 
 ## How to Generate the `.pot` File
 
-To generate the `.pot` file, you need to use the script `npm run make-pot`. The script will generate the `.pot` file in the `languages` folder.
+To generate the `.pot` file, you need to use the script `yarn make-pot`. The script will generate the `.pot` file in the `languages` folder.
 
 Here is an example of how to generate the `.pot` file:
 
 ```bash copy
-npm run make-pot
+yarn make-pot
 ```
 
 ## How to Translate the `.pot` File

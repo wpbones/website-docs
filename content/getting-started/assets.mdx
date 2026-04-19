@@ -1,90 +1,107 @@
 import { FileTreeLabel } from '@/components/FileTreeLabel'
-import { Callout, FileTree, Steps } from 'nextra/components'
+import { Callout, FileTree } from 'nextra/components'
 
 # Assets
 
-This document explains how to compile assets in WP Bones using Gulp. It covers the installation of necessary packages, the `package.json` scripts for building and watching assets, and the structure of source and compiled assets. It also provides guidance on modifying the `gulpfile.js` and references additional resources for creating complex ReactJS components or applications.
+Since **v2.0**, WP Bones compiles your plugin assets with a single `webpack.config.js` built on top
+of [`@wordpress/scripts`](https://www.npmjs.com/package/@wordpress/scripts). The config
+**auto-discovers** every file under `resources/assets/` — you drop a file in the right folder and
+`yarn build` picks it up.
 
-## Overview
+Supported formats:
 
-WP Bones uses [Gulp](https://gulpjs.com/) to compile and copy assets from `resources/assets` to `public`. It supports:
+- **Styles** — CSS, LESS, Sass
+- **Scripts** — JavaScript, TypeScript
+- **React apps** — `.jsx`, `.tsx` (folder-based or single-file)
 
-- CSS (Less, Sass)
-- JavaScript (ES6, TypeScript)
-- React
+## Install
 
-## Installation
-
-To compile the assets, you need to install the packages and dependencies:
-
-```sh npm2yarn copy
-npm install
+```sh copy
+yarn install
 ```
 
-## Package.json
+## Build
 
-The `package.json` file contains the scripts to compile the assets.
+One-shot production build:
 
-```json copy
-{
-  "scripts": {
-    "start": "gulp watch",
-    "build": "gulp build"
-  },
-}
+```sh copy
+yarn build
 ```
 
-Now you can compile the assets by running:
+Watch mode during development:
 
-```sh npm2yarn copy
-npm run build
+```sh copy
+yarn dev
 ```
-To compile the assets during development, run:
 
-```sh npm2yarn copy
-npm run start
-```
-All the assets in `resources/assets` are compiled and copied to the `public` folder.
+## Folder layout
 
-Your development source assets:
+Source tree under `resources/assets/`:
 
 <FileTree>
-  <FileTree.Folder name="resources" defaultOpen>
-      <FileTree.Folder name="assets" defaultOpen>
-        <FileTree.Folder name="css" defaultOpen>
-            <FileTree.File name={<FileTreeLabel type="file" name="my-styles-1.less">less</FileTreeLabel>} />
-            <FileTree.File name={<FileTreeLabel type="file" name="my-styles-2.scss">Sass</FileTreeLabel>} />
-        </FileTree.Folder>
-        <FileTree.Folder name="js" defaultOpen>
-            <FileTree.File name={<FileTreeLabel type="file" name="my-script.js">JavaScript</FileTreeLabel>} />
-            <FileTree.File name={<FileTreeLabel type="file" name="my-hook.ts">Typescript</FileTreeLabel>} />
-            <FileTree.File name={<FileTreeLabel type="file" name="my-react-component.jsx">React</FileTreeLabel>} />
-        </FileTree.Folder>
+  <FileTree.Folder name="resources/assets" defaultOpen>
+    <FileTree.Folder name="apps" defaultOpen>
+      <FileTree.Folder name="dashboard" defaultOpen>
+        <FileTree.File name={<FileTreeLabel type="file" name="index.tsx">React + TS (folder-based)</FileTreeLabel>} />
       </FileTree.Folder>
+      <FileTree.File name={<FileTreeLabel type="file" name="widget.tsx">React + TS (single-file)</FileTreeLabel>} />
+    </FileTree.Folder>
+    <FileTree.Folder name="css" defaultOpen>
+      <FileTree.File name={<FileTreeLabel type="file" name="admin.scss">Sass</FileTreeLabel>} />
+      <FileTree.File name={<FileTreeLabel type="file" name="frontend.less">Less</FileTreeLabel>} />
+      <FileTree.File name={<FileTreeLabel type="file" name="prism.css">CSS</FileTreeLabel>} />
+    </FileTree.Folder>
+    <FileTree.Folder name="js" defaultOpen>
+      <FileTree.File name={<FileTreeLabel type="file" name="helpers.ts">TypeScript</FileTreeLabel>} />
+      <FileTree.File name={<FileTreeLabel type="file" name="prism.js">JavaScript</FileTreeLabel>} />
+    </FileTree.Folder>
   </FileTree.Folder>
 </FileTree>
 
-Will be compiled and copied to the `public` folder:
+Compiled output under `public/`:
 
 <FileTree>
   <FileTree.Folder name="public" defaultOpen>
-      <FileTree.Folder name="css" defaultOpen>
-          <FileTree.File name={<FileTreeLabel type="file" name="my-styles-1.css">CSS</FileTreeLabel>} />
-          <FileTree.File name={<FileTreeLabel type="file" name="my-styles-2.css">CSS</FileTreeLabel>} />
-      </FileTree.Folder>
-      <FileTree.Folder name="js" defaultOpen>
-          <FileTree.File name={<FileTreeLabel type="file" name="my-script.js">JavaScript</FileTreeLabel>} />
-          <FileTree.File name={<FileTreeLabel type="file" name="my-hook.js">JavaScript</FileTreeLabel>} />
-          <FileTree.File name={<FileTreeLabel type="file" name="my-react-component.js">React</FileTreeLabel>} />
-      </FileTree.Folder>
+    <FileTree.Folder name="apps" defaultOpen>
+      <FileTree.File name={<FileTreeLabel type="file" name="dashboard.js">React bundle</FileTreeLabel>} />
+      <FileTree.File name={<FileTreeLabel type="file" name="dashboard.asset.php">Deps manifest</FileTreeLabel>} />
+      <FileTree.File name={<FileTreeLabel type="file" name="widget.js">React bundle</FileTreeLabel>} />
+    </FileTree.Folder>
+    <FileTree.Folder name="css" defaultOpen>
+      <FileTree.File name={<FileTreeLabel type="file" name="admin.css">CSS</FileTreeLabel>} />
+      <FileTree.File name={<FileTreeLabel type="file" name="frontend.css">CSS</FileTreeLabel>} />
+      <FileTree.File name={<FileTreeLabel type="file" name="prism.css">CSS</FileTreeLabel>} />
+    </FileTree.Folder>
+    <FileTree.Folder name="js" defaultOpen>
+      <FileTree.File name={<FileTreeLabel type="file" name="helpers.js">JavaScript</FileTreeLabel>} />
+      <FileTree.File name={<FileTreeLabel type="file" name="prism.js">JavaScript</FileTreeLabel>} />
+    </FileTree.Folder>
   </FileTree.Folder>
 </FileTree>
 
-## Gulpfile.js
+## Commands
 
-The `gulpfile.js` in the root folder contains the tasks to compile the assets.
-Feel free to modify the tasks to fit your needs.
+| Command | What it does |
+|---------|--------------|
+| `yarn dev` | Webpack in watch mode |
+| `yarn build` | One-shot production build |
+| `yarn test` | Jest via `wp-scripts test-unit-js` |
+| `yarn format` | Prettier on `resources/` |
+| `yarn lint` | ESLint on `resources/` |
 
-## More complex ReactJS components or applications
+## Adding a new React app
 
-If you need to create more complex ReactJS components or applications, check out the [ReactJS Components](/docs/views-template/react) section and the [ReactJS Applications](/docs/views-template/react-app) section.
+```sh copy
+php bones make:app dashboard
+```
+
+Scaffolds `resources/assets/apps/dashboard/index.tsx` with a React 18 + TypeScript template. No
+`package.json` edits required — webpack auto-discovers the new entry.
+
+See also [`webpack.config.js`](/docs/core-plugin-files/webpack-config) and
+[`package.json`](/docs/core-plugin-files/package-json).
+
+<Callout type="info">
+Coming from a v1.x gulp-based plugin? Run `php bones migrate:to-v2`. See the full
+[Migrating to v2](/docs/migrating-to-v2) guide.
+</Callout>
