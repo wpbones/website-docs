@@ -47,6 +47,12 @@
     "turbopack-inline-svg-loader": "^1.0.3",
     "typescript": "6.0.3"
   },
+  "resolutions": {
+    "dompurify": "^3.4.0",
+    "lodash": "^4.18.0",
+    "lodash-es": "^4.18.0",
+    "brace-expansion": "^2.0.3"
+  },
   "name": "wpbones-docs",
   "packageManager": "yarn@4.14.1",
   "private": true,
