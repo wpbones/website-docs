@@ -1,29 +1,36 @@
-import { Callout, FileTree, Steps } from 'nextra/components';
+import { Callout } from 'nextra/components';
 
 # Requirements
 
-WP Bones requires PHP >= 8.1+, git, Composer, npm or yarn, and optionally WP-CLI. It supports macOS, Windows 10, and Linux. The `php bones` command should be run from a WordPress environment like Vagrant or Valet. Ensure git and Composer are installed in the WordPress environment, while npm is needed on the host machine for Gulp. Visit related websites for Composer, npm, Laravel, or Gulp if you're unfamiliar with them.
+WP Bones requires **PHP ≥ 8.1**, **git**, **Composer**, **Node.js** with **yarn** (or npm), and
+optionally **WP-CLI**. The `php bones` command must run inside a working WordPress install — a
+local dev environment like Laravel Valet, Local, Lando, Docker, or WordPress Playground all work.
 
-## Developer Tools
+## Developer tools
 
-WP Bones has a few system requirements. However, if you are a newbie in [Composer](https://getcomposer.org/), [npm](https://nodejs.org/en/), [Laravel](https://laravel.com/) or [Gulp](http://gulpjs.com/), please, visit the related website before continuing.
+If you are new to [Composer](https://getcomposer.org/), [Node.js / yarn](https://yarnpkg.com/), or
+[webpack](https://webpack.js.org/), take a quick look at their docs before diving in.
 
-- PHP >= 8.1+
-- git
+- PHP ≥ 8.1
+- [git](https://git-scm.com/)
 - [Composer](https://getcomposer.org/)
-- [npm](https://nodejs.org/en/) or [yarn](https://yarnpkg.com/en/)
-- [WP-CLI](https://wp-cli.org/#installing)
+- [Node.js 18+](https://nodejs.org/) with [yarn](https://yarnpkg.com/) (recommended) or npm
+- [WP-CLI](https://wp-cli.org/#installing) (optional but recommended)
 
 <Callout>
-  The WP-CLI is not mandatory but it is very useful. Anyway, if you
-  want to run the scripts `make-pot` and `make-json` used to translate
-  the plugin, you need to install it.
+  WP-CLI is optional, but the `make-pot` and `make-json` yarn scripts shell out to it for
+  translation file generation — install it if you plan to translate the plugin.
 </Callout>
 
-## Operating System Requirements
+## Supported operating systems
 
-WP Bones supports macOS, Windows 10, and Linux distributions.
+macOS, Linux, and Windows 10/11 are all supported. On Windows we recommend WSL2 for a smoother
+PHP / Node toolchain experience.
 
 ## WordPress environment
 
-The `php bones` command should be run from your WordPress environment (in the [Vagrant](https://github.com/gfazioli/VagrantUbuntu) or [Valet](https://laravel.com/docs/11.x/valet) environment) because it will load WordPress. Also, make sure to install `git` and `composer` in your WordPress environment. In your host machine (Mac or PC), you can install `npm`. It is used only by `gulp`.
+`php bones` must be executed from a working WordPress install because it loads WordPress to
+resolve plugin context, options, database connection, and so on. See
+[WordPress environments](/docs/getting-started/wordpress-environments) for the setups we recommend
+(Valet, Local, Lando, Docker, Playground, Vagrant…). Make sure `git` and `composer` are available
+in the same shell where you run `php bones`; Node.js / yarn can live on the host machine.

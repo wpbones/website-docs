@@ -284,6 +284,35 @@ The `--check-header` option is used to check the plugin header. You can use the 
 php bones plugin --check-header
 ```
 
+### `migrate:to-v2`
+
+New in **v2.0**. Converts a v1.x gulp-based plugin to the v2 webpack infrastructure.
+
+```sh copy
+php bones migrate:to-v2
+```
+
+The command removes `gulpfile.js` and `package-lock.json`, creates
+`webpack.config.js`, `tsconfig.json`, `.prettierrc`, and `jest.config.js`
+from the framework stubs, rewrites `package.json` scripts to the unified
+`dev/build/test/format/lint` block, drops gulp-era devDependencies, and
+installs the v2 set (`@wordpress/scripts ^31`, `typescript`, `glob`,
+`less-loader`, `webpack-remove-empty-scripts`, `@types/react*`). Your
+`resources/assets/` tree is left untouched — your code is preserved.
+
+After migration, run:
+
+```sh copy
+yarn install && yarn build
+```
+
+<Callout type="warning">
+Commit your work first. The migration rewrites several files. You can
+always `git restore` if anything looks off.
+</Callout>
+
+See the full [Migrating to v2](/docs/migrating-to-v2) guide for the end-to-end diff.
+
 ## Creators
 
 The Bones command console provides a set of commands to create some base classes. For example, you can create a Custom Post Type by using:
@@ -291,3 +320,43 @@ The Bones command console provides a set of commands to create some base classes
 ```sh copy
 php bones make:cpt MyCustomPostTypeClass
 ```
+
+### `make:app`
+
+New in **v2.0**. Scaffolds a new React/TypeScript app under
+`resources/assets/apps/`. Webpack auto-discovers the new entry — no
+`package.json` edits needed.
+
+```sh copy
+php bones make:app dashboard
+# → resources/assets/apps/dashboard/index.tsx (folder-based)
+
+php bones make:app widget --flat
+# → resources/assets/apps/widget.tsx (single-file)
+```
+
+Each generated app is a React 18 component using `createRoot` from
+`@wordpress/element` and `__` from `@wordpress/i18n`, mounted on a
+`#<name>-root` div. The Text Domain is auto-resolved from your plugin
+header.
+
+After scaffolding, add the mount div to your view and enqueue the bundle
+from your controller:
+
+```php copy
+<div id="dashboard-root"></div>
+```
+
+```php copy
+return WPKirk()
+  ->view('dashboard.index')
+  ->withAdminAppsScript('dashboard');
+```
+
+<Callout type="warning">
+The command refuses names that collide with WordPress core script handles
+(`dashboard`, `post`, `common`, `jquery`, `wp-element`, etc.). If the
+handle is already registered by core, `wp_enqueue_script` silently drops
+your bundle and the app never mounts. Pick a distinctive name like
+`admin-ui`, `analytics`, or a plugin-specific prefix.
+</Callout>

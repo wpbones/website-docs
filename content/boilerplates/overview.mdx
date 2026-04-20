@@ -1,0 +1,84 @@
+import { Callout, Cards } from 'nextra/components'
+import { IconBrandTypescript, IconBrandReact, IconLayoutDashboard, IconTemplate } from '@tabler/icons-react'
+
+# Boilerplates
+
+WP Bones ships four curated starter templates on GitHub. Each one builds on the same v2
+infrastructure (webpack + yarn + TypeScript + Jest + Prettier) and differs only in what it
+demonstrates. Pick the one that matches the stack you want to learn or start from.
+
+<Cards>
+  <Cards.Card
+    arrow
+    icon={<IconTemplate color="#74C0FC" />}
+    title="Base"
+    href="/docs/boilerplates/base"
+  >
+    The minimum starter: JS/TS, SCSS/LESS/CSS, a small React sample, a Jest test. Use this if you
+    want the leanest possible scaffold.
+  </Cards.Card>
+  <Cards.Card
+    arrow
+    icon={<IconBrandTypescript color="#3178C6" />}
+    title="TypeScript"
+    href="/docs/boilerplates/typescript"
+  >
+    Focused TypeScript showcase — interfaces, generics, discriminated unions, type guards, utility
+    types. Great to learn idiomatic TS in a WordPress plugin.
+  </Cards.Card>
+  <Cards.Card
+    arrow
+    icon={<IconBrandReact color="#61DAFB" />}
+    title="ReactJS (WP libraries)"
+    href="/docs/boilerplates/reactjs"
+  >
+    React using only WordPress runtime libraries — `@wordpress/components`, `@wordpress/data`,
+    `@wordpress/hooks`, `@wordpress/i18n`. Native wp-admin look, no third-party UI kit.
+  </Cards.Card>
+  <Cards.Card
+    arrow
+    icon={<IconLayoutDashboard color="#339AF0" />}
+    title="Mantine UI"
+    href="/docs/boilerplates/mantine"
+  >
+    A full admin app built on Mantine — theme customization, dark mode toggle, tabs, form
+    validation, modals, notifications, and a DataTable fed by WordPress AJAX.
+  </Cards.Card>
+</Cards>
+
+## Try them in the browser
+
+Every boilerplate has a [WordPress Playground](https://wordpress.org/playground/) blueprint. Click
+the **Playground** link on each boilerplate page to spin up a throwaway WordPress install with
+the plugin pre-activated.
+
+## How to start from one
+
+Each boilerplate is a GitHub **template repository**. You have three options:
+
+1. **Use as a template** — click "Use this template" on GitHub and clone your new repo.
+2. **Clone + rename** — clone the repo locally and run `php bones rename "My Plugin Name"` to
+   reset the namespace.
+3. **Playground first** — test-drive in Playground, then grab the `.zip` from
+   [wpbones.com](https://wpbones.com).
+
+<Callout type="info">
+All four boilerplates share the same bones CLI, the same yarn scripts
+(`dev`/`build`/`test`/`format`/`lint`), and the same webpack auto-discovery rules. Moving from one
+to another is mostly a matter of swapping `dependencies` in `package.json`.
+</Callout>
+
+## What stays the same across all four
+
+- [`webpack.config.js`](/docs/core-plugin-files/webpack-config) with auto-discovery of entries
+- [`package.json`](/docs/core-plugin-files/package-json) scripts: `dev`, `build`, `test`, `format`,
+  `lint`
+- `tsconfig.json`, `.prettierrc`, `jest.config.js`
+- The bones CLI (`php bones --help`) with `make:*` and `migrate:to-v2`
+- `plugin/` folder (PSR-4 namespace root), `config/`, `bootstrap/`, `resources/views/`
+
+## What differs
+
+- **`dependencies`** in `package.json` — only the UI kit / libraries the boilerplate demoes.
+- **`resources/assets/apps/`** — the demo app(s) specific to each boilerplate.
+- **Dashboard Blade view** — each shows its own sources inline so learners can read them.

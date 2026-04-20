@@ -1,0 +1,47 @@
+import { Callout } from 'nextra/components'
+
+# TypeScript Boilerplate
+
+A focused TypeScript showcase. Demos idiomatic TS patterns — interfaces, discriminated unions,
+generics, type guards, utility types — and renders a small admin page that consumes those types
+live. No Mantine, no router, no data fetching library.
+
+## Quick links
+
+- **Repo**: [wpbones/WPKirk-TypeScript-Boilerplate](https://github.com/wpbones/WPKirk-TypeScript-Boilerplate)
+- **Playground**: [launch the blueprint](https://playground.wordpress.net/?blueprint-url=https://www.wpbones.com/wpkirk-typescript-boilerplate.json)
+- **ZIP download**: [wpkirk-typescript-boilerplate.zip](https://www.wpbones.com/wpkirk-typescript-boilerplate.zip)
+
+## What's inside
+
+```
+resources/assets/
+├── apps/
+│   ├── app.tsx               # React view that renders 4 live demo cards
+│   └── __tests__/
+│       └── ts-showcase.test.ts   # 6 tests — one per TS pattern
+├── js/
+│   └── ts-showcase.ts        # interfaces, generics, guards, utility types
+└── css/...
+```
+
+## Patterns demonstrated
+
+`js/ts-showcase.ts` exports the following, each one called out in the admin demo:
+
+- **Interfaces & type aliases** — `PluginInfo`, `Settings`, template literal `Slug`.
+- **Discriminated unions** — `AsyncState<T> = { idle } | { loading } | { success, data } | { error, error }`.
+- **Generics** — `collect<TItem, TKey>(items, keyFn): Record<TKey, TItem[]>` (a typed groupBy).
+- **Type guards** — `isPluginInfo(value: unknown): value is PluginInfo`.
+- **Utility types** — `Partial`, `Pick`, `Readonly` via `updateSettings` + `HttpSettings`.
+
+Each pattern has a matching Jest test.
+
+## Runtime dependencies
+
+Only the `@wordpress/*` runtime packages WordPress provides. No third-party runtime deps at all.
+
+## Use this when
+
+You want to showcase or learn TypeScript patterns in a WordPress plugin context. Also a good base
+if your plugin is mostly PHP + a small headless TS library (no heavy React UI).

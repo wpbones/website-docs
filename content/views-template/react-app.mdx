@@ -5,7 +5,7 @@ import { Callout, Cards, FileTree, Steps } from 'nextra/components';
 
 # ReactJS Applications
 
-This document explains how to create a more complex ReactJS application in your WP Bones plugin. It covers creating a menu in the `config/menu.php` file, creating a controller using the `php bones make:controller` command, and setting up the controller to return a view with an admin script. The ReactJS applications are stored in the `resources/apps/` folder, and dependencies need to be installed as described in the Assets section.
+This document explains how to create a more complex ReactJS application in your WP Bones plugin. It covers creating a menu in the `config/menu.php` file, creating a controller using the `php bones make:controller` command, and setting up the controller to return a view with an admin script. The ReactJS applications are stored in the `resources/assets/apps/` folder, and dependencies need to be installed as described in the Assets section.
 
 ---
 <DocsBoilerplateDemo slug="mantine" />
@@ -13,7 +13,7 @@ This document explains how to create a more complex ReactJS application in your 
 
 ## Overview
 
-If you want to create a more complex ReactJS application, you can use the `resources/apps/` folder.
+If you want to create a more complex ReactJS application, you can use the `resources/assets/apps/` folder.
 
 First of all, you need to install the dependencies as described in the [Assets section](../getting-started/assets).
 
@@ -125,34 +125,29 @@ You may create any complex view. This is just an example.
 
 ## Create the React Application
 
-In your `resources/apps/` folder, create a new file called `app.jsx` and add the following code:
+In your `resources/assets/apps/` folder, create a new file called `app.tsx` and add the following code:
 
-```jsx copy
-const { render } = wp.element;
-
-// core styles are required for all packages
+```tsx copy
 import '@mantine/core/styles.css';
+
+import { MantineProvider } from '@mantine/core';
+import { createRoot } from '@wordpress/element';
+import { __ } from '@wordpress/i18n';
+
+import { Demo } from './components/Demo';
 import classes from './app.module.scss';
 
-import { Route, Routes, BrowserRouter } from 'react-router-dom';
-import { MantineProvider } from '@mantine/core';
-import { Demo } from './components/Demo';
+const App = () => (
+  <MantineProvider>
+    <h2 className={classes.title}>{__('Say Hello, Mantine Application', 'wp-kirk')}</h2>
+    <Demo />
+  </MantineProvider>
+);
 
-const MyApp = () => {
-  return (
-    <MantineProvider>
-      <h2 className={classes.title}>Say Hello, Mantine Application</h2>
-
-      <BrowserRouter basename="/wp-admin/">
-        <Routes>
-          <Route path="/admin.php" element={<Demo />} />
-        </Routes>
-      </BrowserRouter>
-    </MantineProvider>
-  );
-};
-
-render(<MyApp />, document.getElementById('react-app'));
+const container = document.getElementById('react-app');
+if (container) {
+  createRoot(container).render(<App />);
+}
 ```
 
 <Callout type="info">
@@ -163,10 +158,10 @@ The above code is just an example. You may create any complex ReactJS applicatio
   <FileTree.Folder name="resources" defaultOpen>
       <FileTree.Folder name="assets" defaultOpen>
         <FileTree.Folder name="apps" defaultOpen>
-            <FileTree.File name={<FileTreeLabel type="file" name="app.jsx">Main ReactJS</FileTreeLabel>} />
+            <FileTree.File name={<FileTreeLabel type="file" name="app.tsx">Main ReactJS</FileTreeLabel>} />
             <FileTree.File name={<FileTreeLabel type="file" name="app.module.css">CSS module</FileTreeLabel>} />
             <FileTree.Folder name="components" defaultOpen>
-              <FileTree.File name={<FileTreeLabel type="file" name="Demo.jsx">ReactJS</FileTreeLabel>} />
+              <FileTree.File name={<FileTreeLabel type="file" name="Demo.tsx">ReactJS</FileTreeLabel>} />
             </FileTree.Folder>
         </FileTree.Folder>
       </FileTree.Folder>
@@ -178,7 +173,7 @@ The above code is just an example. You may create any complex ReactJS applicatio
 Now, you can start the development server by running the following command:
 
 ```shell copy
-npm run start:apps
+yarn dev
 ```
 That's all
 
@@ -191,7 +186,7 @@ That's all
 Obviously, once completed, remember to run the build command:
 
 ```shell copy
-npm run build:apps
+yarn build
 ```
 
 ---
