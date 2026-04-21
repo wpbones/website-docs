@@ -143,6 +143,18 @@ The v2 boilerplates are **yarn-first** — they ship a committed `yarn.lock` and
   produce identical output.
 - `php bones deploy --pkgm=<pm>` already accepts `yarn`, `npm` or `pnpm`.
 
+### Why yarn-first?
+
+The choice is pragmatic rather than technical: WP Bones and a few adjacent React/TS
+projects maintained by the same author (including the dedicated Mantine boilerplate)
+standardize on yarn so tooling, CI, and day-to-day commands stay consistent across the
+ecosystem. It is **not** a claim that yarn is technically superior — pnpm, for instance,
+has excellent benchmarks and strict dependency resolution. If community preference
+shifts, swapping the committed lockfile is a non-event and shipping multiple lockfiles
+as equally first-class remains on the table.
+
+### How to use a different PM
+
 If you want to keep using the package manager you had in your v1.x plugin (or switch to a new
 one), the migrator has your back: it detects your lockfile (`yarn.lock`, `pnpm-lock.yaml` or
 `package-lock.json`) **before** deleting it, and the printed "Next steps" match the PM you were
