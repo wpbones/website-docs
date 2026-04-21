@@ -2,7 +2,7 @@ export const resources = [
   {
     key: 'demo',
     title: 'WP Bones Demo in action',
-    href: 'https://playground.wordpress.net/?blueprint-url=https://www.wpbones.com/wpkirk-demo.json',
+    href: 'https://playground.wordpress.net/?blueprint-url=https://www.wpbones.com/wpkirk-boilerplate.json',
   },
   {
     key: 'wpbones-raycast',
@@ -19,12 +19,6 @@ export const resources = [
     key: 'discussions',
     title: 'Discussions',
     href: 'https://github.com/wpbones/WPBones/discussions',
-  },
-  {
-    key: 'roadmap',
-    title: 'Roadmap',
-    href: 'https://github.com/orgs/wpbones/projects/4',
-    new: true,
   },
   {
     key: 'wpbones-news',
