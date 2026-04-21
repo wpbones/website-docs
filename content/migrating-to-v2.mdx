@@ -164,9 +164,11 @@ Starting from a freshly cloned boilerplate and want to use npm or pnpm instead o
 the committed `yarn.lock`, then `npm install` or `pnpm install`. The scripts in `package.json`
 will work as-is with any of the three package managers.
 
-> **Note:** pick one PM per plugin and stick with it. Mixing lockfiles in the same repo
-> (`yarn.lock` + `package-lock.json`) quickly leads to drift between what CI installs and
-> what you get locally.
+<Callout type="warning">
+  **Pick one PM per plugin and stick with it.** Mixing lockfiles in the same repo
+  (`yarn.lock` + `package-lock.json`) quickly leads to drift between what CI installs
+  and what you get locally.
+</Callout>
 
 ## Migrating apps that used per-script entries
 
