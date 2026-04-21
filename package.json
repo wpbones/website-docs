@@ -74,5 +74,5 @@
     "test": "yarn next typegen && yarn format:test && yarn lint && yarn typecheck && yarn jest",
     "typecheck": "tsc --noEmit"
   },
-  "version": "2.0.1"
+  "version": "2.0.2"
 }
