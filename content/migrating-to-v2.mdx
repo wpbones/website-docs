@@ -111,6 +111,12 @@ You'll see a `y/N` prompt summarising what it will touch. Say `y`.
 
 ### Reinstall and build
 
+The migrator deletes your previous lockfile (`package-lock.json` or `pnpm-lock.yaml`) so you
+can pick up a clean one. The "Next steps" it prints at the end use the package manager it
+detected in your project before deletion — yarn, npm or pnpm — so you don't have to switch
+tools unless you want to. The snippets below assume yarn (the v2 default); see
+[Using npm or pnpm instead of yarn](#using-npm-or-pnpm-instead-of-yarn) if you use a different PM.
+
 ```sh copy
 yarn install
 yarn build
@@ -125,6 +131,32 @@ Open the plugin's admin page in WordPress. Any React app you had under
 yarn test   # if you had tests
 ```
 </Steps>
+
+## Using npm or pnpm instead of yarn
+
+The v2 boilerplates are **yarn-first** — they ship a committed `yarn.lock` and the CLI's
+"Next steps" default to `yarn` — but there is no technical lock-in on yarn:
+
+- `package.json` has no `packageManager`, `engines` or `resolutions` fields.
+- There is no `.yarnrc.yml`, `.npmrc` or `.pnpmrc`.
+- All scripts are `wp-scripts <verb>`, so `npm run build`, `pnpm build` and `yarn build`
+  produce identical output.
+- `php bones deploy --pkgm=<pm>` already accepts `yarn`, `npm` or `pnpm`.
+
+If you want to keep using the package manager you had in your v1.x plugin (or switch to a new
+one), the migrator has your back: it detects your lockfile (`yarn.lock`, `pnpm-lock.yaml` or
+`package-lock.json`) **before** deleting it, and the printed "Next steps" match the PM you were
+already using. Just run the commands it prints, and you're done.
+
+Starting from a freshly cloned boilerplate and want to use npm or pnpm instead of yarn? Delete
+the committed `yarn.lock`, then `npm install` or `pnpm install`. The scripts in `package.json`
+will work as-is with any of the three package managers.
+
+> **Note:** pick one PM per plugin and stick with it. Mixing lockfiles in the same repo
+> (`yarn.lock` + `package-lock.json`) quickly leads to drift between what CI installs and
+> what you get locally.
+
+## Migrating apps that used per-script entries
 
 ## Migrating apps that used per-script entries
 
@@ -175,13 +207,14 @@ at least WP Bones `v1.11.1`.
 
 ## Rollback
 
-If something doesn't work, roll back via git:
+If something doesn't work, roll back via git and reinstall dependencies with your original
+package manager:
 
 ```sh copy
 git reset --hard HEAD
 rm -rf node_modules vendor
 composer install
-npm install   # v1.x path
+yarn install    # or: npm install / pnpm install
 ```
 
 Then open an issue with the error output and we'll help.
