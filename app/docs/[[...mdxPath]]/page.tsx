@@ -2,6 +2,8 @@ import { generateStaticParamsFor, importPage } from 'nextra/pages';
 import { useMDXComponents } from '../../../mdx-components';
 
 export const generateStaticParams = generateStaticParamsFor('mdxPath');
+export const dynamicParams = false;
+export const dynamic = 'force-static';
 export const revalidate = false;
 
 export async function generateMetadata(props: any) {
