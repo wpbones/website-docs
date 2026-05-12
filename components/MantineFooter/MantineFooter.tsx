@@ -11,7 +11,7 @@ import { Anchor, Box } from '@mantine/core';
 export const MantineFooter = () => (
   <Box style={{ position: 'relative' }}>
     <Footer>
-      MIT {new Date().getFullYear()} © <Anchor href="https://undolog.com">Undolog</Anchor>
+      MIT {new Date().getFullYear()} © <Anchor href="https://gfazioli.github.io/">Undolog</Anchor>
     </Footer>
   </Box>
 );
