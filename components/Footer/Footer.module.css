@@ -46,6 +46,16 @@
   }
 }
 
+.sponsorsSection {
+  scroll-margin-top: rem(90px);
+}
+
+.sponsorSlot {
+  border: 1px dashed var(--mantine-color-default-border);
+  background-color: transparent;
+  color: var(--mantine-color-dimmed);
+}
+
 .nextraIcon {
   width: 16px;
   height: 16px;

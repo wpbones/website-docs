@@ -1,7 +1,8 @@
 'use client';
 
 import { Navbar } from 'nextra-theme-docs';
-import { Group } from '@mantine/core';
+import { Button, Group } from '@mantine/core';
+import { IconHeartFilled } from '@tabler/icons-react';
 import { ColorSchemeControl } from '../ColorSchemeControl/ColorSchemeControl';
 import { Logo } from '../Logo/Logo';
 import { MantineNextraThemeObserver } from '../MantineNextraThemeObserver/MantineNextraThemeObserver';
@@ -29,13 +30,17 @@ export const MantineNavBar = () => {
       >
         <>
           <ColorSchemeControl />
-          <iframe
-            src="https://github.com/sponsors/wpbones/button"
-            title="Sponsor WP Bones"
-            height="32"
-            width="114"
-            style={{ border: 0 }}
-          />
+          <Button
+            component="a"
+            href="#sponsors"
+            size="sm"
+            radius="xl"
+            variant="gradient"
+            gradient={{ from: 'pink', to: 'grape' }}
+            leftSection={<IconHeartFilled size={14} />}
+          >
+            Sponsor
+          </Button>
         </>
       </Navbar>
     </>
