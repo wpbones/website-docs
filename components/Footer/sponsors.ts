@@ -8,8 +8,8 @@ export interface Sponsor {
 }
 
 /**
- * Current GitHub sponsors, shown in the footer sponsors wall.
- * Add new sponsors here — the change propagates to every derived site
- * through the usual template propagation flow.
+ * Current GitHub sponsors of the WPBones organization, shown in the footer sponsors wall.
+ * WPBones has its own sponsor profile (https://github.com/sponsors/wpbones) — do NOT
+ * sync this list with the personal gfazioli sponsors list.
  */
-export const sponsors: Sponsor[] = [{ key: 'kastov', name: 'kastov', github: 'kastov' }];
+export const sponsors: Sponsor[] = [];

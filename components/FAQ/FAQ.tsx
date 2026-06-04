@@ -7,7 +7,8 @@ import {
   IconQuestionMark,
 } from '@tabler/icons-react';
 import { Pre } from 'nextra/components';
-import { Accordion, Anchor, Box } from '@mantine/core';
+import { IconHeartFilled } from '@tabler/icons-react';
+import { Accordion, Anchor, Box, Button } from '@mantine/core';
 import classes from './FAQ.module.css';
 
 type FAQsProps = {
@@ -51,13 +52,19 @@ const faqs: FAQsProps[] = [
       <>
         Yes, you can sponsor WP Bones on GitHub. Click the button below to sponsor WP Bones:
         <div style={{ display: 'flex', justifyContent: 'left', margin: '20px 0' }}>
-          <iframe
-            src="https://github.com/sponsors/wpbones/button"
-            title="Sponsor wpbones"
-            height="32"
-            width="114"
-            style={{ border: 0, borderRadius: '6px' }}
-          />
+          <Button
+            component="a"
+            href="https://github.com/sponsors/wpbones"
+            target="_blank"
+            rel="noopener noreferrer"
+            size="sm"
+            radius="xl"
+            variant="gradient"
+            gradient={{ from: 'pink', to: 'grape' }}
+            leftSection={<IconHeartFilled size={14} />}
+          >
+            Sponsor
+          </Button>
         </div>
       </>
     ),

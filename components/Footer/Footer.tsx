@@ -141,9 +141,8 @@ export const Footer: React.FC<FooterProps> = () => {
             </Text>
           </Title>
           <Text fz={15} c="dimmed" ta="center" maw={560}>
-            If my open-source work saves you or your team time, consider sponsoring its development.
-            Sponsors get their name or logo featured here and across all my projects' documentation
-            sites.
+            If WPBones saves you or your team time, consider sponsoring its development. Sponsors
+            get their name or logo featured here and across the WPBones documentation sites.
           </Text>
           <Group justify="center" gap="xl">
             {sponsors.map((sponsor) => (
