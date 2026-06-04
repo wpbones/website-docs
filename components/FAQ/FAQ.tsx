@@ -30,7 +30,7 @@ const faqs: FAQsProps[] = [
     answer: (
       <>
         To start using WP Bones, install the{' '}
-        <Anchor href="/docs/GettingStarted/boilerplate-templates">WP Bones starter plugin</Anchor>{' '}
+        <Anchor href="/docs/getting-started/boilerplate-templates">WP Bones starter plugin</Anchor>{' '}
         in your local WordPress installation.
       </>
     ),
@@ -143,7 +143,7 @@ const faqs: FAQsProps[] = [
             php bones update
           </Pre>{' '}
         </Box>
-        and check the <Anchor href="/docs/CorePluginFiles/overview">Core Plugin Files</Anchor>.
+        and check the <Anchor href="/docs/core-plugin-files/overview">Core Plugin Files</Anchor>.
       </>
     ),
   },

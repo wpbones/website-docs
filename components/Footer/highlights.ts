@@ -7,22 +7,22 @@ export const highlights = [
   {
     key: 'getting-started',
     title: 'Getting Started',
-    href: '/docs/GettingStarted/requirements',
+    href: '/docs/getting-started/requirements',
   },
   {
     key: 'internationalization',
     title: 'Internationalization',
-    href: '/docs/Internationalization/overview',
+    href: '/docs/int-locale/overview',
   },
   {
     key: 'core-classes',
     title: 'Core Classes',
-    href: '/docs/CoreClasses/overview',
+    href: '/docs/core-classes/overview',
   },
   {
     key: 'core-plugin-files',
     title: 'Core Plugin Files',
-    href: '/docs/CorePluginFiles/overview',
+    href: '/docs/core-plugin-files/overview',
   },
   {
     key: 'faqs',
@@ -32,26 +32,26 @@ export const highlights = [
   {
     key: 'routing',
     title: 'Routing',
-    href: '/docs/CoreConcepts/menus-routing',
+    href: '/docs/core-concepts/menus-routing',
   },
   {
     key: 'blade-templates',
     title: 'Blade Templates',
-    href: '/docs/Views/blade-template',
+    href: '/docs/views-template/blade-template',
   },
   {
     key: 'bones-console',
     title: 'Bones Console',
-    href: '/docs/BonesConsole/bones-console',
+    href: '/docs/bones-console/bones-console',
   },
   {
     key: 'database',
     title: 'Database',
-    href: '/docs/DatabaseORM/query-builder',
+    href: '/docs/database-orm/query-builder',
   },
   {
     key: 'eloquent-orm',
     title: 'Eloquent ORM',
-    href: '/docs/DatabaseORM/eloquent-orm',
+    href: '/docs/database-orm/eloquent-orm',
   },
 ];
