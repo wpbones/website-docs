@@ -1,16 +1,32 @@
-import { Callout, Cards, FileTree, Steps } from 'nextra/components'
-import { Center, Title } from "@mantine/core";
+import { Button, Center } from "@mantine/core";
+import { IconHeartFilled } from "@tabler/icons-react";
 
-## Became a Sponsor
+## Become a Sponsor
 
-If you like WP Bones and want to support its development, consider becoming a sponsor. Your contributions help maintain and improve the framework, ensuring its continued growth and success.
+### ❤️ If WPBones saves you or your team time, please consider becoming a sponsor
 
-<div style={{ display: 'flex', justifyContent: 'center', margin: '20px 0' }}>
-  <iframe 
-    src="https://github.com/sponsors/wpbones/button" 
-    title="Sponsor wpbones" 
-    height="32" 
-    width="114" 
-    style={{ border: 0, borderRadius: '6px' }} 
-  />
-</div>
+Your support helps:
+
+- Keep the framework actively maintained with timely bug fixes and security updates
+- Add new features, improve performance, and refine the developer experience
+- Expand test coverage and documentation for smoother adoption
+- Ensure long-term sustainability without relying on ad hoc free time
+- Prioritize community requests and roadmap items that matter most
+
+Open source thrives when those who benefit can give back — even a small monthly contribution makes a real difference. Sponsors get their name or logo featured in the footer of the WPBones documentation sites.
+
+<Center mt="xl" mb="md">
+  <Button
+    component="a"
+    href="https://github.com/sponsors/wpbones"
+    target="_blank"
+    rel="noopener noreferrer"
+    size="lg"
+    radius="xl"
+    variant="gradient"
+    gradient={{ from: 'pink', to: 'grape' }}
+    leftSection={<IconHeartFilled size={18} />}
+  >
+    Become a sponsor
+  </Button>
+</Center>
