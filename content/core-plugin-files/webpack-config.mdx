@@ -17,17 +17,21 @@ const path = require('path');
 const RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts');
 const defaultConfig = require('@wordpress/scripts/config/webpack.config');
 
+// TypeScript declaration files carry no runtime code, but `*.ts` matches `*.d.ts`
+// and the entry name would keep the inner `.d`.
+const IGNORE_DECLARATIONS = { ignore: '**/*.d.ts' };
+
 function autoEntries() {
   const entries = {};
 
   // React/TS apps — folder-based (for apps with multiple files)
-  glob.sync('resources/assets/apps/*/index.{ts,tsx,js,jsx}').forEach((file) => {
+  glob.sync('resources/assets/apps/*/index.{ts,tsx,js,jsx}', IGNORE_DECLARATIONS).forEach((file) => {
     const name = path.basename(path.dirname(file));
     entries[`apps/${name}`] = `./${file}`;
   });
 
   // React/TS apps — single-file (for lightweight apps)
-  glob.sync('resources/assets/apps/*.{ts,tsx,js,jsx}').forEach((file) => {
+  glob.sync('resources/assets/apps/*.{ts,tsx,js,jsx}', IGNORE_DECLARATIONS).forEach((file) => {
     const name = path.basename(file).replace(/\.(ts|tsx|js|jsx)$/, '');
     entries[`apps/${name}`] = `./${file}`;
   });
@@ -39,7 +43,7 @@ function autoEntries() {
   });
 
   // Standalone scripts (JS, TS)
-  glob.sync('resources/assets/js/*.{ts,js}').forEach((file) => {
+  glob.sync('resources/assets/js/*.{ts,js}', IGNORE_DECLARATIONS).forEach((file) => {
     const name = path.basename(file).replace(/\.(ts|js)$/, '');
     entries[`js/${name}`] = `./${file}`;
   });
@@ -108,6 +112,12 @@ module.exports = {
 | `js/<name>.{ts,js}` | `public/js/<name>.js` |
 
 The `RemoveEmptyScriptsPlugin` strips the tiny empty `.js` webpack would emit for pure-CSS entries.
+
+<Callout type="info">
+TypeScript declaration files are skipped. `*.ts` also matches `*.d.ts`, and the entry name is built by stripping only the outer extension — so before WP Bones `v2.0.5` a `global.d.ts` dropped into `resources/assets/apps` became the entry `apps/global.d` and webpack emitted an empty `public/apps/global.d.js` next to its `.asset.php`. The three globs above pass `{ ignore: '**/*.d.ts' }`.
+
+If your plugin was generated before `v2.0.5`, its `webpack.config.js` is a copy made at that time and does not have the change. Add the second argument to the three `glob.sync(...)` calls, or replace the file with the one above if you never customised it.
+</Callout>
 
 ## Scaffolding a new app
 

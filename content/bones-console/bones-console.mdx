@@ -48,15 +48,30 @@ php bones deploy --help
 
 ```sh copy
 Usage:
-  deploy <path>
+  deploy <path> <options>
 
 Arguments:
-  path				The complete path of deploy.
-  [--wp]			You are going to release this plugin in the WordPress.org public repository.
-  [--create-zip]		Creates an installable plugin zip file instead of deploying in a directory.
+  path		The complete path of deploy.
+
+Options:
+  --wp				You are going to release this plugin in the WordPress.org public repository.
+  --create-zip			Creates an installable plugin zip file instead of deploying in a directory.
   --pkgm=<package-manager>	Forces the deployment to use the specified package manager, Eg. npm, yarn, ...
   --no-build			Forces the deployment to skip the build process.
+  --keep-ignored		Packages files that git ignores as well (they are left out by default).
 ```
+
+#### What the deploy leaves out
+
+Since `v2.0.6` the deploy asks your plugin's own git repository what it ignores and skips it, listing every path it left out. That is how a local `POST.md` stops travelling to WordPress.org: the file is invisible to `git status`, so nothing else in a release points at it.
+
+Three directories are never consulted, because your repository's ignore rules do not describe them: `vendor/` is composer's output and your plugin needs it at runtime, `public/` holds what the build has just produced, and `storage/` is the runtime directory. Most plugins gitignore all three.
+
+Use `--keep-ignored` when an ignored file really does belong in the package. If the plugin is not a git repository, nothing is filtered.
+
+<Callout type="warning">
+Also since `v2.0.6`, a production build that fails **stops the deploy**. Before that the build ran through `shell_exec()`, which discards the exit status, so a broken build printed `✅ Build completed` and the command went on to package whatever was already in `public/`.
+</Callout>
 The `--wp` option will create a deploy folder with the necessary files to submit your plugin to the WordPress repository. For further information, see [here](../getting-started/before-submit-to-wordpress-repository).
 
 #### `--wp`
@@ -184,7 +199,17 @@ The `version` command is used to version your plugin. You can use the `version` 
 php bones version 1.0.0
 ```
 
-The above command will update the plugin version in the main plugin file and in the `readme.txt` file.
+The above command updates the version everywhere your plugin declares it: the main plugin file, `readme.txt`, and — since `v2.0.6` — `package.json` and the two root entries of `package-lock.json`. Each file it changes is listed:
+
+```sh
+→ readme.txt > 1.4.0 (Stable tag: 1.4.0)
+→ wp-kirk.php  > 1.4.0 ( * Version: 1.4.0)
+→ package.json > 1.4.0 (1 entry)
+→ package-lock.json > 1.4.0 (2 entries)
+✅ Version updated to 1.4.0
+```
+
+Your dependency tree is not touched: everything from the first `"node_modules/"` key of the lockfile onwards is left exactly as npm wrote it.
 
 <Callout>
 Despite PHP Bones supporting semantic versioning, we suggest you use the same version in the `readme.txt` file and in the main plugin file. In short, avoid using the `v` prefix in the version number.
