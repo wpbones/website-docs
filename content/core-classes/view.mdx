@@ -264,6 +264,16 @@ public function withLocalizeScript($handle, $name, $l10n): View
 ```
 The `withLocalizeScript` method localizes a script by attaching PHP data to a JavaScript object, making it available in the script.
 
+The order of the chain does not matter. You can describe the payload before declaring the script it belongs to, and the framework still attaches it to the right handle:
+
+```php copy
+return WPKirk()->view('dashboard.index')
+               ->withLocalizeScript('app', 'MyPluginData', $data)
+               ->withAdminAppsScript('app');
+```
+
+Before `v2.0.6` this particular order sent the data to the wrong asset manager, `wp_localize_script()` ran before its script was enqueued, and WordPress dropped the payload without an error — leaving the JavaScript global undefined. The same applied to `withInlineScript` and `withInlineStyle`. If you reordered a chain to work around it, you can leave it as it is; both orders work.
+
 **Example:**
 ```php
 $view->withLocalizeScript('my-script', 'MyData', ['key' => 'value']);

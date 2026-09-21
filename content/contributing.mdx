@@ -52,6 +52,24 @@ You can now use this plugin to edit the WP Bones framework in the `vendor/wpbone
 
 You can now modify the WP Bones framework. Ensure you follow best practices and coding standards when making changes.
 
+### Run the test suite
+
+Since `v2.0.4` the framework ships its own PHPUnit suite. It needs neither WordPress nor a database — a `$wpdb` spy records the SQL the framework builds — so it runs in a fraction of a second from the framework repository:
+
+```sh copy
+cd <forked-repo>
+composer install
+composer test
+```
+
+GitHub Actions runs the same suite on PHP 8.1 through 8.4 for every pull request, and the suite fails on deprecations, so it is worth running before you push.
+
+Anything under `src/Database`, `src/Support` or `src/Html` can be developed test-first in the framework repository itself, which is quicker than the boilerplate round trip above. Classes that call WordPress functions are tested with [Brain\Monkey](https://brain-wp.github.io/BrainMonkey/); the `bones` CLI is driven as a process from `tests/Console`.
+
+<Callout emoji="🧪">
+If you are fixing a defect, add the failing test first. `composer test:defects` runs the `known-defect` group, which is where a test lives while the behaviour it describes is still broken — when the fix lands, the test moves out of the group rather than being deleted.
+</Callout>
+
 ### Copy/sync your changes
 
 You can copy or sync your changes to the original forked repository. Begin from the root of your boilerplate plugin folder.
