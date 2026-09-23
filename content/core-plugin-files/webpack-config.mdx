@@ -134,6 +134,10 @@ module.exports = {
 
 The `RemoveEmptyScriptsPlugin` strips the tiny empty `.js` webpack would emit for pure-CSS entries.
 
+<Callout type="warning">
+Bundles that contain JSX need **WordPress 6.6 or later**. `@wordpress/scripts` 31 compiles JSX with the automatic runtime and externalises it, so every such bundle lists `react-jsx-runtime` in its `.asset.php` — a script handle WordPress registers from 6.6. On an older WordPress the dependency is not registered, so WordPress does not print the bundle at all. Declare `Requires at least: 6.6` in the plugin header and in `readme.txt` when your plugin ships a React app or a block.
+</Callout>
+
 <Callout type="info">
 TypeScript declaration files are skipped. `*.ts` also matches `*.d.ts`, and the entry name is built by stripping only the outer extension — so before WP Bones `v2.0.5` a `global.d.ts` dropped into `resources/assets/apps` became the entry `apps/global.d` and webpack emitted an empty `public/apps/global.d.js` next to its `.asset.php`. The three globs above pass `{ ignore: '**/*.d.ts' }`.
 
