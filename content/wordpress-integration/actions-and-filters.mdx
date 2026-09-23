@@ -27,6 +27,12 @@ add_action('{your_plugin_slug}_loaded', function () {
 
 ### `wpbones_console_deploy_start`
 
+Fired once `deploy.php` has been loaded, before anything is built or copied.
+
+<Callout type="warning">
+Up to `v2.0.6` this action fired **before** `deploy.php` was included, so a callback added there for it never ran. Since `v2.0.7` it works from `deploy.php` like every other deploy hook.
+</Callout>
+
 ```php copy
 /**
  * Fired when the deploy command is started

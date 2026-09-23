@@ -59,6 +59,7 @@ Options:
   --pkgm=<package-manager>	Forces the deployment to use the specified package manager, Eg. npm, yarn, ...
   --no-build			Forces the deployment to skip the build process.
   --keep-ignored		Packages files that git ignores as well (they are left out by default).
+  --keep-dev			Packages Composer's require-dev packages as well (they are removed by default).
 ```
 
 #### What the deploy leaves out
@@ -68,6 +69,12 @@ Since `v2.0.6` the deploy asks your plugin's own git repository what it ignores 
 Three directories are never consulted, because your repository's ignore rules do not describe them: `vendor/` is composer's output and your plugin needs it at runtime, `public/` holds what the build has just produced, and `storage/` is the runtime directory. Most plugins gitignore all three.
 
 Use `--keep-ignored` when an ignored file really does belong in the package. If the plugin is not a git repository, nothing is filtered.
+
+#### Composer dev packages
+
+The deploy copies `vendor/` as it is on disk, and a working copy normally has the `require-dev` tree installed — PHPUnit, Brain Monkey and the like. Up to `v2.0.6` all of it went into the package, WordPress.org included, unless your `deploy.php` ran `composer install --no-dev` itself.
+
+Since `v2.0.7`, when `vendor/composer/installed.json` lists dev packages, the deploy runs `composer install --no-dev --no-scripts --no-plugins --optimize-autoloader` **in the deployed copy**, against your plugin's `composer.lock`. Your working copy is never touched, and `--no-scripts` keeps `post-autoload-dump` from renaming namespaces a second time. Without a `composer.lock`, or without Composer on the machine, the deploy stops rather than ship the dev packages. Pass `--keep-dev` to package them anyway.
 
 <Callout type="warning">
 Also since `v2.0.6`, a production build that fails **stops the deploy**. Before that the build ran through `shell_exec()`, which discards the exit status, so a broken build printed `✅ Build completed` and the command went on to package whatever was already in `public/`.
