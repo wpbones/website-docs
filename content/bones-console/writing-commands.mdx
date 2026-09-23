@@ -74,6 +74,32 @@ class Kernel extends ConsoleKernel
 }
 ```
 
+## Using WordPress in a command
+
+A command runs in the terminal, outside WordPress, and `php bones` does not load WordPress for it.
+Call `$this->loadWordPress()` at the start of `handle()` when the command needs WordPress functions
+or your plugin. After it, `$this->plugin` is your plugin instance:
+
+```php filename="plugin/Console/Commands/MyCommand.php" copy
+public function handle()
+{
+  $this->loadWordPress();
+
+  $this->line('Log type: ' . $this->plugin->config('plugin.logging.type'));
+
+  foreach (get_users() as $user) {
+    $this->line($user->ID . ' - ' . $user->display_name);
+  }
+}
+```
+
+<Callout type="info">
+  `$this->plugin` is available from WP Bones **v2.0.8**. When your plugin is active it is the very
+  instance WordPress created, so hooks are not registered twice; when it is not active,
+  `loadWordPress()` boots it for the command. Run the command from the plugin root: WordPress is
+  looked up three folders above it, and if it is not there `$this->plugin` stays `null`.
+</Callout>
+
 ## Customizing Deploy
 
 You can customize the deployment process by using the action `wpbones_console_deploy_completed`. This is very useful, for example, to delete a folder and write a new file. To do that, you can override the `__construct` method in your command.
