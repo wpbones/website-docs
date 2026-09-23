@@ -45,8 +45,11 @@ export default {
     other: {
       'msapplication-TileColor': '#fff',
     },
+    // The social preview image is app/opengraph-image.jpg (+ .alt.txt): Next.js turns it into
+    // og:image for every route and copies it to twitter:image.
     twitter: {
-      site: 'https://wpbones.com/',
+      card: 'summary_large_image',
+      site: '@wpbonesx',
     },
     alternates: {
       // https://github.com/vercel/next.js/discussions/50189#discussioncomment-10826632

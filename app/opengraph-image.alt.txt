@@ -1,0 +1,1 @@
+WP Bones 2.0, the WordPress framework: IoC container, Blade templating and Eloquent ORM, built with Composer, Yarn, webpack and TypeScript
