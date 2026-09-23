@@ -21,6 +21,23 @@ const defaultConfig = require('@wordpress/scripts/config/webpack.config');
 // and the entry name would keep the inner `.d`.
 const IGNORE_DECLARATIONS = { ignore: '**/*.d.ts' };
 
+// @wordpress/scripts has loader rules for .css and .scss/.sass only: the .less rule
+// reuses the scss loaders (CSS extraction, css-loader, PostCSS) with less-loader.
+const sassRule = defaultConfig.module.rules.find((rule) => rule.test instanceof RegExp && rule.test.test('.scss'));
+if (!sassRule) {
+  throw new Error('webpack.config.js: no .scss rule in the @wordpress/scripts config to build the .less rule from.');
+}
+const lessRule = {
+  test: /\.less$/,
+  use: [
+    ...sassRule.use.filter((loader) => !String(loader.loader ?? loader).includes('sass-loader')),
+    {
+      loader: require.resolve('less-loader'),
+      options: { sourceMap: defaultConfig.mode !== 'production' },
+    },
+  ],
+};
+
 function autoEntries() {
   const entries = {};
 
@@ -54,6 +71,10 @@ function autoEntries() {
 module.exports = {
   ...defaultConfig,
   entry: autoEntries(),
+  module: {
+    ...defaultConfig.module,
+    rules: [...defaultConfig.module.rules, lessRule],
+  },
   output: {
     ...defaultConfig.output,
     path: path.resolve(__dirname, 'public'),
@@ -113,10 +134,18 @@ module.exports = {
 
 The `RemoveEmptyScriptsPlugin` strips the tiny empty `.js` webpack would emit for pure-CSS entries.
 
+<Callout type="warning">
+Bundles that contain JSX need **WordPress 6.6 or later**. `@wordpress/scripts` 31 compiles JSX with the automatic runtime and externalises it, so every such bundle lists `react-jsx-runtime` in its `.asset.php` — a script handle WordPress registers from 6.6. On an older WordPress the dependency is not registered, so WordPress does not print the bundle at all. Declare `Requires at least: 6.6` in the plugin header and in `readme.txt` when your plugin ships a React app or a block.
+</Callout>
+
 <Callout type="info">
 TypeScript declaration files are skipped. `*.ts` also matches `*.d.ts`, and the entry name is built by stripping only the outer extension — so before WP Bones `v2.0.5` a `global.d.ts` dropped into `resources/assets/apps` became the entry `apps/global.d` and webpack emitted an empty `public/apps/global.d.js` next to its `.asset.php`. The three globs above pass `{ ignore: '**/*.d.ts' }`.
 
 If your plugin was generated before `v2.0.5`, its `webpack.config.js` is a copy made at that time and does not have the change. Add the second argument to the three `glob.sync(...)` calls, or replace the file with the one above if you never customised it.
+</Callout>
+
+<Callout type="warning">
+LESS entries need WP Bones `v2.0.7` or later. `@wordpress/scripts` ships loader rules for `.css` and `.scss`/`.sass` only, so up to `v2.0.6` the config above discovered `css/<name>.less` and then failed on it with *"You may need an appropriate loader to handle this file type"* — although `bones migrate:to-v2` installs `less` and `less-loader`. The `lessRule` block fixes it: add it to a `webpack.config.js` generated earlier, or replace the file with the one above if you never customised it.
 </Callout>
 
 ## Scaffolding a new app

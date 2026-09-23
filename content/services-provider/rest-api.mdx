@@ -47,8 +47,8 @@ return [
 
   // authentication
   'auth'   => [
-    // embed basic authentication handler
-    'basic' => true,
+    // embedded HTTP Basic Auth handler: off by default, see "Authentication" below
+    'basic' => false,
   ],
 ];
 ```
@@ -323,6 +323,10 @@ class WPKirkV1Controller extends RestController
 WP Bones will add the Basic Authentication features without using the [official WordPress Plugin](https://github.com/WP-API/Basic-Auth). The Basic Authentication is based on the [WordPress Basic Authentication](https://developer.wordpress.org/rest-api/using-the-rest-api/authentication/#basic-authentication-with-application-passwords) and the [WordPress Basic Authentication Plugin](https://wordpress.org/plugins/basic-authentication/).
 
 Remember that you have to enable this feature from the `api.php` configuration file.
+
+<Callout type="warning">
+Turn it on only for a plugin whose API really needs it. When `auth.basic` is `true` the framework hooks `determine_current_user` for **every** request, not only REST calls, and authenticates any username and password it finds in the request headers — outside `wp-login.php`, so login limiters and two-factor plugins that hook the login form never see those attempts, and in cleartext on a site without HTTPS. For most integrations the [Application Passwords](https://developer.wordpress.org/rest-api/using-the-rest-api/authentication/#basic-authentication-with-application-passwords) built into WordPress since 5.6 are the better tool. Since `v2.0.7` every boilerplate ships with it off.
+</Callout>
 
 ```php filename="config/api.php" copy
 <?php
