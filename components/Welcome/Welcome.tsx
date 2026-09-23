@@ -70,19 +70,6 @@ export function Welcome() {
             Get started with the Docs →
           </Button>
         </Flex>
-        <Flex>
-          <Button
-            component="a"
-            href="https://wpbones.ownai.com/"
-            size="xl"
-            radius="xl"
-            variant="gradient"
-            className={classes.buttonChat}
-            gradient={{ from: 'teal', to: 'lime', deg: 45 }}
-          >
-            Chat with WP Bones AI →
-          </Button>
-        </Flex>
       </Group>
 
       <Features />

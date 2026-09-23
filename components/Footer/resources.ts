@@ -26,11 +26,6 @@ export const resources = [
     href: 'https://wpbones.substack.com/',
   },
   {
-    key: 'wpbones-ai',
-    title: 'WP Bones AI',
-    href: 'https://wpbones.ownai.com/',
-  },
-  {
     key: 'wordpress-developer-resources',
     title: 'WordPress Developer Resources',
     href: 'https://developer.wordpress.org/',

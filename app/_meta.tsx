@@ -9,11 +9,6 @@ export default {
     type: 'page',
     title: 'Documentation',
   },
-  wpbones_ai: {
-    type: 'page',
-    title: 'WP Bones AI',
-    href: 'https://wpbones.ownai.com/',
-  },
   community: {
     title: 'Community',
     type: 'menu',
