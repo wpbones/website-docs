@@ -189,5 +189,7 @@ for anyone who prefers full-VM isolation. For new projects we recommend **wp-env
   the environment doesn't bootstrap WP. Run it from the plugin root inside your WP shell.
 - **PHP version mismatch** — check `php -v` in the same shell you use to run `php bones`. On
   macOS with multiple PHP installs, `brew link php@8.3` or `valet use php@8.3` helps.
-- **`yarn build` fails with Node warnings** — bump to Node 18+. WP Bones v2 builds with
-  `@wordpress/scripts` 31, which requires Node 18.
+- **`yarn install` refuses `glob`, or `yarn build` fails with Node warnings** — move to Node 20
+  or 22+. The v2 `webpack.config.js` needs `glob` 11, which declares `node: "20 || >=22"`: yarn
+  refuses to install it on Node 18 or 21 (npm only warns). `@wordpress/scripts` 31 itself asks
+  for Node 18.12+.
