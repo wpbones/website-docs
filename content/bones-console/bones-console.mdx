@@ -216,7 +216,11 @@ The above command updates the version everywhere your plugin declares it: the ma
 ✅ Version updated to 1.4.0
 ```
 
-Your dependency tree is not touched: everything from the first `"node_modules/"` key of the lockfile onwards is left exactly as npm wrote it. A v1 lockfile, written by npm 6, has no such key and a single root entry, and since `v2.0.9` that entry is the only one that changes (`1 entry`).
+Your dependency tree is not touched: everything from the first `"node_modules/"` key of the lockfile onwards is left exactly as npm wrote it.
+
+<Callout type="warning">
+A v1 lockfile, written by npm 5 or 6, has no `"node_modules/"` key. Up to `v2.0.8` the command therefore also rewrote the first dependency's version in it; since `v2.0.9` only the root entry changes, and the output reads `(1 entry)`.
+</Callout>
 
 <Callout>
 Despite PHP Bones supporting semantic versioning, we suggest you use the same version in the `readme.txt` file and in the main plugin file. In short, avoid using the `v` prefix in the version number.
