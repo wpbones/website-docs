@@ -204,7 +204,7 @@ You can also use any WordPress function
 6.6.2
 ```
 
-A value you `return` is printed, variables live until the session ends, and an error is shown without closing the shell. Type `exit`, or press Ctrl-D, to leave. Before `v2.0.10` errors printed nothing, and input piped into tinker without a final `exit` never ended.
+A value you `return` is printed, variables live until the session ends, and an error is shown without closing the shell. The session ends with `exit`, with Ctrl-D, or when piped input runs out. Before `v2.0.10` errors printed nothing, and piped input without a final `exit` never ended.
 
 ### `update`
 
@@ -376,10 +376,10 @@ The Bones command console provides a set of commands to create some base classes
 php bones make:cpt MyCustomPostTypeClass
 ```
 
-Every `make:*` command takes a class name or `Folder/ClassName`, and the namespace follows the folder: `php bones make:controller Shop/Cart` writes `plugin/Http/Controllers/Shop/Cart.php` in `…\Http\Controllers\Shop`.
+Every creator that writes a PHP class takes a class name or `Folder/ClassName` (`make:console` takes a class name only, since the kernel loads `plugin/Console/Commands/*.php`), and the namespace follows the folder: `php bones make:controller Shop/Cart` writes `plugin/Http/Controllers/Shop/Cart.php` in `…\Http\Controllers\Shop`. `make:app`, below, takes an app name instead.
 
 <Callout type="info">
-Since `v2.0.10` the creators never overwrite a file that already exists: they stop and leave it as it is. Pass `--force` to overwrite it. A name that is not a PHP class name, or that climbs out of the folder with `..`, is refused.
+Since `v2.0.10` the class creators never overwrite a file that already exists: they stop and leave it as it is. Pass `--force` to overwrite it. A name that is not a PHP class name, or that climbs out of the folder with `..`, is refused. `make:app` refuses an existing app, `--force` or not.
 </Callout>
 
 ### `make:app`
