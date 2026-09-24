@@ -32,6 +32,10 @@ Great! You are quite ready to start developing.
 
 ## Common Commands
 
+<Callout type="info">
+Since `v2.0.10` every command exits with a non-zero status when it fails, and with `1` when you answer "no" to a confirmation or nothing answers it, as in a script; errors are written to stderr. To confirm from a script, pipe the answer: `echo y | php bones version 1.2.0`.
+</Callout>
+
 ### `deploy`
 
 When your plugin is ready, you can use the `deploy` bones command in order to create a new folder useful to submit your plugin to the wordpress.org repository.
@@ -60,7 +64,20 @@ Options:
   --no-build			Forces the deployment to skip the build process.
   --keep-ignored		Packages files that git ignores as well (they are left out by default).
   --keep-dev			Packages Composer's require-dev packages as well (they are removed by default).
+  --force			Replaces a destination folder that is neither empty nor a previous deploy of this plugin.
 ```
+
+#### Where the deploy goes
+
+The deploy deletes the destination folder and fills it again, so since `v2.0.10` it checks the folder first, before anything is built:
+
+- the plugin itself, any folder that contains it (`..`, your home) and any folder inside it are **always refused**, `--force` or not;
+- an existing folder is replaced only when it is empty or holds a previous deploy of this plugin, that is its main file with the same `Plugin Name`;
+- anything else is left alone, and the deploy stops and says so. Pass `--force` if that folder really is yours to replace.
+
+<Callout type="warning">
+Up to `v2.0.9` an existing destination was deleted after a five-second pause and nothing else: `php bones deploy ..` removed every plugin beside yours and the plugin itself, and `php bones deploy build` copied the plugin into `build/build/build/…` until the path was too long.
+</Callout>
 
 #### What the deploy leaves out
 
@@ -186,6 +203,8 @@ You can also use any WordPress function
 >>> echo get_bloginfo('version');
 6.6.2
 ```
+
+A value you `return` is printed, variables live until the session ends, and an error is shown without closing the shell. Type `exit`, or press Ctrl-D, to leave. Before `v2.0.10` errors printed nothing, and input piped into tinker without a final `exit` never ended.
 
 ### `update`
 
@@ -356,6 +375,12 @@ The Bones command console provides a set of commands to create some base classes
 ```sh copy
 php bones make:cpt MyCustomPostTypeClass
 ```
+
+Every `make:*` command takes a class name or `Folder/ClassName`, and the namespace follows the folder: `php bones make:controller Shop/Cart` writes `plugin/Http/Controllers/Shop/Cart.php` in `…\Http\Controllers\Shop`.
+
+<Callout type="info">
+Since `v2.0.10` the creators never overwrite a file that already exists: they stop and leave it as it is. Pass `--force` to overwrite it. A name that is not a PHP class name, or that climbs out of the folder with `..`, is refused.
+</Callout>
 
 ### `make:app`
 
