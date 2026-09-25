@@ -53,7 +53,7 @@ Remember that the Namespace inside the WordPress plugins architecture should be 
 
 WP Bones connects Eloquent to the database WordPress itself uses. On most sites that is MySQL, configured by `DB_HOST`, `DB_NAME`, `DB_USER` and `DB_PASSWORD` in `wp-config.php`.
 
-Since WP Bones 2.0.12 that connection talks to MySQL the way WordPress does. It uses the charset and collation WordPress settled on (`$wpdb->charset` and `$wpdb->collate`, `utf8mb4` on any recent install, even when `DB_CHARSET` still says `utf8`), so emoji and other 4-byte characters are written and read back intact. It also reads `DB_HOST` like WordPress: a port (`localhost:3307`), a socket (`localhost:/tmp/mysql.sock`) or an IPv6 address all work.
+Since WP Bones 2.0.12 that connection talks to MySQL the way WordPress does. It uses the charset and collation WordPress settled on (`$wpdb->charset` and `$wpdb->collate`, `utf8mb4` on any recent install, even when `DB_CHARSET` still says `utf8`), so emoji and other 4-byte characters are written and read back intact. It also reads `DB_HOST` like WordPress: a port (`localhost:3307`) and a socket (`localhost:/tmp/mysql.sock`) both work, and an IPv6 host is put in brackets when PHP uses `mysqlnd`, as WordPress does.
 
 <Callout type="info">
 Up to 2.0.11 the connection was always `utf8`: on MySQL 8 writing an emoji through Eloquent failed with error 3988, and an emoji written by WordPress came back as `?`. A `DB_HOST` with a socket didn't connect.
