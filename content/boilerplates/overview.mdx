@@ -3,54 +3,53 @@ import { IconBrandTypescript, IconBrandReact, IconLayoutDashboard, IconTemplate 
 
 # Boilerplates
 
-WP Bones ships four curated starter templates on GitHub. Each one builds on the same v2
-infrastructure (webpack + yarn + TypeScript + Jest + Prettier) and differs only in what it
-demonstrates. Pick the one that matches the stack you want to learn or start from.
+WP Bones has 14 boilerplates on GitHub, all built on the same v2 infrastructure (webpack + yarn +
+TypeScript + Jest + Prettier). Four of them are starting points for a front-end stack and have a
+page of their own here; the other ten each demonstrate one part of the framework. Start from the
+stack you want, or open the demo of the feature you are learning.
 
-<Cards>
-  <Cards.Card
-    arrow
-    icon={<IconTemplate color="#74C0FC" />}
-    title="Base"
-    href="/docs/boilerplates/base"
-  >
-    The minimum starter: JS/TS, SCSS/LESS/CSS, a small React sample, a Jest test. Use this if you
-    want the leanest possible scaffold.
-  </Cards.Card>
-  <Cards.Card
-    arrow
-    icon={<IconBrandTypescript color="#3178C6" />}
-    title="TypeScript"
-    href="/docs/boilerplates/typescript"
-  >
-    Focused TypeScript showcase — interfaces, generics, discriminated unions, type guards, utility
-    types. Great to learn idiomatic TS in a WordPress plugin.
-  </Cards.Card>
-  <Cards.Card
-    arrow
-    icon={<IconBrandReact color="#61DAFB" />}
-    title="ReactJS (WP libraries)"
-    href="/docs/boilerplates/reactjs"
-  >
-    React using only WordPress runtime libraries — `@wordpress/components`, `@wordpress/data`,
-    `@wordpress/hooks`, `@wordpress/i18n`. Native wp-admin look, no third-party UI kit.
-  </Cards.Card>
-  <Cards.Card
-    arrow
-    icon={<IconLayoutDashboard color="#339AF0" />}
-    title="Mantine UI"
-    href="/docs/boilerplates/mantine"
-  >
-    A full admin app built on Mantine — theme customization, dark mode toggle, tabs, form
-    validation, modals, notifications, and a DataTable fed by WordPress AJAX.
-  </Cards.Card>
+## Starting points
+
+<Cards num={2}>
+  <Cards.Card arrow icon={<IconTemplate color="#74C0FC" />} title="Base" href="/docs/boilerplates/base" />
+  <Cards.Card arrow icon={<IconBrandTypescript color="#3178C6" />} title="TypeScript" href="/docs/boilerplates/typescript" />
+  <Cards.Card arrow icon={<IconBrandReact color="#61DAFB" />} title="ReactJS (WP libraries)" href="/docs/boilerplates/reactjs" />
+  <Cards.Card arrow icon={<IconLayoutDashboard color="#339AF0" />} title="Mantine UI" href="/docs/boilerplates/mantine" />
 </Cards>
+
+- **Base** — the minimum starter: JS/TS, SCSS/LESS/CSS, a small React sample, a Jest test. Use
+  this if you want the leanest possible scaffold.
+- **TypeScript** — a focused TypeScript showcase: interfaces, generics, discriminated unions, type
+  guards, utility types. Great to learn idiomatic TS in a WordPress plugin.
+- **ReactJS (WP libraries)** — React using only WordPress runtime libraries:
+  `@wordpress/components`, `@wordpress/data`, `@wordpress/hooks`, `@wordpress/i18n`. Native
+  wp-admin look, no third-party UI kit.
+- **Mantine UI** — a full admin app built on Mantine: theme customization, dark mode toggle, tabs,
+  form validation, modals, notifications, and a DataTable fed by WordPress AJAX.
+
+## Feature demos
+
+Each of these shows one part of the framework, with its sources on the plugin's own pages. The
+name links to the GitHub repository; the docs page explains the feature.
+
+| Boilerplate | What it shows | Links |
+| --- | --- | --- |
+| [API](https://github.com/wpbones/WPKirk-API-Boilerplate) | REST API routes discovered from the `api/` folder, in two namespaces: `wpkirk/v1` and `wpbones/v2` | [Docs](/docs/services-provider/rest-api) · [Playground](https://playground.wordpress.net/?blueprint-url=https://www.wpbones.com/wpkirk-api-boilerplate.json) |
+| [Blade](https://github.com/wpbones/WPKirk-Blade-Boilerplate) | Views written with the Blade template engine | [Docs](/docs/views-template/blade-template) · [Playground](https://playground.wordpress.net/?blueprint-url=https://www.wpbones.com/wpkirk-blade-boilerplate.json) |
+| [Custom Post Type](https://github.com/wpbones/WPKirk-CPT-Boilerplate) | A custom post type and a custom taxonomy | [Docs](/docs/services-provider/custom-post-types) · [Playground](https://playground.wordpress.net/?blueprint-url=https://www.wpbones.com/wpkirk-cpt-boilerplate.json) |
+| [Cron](https://github.com/wpbones/WPKirk-Cron-Boilerplate) | A WordPress cron schedule, registered by a service provider | [Docs](/docs/services-provider/schedule) · [Playground](https://playground.wordpress.net/?blueprint-url=https://www.wpbones.com/wpkirk-cron-boilerplate.json) |
+| [Database](https://github.com/wpbones/WPKirk-Database-Boilerplate) | The query builder, models with and without the WordPress table prefix, migrations, seeders and Eloquent | [Docs](/docs/database-orm/query-builder) · [Playground](https://playground.wordpress.net/?blueprint-url=https://www.wpbones.com/wpkirk-database-boilerplate.json) |
+| [Hooks](https://github.com/wpbones/WPKirk-Hooks-Boilerplate) | Files in `plugin/hooks`, loaded when the plugin starts, and modules in `plugin/modules` | [Docs](/docs/core-concepts/hooks-modules) · [Playground](https://playground.wordpress.net/?blueprint-url=https://www.wpbones.com/wpkirk-hooks-boilerplate.json) |
+| [Internationalization](https://github.com/wpbones/WPKirk-Internationalization-Boilerplate) | Translated PHP and JavaScript strings, with the `.pot`, `.po`, `.mo` and JSON files | [Docs](/docs/int-locale/overview) · [Playground](https://playground.wordpress.net/?blueprint-url=https://www.wpbones.com/wpkirk-internationalization-boilerplate.json) |
+| [Options](https://github.com/wpbones/WPKirk-Options-Boilerplate) | Options declared in `config/options.php`: read, updated, deleted, reset and shown in a view | [Docs](/docs/core-concepts/options) · [Playground](https://playground.wordpress.net/?blueprint-url=https://www.wpbones.com/wpkirk-options-boilerplate.json) |
+| [Packages](https://github.com/wpbones/WPKirk-Packages-Boilerplate) | The official `wpbones/*` packages at work: Actions & Filters JS, Flags, Geolocalizer, Morris PHP, Pure CSS Tabs, Pure CSS Switch, User Agent and WP Tables | [Docs](/docs/official-packages/official-packages) · [Playground](https://playground.wordpress.net/?blueprint-url=https://www.wpbones.com/wpkirk-packages-boilerplate.json) |
+| [Routes](https://github.com/wpbones/WPKirk-Routes-Boilerplate) | Admin menus routed to controllers, and pages discovered from the `pages/` folder | [Docs](/docs/core-concepts/menus-routing) · [Playground](https://playground.wordpress.net/?blueprint-url=https://www.wpbones.com/wpkirk-routes-boilerplate.json) |
 
 ## Try them in the browser
 
-Every boilerplate has a [WordPress Playground](https://wordpress.org/playground/) blueprint. Click
-the **Playground** link on each boilerplate page to spin up a throwaway WordPress install with
-the plugin pre-activated.
+Every boilerplate has a [WordPress Playground](https://wordpress.org/playground/) blueprint. The
+**Playground** link, in the table above or on each starting point's page, spins up a throwaway
+WordPress install with the plugin pre-activated.
 
 ## How to start from one
 
@@ -63,12 +62,12 @@ Each boilerplate is a GitHub **template repository**. You have three options:
    [wpbones.com](https://wpbones.com).
 
 <Callout type="info">
-All four boilerplates share the same bones CLI, the same yarn scripts
+All 14 boilerplates share the same bones CLI, the same yarn scripts
 (`dev`/`build`/`test`/`format`/`lint`), and the same webpack auto-discovery rules. Moving from one
-to another is mostly a matter of swapping `dependencies` in `package.json`.
+starting point to another is mostly a matter of swapping `dependencies` in `package.json`.
 </Callout>
 
-## What stays the same across all four
+## What stays the same across all of them
 
 - [`webpack.config.js`](/docs/core-plugin-files/webpack-config) with auto-discovery of entries
 - [`package.json`](/docs/core-plugin-files/package-json) scripts: `dev`, `build`, `test`, `format`,
@@ -81,4 +80,7 @@ to another is mostly a matter of swapping `dependencies` in `package.json`.
 
 - **`dependencies`** in `package.json` — only the UI kit / libraries the boilerplate demoes.
 - **`resources/assets/apps/`** — the demo app(s) specific to each boilerplate.
-- **Dashboard Blade view** — each shows its own sources inline so learners can read them.
+- **The PHP side, in the feature demos** — the part of the framework each one shows: `api/`,
+  `database/`, `plugin/CustomPostTypes/`, `plugin/Providers/`, `config/options.php` and so on.
+- **The admin pages** — each boilerplate's pages show their own sources inline, so learners can
+  read them (plain PHP views, and Blade in the Blade boilerplate).
