@@ -50,7 +50,7 @@ auto-discovers everything under `resources/assets/`.
 | `yarn build` | One-shot production build into `public/` |
 | `yarn test` | Runs Jest via `wp-scripts test-unit-js` on files under `__tests__/` |
 | `yarn test:watch` | Same as above, watch mode |
-| `yarn format` | Prettier over the plugin's JS, TS, JSON and YAML, except what `.prettierignore` lists (`public/`, `vendor/`, Composer's files) |
+| `yarn format` | Prettier over the plugin's JS, TS, JSON and YAML, except what `.prettierignore` lists: `public/` and `build/`, `vendor/`, `composer.json` and `composer.lock`, and the translation JSON in `languages/` |
 | `yarn format:check` | The same files, checked: exits 1 where `yarn format` would change something, and writes nothing |
 | `yarn lint` | ESLint over JS/TS in `resources/` |
 | `yarn lint:style` | stylelint over CSS/SCSS in `resources/` |

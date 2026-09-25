@@ -13,7 +13,7 @@ You can update the WP Bones framework by using the bones command:
 php bones update
 ```
 
-Under the hood, the bones command runs `composer update wpbones/wpbones --with-dependencies`, and Composer renames the new framework into your namespace when it is done.
+Under the hood, the bones command runs `composer update wpbones/wpbones --with-dependencies`; the `post-autoload-dump` hook in your [`composer.json`](./composer-json) then runs `php bones rename --update`, which renames the new framework into your namespace.
 Of course, you are updating just the framework, not your plugin.
 
 In this section, you will find the latest versions of the files included in the WP Bones boilerplate. These files may undergo changes, including breaking changes.
