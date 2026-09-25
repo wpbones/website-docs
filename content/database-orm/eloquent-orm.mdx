@@ -49,6 +49,16 @@ We decided to remove the illuminate/database Eloquent ORM package from the WP Bo
 Remember that the Namespace inside the WordPress plugins architecture should be unique. Nonetheless, we aim to support the Eloquent ORM features, so we opted to remove it from the core, although you will still be able to use it separately.
 </Callout>
 
+## MySQL and SQLite
+
+WP Bones connects Eloquent to the database WordPress itself uses. On most sites that is MySQL, configured by `DB_HOST`, `DB_NAME`, `DB_USER` and `DB_PASSWORD` in `wp-config.php`.
+
+Since WP Bones 2.0.11, when WordPress runs on SQLite (WordPress Playground, WordPress Studio, or any site with the [SQLite Database Integration](https://wordpress.org/plugins/sqlite-database-integration/) plugin), Eloquent connects to the same SQLite file instead, the one the `FQDB` constant points at. The WordPress tables keep their names there, so your models work unchanged, and what they write is what `$wpdb` reads.
+
+<Callout type="warning">
+On SQLite, create your tables with WordPress, through a [migration](migrations) or `dbDelta()`, and use Eloquent for their data. A table created with Eloquent's schema builder (`\Illuminate\Database\Capsule\Manager::schema()->create()`) can be queried, but WordPress doesn't know it exists: `SHOW TABLES` and `DESCRIBE` don't list it, because the SQLite plugin keeps MySQL's catalogue only for the tables created through WordPress.
+</Callout>
+
 ## Defining Models
 
 To get started, let's create a database model. Models typically live in the `plugin` directory, but you are free to place them anywhere that can be auto-loaded according to your `composer.json` file. All database models extend `Illuminate\Database\Eloquent\Model` class.

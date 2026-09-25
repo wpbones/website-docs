@@ -146,6 +146,10 @@ Every WP Bones boilerplate ships with a Playground blueprint — see the **Playg
 [boilerplate page](/docs/boilerplates/overview). You can't `php bones` from Playground (no shell),
 but you can test the runtime behavior of an already-built plugin.
 
+Playground runs WordPress on SQLite, not MySQL. The query builder goes through `$wpdb`, which
+Playground translates, and since 2.0.11 [Eloquent](/docs/database-orm/eloquent-orm#mysql-and-sqlite)
+connects to the same SQLite file, so the Database demo works there too.
+
 ## Docker Compose (full control)
 
 If the wrappers above feel too opinionated and you want to pin every version yourself, the
