@@ -36,6 +36,10 @@ Great! You are quite ready to start developing.
 Since `v2.0.10` every command exits with a non-zero status when it fails, and with `1` when you answer "no" to a confirmation or nothing answers it, as in a script; errors are written to stderr. To confirm from a script, pipe the answer: `echo y | php bones version 1.2.0`.
 </Callout>
 
+<Callout type="info">
+Since `v2.1.0` bones works from any folder: `php my-plugin/bones make:controller Cart` writes into `my-plugin`, and a custom command still finds WordPress. A relative `deploy` path means the folder you typed it in. Up to `v2.0.12` bones had to be run from the plugin root: from anywhere else it could not read the plugin's `namespace` file and stopped with a `TypeError`.
+</Callout>
+
 ### `deploy`
 
 When your plugin is ready, you can use the `deploy` bones command in order to create a new folder useful to submit your plugin to the wordpress.org repository.
@@ -168,6 +172,8 @@ The `rename` command is used to rename the plugin namespace. You can use the `re
 php bones rename "My First WP Bones Plugin"
 ```
 
+Since `v2.1.0` the rename writes only the files whose content changes, and leaves binary files alone. Up to `v2.0.12` it rewrote every file of the plugin, and a compiled `.mo` catalogue came out corrupted, because a longer plugin id shifts its strings while the offset table stays put.
+
 → See more about [Naming your Plugin](../getting-started/naming-your-plugin).
 
 ### `require`
@@ -208,11 +214,17 @@ A value you `return` is printed, variables live until the session ends, and an e
 
 ### `update`
 
-The `update` command is used to update the WP Bones framework. You can use the `update` command by running:
+The `update` command updates the WP Bones framework and the packages it depends on:
 
 ```sh copy
 php bones update
 ```
+
+Since `v2.1.0` it runs `composer update wpbones/wpbones --with-dependencies` and exits with Composer's status. To update every package of your plugin, run `composer update`.
+
+<Callout type="warning">
+Up to `v2.0.12` the command deleted `vendor/wpbones/wpbones` first and then ran a full `composer update`: when Composer failed, without a network for example, the plugin was left with no framework at all.
+</Callout>
 
 → After updating the WP Bones framework, have a look at the [Changelog](../release-notes) to see what's new.<br/>
 → And you may also check the [Core Plugin Files](../core-plugin-files/overview) to see if there are any changes.
@@ -348,12 +360,16 @@ php bones migrate:to-v2
 ```
 
 The command removes `gulpfile.js` and `package-lock.json`, creates
-`webpack.config.js`, `tsconfig.json`, `.prettierrc`, and `jest.config.js`
+`webpack.config.js`, `tsconfig.json`, `.prettierrc`, `.prettierignore` and `jest.config.js`
 from the framework stubs, rewrites `package.json` scripts to the unified
 `dev/build/test/format/lint` block, drops gulp-era devDependencies, and
 installs the v2 set (`@wordpress/scripts ^31`, `typescript`, `glob`,
-`less-loader`, `webpack-remove-empty-scripts`, `@types/react*`). Your
-`resources/assets/` tree is left untouched — your code is preserved.
+`less-loader`, `webpack-remove-empty-scripts`, `@types/react*`, and `prettier`
+as `wp-prettier`). Your `resources/assets/` tree is left untouched — your code is preserved.
+
+<Callout type="info">
+Since `v2.1.0` the migrated `format:check` is `prettier --check`, and it writes nothing. Up to `v2.0.12` it was `wp-scripts format --check`, and `wp-scripts format` ignores `--check`: the "check" reformatted the plugin, compiled bundles included, and exited 0. The new `.prettierignore` also keeps `format` away from `public/`.
+</Callout>
 
 After migration, run:
 
@@ -379,6 +395,8 @@ php bones make:cpt MyCustomPostTypeClass
 Every creator that writes a PHP class takes a class name or `Folder/ClassName` (`make:console` takes a class name only, since the kernel loads `plugin/Console/Commands/*.php`), and the namespace follows the folder: `php bones make:controller Shop/Cart` writes `plugin/Http/Controllers/Shop/Cart.php` in `…\Http\Controllers\Shop`. `make:app`, below, takes an app name instead.
 
 <Callout type="info">
+Since `v2.1.0` `make:widget Shop/RecentPosts` gives the widget the `id_base` `<plugin-id>-shop-recent-posts`, the name `<Plugin Name> Recent Posts` and a description. Up to `v2.0.12` every widget of a plugin got `<plugin-id>-demo-widget`, so a second widget shared the first one's settings, and the description never showed.
+
 Since `v2.0.10` the class creators never overwrite a file that already exists: they stop and leave it as it is. Pass `--force` to overwrite it. A name that is not a PHP class name, or that climbs out of the folder with `..`, is refused. `make:app` refuses an existing app, `--force` or not.
 </Callout>
 

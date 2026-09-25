@@ -84,6 +84,8 @@ php bones rename --update
 Probably, you won't need to do that as the update flow is already in the composer file
 </Callout>
 
+Since `v2.1.0` `rename --update` renames `vendor/` only, which is what Composer has just installed: your plugin's own files are left alone. Up to `v2.0.12` it went through the whole rename again, and in a renamed plugin with an `index.php` in its root it moved that `index.php` over your main plugin file.
+
 
 ```json copy
 ...

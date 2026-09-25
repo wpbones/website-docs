@@ -3,7 +3,7 @@ import { Callout, FileTree } from 'nextra/components'
 
 # Core Plugin Files
 
-This document explains how to update the WP Bones framework using the `php bones update` command, which executes a `composer update` along with other tasks. It highlights that only the framework is updated, not your plugin. The document provides an overview of the core plugin files included in the WP Bones boilerplate, noting that these files may undergo changes. It is advised checking for updates to these files if you have a plugin created with an earlier version of WP Bones.
+This document explains how to update the WP Bones framework using the `php bones update` command, which runs `composer update wpbones/wpbones --with-dependencies`. It highlights that only the framework is updated, not your plugin. The document provides an overview of the core plugin files included in the WP Bones boilerplate, noting that these files may undergo changes. It is advised checking for updates to these files if you have a plugin created with an earlier version of WP Bones.
 
 ## Overview
 
@@ -13,7 +13,7 @@ You can update the WP Bones framework by using the bones command:
 php bones update
 ```
 
-Under the hood, the bones command will execute a `composer update` along with other tasks.
+Under the hood, the bones command runs `composer update wpbones/wpbones --with-dependencies`, and Composer renames the new framework into your namespace when it is done.
 Of course, you are updating just the framework, not your plugin.
 
 In this section, you will find the latest versions of the files included in the WP Bones boilerplate. These files may undergo changes, including breaking changes.

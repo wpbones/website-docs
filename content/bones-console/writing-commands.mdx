@@ -96,8 +96,9 @@ public function handle()
 <Callout type="info">
   `$this->plugin` is available from WP Bones **v2.0.8**. When your plugin is active it is the very
   instance WordPress created, so hooks are not registered twice; when it is not active,
-  `loadWordPress()` boots it for the command. Run the command from the plugin root: WordPress is
-  looked up three folders above it, and if it is not there `$this->plugin` stays `null`.
+  `loadWordPress()` boots it for the command. WordPress is looked up three folders above the plugin,
+  and if it is not there `$this->plugin` stays `null`. Since `v2.1.0` that works whatever folder
+  you run `php bones` from; up to `v2.0.12` only from the plugin root.
 </Callout>
 
 ## Customizing Deploy

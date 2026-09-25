@@ -39,9 +39,9 @@ constraint to `^2.0.0` after running the migrator.
 
 - `webpack.config.js` — a single file that scans `resources/assets/` and builds everything.
 - `tsconfig.json` — TypeScript ready out of the box (JS still works).
-- `.prettierrc`, `jest.config.js`.
+- `.prettierrc`, `.prettierignore`, `jest.config.js`.
 - `@wordpress/scripts ^31`, `typescript`, `glob`, `less-loader`, `webpack-remove-empty-scripts`,
-  `@types/react*`, `@wordpress/jest-preset-default` devDependencies.
+  `@types/react*`, `@wordpress/jest-preset-default` and `prettier` (as `wp-prettier`) devDependencies.
 
 ### Unified scripts
 
@@ -53,7 +53,7 @@ constraint to `^2.0.0` after running the migrator.
     "test":           "wp-scripts test-unit-js",
     "test:watch":     "wp-scripts test-unit-js --watch",
     "format":         "wp-scripts format",
-    "format:check":   "wp-scripts format --check",
+    "format:check":   "prettier --check --ignore-path .prettierignore \"**/*.{js,jsx,json,ts,tsx,yml,yaml}\"",
     "lint":           "wp-scripts lint-js resources/",
     "lint:style":     "wp-scripts lint-style 'resources/**/*.{css,scss}'"
   }

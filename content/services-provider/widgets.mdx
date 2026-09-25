@@ -16,7 +16,7 @@ You may create your own widget service provider by following the steps below:
 php bones make:widget MyWidget
 ```
 
-By default, the new provider will be created in the `plugin/Widgets` directory. Of course, you may create your Service Provider manually and in any directory you prefer. You have to change the namespace accordingly.
+By default, the new provider will be created in the `plugin/Widgets` directory. Its base ID, name and description come from the class name: `MyWidget` in a plugin named "WP Kirk" gets `wp-kirk-my-widget`, "WP Kirk My Widget" and "The My Widget widget of WP Kirk" (since `v2.1.0`; before, every widget got the same base ID, and so the same settings). Of course, you may create your Service Provider manually and in any directory you prefer. You have to change the namespace accordingly.
 
 ```php filename="plugin/Widgets/MyWidget.php" copy
 <?php
@@ -49,14 +49,14 @@ class MyWidget extends Widget
    *
    * @var string
    */
-  public $id_base = 'wpkirk-demo-widget';
+  public $id_base = 'wp-kirk-my-widget';
 
   /**
    * Name for the widget displayed on the configuration page.
    *
    * @var string
    */
-  public $name = 'WP Kirk Widget';
+  public $name = 'WP Kirk My Widget';
 
   /**
    * Optional. Passed to wp_register_sidebar_widget()
@@ -67,7 +67,7 @@ class MyWidget extends Widget
    * @var array
    */
   public $widget_options = [
-    'description' => 'WP Kirk Demo Widget Description'
+    'description' => 'The My Widget widget of WP Kirk'
   ];
 
   /**
