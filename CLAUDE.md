@@ -39,6 +39,57 @@ Package manager: **Yarn 4** (do not use npm). Node version: see `.nvmrc`.
 - **Pagefind** generates a static search index at build time (`yarn build:pagefind`), served from `public/_pagefind/`.
 - Custom Mantine extensions: `@gfazioli/mantine-marquee`, `@gfazioli/mantine-parallax`, `@gfazioli/mantine-text-animate`.
 
+## The home page and the site's look (2026-10-05 redesign)
+
+Asked for on 2026-10-05: no dark/light switch, light only with a palette of its own (as findergit.app
+dropped its switch, there for dark); a home page laid out after laravel.com without copying it, the
+tabbed "framework" section above all; findergit.app's animated mascot and scroll morphs; its footer,
+keeping the sponsor avatars (WP Bones has no sponsors yet, and its profile is `github.com/sponsors/wpbones`,
+not the author's personal one).
+
+- **Light only, forced in both libraries.** `ColorSchemeScript` and `MantineProvider` take
+  `forceColorScheme="light"`; Nextra's `Layout` takes `darkMode={false}` and
+  `nextThemes={{ defaultTheme: 'light', forcedTheme: 'light' }}`. A visitor with `dark` stored from the
+  old switch still gets light (`scripts/shot.mjs` writes `dark` to storage and emulates a dark OS on
+  purpose, so every capture is that worst case).
+- **The palette is the logo's**, sampled from `components/wpbones-logo.png`: sky `#5bb6dc`, steel
+  `#4f93b0`, white. `theme.ts` has the `bones` ladder (shade 4 is the sky; filled buttons use 6, white on
+  it 4.62:1; links use 7) and greys cut from the logo's navy (`dimmed` 5.50:1). The page tokens are
+  `--wpb-*` on `:root` in `theme/global.css`; Nextra's primary is set once, as HSL, on its `Head`.
+- **The home page is server components** (`components/Home/`), with client islands only where something
+  moves or reacts: `RevealScope`/`Reveal`, `ScrollNumber`, `FeatureTabs`, `InstallLine`, `ScrollGuide`.
+  `revealItem`/`revealScope` live in `components/Motion/reveal-props.ts`, a module WITHOUT `'use client'`:
+  a function exported from a client module reaches a server component as a reference it cannot call.
+  `revealItem(variant, delay, className)` merges the class, because a spread's `className` replaces the
+  element's own.
+- **The feature tour's snippets are real** (`components/Home/FeatureTour/features.ts`): copied from the
+  boilerplates or the docs, trimmed only by removing lines (`// ...`), source and line numbers beside
+  each, with the `php bones` command that scaffolds one of the files (CLI line cited). Code is
+  highlighted at build time by shiki with a theme in the site's palette (`highlight.ts`); the client gets
+  HTML. Every panel is in the served HTML (inactive ones `hidden`), so a crawler gets every snippet.
+- **The hero's plugin stack opens as the page scrolls** (`PluginStack`): a CSS scroll-driven animation
+  (`animation-timeline: scroll(root)`), no script; where unsupported or under Reduce Motion the layers
+  simply stand apart. Two elements per layer, because the scroll moves `.layer` and the entrance drops
+  `.slab`.
+- **Motion is findergit.app's** (`components/Motion`, its springs generated into `theme/global.css`
+  between `springs:begin`/`springs:end`, `springs.test.ts` holds them equal). A card that lifts on hover
+  is wrapped in its reveal item, never given the props: two transforms on one element fight.
+- **The mascot is the logo's bone come alive** (`components/Mascot/sprite.ts`, the grids ARE the
+  drawing; `sprite.test.ts` holds its colours to the tokens). It appears on the hero's stack, in the
+  statement, on the feature tour's window (it names the open tab; a click opens the next), over the
+  closing call, and in the docs (`<MascotNote>`, registered in `mdx-components.ts`, used on four pages).
+  `ScrollGuide` rides in the corner once the hero is behind the reader, but never while another drawing
+  marked `data-mascot-spot` is on screen; it gives the tour's own lines as tips and stands on the footer's
+  `#sponsors` card saying the card's own first sentence (`Footer.test.tsx` holds the two equal).
+- **An infinite animation moves only `transform` and `opacity`**: the NEW badge's pulse animated
+  `box-shadow` and repainted forever; its ring is a pseudo-element now.
+- **To see it**: `scripts/shot.mjs` (from findergit-website) films a page through Chrome's DevTools:
+  `--at` fractions, `--frames N --every MS`, `--eval`, `--no-wake` (without it the page is scrolled once
+  first, which fires every one-shot reveal before the first frame). A `next dev` rewrites `CLAUDE.md` and
+  `next-env.d.ts`: restore them before committing.
+- **Not ours, measured on `main` too**: two React "unique key" warnings from Nextra's `ConfigProvider`
+  in `next dev`, with or without banner, navbar and footer.
+
 ## Tooling
 
 - **Formatter**: oxfmt (`.oxfmtrc.json`) — 100 char width, single quotes, trailing comma es5, with import sorting.
