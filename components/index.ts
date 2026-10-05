@@ -1,5 +1,6 @@
 export { ActionButton } from './ActionButton';
 export { AnimateBadge } from './AnimateBadge';
+export { ChatLauncher } from './ChatLauncher';
 export { Boilerplate, Demo, DocsBoilerplateDemo } from './Boilerplate';
 export { ColorSchemeControl } from './ColorSchemeControl/ColorSchemeControl';
 export { FAQs } from './FAQ';
