@@ -71,3 +71,8 @@
     background-image: url('https://github.com/shuding/nextra/blob/main/docs/public/favicon-dark.svg?raw=true');
   }
 }
+
+/* The publisher line: the same small type as the credits above it. */
+.legal {
+  text-align: right;
+}
