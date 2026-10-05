@@ -2,50 +2,45 @@
 
 import { IconBrandGithub } from '@tabler/icons-react';
 import { Cards } from 'nextra/components';
-import { Badge, Button, Group, MantineColor } from '@mantine/core';
+import { Badge, Button, Group } from '@mantine/core';
 import { AnimateBadge } from '@/components';
+import { DemoButton } from './DemoButton';
 import { boilerplateList, BoilerplateSlugs } from './List';
+import classes from './Buttons.module.css';
 
 type BoilerplateButtonProps = {
   slug: string;
-  colorFrom?: MantineColor;
-  colorTo?: MantineColor;
-  layout?: 'default' | 'square';
-  justify?: React.CSSProperties['justifyContent'];
+  /** As wide as its column, for the rows of `Boilerplate.Rows`. */
+  fullWidth?: boolean;
 };
 
-function BoilerplateButton({
-  slug,
-  colorFrom = 'dark.9',
-  colorTo = 'dark.8',
-  layout = 'default',
-}: BoilerplateButtonProps) {
+/** A new repository from the boilerplate's GitHub template. */
+function BoilerplateButton({ slug, fullWidth = false }: BoilerplateButtonProps) {
   const { name, mostUsed, title, owner = 'wpbones' } = boilerplateList[slug];
 
   const hrefGitHub = `https://github.com/new?template_name=${name}&template_owner=${owner}`;
 
   return (
     <Button
-      color="orange"
       component="a"
       href={hrefGitHub}
-      variant="gradient"
+      variant="default"
       size="sm"
-      data-layout={layout}
-      gradient={{ from: colorFrom, to: colorTo, deg: 45 }}
-      leftSection={<IconBrandGithub size={18} />}
       radius="xl"
-    >
-      {mostUsed ? (
-        <Group gap={4}>
-          <Badge color="lime" fz={10} size="xs">
+      fullWidth={fullWidth}
+      justify={fullWidth ? 'flex-start' : undefined}
+      className={classes.github}
+      data-full-width={fullWidth || undefined}
+      leftSection={<IconBrandGithub size={18} />}
+      rightSection={
+        mostUsed ? (
+          <Badge color="bones" variant="light" size="sm">
             Most used
           </Badge>
-          {title}
-        </Group>
-      ) : (
-        `${title} on GitHub`
-      )}
+        ) : undefined
+      }
+    >
+      {title} on GitHub
     </Button>
   );
 }
@@ -99,9 +94,28 @@ function BoilerplateCards({ column = 2, display = [] }: BoilerplateCardsProps) {
 }
 
 function BoilerplateButtons({ display = [] }: BoilerplateCardsProps) {
-  return Object.entries(boilerplateList)
-    .filter(([key]) => display.length === 0 || display.includes(key as BoilerplateSlugs))
-    .map(([key, value]) => <BoilerplateButton key={key} slug={key} {...value} />);
+  return Object.keys(boilerplateList)
+    .filter((key) => display.length === 0 || display.includes(key as BoilerplateSlugs))
+    .map((key) => <BoilerplateButton key={key} slug={key} />);
+}
+
+/**
+ * Every boilerplate on a row of its own: its GitHub template on the left, its
+ * demo on the right, both as wide as their column, so the two columns line up
+ * whatever the length of each name (two separate stacks of buttons sized to
+ * their labels came out ragged on both sides).
+ */
+function BoilerplateRows({ display = [] }: BoilerplateCardsProps) {
+  return (
+    <div className={classes.rows}>
+      {Object.keys(boilerplateList)
+        .filter((key) => display.length === 0 || display.includes(key as BoilerplateSlugs))
+        .flatMap((key) => [
+          <BoilerplateButton key={`${key}-github`} slug={key} fullWidth />,
+          <DemoButton key={`${key}-demo`} slug={key} fullWidth />,
+        ])}
+    </div>
+  );
 }
 
 export const Boilerplate = {
@@ -109,4 +123,5 @@ export const Boilerplate = {
   Cards: BoilerplateCards,
   Button: BoilerplateButton,
   Buttons: BoilerplateButtons,
+  Rows: BoilerplateRows,
 } as const;

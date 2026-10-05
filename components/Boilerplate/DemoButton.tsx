@@ -1,21 +1,16 @@
-import { IconExternalLink } from '@tabler/icons-react';
-import { Button, MantineColor } from '@mantine/core';
+import { IconArrowUpRight, IconBrandWordpress } from '@tabler/icons-react';
+import { Button } from '@mantine/core';
 import { boilerplateList } from './List';
+import classes from './Buttons.module.css';
 
 type DemoButtonProps = {
   slug: string;
-  colorFrom?: MantineColor;
-  colorTo?: MantineColor;
-  layout?: 'default' | 'square';
-  justify?: React.CSSProperties['justifyContent'];
+  /** As wide as its column, for the rows of `Boilerplate.Rows`. */
+  fullWidth?: boolean;
 };
 
-export function DemoButton({
-  slug,
-  colorFrom = 'blue.9',
-  colorTo = 'blue.6',
-  layout = 'default',
-}: DemoButtonProps) {
+/** The boilerplate running in WordPress Playground, from this site's own blueprint. */
+export function DemoButton({ slug, fullWidth = false }: DemoButtonProps) {
   const { title } = boilerplateList[slug];
 
   const json = slug === 'base' ? '' : `-${slug}`;
@@ -24,17 +19,22 @@ export function DemoButton({
 
   return (
     <Button
-      color="blue"
       component="a"
       href={hrefPlayground}
-      variant="gradient"
+      target="_blank"
+      rel="noopener noreferrer"
+      variant="filled"
+      color="bones"
       size="sm"
-      data-layout={layout}
-      gradient={{ from: colorFrom, to: colorTo, deg: 45 }}
-      rightSection={<IconExternalLink size={18} />}
       radius="xl"
+      fullWidth={fullWidth}
+      justify={fullWidth ? 'flex-start' : undefined}
+      className={classes.demo}
+      data-full-width={fullWidth || undefined}
+      leftSection={<IconBrandWordpress size={18} />}
+      rightSection={<IconArrowUpRight size={16} />}
     >
-      See {title} in Action
+      See {title} in action
     </Button>
   );
 }

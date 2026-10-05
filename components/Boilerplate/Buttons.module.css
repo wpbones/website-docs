@@ -1,0 +1,49 @@
+/*
+ * The boilerplate buttons in the docs, in the site's light palette (the
+ * 2026-10-05 redesign): GitHub as a quiet outlined button, the Playground
+ * demo as the filled one, since trying it is the action a reader is invited
+ * to. They replaced a black gradient and a Mantine-blue gradient that read
+ * as another site's.
+ */
+.github {
+  border-color: var(--wpb-frame);
+  background: var(--wpb-page);
+  color: var(--wpb-ink);
+  font-weight: 500;
+
+  & [data-position='left'] {
+    color: var(--wpb-ink);
+  }
+
+  &:hover {
+    border-color: var(--mantine-color-bones-4);
+    background: var(--wpb-mist);
+  }
+}
+
+.demo {
+  font-weight: 500;
+}
+
+/* Full width, in a row of two: the icon left, the arrow at the far right. */
+.github[data-full-width] [data-position='right'],
+.demo[data-full-width] [data-position='right'] {
+  margin-inline-start: auto;
+}
+
+/* One row per boilerplate: GitHub on the left, its demo on the right. */
+.rows {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: rem(10px) rem(14px);
+  margin-block: rem(20px);
+
+  @media (max-width: $mantine-breakpoint-xs) {
+    grid-template-columns: minmax(0, 1fr);
+
+    /* On a phone each pair stays together, with room between pairs. */
+    & > :nth-child(2n) {
+      margin-bottom: rem(10px);
+    }
+  }
+}

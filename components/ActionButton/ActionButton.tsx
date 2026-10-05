@@ -1,7 +1,7 @@
 'use client';
 
-import { IconExternalLink } from '@tabler/icons-react';
-import { Button, MantineColor } from '@mantine/core';
+import { IconArrowUpRight, IconBrandWordpress } from '@tabler/icons-react';
+import { Button } from '@mantine/core';
 import classes from './ActionButton.module.css';
 
 type AvailableDemos =
@@ -23,35 +23,32 @@ type AvailableDemos =
 
 interface ActionButtonProps {
   demo?: AvailableDemos;
-  colorFrom?: MantineColor;
-  colorTo?: MantineColor;
-  layout?: 'default' | 'square';
   title?: string;
 }
 
-export function ActionButton({
-  demo = 'demo',
-  colorFrom = 'orange',
-  colorTo = 'violet',
-  layout = 'default',
-  title,
-}: ActionButtonProps) {
+/**
+ * A demo in WordPress Playground, as a large button: the same filled bones
+ * blue as the boilerplate demo buttons (Boilerplate/DemoButton), where it was
+ * an orange-to-violet gradient with a red glow.
+ */
+export function ActionButton({ demo = 'demo', title }: ActionButtonProps) {
   const sanitizeDemo = demo.charAt(0).toUpperCase() + demo.replace('-boilerplate', '').slice(1);
 
   const titleText = title || `See WP Bones Plugin ${sanitizeDemo} in action`;
 
   return (
     <Button
-      color="orange"
       component="a"
       href={`https://playground.wordpress.net/?blueprint-url=https://www.wpbones.com/wpkirk-${demo}.json`}
-      variant="gradient"
-      size="xl"
-      data-layout={layout}
-      gradient={{ from: colorFrom, to: colorTo, deg: 45 }}
-      className={classes.buttonAction}
-      rightSection={<IconExternalLink />}
+      target="_blank"
+      rel="noopener noreferrer"
+      variant="filled"
+      color="bones"
+      size="lg"
       radius="xl"
+      className={classes.buttonAction}
+      leftSection={<IconBrandWordpress size={20} />}
+      rightSection={<IconArrowUpRight size={18} />}
     >
       {titleText}
     </Button>
