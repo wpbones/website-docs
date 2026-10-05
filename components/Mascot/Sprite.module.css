@@ -36,9 +36,14 @@
   }
 }
 
+/* Still, under Reduce Motion: one leg frame, not both drawn over each other. */
 @media (prefers-reduced-motion: reduce) {
   .stepA,
   .stepB {
     animation: none;
+  }
+
+  .stepB {
+    opacity: 0;
   }
 }
