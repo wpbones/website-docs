@@ -14,13 +14,13 @@
   }
 
   body {
-    font-family: Poppins, sans-serif;
+    font-family: var(--font-poppins), Poppins, sans-serif;
   }
 
   code,
   pre,
   samp {
-    font-family: 'Fira Code', Monaco, monospace !important;
+    font-family: var(--font-fira-code), 'Fira Code', Monaco, monospace !important;
   }
 
   :root {

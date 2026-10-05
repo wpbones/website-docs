@@ -1,0 +1,8 @@
+/* Where the chat's own launcher sits once loaded, so the hand-off does not move. */
+.launcher {
+  position: fixed;
+  right: rem(20px);
+  bottom: rem(20px);
+  z-index: 100;
+  box-shadow: var(--mantine-shadow-md);
+}

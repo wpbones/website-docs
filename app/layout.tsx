@@ -6,15 +6,15 @@ import '@gfazioli/mantine-text-animate/styles.css';
 // Mantine theme overrides (body background, marquee fade edges, etc.)
 import '@/theme/global.css';
 
-import { GoogleTagManager } from '@next/third-parties/google';
 import { Analytics } from '@vercel/analytics/react';
+import { Fira_Code, Poppins } from 'next/font/google';
 import { Layout } from 'nextra-theme-docs';
 import { Banner, Head } from 'nextra/components';
 import { getPageMap } from 'nextra/page-map';
 import { ColorSchemeScript, mantineHtmlProps, MantineProvider } from '@mantine/core';
 // !! End of important imports !!
 
-import { Footer, MantineNavBar } from '@/components';
+import { ChatLauncher, Footer, MantineNavBar } from '@/components';
 import config from '@/config';
 import pack from '../package.json';
 import { theme } from '../theme';
@@ -23,29 +23,40 @@ import './global.css';
 
 export const metadata = config.metadata;
 
+// Served from this site: next/font downloads the files at build time, so a
+// visitor's browser never asks Google for them. The weights are the ones the
+// Google Fonts links asked for (Poppins regular only, Fira Code 400 and 700).
+const poppins = Poppins({
+  weight: '400',
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-poppins',
+});
+const firaCode = Fira_Code({
+  weight: ['400', '700'],
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-fira-code',
+});
+
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const pageMap = await getPageMap();
 
   const { nextraLayout, head } = config;
 
   return (
-    <html lang="en" dir="ltr" {...mantineHtmlProps}>
+    <html
+      lang="en"
+      dir="ltr"
+      className={`${poppins.variable} ${firaCode.variable}`}
+      {...mantineHtmlProps}
+    >
       <Head>
         <ColorSchemeScript
           nonce={head.mantine.nonce}
           defaultColorScheme={head.mantine.defaultColorScheme}
         />
         <link rel="shortcut icon" href="/favicon.svg" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
-          rel="stylesheet"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap"
-          rel="stylesheet"
-        />
         <meta
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width, user-scalable=no"
@@ -69,7 +80,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           >
             {children}
           </Layout>
-          <GoogleTagManager gtmId={process.env.GTM as string} />
+          <ChatLauncher />
           <Analytics />
         </MantineProvider>
       </body>
