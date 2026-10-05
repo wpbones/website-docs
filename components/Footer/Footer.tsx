@@ -27,13 +27,14 @@ import {
   Text,
   Title,
 } from '@mantine/core';
+import config from '@/config';
 import { AnimateBadge } from '../AnimateBadge';
 import wpBonesLogo from '../wpbones-logo.png';
 import { ecosystem, highlights, resources, sponsors } from './links';
 import NextraLogo from './nextra.svg';
 import classes from './Footer.module.css';
 
-type FooterProps = {};
+type FooterProps = { year: number };
 
 type VerticalLink = {
   key: string;
@@ -62,7 +63,8 @@ const VerticalLinks = ({ list }: { list: VerticalLink[] }) => {
   );
 };
 
-export const Footer: React.FC<FooterProps> = () => {
+export const Footer: React.FC<FooterProps> = ({ year }) => {
+  const { legal } = config;
   return (
     <div className={classes.contentFooter}>
       <Container className={classes.footer} size="lg">
@@ -260,6 +262,27 @@ export const Footer: React.FC<FooterProps> = () => {
               </Group>
             </Text>
           </Group>
+        </Group>
+
+        {/*
+          Who publishes the site, on every page: brand, owner and VAT number,
+          with the legal notice and the privacy policy one click away (see
+          `legal` in config/index.ts, the same values as the app sites). The
+          year comes from the server layout, so the client cannot hydrate with
+          a different one. Text pieces sit in template literals so no JSX
+          whitespace rule can drop a space between them.
+        */}
+        <Group justify="flex-end" mt="xs">
+          <Text fz={12} c="dimmed" className={classes.legal}>
+            {`© ${year} ${legal.brand} — ${legal.owner} · P.IVA ${legal.vatNumber} · `}
+            <Anchor fz={12} href="/docs/legal">
+              Legal
+            </Anchor>
+            {' · '}
+            <Anchor fz={12} href="/docs/privacy">
+              Privacy
+            </Anchor>
+          </Text>
         </Group>
       </Container>
     </div>
