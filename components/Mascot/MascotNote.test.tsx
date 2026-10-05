@@ -34,7 +34,7 @@ describe('MascotNote', () => {
     expect(right).toContain('data-side="right"');
     expect(left).toContain('data-side="left"');
     // The raised arm's hand is the one steel cell drawn at the sprite's left edge, row 2.
-    expect(right).toMatch(/<rect x="0" y="2" width="1" height="1" fill="#4f93b0"/);
-    expect(left).not.toMatch(/<rect x="0" y="2"/);
+    expect(right).toMatch(/<path d="M0 2h1v1h-1z[^"]*" fill="#4f93b0"/);
+    expect(left).not.toMatch(/M0 2h1/);
   });
 });

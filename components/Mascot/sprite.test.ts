@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { ARMS, FACE, HEIGHT, LEGS, LEGS_TOP, PALETTE, runs, WIDTH } from './sprite';
+import { ARMS, FACE, HEIGHT, LEGS, LEGS_TOP, PALETTE, paths, runs, WIDTH } from './sprite';
 
 const every = [...FACE, ...ARMS.stand, ...ARMS.point, ...LEGS.stand, ...LEGS.stepA, ...LEGS.stepB];
 
@@ -118,6 +118,15 @@ describe('runs', () => {
       { x: 1, y: 10, width: 2, colour: 'N' },
       { x: 3, y: 10, width: 1, colour: 'W' },
       { x: 0, y: 11, width: 2, colour: 'L' },
+    ]);
+  });
+});
+
+describe('paths', () => {
+  it('draws every run of one colour in one path', () => {
+    expect(paths(runs(['.NNW', 'NN..'], 3))).toEqual([
+      { colour: 'N', d: 'M1 3h2v1h-2zM0 4h2v1h-2z' },
+      { colour: 'W', d: 'M3 3h1v1h-1z' },
     ]);
   });
 });

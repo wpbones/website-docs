@@ -87,10 +87,41 @@ function load() {
 }
 
 /**
+ * Shiki writes every token's colour as an inline style, and the page carries
+ * each snippet twice (the HTML and the RSC payload): 555 style attributes and
+ * 200 KB of the home page's HTML (measured on the first build). Each of the
+ * theme's styles becomes a one-letter class instead, coloured in
+ * FeatureTabs.module.css, and the default ink becomes no attribute at all, as
+ * the window sets it. A style not in this map is left inline, so a new scope
+ * still shows, only heavier.
+ */
+const CLASSES: Record<string, string> = {
+  'color:#0E293A': '',
+  'color:#126A88': 'k',
+  'color:#0A556E;font-weight:bold': 't',
+  'color:#6B3FA0': 'v',
+  'color:#A0570B': 's',
+  'color:#5C6B76;font-style:italic': 'c',
+  'color:#126A88;font-style:italic': 'a',
+};
+
+function compact(html: string) {
+  return html
+    .replace(/ style="background-color:#fbf8f2;color:#0e293a"/, '')
+    .replace(/<span style="([^"]*)">/g, (whole, style: string) => {
+      const name = CLASSES[style];
+      if (name === undefined) {
+        return whole;
+      }
+      return name ? `<span class="${name}">` : '<span>';
+    });
+}
+
+/**
  * A snippet as highlighted HTML. Shiki's `php` grammar is `source.php`, so a
  * fragment of a class with no `<?php` opener highlights as PHP too (checked).
  */
 export async function highlight(code: string, lang: Lang) {
   const shiki = await load();
-  return shiki.codeToHtml(code, { lang, theme: 'wpbones-light' });
+  return compact(shiki.codeToHtml(code, { lang, theme: 'wpbones-light' }));
 }

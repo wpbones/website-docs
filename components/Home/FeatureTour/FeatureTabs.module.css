@@ -135,9 +135,39 @@
     margin: 0;
     padding: rem(20px) rem(24px);
     background: transparent !important;
+    color: #0e293a;
     font-family: var(--font-fira-code), 'Fira Code', monospace;
     font-size: rem(13.5px);
     line-height: 1.7;
+  }
+
+  /* The highlighter's classes (highlight.ts): the theme's colours, by name. */
+
+  & :global(.k) {
+    color: #126a88;
+  }
+
+  & :global(.t) {
+    color: #0a556e;
+    font-weight: 700;
+  }
+
+  & :global(.v) {
+    color: #6b3fa0;
+  }
+
+  & :global(.s) {
+    color: #a0570b;
+  }
+
+  & :global(.c) {
+    color: #5c6b76;
+    font-style: italic;
+  }
+
+  & :global(.a) {
+    color: #126a88;
+    font-style: italic;
   }
 
   & pre:focus-visible {

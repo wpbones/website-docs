@@ -24,20 +24,27 @@ import './global.css';
 export const metadata = config.metadata;
 
 // Served from this site: next/font downloads the files at build time, so a
-// visitor's browser never asks Google for them. Poppins in four weights: the
+// visitor's browser never asks Google for them. Poppins in three weights: the
 // page's headings are set at 600 and its labels at 500, and with only the
-// regular cut loaded the browser drew both as a synthesised bold.
+// regular cut loaded the browser drew both as a synthesised bold. No 700:
+// each weight is one more file preloaded before the first paint, and a 700
+// is matched to the 600 cut.
 const poppins = Poppins({
-  weight: ['400', '500', '600', '700'],
+  weight: ['400', '500', '600'],
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-poppins',
 });
+// Fira Code as its variable font, one file for every weight, and not
+// preloaded: the code type is never what the first paint waits for, and a
+// preloaded font competes with the stylesheet for the first bytes. Measured
+// on 2026-10-05 with five font files preloaded: the first paint came 0.5 s
+// later than main's, on the docs as well as the home page.
 const firaCode = Fira_Code({
-  weight: ['400', '700'],
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-fira-code',
+  preload: false,
 });
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {

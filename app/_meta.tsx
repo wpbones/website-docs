@@ -1,10 +1,10 @@
 import { Group } from '@mantine/core';
 import { IconCoffee, IconHeartFilled } from '@tabler/icons-react';
 
+// No `index` key: the home page is app/page.ts, which Nextra's page map does
+// not see (see there), so there is no entry to hide and a key for it fails the
+// build ("refers to a page that cannot be found").
 export default {
-  index: {
-    display: 'hidden',
-  },
   docs: {
     type: 'page',
     title: 'Documentation',

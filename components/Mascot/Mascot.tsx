@@ -1,23 +1,23 @@
-import { ARMS, FACE, HEIGHT, LEGS, LEGS_TOP, PALETTE, runs, WIDTH } from './sprite';
-import classes from './Mascot.module.css';
+import { ARMS, FACE, HEIGHT, LEGS, LEGS_TOP, PALETTE, paths, runs, WIDTH } from './sprite';
+import classes from './Sprite.module.css';
 
 /** Pixels per cell. Whole pixels, so `crispEdges` lands every edge on the grid. */
 const SCALE = 4;
 
-// The drawing never changes, so it is turned into rectangles once.
-const face = runs(FACE);
-const arms = { stand: runs(ARMS.stand), point: runs(ARMS.point) };
+// The drawing never changes, so it is turned into paths once, one per colour.
+const face = paths(runs(FACE));
+const arms = { stand: paths(runs(ARMS.stand)), point: paths(runs(ARMS.point)) };
 const legs = {
-  stand: runs(LEGS.stand, LEGS_TOP),
-  stepA: runs(LEGS.stepA, LEGS_TOP),
-  stepB: runs(LEGS.stepB, LEGS_TOP),
+  stand: paths(runs(LEGS.stand, LEGS_TOP)),
+  stepA: paths(runs(LEGS.stepA, LEGS_TOP)),
+  stepB: paths(runs(LEGS.stepB, LEGS_TOP)),
 };
 
-function Cells({ cells }: { cells: ReturnType<typeof runs> }) {
+function Cells({ cells }: { cells: ReturnType<typeof paths> }) {
   return (
     <>
-      {cells.map(({ x, y, width, colour }) => (
-        <rect key={`${x},${y}`} x={x} y={y} width={width} height={1} fill={PALETTE[colour]} />
+      {cells.map(({ colour, d }) => (
+        <path key={colour} d={d} fill={PALETTE[colour]} />
       ))}
     </>
   );

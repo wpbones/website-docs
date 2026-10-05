@@ -6,7 +6,7 @@ import { IconX } from '@tabler/icons-react';
 import { useReducedMotion } from '@mantine/hooks';
 import { dismissGuide, guideMemory, onGuideDismissed, sayNext } from './guide';
 import { Mascot } from './Mascot';
-import classes from './Mascot.module.css';
+import classes from './ScrollGuide.module.css';
 
 /** Where the mascot is: nowhere, in the corner of the window, or on the Sponsors card. */
 export type Place = 'none' | 'corner' | 'card';

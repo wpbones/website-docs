@@ -4,7 +4,7 @@ import { Ecosystem } from '@/components/Home/Ecosystem';
 import { FeatureTour } from '@/components/Home/FeatureTour/FeatureTour';
 import { FinalCta } from '@/components/Home/FinalCta';
 import { Hero } from '@/components/Home/Hero';
-import classes from '@/components/Home/Home.module.css';
+import classes from './Home.module.css';
 import { Showcase } from '@/components/Home/Showcase';
 import { Statement } from '@/components/Home/Statement';
 import { Toolbelt } from '@/components/Home/Toolbelt';
@@ -19,7 +19,7 @@ import { FEATURES } from '@/components/Home/FeatureTour/features';
  * showcase), and the way in again. A server component: only the islands that
  * move or react are client code.
  */
-export default function HomePage() {
+export function HomePage() {
   return (
     <main className={classes.page}>
       <div className={classes.frame}>

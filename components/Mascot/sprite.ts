@@ -131,3 +131,19 @@ export function runs(rows: readonly string[], top = 0): Cell[] {
   });
   return cells;
 }
+
+/**
+ * The runs of `cells`, one SVG path per colour: `M x y h w v 1 h -w z` for
+ * each run. One element per colour rather than one `<rect>` per run, because
+ * the page draws the mascot five times and serves each drawing twice (the
+ * HTML and the RSC payload): 281 rects on the home page's first build. No two
+ * runs overlap (`sprite.test.ts`), so the order the colours are painted in
+ * does not matter.
+ */
+export function paths(cells: readonly Cell[]): { colour: Colour; d: string }[] {
+  const byColour = new Map<Colour, string>();
+  for (const { x, y, width, colour } of cells) {
+    byColour.set(colour, `${byColour.get(colour) ?? ''}M${x} ${y}h${width}v1h-${width}z`);
+  }
+  return [...byColour].map(([colour, d]) => ({ colour, d }));
+}

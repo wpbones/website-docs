@@ -1,39 +1,11 @@
 /*
- * The mascot's sprite, and the two places `ScrollGuide` puts it: the corner of
- * the window and the footer's Sponsors card. Ported from findergit.app's
+ * The two places `ScrollGuide` puts the mascot: the corner of the window and
+ * the footer's Sponsors card. The sprite's own styles are Sprite.module.css,
+ * so these reach the drawing as `svg`. Ported from findergit.app's
  * `Mascot.module.css` (whose corner and card came from netfox.app's), redrawn
  * for a light page: the bubbles are white with the sky on their rim, where
  * findergit's were the night's navy.
  */
-
-.sprite {
-  display: block;
-}
-
-/* Two leg frames, alternating while it walks. */
-.stepA {
-  animation: step-a 320ms steps(1) infinite;
-}
-
-.stepB {
-  animation: step-b 320ms steps(1) infinite;
-}
-
-@keyframes step-a {
-  50% {
-    opacity: 0;
-  }
-}
-
-@keyframes step-b {
-  0% {
-    opacity: 0;
-  }
-
-  50% {
-    opacity: 1;
-  }
-}
 
 @keyframes bob {
   50% {
@@ -111,8 +83,8 @@
 }
 
 /* 24 cells wide (`sprite.ts`); `height: auto` keeps the viewBox's shape. */
-.corner .sprite,
-.card .sprite {
+.corner svg,
+.card svg {
   width: calc(var(--cell) * 24);
   height: auto;
 }
@@ -158,8 +130,8 @@
 }
 
 /* One hop as it arrives and one on every new tip, then still. */
-.corner[data-phase='here'] .sprite,
-.card[data-phase='here'] .sprite {
+.corner[data-phase='here'] svg,
+.card[data-phase='here'] svg {
   animation: hop 420ms ease-out 1;
 }
 
@@ -329,8 +301,6 @@
 /* As specific as the rules they undo, and after them. */
 @media (prefers-reduced-motion: reduce) {
   .caption,
-  .stepA,
-  .stepB,
   .corner,
   .card,
   .cornerBubble,
@@ -338,8 +308,8 @@
   .corner[data-phase] .walker,
   .corner[data-moving] .walker,
   .card[data-phase] .sitter,
-  .corner[data-phase] .sprite,
-  .card[data-phase] .sprite {
+  .corner[data-phase] svg,
+  .card[data-phase] svg {
     transition: none;
     animation: none;
   }

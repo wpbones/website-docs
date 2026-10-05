@@ -1,0 +1,44 @@
+/*
+ * The sprite alone: what every drawing of the mascot needs, the docs' notes
+ * included. Kept apart from the scroll guide's styles (ScrollGuide.module.css)
+ * so that a docs page does not load the home page's: sharing one stylesheet
+ * put the guide, the feature tour and the hero in a CSS chunk every docs page
+ * loaded, about 9 KB compressed and two more render-blocking files (measured
+ * on the 2026-10-05 build).
+ */
+
+.sprite {
+  display: block;
+}
+
+/* Two leg frames, alternating while it walks. */
+.stepA {
+  animation: step-a 320ms steps(1) infinite;
+}
+
+.stepB {
+  animation: step-b 320ms steps(1) infinite;
+}
+
+@keyframes step-a {
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes step-b {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stepA,
+  .stepB {
+    animation: none;
+  }
+}
