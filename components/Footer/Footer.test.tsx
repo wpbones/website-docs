@@ -1,5 +1,6 @@
 import { render, screen, within } from '@/test-utils';
 import config from '@/config';
+import { SPONSOR_LINE } from '@/components/Mascot/ScrollGuide';
 import { Footer } from './Footer';
 
 /**
@@ -29,6 +30,22 @@ describe('Footer publisher line', () => {
     expect(within(line).getByRole('link', { name: 'Privacy' })).toHaveAttribute(
       'href',
       '/docs/privacy'
+    );
+  });
+});
+
+describe('Footer sponsor card', () => {
+  it('says what the mascot on it says, word for word', () => {
+    // The mascot on the card claims to say the card's own sentence.
+    render(<Footer year={2026} />);
+    expect(document.getElementById('sponsors')).toHaveTextContent(SPONSOR_LINE);
+  });
+
+  it('points the empty slot at WP Bones’ own sponsor profile', () => {
+    render(<Footer year={2026} />);
+    expect(screen.getByText('Your logo here').closest('a')).toHaveAttribute(
+      'href',
+      'https://github.com/sponsors/wpbones'
     );
   });
 });
