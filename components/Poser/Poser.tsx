@@ -1,4 +1,5 @@
 import { Group, Stack } from '@mantine/core';
+import classes from './Poser.module.css';
 
 import '@mantine/core/styles.css';
 
@@ -9,15 +10,15 @@ type PoserProps = {
 
 /**
  * Packagist and GitHub badges. Each is drawn 28 px tall (shields'
- * `for-the-badge`), so it takes its height before it loads, and the row keeps
- * room for the two lines the seven badges wrap to on a docs page: without
- * either, the badges arriving pushed everything under them down, the largest
- * layout shift of the docs' first page (CLS 0.18 on wpbones.com, 2026-10-05).
+ * `for-the-badge`), so it takes its height before it loads; the row's layout
+ * is Poser.module.css. Without it, the badges arriving pushed everything under
+ * them down, the largest layout shift of the docs' first page (CLS 0.18 on
+ * wpbones.com, 2026-10-05).
  */
 export function Poser({ name, contributors = false }: PoserProps) {
   return (
     <Stack gap={16} my={16}>
-      <Group justify="center" mih={{ base: 0, sm: 72 }}>
+      <div className={classes.badges}>
         <a href={`https://packagist.org/packages/${name}`}>
           <img
             src={`https://poser.pugx.org/${name}/v/stable?style=for-the-badge`}
@@ -73,7 +74,7 @@ export function Poser({ name, contributors = false }: PoserProps) {
             height={28}
           />
         </a>
-      </Group>
+      </div>
       {contributors && (
         <Group justify="center">
           <a href={`https://github.com/${name}/graphs/contributors`}>

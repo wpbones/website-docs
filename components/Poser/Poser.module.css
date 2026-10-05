@@ -1,0 +1,35 @@
+/*
+ * The badges. Each is 28 px tall before it loads (the img's height), but its
+ * width arrives with it, and a row that wraps by width shifts everything under
+ * it once they do. So on a phone they stay on ONE row that scrolls sideways,
+ * always 28 px tall, and from 48em they wrap, centred, in a row that keeps
+ * room for the two lines they make there (Copilot on website-docs#76).
+ */
+.badges {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: rem(16px);
+  overflow-x: auto;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  & img {
+    flex: none;
+    display: block;
+    height: rem(28px);
+  }
+
+  @media (min-width: $mantine-breakpoint-sm) {
+    flex-wrap: wrap;
+    justify-content: center;
+    min-height: rem(72px);
+    overflow-x: visible;
+  }
+}
+
+.badges a {
+  flex: none;
+}
