@@ -162,7 +162,7 @@
 
   /*
    * The spread, where scroll-driven animations exist: the layers start close
-   * and move apart over the first 70% of a window of scroll, the plugin
+   * and move apart over the first 45% of a window of scroll, the plugin
    * opening into its parts as the reader leaves the hero. Linear, because the
    * scroll IS the easing.
    */
@@ -174,7 +174,7 @@
     .layer {
       animation: spread linear both;
       animation-timeline: scroll(root block);
-      animation-range: 0 70vh;
+      animation-range: 0 45vh;
     }
   }
 }
