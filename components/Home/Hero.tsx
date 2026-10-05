@@ -41,7 +41,7 @@ export function Hero() {
   return (
     <section className={`${classes.hero} wpb-home`} data-guide-anchor="">
       <div className={classes.copy}>
-        <a className={classes.pill} href="/docs/release-notes">
+        <a className={classes.pill} href="#whats-new">
           <span className={classes.pillTag}>v{pack.version}</span>
           What&apos;s new in WP Bones
           <IconArrowRight size={14} />

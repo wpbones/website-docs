@@ -87,6 +87,12 @@ not the author's personal one).
   `--at` fractions, `--frames N --every MS`, `--eval`, `--no-wake` (without it the page is scrolled once
   first, which fires every one-shot reveal before the first frame). A `next dev` rewrites `CLAUDE.md` and
   `next-env.d.ts`: restore them before committing.
+- **"New in WP Bones 2" (`components/Home/WhatsNew.tsx`) carries measured figures, each labelled with
+  its tag**: 14 releases (v2.0.0 to v2.1.0), 174 tests and 470 assertions at v2.1.0 (PHPUnit run at the
+  tag and on CI, all four PHP jobs), the growth 67 → 89 → 148 → 174 by `phpunit --list-tests` at v2.0.4,
+  v2.0.6, v2.0.10, v2.1.0. A release that changes the suite or adds a feature worth a card updates
+  `RELEASES`, `TESTS`, `ASSERTIONS`, `GROWTH` and the cards in the same docs cascade. Never on it: coverage
+  (CI runs with `coverage: none`), "tested on WordPress" (no integration suite exists), "audited/secure".
 - **The home page is `app/page.ts`, not `.tsx`, and that is load-bearing.** Nextra's page map, which the
   root layout reads on every page, imports every app page it finds as a namespace (for its metadata),
   and its glob is `page.{js,jsx,jsx,tsx,md,mdx}`. Found, the home page put all its stylesheets into the

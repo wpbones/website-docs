@@ -1,0 +1,213 @@
+/*
+ * What's new in WP Bones 2, as a bento: the test suite takes two columns and
+ * two rows, five cards fill the rest of a three-by-three grid. Each card's
+ * release tags link to the release that brought it.
+ */
+.bento {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: rem(16px);
+  margin-top: rem(48px);
+
+  @media (max-width: $mantine-breakpoint-md) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  padding: rem(24px);
+  border: 1px solid var(--wpb-rule);
+  border-radius: rem(16px);
+  background: var(--wpb-page);
+  box-shadow: 0 18px 40px -30px rgb(14 41 58 / 40%);
+}
+
+/* The suite: two by two, washed in the sky. */
+.tested {
+  grid-row: span 2;
+  grid-column: span 2;
+  background:
+    radial-gradient(
+      ellipse 70% 60% at 100% 0%,
+      color-mix(in srgb, var(--wpb-sky) 18%, transparent),
+      transparent 70%
+    ),
+    var(--wpb-page);
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    grid-column: auto;
+    grid-row: auto;
+  }
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: rem(12px);
+  margin-bottom: rem(14px);
+}
+
+.icon {
+  display: grid;
+  place-items: center;
+  width: rem(40px);
+  height: rem(40px);
+  border-radius: rem(10px);
+  background: color-mix(in srgb, var(--wpb-sky) 16%, var(--wpb-page));
+  color: var(--mantine-color-bones-7);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: rem(6px);
+}
+
+.tag {
+  font-family: var(--font-fira-code), 'Fira Code', monospace;
+  text-transform: none;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--mantine-color-bones-1);
+  }
+}
+
+.more {
+  display: inline-flex;
+  align-items: center;
+  gap: rem(4px);
+  margin-top: auto;
+  padding-top: rem(18px);
+  color: var(--mantine-color-bones-7);
+  font-size: rem(14px);
+  font-weight: 500;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* The three figures, large, in the deep blue. */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: rem(12px);
+  margin: rem(24px) 0 0;
+
+  & div {
+    padding: rem(14px) rem(16px);
+    border: 1px solid var(--wpb-rule);
+    border-radius: rem(12px);
+    background: var(--wpb-glass);
+  }
+
+  & dt {
+    color: var(--mantine-color-gray-7);
+    font-size: rem(12.5px);
+  }
+
+  & dd {
+    margin: rem(2px) 0 0;
+    color: var(--mantine-color-bones-8);
+    font-size: rem(34px);
+    font-weight: 600;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+  }
+}
+
+/* How the suite grew: four bars, scaled to the largest. */
+.chart {
+  margin: rem(24px) 0 0;
+}
+
+.bars {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-items: end;
+  gap: rem(14px);
+}
+
+/* The count over its bar, the tag under the baseline. */
+.barCol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.count {
+  margin-bottom: rem(6px);
+  color: var(--wpb-ink);
+  font-family: var(--font-fira-code), 'Fira Code', monospace;
+  font-size: rem(13px);
+  font-weight: 700;
+}
+
+.bar {
+  width: 100%;
+  max-width: rem(72px);
+  /* --p is the count's share of the largest (0 to 1): a bar is to scale. */
+  height: calc(var(--p) * rem(160px));
+  border-radius: rem(8px) rem(8px) rem(2px) rem(2px);
+  background: linear-gradient(to top, var(--mantine-color-bones-6), var(--mantine-color-bones-4));
+}
+
+.barCol:last-child .bar {
+  background: linear-gradient(to top, var(--mantine-color-bones-8), var(--mantine-color-bones-5));
+}
+
+.at {
+  width: 100%;
+  margin-top: rem(4px);
+  padding-top: rem(8px);
+  border-top: 1px solid var(--wpb-frame);
+  text-align: center;
+  color: var(--mantine-color-gray-7);
+  font-family: var(--font-fira-code), 'Fira Code', monospace;
+  font-size: rem(12px);
+}
+
+.caption {
+  display: flex;
+  flex-wrap: wrap;
+  gap: rem(6px);
+  margin-top: rem(10px);
+  color: var(--mantine-color-gray-7);
+  font-size: rem(12.5px);
+
+  & a {
+    display: inline-flex;
+    align-items: center;
+    gap: rem(2px);
+    color: var(--mantine-color-bones-7);
+    text-decoration: none;
+  }
+
+  & a:hover {
+    text-decoration: underline;
+  }
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+}

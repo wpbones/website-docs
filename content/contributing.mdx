@@ -54,7 +54,7 @@ You can now modify the WP Bones framework. Ensure you follow best practices and 
 
 ### Run the test suite
 
-Since `v2.0.4` the framework ships its own PHPUnit suite. It needs neither WordPress nor a database — a `$wpdb` spy records the SQL the framework builds — so it runs in a fraction of a second from the framework repository:
+Since `v2.0.4` the framework ships its own PHPUnit suite, 174 tests at `v2.1.0`. The unit tests need neither WordPress nor a database — a `$wpdb` spy records the SQL the framework builds — and take about a second; since `v2.0.6` the suite also runs the real `bones` file as a process against throwaway plugins, which takes longer. Run it from the framework repository:
 
 ```sh copy
 cd <forked-repo>
