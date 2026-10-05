@@ -5,9 +5,11 @@
  */
 .tour {
   display: grid;
-  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  /* The window gets the room its eight tabs need on one row (the user,
+     2026-10-05: at 0.8/1.2 the last tab wrapped to a second line). */
+  grid-template-columns: minmax(0, 0.68fr) minmax(0, 1.32fr);
   align-items: start;
-  gap: rem(56px);
+  gap: rem(48px);
   background: radial-gradient(
     ellipse 60% 55% at 80% 55%,
     color-mix(in srgb, var(--wpb-sky) 14%, transparent),

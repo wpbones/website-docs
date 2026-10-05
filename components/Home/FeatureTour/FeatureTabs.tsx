@@ -1,7 +1,8 @@
 'use client';
 
-import { useId, useRef, useState, type CSSProperties, type KeyboardEvent } from 'react';
+import { useState, type CSSProperties } from 'react';
 import { IconArrowRight, IconBone, IconTerminal2 } from '@tabler/icons-react';
+import { FloatingIndicator, Tabs } from '@mantine/core';
 import { Mascot } from '@/components/Mascot/Mascot';
 import { Reveal } from '@/components/Motion/Reveal';
 import type { Feature } from './features';
@@ -12,73 +13,77 @@ export type TourFeature = Omit<Feature, 'files'> & {
 };
 
 /**
- * The tabs and the code window of the feature tour (see `FeatureTour`).
+ * The tabs and the code window of the feature tour (see `FeatureTour`), on
+ * Mantine's `Tabs`, which brings the tablist semantics and the arrow keys,
+ * and its `FloatingIndicator`, the pill that runs from the open tab to the one
+ * picked (the user, 2026-10-05: "il pulsante si anima e corre verso l'item
+ * selezionato"), on the site's snap spring.
  *
- * Every tab's panel is in the served HTML, the inactive ones `hidden`: a
- * crawler and a reader without scripts get every snippet, and switching tabs
- * costs no request. Inside a panel, the files are tabs of their own.
+ * `keepMountedMode="display-none"`, not Mantine's default `activity`: an
+ * inactive panel in a React <Activity> renders nothing on the server, and every
+ * snippet would be missing from the served HTML (measured on findergit.app's
+ * FAQ, the same Mantine 9 behaviour). With it every panel is served, hidden.
+ *
+ * The indicator's parent is the list, inside a track that scrolls when the
+ * column is narrower than the tabs: Mantine places it by the difference of the
+ * two boxes as drawn, so a scrolling parent would put it off its tab.
  *
  * The mascot stands on the window's top edge and says what the open tab is
- * about; a click on it, or on its Next, opens the next tab. Nothing turns by
- * itself: a reader reading code should not have it taken away.
+ * about; a click on it opens the next. Nothing turns by itself: a reader
+ * reading code should not have it taken away.
  */
 export function FeatureTabs({ features }: { features: TourFeature[] }) {
-  const [active, setActive] = useState(0);
-  const [file, setFile] = useState(0);
-  // One hop per tab change: the mascot is keyed on it.
+  const [active, setActive] = useState(features[0].id);
+  // One hop per tab change: the mascot and the typed command are keyed on it.
   const [hops, setHops] = useState(0);
-  const id = useId();
-  const tabs = useRef<(HTMLButtonElement | null)[]>([]);
+  const [list, setList] = useState<HTMLDivElement | null>(null);
+  // Mantine's own pattern for the indicator's targets: the record is mutated
+  // as the tabs mount, and the indicator reads it on the next render.
+  const [tabRefs, setTabRefs] = useState<Record<string, HTMLButtonElement | null>>({});
+  const setTabRef = (value: string) => (node: HTMLButtonElement | null) => {
+    tabRefs[value] = node;
+    setTabRefs(tabRefs);
+  };
 
-  const open = (index: number, focus = false) => {
-    const next = (index + features.length) % features.length;
-    setActive(next);
-    setFile(0);
+  const index = features.findIndex((feature) => feature.id === active);
+  const current = features[index];
+  const next = features[(index + 1) % features.length];
+
+  const open = (value: string) => {
+    setActive(value);
     setHops((count) => count + 1);
-    if (focus) {
-      tabs.current[next]?.focus();
-    }
+    // A narrow track scrolls sideways: bring the tab picked into view.
+    tabRefs[value]?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
   };
-
-  /** Arrow keys move along the tabs, as a tablist's do (WAI-ARIA APG). */
-  const onKey = (event: KeyboardEvent<HTMLButtonElement>) => {
-    const moves: Record<string, number> = {
-      ArrowRight: active + 1,
-      ArrowLeft: active - 1,
-      Home: 0,
-      End: features.length - 1,
-    };
-    if (event.key in moves) {
-      event.preventDefault();
-      open(moves[event.key], true);
-    }
-  };
-
-  const current = features[active];
 
   return (
-    <div className={classes.tabs}>
+    <Tabs
+      value={active}
+      onChange={(value) => value && open(value)}
+      variant="none"
+      keepMountedMode="display-none"
+      className={classes.tabs}
+    >
       <Reveal variant="pop" className={classes.pillsWrap}>
-        <div className={classes.pills} role="tablist" aria-label="Framework features">
-          {features.map((feature, i) => (
-            <button
-              key={feature.id}
-              ref={(el) => {
-                tabs.current[i] = el;
-              }}
-              type="button"
-              role="tab"
-              id={`${id}-tab-${feature.id}`}
-              aria-selected={i === active}
-              aria-controls={`${id}-panel-${feature.id}`}
-              tabIndex={i === active ? 0 : -1}
-              className={classes.pill}
-              onClick={() => open(i)}
-              onKeyDown={onKey}
-            >
-              {feature.label}
-            </button>
-          ))}
+        <div className={classes.track}>
+          <Tabs.List ref={setList} className={classes.pills} aria-label="Framework features">
+            {features.map((feature) => (
+              <Tabs.Tab
+                key={feature.id}
+                value={feature.id}
+                ref={setTabRef(feature.id)}
+                className={classes.pill}
+              >
+                {feature.label}
+              </Tabs.Tab>
+            ))}
+            <FloatingIndicator
+              target={tabRefs[active]}
+              parent={list}
+              className={classes.indicator}
+              transitionDuration="var(--wpb-spring-snap-duration)"
+            />
+          </Tabs.List>
         </div>
       </Reveal>
 
@@ -92,52 +97,43 @@ export function FeatureTabs({ features }: { features: TourFeature[] }) {
             <button
               type="button"
               className={classes.walker}
-              aria-label={`Next feature: ${features[(active + 1) % features.length].label}`}
-              onClick={() => open(active + 1)}
+              aria-label={`Next feature: ${next.label}`}
+              onClick={() => open(next.id)}
             >
               <Mascot key={`hop-${hops}`} pointing />
             </button>
           </div>
 
-          {features.map((feature, i) => (
-            <div
-              key={feature.id}
-              role="tabpanel"
-              id={`${id}-panel-${feature.id}`}
-              aria-labelledby={`${id}-tab-${feature.id}`}
-              hidden={i !== active}
-              className={classes.panel}
-            >
-              <div className={classes.files}>
-                {feature.files.map((f, j) => {
-                  const shown = i === active ? j === file : j === 0;
-                  return (
-                    <button
-                      key={f.name}
-                      type="button"
+          {features.map((feature) => (
+            <Tabs.Panel key={feature.id} value={feature.id} className={classes.panel}>
+              {/* The files of the tab, as tabs of their own. */}
+              <Tabs
+                defaultValue={feature.files[0].name}
+                variant="none"
+                keepMountedMode="display-none"
+              >
+                <Tabs.List className={classes.files} aria-label={`${feature.label} files`}>
+                  {feature.files.map((file) => (
+                    <Tabs.Tab
+                      key={file.name}
+                      value={file.name}
                       className={classes.file}
-                      data-active={shown || undefined}
-                      aria-pressed={shown}
-                      onClick={() => setFile(j)}
+                      leftSection={<IconBone size={15} stroke={1.8} aria-hidden="true" />}
                     >
-                      <IconBone size={15} stroke={1.8} aria-hidden="true" />
-                      {f.name}
-                    </button>
-                  );
-                })}
-              </div>
-              {feature.files.map((f, j) => {
-                const shown = i === active ? j === file : j === 0;
-                return (
-                  <div
-                    key={f.name}
-                    className={classes.code}
-                    hidden={!shown}
-                    // Shiki's output, made at build time from the snippets in features.ts.
-                    dangerouslySetInnerHTML={{ __html: f.html }}
-                  />
-                );
-              })}
+                      {file.name}
+                    </Tabs.Tab>
+                  ))}
+                </Tabs.List>
+                {feature.files.map((file) => (
+                  <Tabs.Panel key={file.name} value={file.name}>
+                    <div
+                      className={classes.code}
+                      // Shiki's output, made at build time from the snippets in features.ts.
+                      dangerouslySetInnerHTML={{ __html: file.html }}
+                    />
+                  </Tabs.Panel>
+                ))}
+              </Tabs>
               {feature.command && (
                 <div className={classes.command}>
                   <span className={classes.hint}>
@@ -147,9 +143,9 @@ export function FeatureTabs({ features }: { features: TourFeature[] }) {
                   <span className={classes.prompt} aria-hidden="true">
                     $
                   </span>
-                  {/* Keyed on the tab, so each command types itself in again. */}
+                  {/* Keyed on the change, so the command of the tab opened types itself in. */}
                   <code
-                    key={`cmd-${active}`}
+                    key={feature.id === active ? `cmd-${hops}` : 'cmd'}
                     className={classes.typed}
                     style={{ '--chars': feature.command.length } as CSSProperties}
                   >
@@ -157,7 +153,7 @@ export function FeatureTabs({ features }: { features: TourFeature[] }) {
                   </code>
                 </div>
               )}
-            </div>
+            </Tabs.Panel>
           ))}
         </div>
       </Reveal>
@@ -169,6 +165,6 @@ export function FeatureTabs({ features }: { features: TourFeature[] }) {
           <IconArrowRight size={14} aria-hidden="true" />
         </a>
       </p>
-    </div>
+    </Tabs>
   );
 }

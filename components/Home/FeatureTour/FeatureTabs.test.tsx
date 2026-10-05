@@ -1,5 +1,7 @@
 import { renderToString } from 'react-dom/server';
+import { MantineProvider } from '@mantine/core';
 import { fireEvent, render, screen } from '@/test-utils';
+import { theme } from '../../../theme';
 import { FEATURES } from './features';
 import { FeatureTabs, type TourFeature } from './FeatureTabs';
 
@@ -11,7 +13,13 @@ const features: TourFeature[] = FEATURES.map((feature) => ({
 
 describe('FeatureTabs', () => {
   it('serves every tab’s panel, so a crawler gets every snippet', () => {
-    const html = renderToString(<FeatureTabs features={features} />);
+    // Mantine's default keepMountedMode ('activity') renders an inactive panel
+    // as nothing on the server; this holds the 'display-none' that fixes it.
+    const html = renderToString(
+      <MantineProvider theme={theme}>
+        <FeatureTabs features={features} />
+      </MantineProvider>
+    );
     for (const feature of features) {
       expect(html).toContain(`<pre>${feature.files[0].name}</pre>`);
     }
@@ -25,7 +33,8 @@ describe('FeatureTabs', () => {
       'aria-selected',
       'true'
     );
-    expect(screen.getByRole('tabpanel')).toHaveTextContent(eloquent.command!);
+    // The first visible panel is the tab's; the files inside are panels too.
+    expect(screen.getAllByRole('tabpanel')[0]).toHaveTextContent(eloquent.command!);
     expect(screen.getByRole('link', { name: /Read the docs/ })).toHaveAttribute(
       'href',
       eloquent.href

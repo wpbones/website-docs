@@ -40,6 +40,12 @@ export const springs: Spring[] = [
   { name: '--wpb-spring', f: 1.4, zeta: 0.5, note: 'a card landing: overshoots and settles' },
   { name: '--wpb-spring-soft', f: 1.8, zeta: 0.75, note: 'a heading rising: barely overshoots' },
   { name: '--wpb-spring-roll', f: 1.2, zeta: 0.62, note: 'the odometer' },
+  {
+    name: '--wpb-spring-snap',
+    f: 2.4,
+    zeta: 0.6,
+    note: 'the tab indicator running to the tab picked: quick, a small overshoot',
+  },
 ];
 
 /** The film's `spr`: 0 at rest, 1 once settled, past 1 on the overshoot. */
