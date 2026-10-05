@@ -85,7 +85,42 @@
   text-wrap: balance;
 }
 
-/* The second half in the logo's blues, deep to sky. */
+/*
+ * The headline's entrance (the user, 2026-10-05: "proviamo ad animarla in
+ * entrata"): word by word, each comes into focus as it rises, on the soft
+ * spring, 70 ms after the one before. It starts faint, never invisible: the
+ * headline is a candidate for the page's largest paint, and an element at
+ * opacity 0 does not count until it shows, which would move LCP to the end of
+ * the entrance. `backwards` only, so it ends on the layout with or without it.
+ * An inline-block per word, since a transform does not apply to an inline box.
+ */
+.word {
+  display: inline-block;
+}
+
+@media screen and (prefers-reduced-motion: no-preference) {
+  .word {
+    animation:
+      word-focus 700ms ease-out backwards,
+      word-rise var(--wpb-spring-soft-duration) var(--wpb-spring-soft) backwards;
+    animation-delay: calc(80ms + var(--w) * 70ms);
+  }
+}
+
+@keyframes word-focus {
+  from {
+    opacity: 0.12;
+    filter: blur(10px);
+  }
+}
+
+@keyframes word-rise {
+  from {
+    transform: translate3d(0, 0.32em, 0) scale(0.96);
+  }
+}
+
+/* The second half in the logo's blues, deep to sky, word by word. */
 .accent {
   background: linear-gradient(
     100deg,

@@ -35,8 +35,40 @@
   position: relative;
   width: var(--size);
   height: var(--size);
-  transform: translateY(18%) rotateX(56deg) rotateZ(-42deg);
+  /* --tilt-x and --tilt-y come from the pointer (TiltStage); 0 at rest. */
+  transform: translateY(18%) rotateX(calc(56deg + var(--tilt-y, 0deg)))
+    rotateZ(calc(-42deg + var(--tilt-x, 0deg)));
   transform-style: preserve-3d;
+  transition: transform 500ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+/*
+ * On hover each layer lifts by its place in the stack, on the card spring:
+ * the top one most, the framework not at all, so the stack opens a little
+ * more than the scroll has already opened it, and settles back on leaving.
+ */
+.lift {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transition: transform var(--wpb-spring-duration) var(--wpb-spring);
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .stage:hover .lift {
+    transform: translateZ(calc(var(--i) * 16px));
+  }
+
+  /* The mascot hops once each time the pointer comes in. */
+  .stage:hover .rider svg {
+    animation: hop 520ms ease-out 1;
+  }
+}
+
+@keyframes hop {
+  40% {
+    transform: translateY(-14px);
+  }
 }
 
 /* The shadow the stack casts on the page. */

@@ -1,3 +1,4 @@
+import { Fragment, type CSSProperties } from 'react';
 import { IconArrowRight, IconArrowUpRight, IconBrandGithub } from '@tabler/icons-react';
 import pack from '../../package.json';
 import { InstallLine } from './InstallLine';
@@ -15,6 +16,27 @@ import classes from './Hero.module.css';
  * `data-guide-anchor` is what the mascot in the corner waits to see scrolled
  * past (Mascot/ScrollGuide).
  */
+/**
+ * A line of the headline, one span per word, each with its place in the
+ * sentence (`--w`) for the stagger of the entrance (Hero.module.css). The
+ * words stay text with spaces between them, so the heading reads, copies and
+ * is crawled as the sentence it is.
+ */
+function Words({ text, from, className }: { text: string; from: number; className?: string }) {
+  const words = text.split(' ');
+  return words.map((word, i) => (
+    <Fragment key={word}>
+      <span
+        className={[classes.word, className].filter(Boolean).join(' ')}
+        style={{ '--w': from + i } as CSSProperties}
+      >
+        {word}
+      </span>
+      {i < words.length - 1 && ' '}
+    </Fragment>
+  ));
+}
+
 export function Hero() {
   return (
     <section className={`${classes.hero} wpb-home`} data-guide-anchor="">
@@ -25,7 +47,8 @@ export function Hero() {
           <IconArrowRight size={14} />
         </a>
         <h1 className={classes.title}>
-          WordPress plugins with <span className={classes.accent}>Laravel‑like bones.</span>
+          <Words text="WordPress plugins with" from={0} />{' '}
+          <Words text="Laravel‑like bones." from={3} className={classes.accent} />
         </h1>
         <p className={classes.lead}>
           WP Bones is a framework for WordPress plugins: service providers, Blade views, Eloquent
