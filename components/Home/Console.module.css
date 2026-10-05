@@ -1,0 +1,139 @@
+/* The console section: the case and the help output side by side, then the cells. */
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  align-items: center;
+  gap: rem(56px);
+  margin-bottom: rem(80px);
+
+  @media (max-width: $mantine-breakpoint-md) {
+    grid-template-columns: minmax(0, 1fr);
+    gap: rem(36px);
+    margin-bottom: rem(56px);
+  }
+}
+
+.inline {
+  padding: 0 0.18em;
+  border-radius: 0.18em;
+  background: color-mix(in srgb, var(--wpb-sky) 16%, transparent);
+  color: var(--mantine-color-bones-8);
+  font-family: var(--font-fira-code), 'Fira Code', monospace;
+  font-size: 0.82em;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+/*
+ * The one dark object on the page besides the command bars: a terminal is
+ * dark because a terminal is, as lancetta.app's menu bar is dark because the
+ * menu bar is.
+ */
+.terminal {
+  overflow: hidden;
+  border: 1px solid rgb(14 41 58 / 40%);
+  border-radius: rem(14px);
+  background: var(--wpb-ink);
+  box-shadow:
+    0 0 0 6px color-mix(in srgb, var(--wpb-sky) 10%, transparent),
+    0 30px 60px -30px rgb(14 41 58 / 55%);
+}
+
+.bar {
+  display: flex;
+  gap: rem(7px);
+  padding: rem(12px) rem(14px);
+  border-bottom: 1px solid rgb(255 255 255 / 8%);
+
+  & span {
+    width: rem(11px);
+    height: rem(11px);
+    border-radius: 50%;
+    background: rgb(255 255 255 / 18%);
+  }
+
+  & span:first-child {
+    background: #ff5f57;
+  }
+
+  & span:nth-child(2) {
+    background: #febc2e;
+  }
+
+  & span:nth-child(3) {
+    background: #28c840;
+  }
+}
+
+.help {
+  max-height: rem(380px);
+  margin: 0;
+  overflow: auto;
+  padding: rem(16px) rem(20px) rem(20px);
+  color: #c9dde7;
+  font-family: var(--font-fira-code), 'Fira Code', monospace;
+  font-size: rem(12.5px);
+  line-height: 1.6;
+  scrollbar-color: rgb(255 255 255 / 20%) transparent;
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    font-size: rem(11px);
+  }
+}
+
+.prompt {
+  color: var(--wpb-sky);
+  font-weight: 700;
+}
+
+.group {
+  color: #f2c179;
+}
+
+.name {
+  color: #8fd3f2;
+}
+
+/* A command under a cell's copy: one terminal line on the bone's white. */
+.line {
+  display: block;
+  overflow-x: auto;
+  margin-top: rem(20px);
+  padding: rem(10px) rem(14px);
+  border: 1px solid var(--wpb-rule);
+  border-radius: rem(8px);
+  background: var(--wpb-ivory);
+  color: var(--wpb-ink);
+  font-family: var(--font-fira-code), 'Fira Code', monospace;
+  font-size: rem(12.5px);
+  white-space: nowrap;
+  scrollbar-width: none;
+
+  & .prompt {
+    color: var(--mantine-color-bones-6);
+  }
+}
+
+.more {
+  display: inline-flex;
+  align-items: center;
+  gap: rem(4px);
+  margin-top: rem(16px);
+  color: var(--mantine-color-bones-7);
+  font-size: rem(14px);
+  font-weight: 500;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

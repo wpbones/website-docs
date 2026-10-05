@@ -1,0 +1,69 @@
+/* The statement: a line set large, with the mascot in a pill inside it. */
+.statement {
+  padding-block: rem(120px);
+  background: radial-gradient(
+    ellipse 40% 60% at 50% 50%,
+    color-mix(in srgb, var(--wpb-sky) 14%, transparent),
+    transparent 70%
+  );
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    padding-block: rem(72px);
+  }
+}
+
+.line {
+  margin: 0;
+  color: var(--wpb-ink);
+  font-size: clamp(rem(34px), 5.4vw, rem(68px));
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+}
+
+/*
+ * The mascot's pill, set in the line as Laravel sets its switch: the height
+ * of a capital, the sky's wash, the bone at 3 px a cell. It sits on the
+ * baseline's middle.
+ */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 0.9em;
+  padding-inline: 0.28em;
+  border-radius: 999px;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--wpb-sky) 26%, var(--wpb-page)),
+    color-mix(in srgb, var(--wpb-sky) 46%, var(--wpb-page))
+  );
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--wpb-deep) 22%, transparent),
+    0 10px 30px -8px color-mix(in srgb, var(--wpb-sky) 70%, transparent);
+  vertical-align: -0.08em;
+
+  & svg {
+    width: 1.3em;
+    height: auto;
+  }
+}
+
+@media screen and (prefers-reduced-motion: no-preference) {
+  /* A slow sway, four times and still: transform only, and nothing runs at rest. */
+  .chip svg {
+    animation: sway 2.8s ease-in-out 4;
+    transform-origin: 50% 100%;
+  }
+}
+
+@keyframes sway {
+  0%,
+  100% {
+    transform: rotate(-4deg);
+  }
+
+  50% {
+    transform: rotate(4deg);
+  }
+}

@@ -1,0 +1,63 @@
+/* The install command: a terminal line on the bone's warm white. */
+.line {
+  display: flex;
+  align-items: center;
+  gap: rem(10px);
+  /* Its own width, not its command's: in a flex row it would grow to the
+     unbroken command and push the page sideways on a phone. */
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  max-width: rem(560px);
+  margin-top: rem(28px);
+  padding: rem(6px) rem(6px) rem(6px) rem(14px);
+  border: 1px solid var(--wpb-rule);
+  border-radius: rem(10px);
+  background: var(--wpb-ivory);
+  font-family: var(--font-fira-code), 'Fira Code', monospace;
+  font-size: rem(13px);
+}
+
+.prompt {
+  color: var(--mantine-color-bones-6);
+  font-weight: 700;
+}
+
+.command {
+  flex: 1;
+  min-width: 0;
+  overflow-x: auto;
+  color: var(--wpb-ink);
+  white-space: nowrap;
+  scrollbar-width: none;
+}
+
+.copy {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: rem(32px);
+  height: rem(32px);
+  border: 1px solid var(--wpb-rule);
+  border-radius: rem(8px);
+  background: var(--wpb-page);
+  color: var(--mantine-color-gray-7);
+  cursor: pointer;
+  transition:
+    color 150ms ease,
+    border-color 150ms ease;
+
+  &:hover {
+    border-color: var(--mantine-color-bones-4);
+    color: var(--mantine-color-bones-7);
+  }
+
+  &[data-copied] {
+    color: var(--mantine-color-green-8);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--wpb-sky);
+    outline-offset: 2px;
+  }
+}

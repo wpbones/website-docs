@@ -1,0 +1,264 @@
+/*
+ * The home page's construction. Laravel's home page (the user, 2026-10-05:
+ * "prendi solo ispirazione") draws its page as a frame: two vertical lines
+ * at the container's edges, a rule between sections, and a small marker
+ * where they cross. Here the markers are bones -- two knobs and a shaft, the
+ * logo's -- and the lines are the page's ink at 16%, dashed only where they
+ * run down the side.
+ */
+
+.page {
+  position: relative;
+  overflow-x: clip;
+}
+
+/* The two side lines, the full height of the page, at the container's edges. */
+.frame {
+  position: relative;
+  max-width: rem(1200px);
+  margin-inline: auto;
+  border-inline: 1px dashed var(--wpb-frame);
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    border-inline: 0;
+  }
+}
+
+/* A rule across the frame between two sections, with a bone at each end. */
+.rule {
+  position: relative;
+  height: 0;
+  border-top: 1px solid var(--wpb-frame);
+  margin-inline: calc(50% - 50vw);
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    margin-inline: 0;
+  }
+}
+
+.rule::before,
+.rule::after {
+  position: absolute;
+  top: rem(-5px);
+  width: rem(18px);
+  height: rem(9px);
+  /* A bone: two knobs at each end and the shaft between, drawn with gradients. */
+  background:
+    radial-gradient(circle at 2.5px 2.5px, var(--wpb-deep) 2.4px, transparent 2.6px),
+    radial-gradient(circle at 2.5px 6.5px, var(--wpb-deep) 2.4px, transparent 2.6px),
+    radial-gradient(circle at 15.5px 2.5px, var(--wpb-deep) 2.4px, transparent 2.6px),
+    radial-gradient(circle at 15.5px 6.5px, var(--wpb-deep) 2.4px, transparent 2.6px),
+    linear-gradient(var(--wpb-deep), var(--wpb-deep)) 2.5px 2.5px / 13px 4px no-repeat;
+  content: '';
+}
+
+.rule::before {
+  left: calc(50vw - min(50vw, rem(600px)) - rem(9px));
+}
+
+.rule::after {
+  right: calc(50vw - min(50vw, rem(600px)) - rem(9px));
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    display: none;
+  }
+}
+
+@media (max-width: $mantine-breakpoint-sm) {
+  .rule::before {
+    display: none;
+  }
+}
+
+/* A section inside the frame: its own padding, its content in the measure. */
+.section {
+  position: relative;
+  padding: rem(96px) rem(48px);
+
+  @media (max-width: $mantine-breakpoint-md) {
+    padding: rem(72px) rem(28px);
+  }
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    padding: rem(56px) rem(16px);
+  }
+}
+
+/* The small caps over a heading, in the code's monospace. */
+.eyebrow {
+  display: inline-block;
+  margin-bottom: rem(14px);
+  color: var(--mantine-color-bones-7);
+  font-family: var(--font-fira-code), 'Fira Code', monospace;
+  font-size: rem(12px);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* Headings set large and tight, as Laravel's are. */
+.h2 {
+  margin: 0;
+  color: var(--wpb-ink);
+  font-size: clamp(rem(30px), 4vw, rem(46px));
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+
+.lead {
+  margin: rem(16px) 0 0;
+  max-width: rem(560px);
+  color: var(--mantine-color-gray-7);
+  font-size: rem(17px);
+  line-height: 1.65;
+  text-wrap: pretty;
+}
+
+.center {
+  text-align: center;
+
+  & .lead {
+    margin-inline: auto;
+  }
+}
+
+/* A list of what a section claims, each line ticked in the sky. */
+.checks {
+  display: grid;
+  gap: rem(10px);
+  margin: rem(24px) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.checks li {
+  display: flex;
+  align-items: flex-start;
+  gap: rem(10px);
+  color: var(--wpb-ink);
+  font-size: rem(15px);
+  line-height: 1.5;
+}
+
+.checks li svg {
+  flex: none;
+  margin-top: rem(2px);
+  color: var(--mantine-color-bones-6);
+}
+
+/* The outline button with an arrow, Laravel's "Explore ↗". */
+.ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: rem(8px);
+  margin-top: rem(28px);
+  padding: rem(9px) rem(16px);
+  border: 1px solid var(--wpb-frame);
+  border-radius: rem(8px);
+  background: var(--wpb-page);
+  color: var(--wpb-ink);
+  font-size: rem(14px);
+  font-weight: 500;
+  text-decoration: none;
+  box-shadow: 0 1px 2px rgb(14 41 58 / 6%);
+  transition:
+    border-color 150ms ease,
+    box-shadow 150ms ease,
+    transform 150ms ease;
+
+  &:hover {
+    border-color: var(--mantine-color-bones-4);
+    box-shadow: 0 4px 14px -6px rgb(28 126 161 / 45%);
+    transform: translateY(-1px);
+  }
+
+  & svg {
+    color: var(--mantine-color-bones-6);
+  }
+}
+
+/* A soft wash of light behind a section, painted once: no layer moves. */
+.washSky {
+  background: radial-gradient(
+    ellipse 70% 60% at 85% 20%,
+    color-mix(in srgb, var(--wpb-sky) 16%, transparent),
+    transparent 70%
+  );
+}
+
+.washAmber {
+  background: radial-gradient(
+    ellipse 60% 70% at 10% 90%,
+    color-mix(in srgb, var(--wpb-amber) 12%, transparent),
+    transparent 70%
+  );
+}
+
+/* A grid of cells divided by the frame's own lines, Laravel's product grid. */
+.cells {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-inline: rem(-48px);
+  border-top: 1px solid var(--wpb-frame);
+
+  @media (max-width: $mantine-breakpoint-md) {
+    margin-inline: rem(-28px);
+  }
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    grid-template-columns: minmax(0, 1fr);
+    margin-inline: 0;
+  }
+}
+
+.cell {
+  position: relative;
+  padding: rem(48px);
+  border-bottom: 1px solid var(--wpb-frame);
+
+  &:nth-child(odd) {
+    border-right: 1px solid var(--wpb-frame);
+  }
+
+  @media (max-width: $mantine-breakpoint-md) {
+    padding: rem(32px) rem(28px);
+  }
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    padding: rem(32px) 0;
+
+    &:nth-child(odd) {
+      border-right: 0;
+    }
+  }
+}
+
+.h3 {
+  margin: 0;
+  color: var(--wpb-ink);
+  font-size: rem(22px);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+}
+
+.body {
+  margin: rem(10px) 0 0;
+  color: var(--mantine-color-gray-7);
+  font-size: rem(15px);
+  line-height: 1.6;
+}
+
+/* Inline code in copy: the bone's warm white, the deep blue. */
+.code {
+  padding: rem(1px) rem(6px);
+  border: 1px solid var(--wpb-rule);
+  border-radius: rem(5px);
+  background: var(--wpb-ivory);
+  color: var(--mantine-color-bones-8);
+  font-family: var(--font-fira-code), 'Fira Code', monospace;
+  font-size: 0.88em;
+  white-space: nowrap;
+}

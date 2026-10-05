@@ -1,0 +1,108 @@
+/*
+ * The closing call: the frame's ground turns to graph paper in the page's
+ * rule, fading out at the edges, with the sky's light in the middle.
+ */
+.cta {
+  overflow: hidden;
+  padding-block: rem(120px);
+  background:
+    radial-gradient(
+      ellipse 50% 60% at 50% 45%,
+      color-mix(in srgb, var(--wpb-sky) 16%, transparent),
+      transparent 70%
+    ),
+    linear-gradient(var(--wpb-rule) 1px, transparent 1px) 0 0 / 32px 32px,
+    linear-gradient(90deg, var(--wpb-rule) 1px, transparent 1px) 0 0 / 32px 32px;
+  mask-image: radial-gradient(ellipse 80% 90% at 50% 50%, #000 55%, transparent 100%);
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    padding-block: rem(80px);
+  }
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  & p {
+    margin-inline: auto;
+  }
+}
+
+.mascot svg {
+  width: 120px;
+  height: auto;
+  filter: drop-shadow(0 6px 6px rgb(14 41 58 / 20%));
+}
+
+.title {
+  margin: rem(20px) 0 0;
+  max-width: rem(760px);
+  color: var(--wpb-ink);
+  font-size: clamp(rem(34px), 5vw, rem(60px));
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: rem(12px);
+  margin-top: rem(32px);
+}
+
+.primary,
+.secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: rem(8px);
+  height: rem(48px);
+  padding-inline: rem(22px);
+  border-radius: rem(10px);
+  font-size: rem(16px);
+  font-weight: 500;
+  text-decoration: none;
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease,
+    transform 150ms ease;
+
+  &:hover {
+    transform: translateY(-1px);
+  }
+}
+
+.primary {
+  background: var(--mantine-color-bones-6);
+  color: var(--wpb-bone);
+  box-shadow: 0 10px 24px -10px color-mix(in srgb, var(--wpb-deep) 70%, transparent);
+
+  &:hover {
+    background: var(--mantine-color-bones-7);
+  }
+}
+
+.secondary {
+  border: 1px solid var(--wpb-frame);
+  background: var(--wpb-page);
+  color: var(--wpb-ink);
+
+  &:hover {
+    border-color: var(--mantine-color-bones-4);
+  }
+
+  & svg {
+    color: #5865f2;
+  }
+}
+
+.install {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}

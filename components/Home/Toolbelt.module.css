@@ -1,0 +1,90 @@
+/*
+ * The tools row, framed as Laravel frames its logos: a label cell, then one
+ * cell per tool, divided by the frame's own lines. It runs edge to edge of
+ * the frame, so it undoes the section's side padding.
+ */
+.belt {
+  display: grid;
+  grid-template-columns: rem(240px) minmax(0, 1fr);
+  border-block: 1px solid var(--wpb-frame);
+
+  @media (max-width: $mantine-breakpoint-md) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: rem(24px) rem(32px) rem(24px) rem(48px);
+  border-right: 1px solid var(--wpb-frame);
+  color: var(--wpb-ink);
+  font-family: var(--font-fira-code), 'Fira Code', monospace;
+  font-size: rem(13px);
+  line-height: 1.6;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+
+  @media (max-width: $mantine-breakpoint-md) {
+    padding: rem(20px) rem(28px);
+    border-right: 0;
+    border-bottom: 1px solid var(--wpb-frame);
+  }
+}
+
+.tools {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.tools li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: rem(10px);
+  min-height: rem(64px);
+  padding: rem(12px);
+  border-right: 1px solid var(--wpb-rule);
+  border-bottom: 1px solid var(--wpb-rule);
+  color: var(--mantine-color-gray-8);
+  font-size: rem(15px);
+  font-weight: 500;
+
+  &:nth-child(4n) {
+    border-right: 0;
+  }
+
+  &:nth-last-child(-n + 4) {
+    border-bottom: 0;
+  }
+
+  & svg {
+    color: var(--mantine-color-bones-6);
+  }
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    &:nth-child(4n) {
+      border-right: 1px solid var(--wpb-rule);
+    }
+
+    &:nth-child(2n) {
+      border-right: 0;
+    }
+
+    &:nth-last-child(-n + 4) {
+      border-bottom: 1px solid var(--wpb-rule);
+    }
+
+    &:nth-last-child(-n + 2) {
+      border-bottom: 0;
+    }
+  }
+}

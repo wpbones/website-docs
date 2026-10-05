@@ -1,0 +1,94 @@
+/* The plugins in production: the case left, two cards right. */
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  align-items: center;
+  gap: rem(48px);
+
+  @media (max-width: $mantine-breakpoint-md) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: rem(16px);
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  padding: rem(24px);
+  border: 1px solid var(--wpb-rule);
+  border-radius: rem(16px);
+  background: var(--wpb-page);
+  box-shadow: 0 18px 40px -28px rgb(14 41 58 / 40%);
+}
+
+.card:first-child {
+  background: linear-gradient(
+    160deg,
+    color-mix(in srgb, var(--wpb-sky) 10%, var(--wpb-page)),
+    var(--wpb-page) 55%
+  );
+}
+
+.card:last-child {
+  background: linear-gradient(
+    160deg,
+    color-mix(in srgb, var(--wpb-amber) 10%, var(--wpb-page)),
+    var(--wpb-page) 55%
+  );
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  gap: rem(10px);
+
+  & svg {
+    color: var(--mantine-color-bones-6);
+  }
+}
+
+.quote {
+  margin: rem(14px) 0 0;
+  color: var(--wpb-ink);
+  font-size: rem(16px);
+  line-height: 1.5;
+}
+
+.links {
+  display: flex;
+  gap: rem(16px);
+  margin-top: auto;
+  padding-top: rem(18px);
+
+  & a {
+    display: inline-flex;
+    align-items: center;
+    gap: rem(4px);
+    color: var(--mantine-color-bones-7);
+    font-size: rem(14px);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  & a:hover {
+    text-decoration: underline;
+  }
+}
+
+.hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

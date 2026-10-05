@@ -1,0 +1,204 @@
+/*
+ * The plugin as a stack of layers, seen from above at an angle (PluginStack).
+ * One 3D context: `.iso` tilts the plane, each `.layer` stands `--i` steps up
+ * it, and `.slab` is the card drawn there. Two elements per layer because two
+ * things move it: the scroll spreads the `.layer`, the entrance drops the
+ * `.slab`, and two transforms on one element would overwrite each other.
+ */
+
+.stage {
+  --gap: 34px;
+  --size: 260px;
+
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: rem(520px);
+  perspective: 1800px;
+
+  @media (max-width: $mantine-breakpoint-md) {
+    --size: 220px;
+    --gap: 28px;
+
+    min-height: rem(440px);
+  }
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    --size: 180px;
+    --gap: 22px;
+
+    min-height: rem(360px);
+  }
+}
+
+.iso {
+  position: relative;
+  width: var(--size);
+  height: var(--size);
+  transform: translateY(18%) rotateX(56deg) rotateZ(-42deg);
+  transform-style: preserve-3d;
+}
+
+/* The shadow the stack casts on the page. */
+.ground {
+  position: absolute;
+  inset: -12%;
+  border-radius: 28px;
+  background: radial-gradient(
+    closest-side,
+    rgb(14 41 58 / 16%),
+    rgb(14 41 58 / 6%) 60%,
+    transparent
+  );
+  transform: translateZ(-2px);
+}
+
+.layer {
+  position: absolute;
+  inset: 0;
+  transform: translateZ(calc(var(--i) * var(--gap)));
+  transform-style: preserve-3d;
+}
+
+.slab {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 18px;
+  border: 1px solid var(--wpb-frame);
+  border-radius: 22px;
+  background: linear-gradient(
+    145deg,
+    var(--wpb-page),
+    color-mix(in srgb, var(--tone) 10%, var(--wpb-page))
+  );
+  box-shadow:
+    inset 0 0 0 1px rgb(255 255 255 / 80%),
+    0 1px 0 color-mix(in srgb, var(--tone) 40%, transparent),
+    -10px 14px 30px -12px rgb(14 41 58 / 28%);
+}
+
+.layer[data-tone='sky'] {
+  --tone: var(--wpb-sky);
+}
+
+.layer[data-tone='steel'] {
+  --tone: var(--wpb-steel);
+}
+
+.layer[data-tone='deep'] {
+  --tone: var(--wpb-deep);
+}
+
+.layer[data-tone='amber'] {
+  --tone: var(--wpb-amber);
+}
+
+.badge {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--tone) 16%, var(--wpb-page));
+  color: color-mix(in srgb, var(--tone) 70%, var(--wpb-ink));
+}
+
+.text {
+  display: grid;
+  gap: 2px;
+}
+
+.folder {
+  color: var(--wpb-ink);
+  font-family: var(--font-fira-code), 'Fira Code', monospace;
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.role {
+  color: var(--mantine-color-gray-7);
+  font-size: 13px;
+}
+
+/*
+ * The mascot on the top layer, stood back up: the inverse of the plane's
+ * tilt, so it faces the reader instead of lying on the card.
+ */
+.rider {
+  position: absolute;
+  top: 58%;
+  left: 54%;
+  translate: -50% -100%;
+  transform-origin: 50% 100%;
+  transform: rotateZ(42deg) rotateX(-56deg);
+}
+
+/* Bigger than in the corner: 6 px a cell, whole pixels still. */
+.rider svg {
+  width: 144px;
+  height: auto;
+  filter: drop-shadow(0 6px 6px rgb(14 41 58 / 22%));
+}
+
+/*
+ * The entrance, on the slabs: each drops onto its place, the framework first,
+ * the views last, on the card spring. `backwards` only, so it ends on the
+ * layout whether or not it ran.
+ */
+@media screen and (prefers-reduced-motion: no-preference) {
+  .slab,
+  .rider {
+    animation: drop var(--wpb-spring-duration) var(--wpb-spring) backwards;
+    animation-delay: calc(240ms + var(--i, 5) * 110ms);
+  }
+
+  .rider {
+    animation-name: drop-rider;
+  }
+
+  /*
+   * The spread, where scroll-driven animations exist: the layers start close
+   * and move apart over the first 70% of a window of scroll, the plugin
+   * opening into its parts as the reader leaves the hero. Linear, because the
+   * scroll IS the easing.
+   */
+  @supports (animation-timeline: scroll()) {
+    .stage {
+      --gap: 14px;
+    }
+
+    .layer {
+      animation: spread linear both;
+      animation-timeline: scroll(root block);
+      animation-range: 0 70vh;
+    }
+  }
+}
+
+@keyframes drop {
+  from {
+    opacity: 0;
+    transform: translateZ(140px);
+  }
+}
+
+@keyframes drop-rider {
+  from {
+    opacity: 0;
+    transform: rotateZ(42deg) rotateX(-56deg) translateY(-80px);
+  }
+}
+
+@keyframes spread {
+  from {
+    transform: translateZ(calc(var(--i) * 14px));
+  }
+
+  to {
+    transform: translateZ(calc(var(--i) * 58px));
+  }
+}

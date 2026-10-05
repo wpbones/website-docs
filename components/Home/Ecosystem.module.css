@@ -1,0 +1,62 @@
+/* The ecosystem's two cells: the packages as a list of links, Raycast beside. */
+.cells {
+  margin-top: rem(48px);
+}
+
+.packages {
+  display: grid;
+  gap: rem(2px);
+  margin: rem(20px) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.packages a {
+  display: grid;
+  grid-template-columns: auto auto minmax(0, 1fr);
+  align-items: baseline;
+  gap: rem(10px);
+  padding: rem(8px) rem(10px);
+  border-radius: rem(8px);
+  color: var(--wpb-ink);
+  text-decoration: none;
+  transition: background-color 150ms ease;
+
+  & svg {
+    align-self: center;
+    color: var(--mantine-color-bones-6);
+  }
+
+  &:hover {
+    background: color-mix(in srgb, var(--wpb-sky) 10%, transparent);
+  }
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    grid-template-columns: auto minmax(0, 1fr);
+
+    & .pkgWhat {
+      grid-column: 2;
+    }
+  }
+}
+
+.pkgName {
+  font-size: rem(14.5px);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.pkgWhat {
+  color: var(--mantine-color-gray-7);
+  font-size: rem(13.5px);
+}
+
+.raycastHead {
+  display: flex;
+  align-items: center;
+  gap: rem(14px);
+}
+
+.raycastIcon {
+  border-radius: rem(12px);
+}

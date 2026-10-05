@@ -1,0 +1,30 @@
+/*
+ * Two columns, as Laravel's: the case on the left, sticky while the window
+ * on the right is read; one column below 62em. A wash of the sky behind the
+ * window, painted once.
+ */
+.tour {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  align-items: start;
+  gap: rem(56px);
+  background: radial-gradient(
+    ellipse 60% 55% at 80% 55%,
+    color-mix(in srgb, var(--wpb-sky) 14%, transparent),
+    transparent 70%
+  );
+
+  @media (max-width: $mantine-breakpoint-md) {
+    grid-template-columns: minmax(0, 1fr);
+    gap: rem(40px);
+  }
+}
+
+.case {
+  position: sticky;
+  top: rem(120px);
+
+  @media (max-width: $mantine-breakpoint-md) {
+    position: static;
+  }
+}

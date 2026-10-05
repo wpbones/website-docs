@@ -1,0 +1,354 @@
+/*
+ * The feature tour's right column: the pills, the code window with the
+ * mascot on it, and the line under it. The window is the bone's warm white
+ * with the page's rule for an edge and the sky's glow round it, Laravel's
+ * window in this site's light.
+ */
+.tabs {
+  position: relative;
+  min-width: 0;
+}
+
+.pillsWrap {
+  display: flex;
+  justify-content: flex-start;
+}
+
+/* The pills, in one rounded track: Laravel's segmented control. */
+.pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: rem(2px);
+  padding: rem(4px);
+  border: 1px solid var(--wpb-frame);
+  border-radius: rem(999px);
+  background: var(--wpb-glass);
+  backdrop-filter: blur(6px);
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    border-radius: rem(16px);
+  }
+}
+
+.pill {
+  padding: rem(7px) rem(12px);
+  border: 0;
+  border-radius: rem(999px);
+  background: none;
+  color: var(--mantine-color-gray-7);
+  font: inherit;
+  font-size: rem(13.5px);
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    background-color 150ms ease,
+    color 150ms ease,
+    box-shadow 150ms ease;
+
+  &:hover {
+    color: var(--wpb-ink);
+  }
+
+  &[aria-selected='true'] {
+    background: var(--wpb-page);
+    color: var(--wpb-ink);
+    box-shadow:
+      0 0 0 1px var(--wpb-rule),
+      0 2px 6px -2px rgb(14 41 58 / 18%);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--wpb-sky);
+    outline-offset: 2px;
+  }
+}
+
+.windowWrap {
+  margin-top: rem(64px);
+}
+
+.window {
+  position: relative;
+  border: 1px solid var(--wpb-frame);
+  border-radius: rem(16px);
+  background: #fbf8f2;
+  box-shadow:
+    0 0 0 6px color-mix(in srgb, var(--wpb-sky) 10%, transparent),
+    0 24px 48px -24px rgb(14 41 58 / 30%);
+}
+
+.panel {
+  overflow: hidden;
+  border-radius: rem(16px);
+}
+
+/* The file tabs along the top, each with a bone where Laravel has its logo. */
+.files {
+  display: flex;
+  overflow-x: auto;
+  border-bottom: 1px solid var(--wpb-rule);
+  background: color-mix(in srgb, var(--wpb-page) 60%, #fbf8f2);
+  scrollbar-width: none;
+}
+
+.file {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: rem(7px);
+  padding: rem(12px) rem(16px);
+  border: 0;
+  border-right: 1px solid var(--wpb-rule);
+  background: none;
+  color: var(--mantine-color-gray-7);
+  font-family: var(--font-fira-code), 'Fira Code', monospace;
+  font-size: rem(13px);
+  cursor: pointer;
+
+  & svg {
+    color: var(--mantine-color-gray-5);
+  }
+
+  &[data-active] {
+    background: #fbf8f2;
+    color: var(--wpb-ink);
+    box-shadow: inset 0 -2px 0 var(--wpb-sky);
+
+    & svg {
+      color: var(--mantine-color-bones-6);
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--wpb-sky);
+    outline-offset: -2px;
+  }
+}
+
+/* Shiki's <pre>, given the window's measure and type. */
+.code {
+  min-height: rem(360px);
+  max-height: rem(440px);
+  overflow: auto;
+
+  & pre {
+    margin: 0;
+    padding: rem(20px) rem(24px);
+    background: transparent !important;
+    font-family: var(--font-fira-code), 'Fira Code', monospace;
+    font-size: rem(13.5px);
+    line-height: 1.7;
+  }
+
+  & pre:focus-visible {
+    outline: 2px solid var(--wpb-sky);
+    outline-offset: -2px;
+  }
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    min-height: rem(280px);
+
+    & pre {
+      padding: rem(16px);
+      font-size: rem(12.5px);
+    }
+  }
+}
+
+/*
+ * The command that makes the first file, as a terminal under the code: a
+ * caption that says so, then the line itself on a row of its own, so the
+ * longest command (58 characters) fits the window without a cut.
+ */
+.command {
+  display: grid;
+  grid-template-columns: auto auto minmax(0, 1fr);
+  align-items: center;
+  column-gap: rem(8px);
+  row-gap: rem(4px);
+  padding: rem(10px) rem(16px) rem(12px);
+  border-top: 1px solid var(--wpb-rule);
+  background: var(--wpb-ink);
+  color: #e7f3f9;
+  font-family: var(--font-fira-code), 'Fira Code', monospace;
+  font-size: rem(13px);
+}
+
+.hint {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: rem(6px);
+  color: rgb(231 243 249 / 66%);
+  font-family: var(--font-poppins), Poppins, sans-serif;
+  font-size: rem(11.5px);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+
+  & svg {
+    color: var(--wpb-sky);
+  }
+}
+
+.prompt {
+  color: var(--wpb-sky);
+  font-weight: 700;
+}
+
+/*
+ * It types itself in: the width grows a character at a time, in `steps`. A
+ * monospace `ch` is one character, so the width at the end is the command's.
+ */
+.typed {
+  overflow: hidden;
+  min-width: 0;
+  white-space: nowrap;
+}
+
+@media screen and (prefers-reduced-motion: no-preference) {
+  .typed {
+    width: calc(var(--chars) * 1ch);
+    max-width: 100%;
+    animation: type calc(var(--chars) * 22ms) steps(var(--chars)) 200ms backwards;
+  }
+}
+
+@keyframes type {
+  from {
+    width: 0;
+  }
+}
+
+/* The line under the window: what the tab does, and its docs. */
+.blurb {
+  margin: rem(20px) 0 0;
+  max-width: rem(620px);
+  color: var(--mantine-color-gray-7);
+  font-size: rem(15px);
+  line-height: 1.6;
+  animation: speak 260ms ease-out both;
+}
+
+.more {
+  display: inline-flex;
+  align-items: center;
+  gap: rem(4px);
+  color: var(--mantine-color-bones-7);
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/*
+ * The mascot, standing on the window's top edge near its right corner, its
+ * bubble to its left with the tail at its raised hand.
+ */
+.guide {
+  position: absolute;
+  right: rem(28px);
+  bottom: calc(100% - 2px);
+  z-index: 2;
+  display: flex;
+  align-items: flex-start;
+  gap: rem(10px);
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    right: rem(12px);
+  }
+}
+
+.walker {
+  flex: none;
+  order: 2;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  filter: drop-shadow(0 3px 3px rgb(14 41 58 / 22%));
+
+  & svg {
+    display: block;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--wpb-sky);
+    outline-offset: 4px;
+    border-radius: rem(6px);
+  }
+}
+
+.bubble {
+  position: relative;
+  order: 1;
+  max-width: min(rem(280px), 52vw);
+  margin-top: rem(-8px);
+  padding: rem(8px) rem(12px);
+  border-radius: rem(12px);
+  background: var(--wpb-page);
+  color: var(--wpb-ink);
+  font-size: rem(13px);
+  line-height: 1.4;
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--wpb-sky) 55%, transparent),
+    0 10px 24px -10px rgb(14 41 58 / 35%);
+  animation: speak 260ms ease-out both;
+}
+
+.bubble::after {
+  position: absolute;
+  top: rem(14px);
+  right: rem(-5px);
+  width: rem(10px);
+  height: rem(10px);
+  border-top: 1px solid color-mix(in srgb, var(--wpb-sky) 55%, transparent);
+  border-right: 1px solid color-mix(in srgb, var(--wpb-sky) 55%, transparent);
+  background: var(--wpb-page);
+  content: '';
+  transform: rotate(45deg);
+}
+
+@media (max-width: $mantine-breakpoint-sm) {
+  .bubble {
+    display: none;
+  }
+}
+
+@media screen and (prefers-reduced-motion: no-preference) {
+  /* One hop on every new tab: the sprite is keyed on it. */
+  .walker svg {
+    animation: hop 420ms ease-out 1;
+  }
+}
+
+@keyframes hop {
+  40% {
+    transform: translateY(rem(-8px));
+  }
+}
+
+@keyframes speak {
+  from {
+    opacity: 0;
+    transform: translateY(rem(3px));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blurb,
+  .bubble {
+    animation: none;
+  }
+}
