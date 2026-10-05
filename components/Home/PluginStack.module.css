@@ -7,8 +7,19 @@
  */
 
 .stage {
+  /*
+   * Every distance the stack moves is in proportion to its size, one set per
+   * breakpoint: the gap at rest, the spread the scroll opens it to, the lift
+   * a hover adds. As fixed pixels the spread of a 260 px stack, 58 px a
+   * layer, lifted the 180 px one of a phone 290 px up into the copy above it
+   * (the user, 2026-10-05: "piccola issue responsive").
+   */
   --gap: 34px;
+  --gap-closed: 14px;
+  --gap-open: 58px;
+  --lift: 40px;
   --size: 260px;
+  --rider: 144px;
 
   position: relative;
   display: grid;
@@ -16,18 +27,33 @@
   min-height: rem(520px);
   perspective: 1800px;
 
+  /*
+   * One column: the stack sits under the copy, and everything it does grows
+   * UPWARD (a layer's translateZ draws it higher on the page). The room for
+   * that is reserved above it, so it never reaches the copy, and the stage
+   * takes no more height than it uses below.
+   */
   @media (max-width: $mantine-breakpoint-md) {
     --size: 220px;
     --gap: 28px;
+    --gap-closed: 12px;
+    --gap-open: 40px;
+    --lift: 24px;
+    --rider: 120px;
 
-    min-height: rem(440px);
+    min-height: 0;
+    padding-block: rem(250px) rem(70px);
   }
 
   @media (max-width: $mantine-breakpoint-sm) {
     --size: 180px;
     --gap: 22px;
+    --gap-closed: 10px;
+    --gap-open: 30px;
+    --lift: 16px;
+    --rider: 96px;
 
-    min-height: rem(360px);
+    padding-block: rem(200px) rem(56px);
   }
 }
 
@@ -56,7 +82,7 @@
 
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
   .stage:hover .lift {
-    transform: translateZ(calc(var(--i) * 40px));
+    transform: translateZ(calc(var(--i) * var(--lift)));
   }
 
   /* The mascot hops once each time the pointer comes in. */
@@ -169,9 +195,9 @@
   transform: rotateZ(42deg) rotateX(-56deg);
 }
 
-/* Bigger than in the corner: 6 px a cell, whole pixels still. */
+/* Whole pixels a cell at every size: 24 cells at 6, 5 and 4 px (144, 120, 96). */
 .rider svg {
-  width: 144px;
+  width: var(--rider);
   height: auto;
   filter: drop-shadow(0 6px 6px rgb(14 41 58 / 22%));
 }
@@ -200,7 +226,7 @@
    */
   @supports (animation-timeline: scroll()) {
     .stage {
-      --gap: 14px;
+      --gap: var(--gap-closed);
     }
 
     .layer {
@@ -227,10 +253,10 @@
 
 @keyframes spread {
   from {
-    transform: translateZ(calc(var(--i) * 14px));
+    transform: translateZ(calc(var(--i) * var(--gap-closed)));
   }
 
   to {
-    transform: translateZ(calc(var(--i) * 58px));
+    transform: translateZ(calc(var(--i) * var(--gap-open)));
   }
 }

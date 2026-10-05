@@ -179,18 +179,23 @@ export function WhatsNew() {
           {/* How the suite grew, tag by tag. */}
           <figure className={classes.chart}>
             <div className={classes.bars}>
-              {GROWTH.map(([tag, count], i) => (
-                <div
-                  key={tag}
-                  {...revealItem('rise', 200 + i * 110, classes.barCol)}
-                  // The bar's height is the count's share of the largest, exactly.
-                  style={{ '--p': (count / TESTS).toFixed(4) } as CSSProperties}
-                >
-                  <span className={classes.count}>{count}</span>
-                  <span className={classes.bar} />
-                  <span className={classes.at}>{tag}</span>
-                </div>
-              ))}
+              {GROWTH.map(([tag, count], i) => {
+                const item = revealItem('rise', 200 + i * 110, classes.barCol);
+                return (
+                  <div
+                    key={tag}
+                    {...item}
+                    // Merged, not replaced: the item's own style carries its
+                    // --reveal-delay, the stagger (Codex on #75). --p is the
+                    // count's share of the largest, so a bar is to scale.
+                    style={{ ...item.style, '--p': (count / TESTS).toFixed(4) } as CSSProperties}
+                  >
+                    <span className={classes.count}>{count}</span>
+                    <span className={classes.bar} />
+                    <span className={classes.at}>{tag}</span>
+                  </div>
+                );
+              })}
             </div>
             <figcaption className={classes.caption}>
               The suite at each release that grew it.{' '}
