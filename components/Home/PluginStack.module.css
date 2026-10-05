@@ -56,7 +56,7 @@
 
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
   .stage:hover .lift {
-    transform: translateZ(calc(var(--i) * 16px));
+    transform: translateZ(calc(var(--i) * 40px));
   }
 
   /* The mascot hops once each time the pointer comes in. */
