@@ -1,12 +1,10 @@
 @import 'nextra-theme-docs/dist/style.css' layer(nextra);
 
 /**
- * Custom styles
- *
- * You can add your own custom styles here. This file will be imported after the theme styles.
- * This is a great place to add your own utility classes or override styles.
- *
- * In this case we're going to fix a glitch with the text size in the code blocks. 
+ * Nextra's chrome, on the light page and in the logo's colours. Nextra's own
+ * primary (links, the active sidebar row, the table of contents) is set once,
+ * as HSL, on its `Head` in app/layout.tsx; what is here is what that cannot
+ * reach.
  */
 @layer overwrite {
   html {
@@ -23,16 +21,23 @@
     font-family: var(--font-fira-code), 'Fira Code', Monaco, monospace !important;
   }
 
+  /* Nextra's chrome (navbar, sidebar, docs body) on the page's own surface. */
   :root {
-    --x-color-nextra-bg: var(--mantine-color-gray-1);
-
-    &:where(.dark) {
-      --x-color-nextra-bg: var(--mantine-color-dark-9);
-    }
+    --x-color-nextra-bg: var(--wpb-page);
   }
 
-  :where(.dark) {
-    --x-color-neutral-800: var(--mantine-color-dark-6);
+  /*
+   * The navbar is part of the page: a hairline in the page's own rule under
+   * it, the frosted white over the content once scrolled.
+   */
+  .nextra-navbar-blur {
+    border-bottom-color: var(--wpb-rule);
+    background-color: color-mix(in srgb, var(--wpb-page) 82%, transparent);
+  }
+
+  /* The release banner in the logo's deep blue, not Nextra's grey. */
+  .nextra-banner {
+    background: var(--mantine-color-bones-8);
   }
 
   .x\:text-sm {
@@ -40,19 +45,19 @@
     line-height: var(--tw-leading, var(--x-text-sm--line-height)) !important;
   }
 
-  .x\:bg-primary-100 {
-    background-color: var(--mantine-color-blue-6) !important;
-  }
-
-  .x\:text-primary-800 {
-    color: var(--mantine-color-white) !important;
+  /*
+   * Code blocks in the docs on the bone's warm white, with the page's rule
+   * for an edge: Nextra's grey slab read as a hole in a white page.
+   */
+  article pre {
+    background-color: var(--wpb-ivory) !important;
+    border: 1px solid var(--wpb-rule) !important;
   }
 
   nav.nextra-toc {
     li {
       a.x\:text-primary-600 {
         position: relative;
-        color: var(--mantine-color-blue-6) !important;
       }
 
       a.x\:text-primary-600::before {
@@ -60,7 +65,7 @@
         display: block;
         width: 2px;
         height: 100%;
-        background: var(--mantine-color-blue-6);
+        background: var(--wpb-sky);
         position: absolute;
         left: -8px;
         top: 0;

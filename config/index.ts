@@ -69,8 +69,9 @@ export default {
    * Main Layout head configuration
    */
   head: {
+    // The colour scheme is not configured: the site is light only, forced in
+    // app/layout.tsx.
     mantine: {
-      defaultColorScheme: 'dark',
       nonce: '8IBTHwOdqNKAWeKl7plt8g==',
     },
   },
