@@ -87,6 +87,20 @@ not the author's personal one).
   `--at` fractions, `--frames N --every MS`, `--eval`, `--no-wake` (without it the page is scrolled once
   first, which fires every one-shot reveal before the first frame). A `next dev` rewrites `CLAUDE.md` and
   `next-env.d.ts`: restore them before committing.
+- **The home page is `app/page.ts`, not `.tsx`, and that is load-bearing.** Nextra's page map, which the
+  root layout reads on every page, imports every app page it finds as a namespace (for its metadata),
+  and its glob is `page.{js,jsx,jsx,tsx,md,mdx}`. Found, the home page put all its stylesheets into the
+  layout's CSS and every docs page blocked its first paint on them (measured: docs LCP 2.0 s on `main`,
+  2.2 s with the home's CSS, 2.0 s again without). A dynamic `import()` did not help. Hence also no
+  `index` key in `app/_meta.tsx`: it refers to a page the map no longer sees, and fails the build.
+  `next.config.mjs` adds `cssChunking: 'graph'` where `TURBOPACK` is set: the default chunking merged
+  the home's CSS back into the shared chunks. To check: the `<link rel="stylesheet">` tags of `/docs`
+  must not name any `Home/` module.
+- **Measured before/after (2026-10-05, local `next start`, Lighthouse mobile, 4 passes home, 2 docs)**:
+  home perf 95–96 → 92–93, LCP 1.73–2.04 → 2.11–2.15 s, TBT ~160 → ~225 ms, CLS 0.041 → 0.002, 1271 →
+  965 KiB; docs LCP 2.0 → 2.0 s; at rest 716 → 80 ms of main-thread work and 601 → 54 style recalcs.
+  The home's code is compacted to one-letter classes (`highlight.ts`) and the sprite is one path per
+  colour (`sprite.ts`, `paths`), because both are served twice, in the HTML and the RSC payload.
 - **Not ours, measured on `main` too**: two React "unique key" warnings from Nextra's `ConfigProvider`
   in `next dev`, with or without banner, navbar and footer.
 
