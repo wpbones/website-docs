@@ -7,6 +7,7 @@
  *                                            [--at 0,0.25,0.6] [--find "text"]
  *                                            [--eval "<expression>"]
  *                                            [--click "<selector>" ...] [--between 1500]
+ *                                            [--hover "<selector>[@fx,fy]"] [--pre "<js>"]
  *                                            [--rate 0.1]
  *                                            [--frames 12 --every 250] [--no-wake]
  *                                            [--prompt] [--reduce]
@@ -69,6 +70,17 @@
  *   Give it more than once and each is clicked in turn, `--between MS` apart
  *   (1500 by default, wall clock, so allow for `--rate`).
  *
+ * `--hover "<selector>[@fx,fy]"` moves the REAL mouse (Input.dispatchMouseEvent)
+ * onto the first match, after each `--at` scroll and before its capture or
+ * strip: CSS `:hover` and pointer listeners both see it, which a synthetic
+ * DOM event cannot do for `:hover`. `@fx,fy` is where in the element's box,
+ * as fractions (default the centre, `@0.5,0.5`). Added on 2026-10-05 for the
+ * hero's plugin stack, which leans toward the pointer and lifts on hover.
+ *
+ * `--pre "<js>"` runs an expression right before each capture or strip (after
+ * `--hover`): an entrance that ends before the first frame can be replayed
+ * with `el.getAnimations().forEach(a => { a.currentTime = 0; })`.
+ *
  * And `--no-wake`, without which none of that can see a reveal: the default
  * scrolls the whole page once to wake the lazy backgrounds, which is exactly
  * what fires every one-shot reveal before the first frame.
@@ -115,6 +127,8 @@ const height = Number(flag('--height') ?? 900);
 const find = flag('--find');
 const evaluate = flag('--eval');
 const clicks = flags('--click');
+const hover = flag('--hover');
+const pre = flag('--pre');
 const between = Number(flag('--between') ?? 1500);
 const rate = Number(flag('--rate') ?? 1);
 const frames = Number(flag('--frames') ?? 0);
@@ -373,6 +387,34 @@ try {
     sessionId
   );
 
+
+  /** `--hover`: the real mouse onto the element, in viewport coordinates. */
+  async function hoverOn() {
+    if (!hover) {
+      return;
+    }
+    const [selector, at = '0.5,0.5'] = hover.split('@');
+    const [fx, fy] = at.split(',').map(Number);
+    const point = await send(
+      'Runtime.evaluate',
+      {
+        expression: `(() => { const el = document.querySelector(${JSON.stringify(selector)}); if (!el) return null; const r = el.getBoundingClientRect(); return [r.left + r.width * ${fx}, r.top + r.height * ${fy}]; })()`,
+        returnByValue: true,
+      },
+      sessionId
+    );
+    if (!point.result.value) {
+      throw new Error(`--hover: nothing matches ${selector}`);
+    }
+    const [x, y] = point.result.value;
+    // Two moves, so a listener sees the pointer arrive and then move inside.
+    for (const [dx, dy] of [[-40, -40], [0, 0]]) {
+      await send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: x + dx, y: y + dy }, sessionId);
+      await sleep(80);
+    }
+    await sleep(frames > 0 ? 0 : 1200);
+  }
+
   if (at?.length) {
     for (const fraction of at) {
       // Told where to go as a FRACTION of the scrollable range, and it reports
@@ -400,6 +442,10 @@ try {
         sessionId
       );
       const [y, max] = where.result.value;
+      await hoverOn();
+      if (pre) {
+        await send('Runtime.evaluate', { expression: pre, awaitPromise: true }, sessionId);
+      }
       if (frames > 0) {
         console.log(`at ${fraction}: y=${y}/${max}`);
         await strip(`${prefix}-at-${fraction}`);
