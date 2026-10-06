@@ -20,16 +20,16 @@ import classes from './WhatsNew.module.css';
  * l'accento sulle nuove feature che abbiamo introdotto nelle ultime versioni
  * -- scava a fondo -- tipo ad esempio i test"). Every line is the release
  * notes' or the docs' own (github.com/wpbones/WPBones/releases, v2.0.0 to
- * v2.1.0) and every figure was measured, not read off a note: the test counts
- * by running PHPUnit at each tag (`--list-tests`) and at v2.1.0 in full, and on
- * CI, where all four PHP jobs report "OK (174 tests, 470 assertions)". They
- * are figures AT v2.1.0, said so on the page, so a later release does not
- * make them false.
+ * v2.1.1) and every figure was measured, not read off a note: the test counts
+ * by running PHPUnit at each tag (`--list-tests`) and at v2.1.1 in full
+ * ("OK (175 tests, 472 assertions)": 85 unit, 90 console), as on CI. They are
+ * figures AT v2.1.1, said so on the page, so a later release does not make
+ * them false.
  */
 const RELEASE = (tag: string) => `https://github.com/wpbones/WPBones/releases/tag/${tag}`;
 
-/** v2.0.0 to v2.1.0, as `gh release list -R wpbones/WPBones` lists them. */
-const RELEASES = 14;
+/** v2.0.0 to v2.1.1, as `gh release list -R wpbones/WPBones` lists them. */
+const RELEASES = 15;
 
 /** The suite at each tag that grew it, by `phpunit --list-tests` on the tag's tree. */
 const GROWTH: [string, number][] = [
@@ -37,9 +37,10 @@ const GROWTH: [string, number][] = [
   ['v2.0.6', 89],
   ['v2.0.10', 148],
   ['v2.1.0', 174],
+  ['v2.1.1', 175],
 ];
-const TESTS = 174;
-const ASSERTIONS = 470;
+const TESTS = 175;
+const ASSERTIONS = 472;
 /** .github/workflows/tests.yml's matrix. */
 const PHP = ['8.1', '8.2', '8.3', '8.4'];
 
@@ -149,7 +150,7 @@ export function WhatsNew() {
           </div>
           <h3 className={home.h3}>Tested on every pull request</h3>
           <p className={home.body}>
-            85 unit tests check the SQL the framework builds, with no WordPress and no database. 89
+            85 unit tests check the SQL the framework builds, with no WordPress and no database. 90
             more run the real <code className={home.code}>bones</code> file against throwaway
             plugins. Every pull request and every push to master runs them on PHP 8.1 to 8.4, and a
             deprecation fails the build.
@@ -157,7 +158,7 @@ export function WhatsNew() {
 
           <dl className={classes.stats}>
             <div>
-              <dt>tests at v2.1.0</dt>
+              <dt>tests at v2.1.1</dt>
               <dd>
                 <ScrollNumber value={TESTS} />
               </dd>
