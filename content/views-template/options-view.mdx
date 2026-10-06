@@ -20,18 +20,20 @@ Of course, you will need to display your options in order to edit them. Let's ha
   ]
 ```
 
-In the `DashboardController` view controller we will create the `optionView` method so as to display the form:
+In the `DashboardController` view controller we will create the `optionsView` method so as to display the form:
 
 ```php filename="plugin/Controllers/DashboardController.php" copy
-public function optionView() {
+public function optionsView() {
   return WPKirk()->view( 'dashboard.optionsview' );
 }
 ```
 
-Now, we will create a file `optionview.php` in the `resources/views/dashboard/` folder: 
+Now, we will create a file `optionsview.php` in the `resources/views/dashboard/` folder: 
 
-```html filename="resources/views/dashboard/optionsview.php" copy
+```php filename="resources/views/dashboard/optionsview.php" copy {3}
 <form action="" method="post">
+
+  <?php echo $plugin->csrfField(); ?>
 
   <label>Special.Name</label>
   <input type="text"
@@ -46,6 +48,8 @@ Now, we will create a file `optionview.php` in the `resources/views/dashboard/` 
 <Callout>
 You can't use the dot (`.`) in the name of the field because it will be replaced by an underscore (`_`) character. Instead, use a slash to separate the options branch.
 </Callout>
+
+Since `v3.0.0` every form that posts to a WP Bones admin page prints `$plugin->csrfField()`: without it, the page refuses the request before `saveOptions()` runs. See [CSRF Security and nonce](#csrf-security-and-nonce) below.
 
 Next, in the updating method, we will use:
 
@@ -89,8 +93,10 @@ The method `$this->request->getAsOptions` will only retrieve the POST keys forma
 
 When you are using the massive update by `update($this->request->getAsOptions())`, remember that any checkbox input fields cannot be sent if unchecked. However, you can use a workaround to send an unchecked value even when the checkboxes are unchecked. You can achieve this by adding a **hidden input field** with the same name as the input checkbox and setting the value to a negative or null value:
 
-```html copy
+```php copy
 <form action="" method="post">
+
+  <?php echo $plugin->csrfField(); ?>
 
   <label>General.option_1</label>
     
@@ -151,16 +157,18 @@ public function saveOptions()
 
 And get it in the view:
 
-```html copy
+```php copy
 <?php if ( isset( $feedback ) ) : ?>
   <h3><?php echo $feedback ?></h3>
 <?php endif; ?>
   
 <form action="" method="post">
 
+  <?php echo $plugin->csrfField(); ?>
+
   <label>Special / Name</label>
   <input type="text"
-         name="Special.Name"
+         name="Special/Name"
          value="<?php echo $plugin->options->get( 'Special.Name' ) ?>" />
 
   <button>Update</button>
@@ -170,20 +178,27 @@ And get it in the view:
 
 ## CSRF Security and nonce
 
-You wish to use the WordPress nonce function to prevent CSRF attacks. You can do this by adding the `wp_nonce_field` WordPress function in your HTML form:
+Since `v3.0.0` WP Bones protects the options page for you: every request to a WP Bones admin page that is not a `GET` or a `HEAD` must carry the plugin's nonce, which `$plugin->csrfField()` prints in the form, as in the examples above. A request without it, or with a stale one, gets WordPress's *"The link you followed has expired."* page, and `saveOptions()` never runs. See [Forms and the nonce](/docs/core-concepts/menus-routing#forms-and-the-nonce).
 
-```html copy
+<Callout type="warning">
+Up to 2.x the page checked nothing by itself: a form without a nonce of its own could be posted from another site with an administrator's cookies, and `saveOptions()` ran.
+</Callout>
+
+You may still add a nonce of your own, with its own action, beside it. The `wp_nonce_field` WordPress function prints it in a `_wpnonce` field, which does not clash with the `_wpbones_nonce` field of `csrfField()`:
+
+```php copy {7-8}
 <?php if ( isset( $feedback ) ) : ?>
   <h3><?php echo $feedback ?></h3>
 <?php endif; ?>
   
 <form action="" method="post">
 
+  <?php echo $plugin->csrfField(); ?>
   <?php wp_nonce_field( 'Options' ); ?>
 
   <label>Special / Name</label>
   <input type="text"
-         name="Special.Name"
+         name="Special/Name"
          value="<?php echo $plugin->options->get( 'Special.Name' ) ?>" />
 
   <button>Update</button>
@@ -191,7 +206,7 @@ You wish to use the WordPress nonce function to prevent CSRF attacks. You can do
 </form>
 ```
 
-Next, in the `saveOptions` you may use the `wp_verify_nonce` WordPress function or the more useful `$this->request->verifyNonce` WP Bones method:
+Next, in the `saveOptions` you may use the `wp_verify_nonce` WordPress function or the more useful `$this->request->verifyNonce` WP Bones method, which reads the `_wpnonce` field:
 
 ```php copy
 public function saveOptions()

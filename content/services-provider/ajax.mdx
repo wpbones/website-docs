@@ -2,7 +2,7 @@ import { Callout, FileTree } from 'nextra/components'
 
 # Ajax
 
-This document explains how to create and manage Ajax services in WP Bones. It covers three types of Ajax access: for logged-in users, not-logged-in users, and everyone. It provides steps to create an Ajax Service Provider using the `php bones make:ajax MyAjax` command and how to manually create one. The document also explains how to define actions for different user types and set capabilities and nonce keys for security.
+This document explains how to create and manage Ajax services in WP Bones. It covers three types of Ajax access: for logged-in users, not-logged-in users, and everyone. It provides steps to create an Ajax Service Provider using the `php bones make:ajax MyAjax` command and how to manually create one. The document also explains how to define actions for different user types and set capabilities and nonce keys for security: since `v3.0.0` an action for logged-in users always checks a nonce.
 
 ## Overview
 
@@ -67,9 +67,13 @@ class MyAjax extends WordPressAjaxServiceProvider
    *
    * @var string
    */
-  protected $nonceHash = "";
+  protected $nonceHash = "wp_kirk_my_ajax";
 }
 ```
+
+<Callout type="warning">
+The class `make:ajax` writes has an empty `$nonceHash`. Since `v3.0.0` set it before you use the `logged` actions: without it they refuse every request. See [Nonce](#nonce).
+</Callout>
 
 
 ## Edit the Ajax Service Provider
@@ -130,7 +134,7 @@ class MyAjax extends WordPressAjaxServiceProvider
    *
    * @var string
    */
-  protected $nonceHash = "";
+  protected $nonceHash = "wp_kirk_my_ajax";
 
   public function trusted()
   {
@@ -155,7 +159,25 @@ class MyAjax extends WordPressAjaxServiceProvider
 }
 ```
 
-You can also get the post variables by using `$this->request->get('post_name')`. WordPress provides several functions to return a JSON result. For example, you may use:
+### Reading the request
+
+`$this->useHTTPPost()` returns the POST values you name, in the same order, with `null` for a missing one:
+
+```php copy
+public function logged()
+{
+  [$name, $email] = $this->useHTTPPost('name', 'email');
+
+  wp_send_json_success([
+    'name' => sanitize_text_field($name ?? ''),
+    'email' => sanitize_email($email ?? ''),
+  ]);
+}
+```
+
+Since `v3.0.0` the values come back without the slashes WordPress adds to every request value: `O'Brien` arrives as `O'Brien`. Up to 2.x `useHTTPPost()` returned the raw `$_POST` value, `O\'Brien`, and the code that called `wp_unslash()` on it can drop the call (a second `wp_unslash()` would strip a backslash the user typed).
+
+You can also get the post variables by using `$this->request->get('post_name')`, which returns them as they are in `$_REQUEST`, with WordPress's slashes. WordPress provides several functions to return a JSON result. For example, you may use:
 
 ```php copy
 wp_send_json_succcess();
@@ -187,15 +209,15 @@ The `wp_send_json_error` function works in the same way.
 
 ## Security
 
-You may protect your Ajax calls by using two main methods: by the simple capability property or by the nonce key.
+The `logged` actions are protected by a nonce, which they always check since `v3.0.0`, and optionally by a capability. The `trusted` and `notLogged` actions check neither: anyone can call them, logged in or not, so keep them for what is public and check inside the method whatever needs checking.
 
 ### Capability
 
-You can set the capability property in the class to protect the Ajax call. For example, if you want to allow only the `manage_options` capability, you can set the `$capability` property to `manage_options`.
+You can set the capability property in the class to protect the `logged` actions. For example, if you want to allow only the `manage_options` capability, you can set the `$capability` property to `manage_options`. A user without it gets a 403 JSON error.
 
 ### Nonce
 
-You can set the nonce key and hash properties in the class to protect the Ajax call. To enable the nonce protection, you have to set the `$nonceHash` property with a key used to generate the nonce.
+Set the `$nonceHash` property, the action the nonce is created for, and send the nonce with every request in the POST field that `$nonceKey` names (`nonce` by default):
 
 ```php copy
 /**
@@ -210,11 +232,17 @@ protected $nonceKey = "nonce";
  *
  * @var string
  */
-protected $nonceHash = "anything-you-want";
+protected $nonceHash = "wp_kirk_my_ajax";
 ```
 
 <Callout type="info">
 The `$nonceKey` property is the name of the post variable that will be sent to the server. The `$nonceHash` property is the string used to generate the nonce.
+</Callout>
+
+A request without the nonce, or with an invalid one, gets a 403 JSON error, and the action does not run. The nonce is read from the POST body only: send the request as form data (`application/x-www-form-urlencoded` or `multipart/form-data`), as the examples below do, not as JSON.
+
+<Callout type="warning">
+Since `v3.0.0` a provider with `logged` actions and an empty `$nonceHash` (or `$nonceKey`) refuses every request to them with a 403, and raises a `_doing_it_wrong()` notice that names the provider. Up to 2.x such a provider checked no nonce at all, so a page on another site could call its actions with the cookies of a logged-in user. `php bones migrate:to-v3` lists the providers that extend `WordPressAjaxServiceProvider` directly with `logged` actions and no `$nonceHash`; one that inherits it from a base class of your own is not listed. See [Migrating to v3](/docs/migrating-to-v3).
 </Callout>
 
 Next, you have to generate the nonce in your Controller and make it available to the JavaScript side. You can use the `withLocalizeScript` method to pass the nonce to the JavaScript side.
@@ -229,7 +257,7 @@ class DashboardController extends Controller
     return WPKirk()
       ->view("dashboard.index")
       ->withLocalizeScript("app", "WPKirkNonce", [
-        "nonce" => wp_create_nonce("anything-you-want"),
+        "nonce" => wp_create_nonce("wp_kirk_my_ajax"),
       ])
       ->withAdminAppsScript("app", true);
   }

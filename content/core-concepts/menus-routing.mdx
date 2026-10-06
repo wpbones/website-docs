@@ -24,12 +24,61 @@ In WordPress as well as WP Bones architecture, the routing is quite different fr
 
 In this case, when an HTTP POST request is made, the method `updateValues` in `Dashboard\DashboardController` will be called.
 
+## Forms and the nonce
+
+Since `v3.0.0` every request to a WP Bones admin page that is not a `GET` or a `HEAD` must carry the plugin's nonce. That covers the menu items, the [page routes](pages-routing) and the pages in the `pages` folder. Print it inside every form that posts to one of them with `$plugin->csrfField()`:
+
+```php filename="resources/views/dashboard/second-menu.php" copy {2}
+<form action="" method="post">
+  <?php echo $plugin->csrfField(); ?>
+
+  <input type="text" name="title" value="" />
+
+  <button class="button">Save</button>
+</form>
+```
+
+In a Blade view, print it unescaped:
+
+```php filename="resources/views/dashboard/second-menu.blade.php" copy {2}
+<form action="" method="post">
+  {!! $plugin->csrfField() !!}
+
+  <input type="text" name="title" value="" />
+
+  <button class="button">Save</button>
+</form>
+```
+
+`csrfField()` returns the hidden fields of [`wp_nonce_field()`](https://developer.wordpress.org/reference/functions/wp_nonce_field/): the nonce, in a field named `_wpbones_nonce`, and the referer. The name is not `_wpnonce`, so a form can keep a `wp_nonce_field()` of its own beside it. The nonce action is `$plugin->csrfAction()`, the plugin's slug followed by `_csrf`: a script that posts to the page itself sends `wp_create_nonce($plugin->csrfAction())` in a `_wpbones_nonce` POST field.
+
+WP Bones checks the nonce on the page's `load-{hook}` action, before any `load` callback, and again before the page renders. A request without it, or with a wrong or expired one, gets WordPress's own *"The link you followed has expired."* page, with a 403 status: neither the `load` callbacks nor the controller method run.
+
+<Callout type="warning">
+Up to 2.x a WP Bones admin page called `store()`, `update()` or `destroy()`, and ran its `load` callbacks, for any request: a form on another site could post to it with the cookies of a logged-in administrator. `php bones migrate:to-v3` lists the POST forms that do not print `csrfField()`. See [Migrating to v3](/docs/migrating-to-v3).
+</Callout>
+
+### Turning the check off
+
+A page that takes requests from elsewhere, another service posting back to it for instance, cannot print the field. Turn the check off for that page only, with `'csrf' => false` in its `route`, in `config/menus.php` or `config/routes.php`:
+
+```php copy {4}
+  'route' => [
+    'get'  => 'Dashboard\ConnectController@index',
+    'post' => 'Dashboard\ConnectController@store',
+    'csrf' => false,
+  ],
+```
+
+A page in the `pages` folder turns it off with a public `csrf()` method that returns `false`: see [Pages Routing](pages-routing#forms). The page must then check the request itself, a signature or a secret for instance.
+
 ## Form Method Spoofing
 
 HTML forms do not support `PUT`, `PATCH` or `DELETE` actions. So, when defining `PUT`, `PATCH` or`DELETE` routes that are called from an HTML form, you will need to add a hidden `_method` field to the form. The value sent with the `_method` field will be used in the HTTP request:
 
-```html copy
+```php copy
 <form action="" method="POST">
+    <?php echo $plugin->csrfField(); ?>
     <input type="hidden" name="_method" value="PUT">
 </form>
 ```
@@ -122,8 +171,9 @@ public function load()
 
 This route will be called on the `load-{hook}` action. Here you can use `wp_redirect()` or the WP Bones redirect method. Let's see an example:
 
-```html copy
+```php copy
 <form action="" method="post">
+  <?php echo $plugin->csrfField(); ?>
   <input type="hidden" name="_redirect" value="http://undolog.com">
   <button class="button">POST with redirect</button>
 </form>

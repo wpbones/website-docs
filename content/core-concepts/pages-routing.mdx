@@ -117,5 +117,54 @@ You will be able to get the URL of the custom page by using `$plugin->getPageUrl
 ```php copy
 <?php $plugin->getPageUrl('custom_page'); ?>
 ```
+
+## Forms
+
+Since `v3.0.0` a request to a page route, or to a page in the `pages` folder, that is not a `GET` or a `HEAD` must carry the plugin's nonce, as for a menu item: print `$plugin->csrfField()` in the form. See [Forms and the nonce](menus-routing#forms-and-the-nonce).
+
+A page that takes requests from elsewhere, another service posting back to it for instance, turns the check off. A page route does it with `'csrf' => false` in its `route`:
+
+```php copy filename="config/routes.php" {8}
+return [
+  'connect_return' => [
+    'title'      => 'Connect your account',
+    'capability' => 'manage_options',
+    'route'      => [
+      'get'  => 'Dashboard\ConnectController@index',
+      'post' => 'Dashboard\ConnectController@store',
+      'csrf' => false,
+    ]
+  ]
+];
+```
+
+A page in the `pages` folder does it with a public `csrf()` method, without required arguments, that returns `false`:
+
+```php copy filename="pages/connect_return.php" {12-15}
+<?php
+
+use WPKirk\WPBones\Routing\Pages\Support\Page;
+
+class ConnectReturnPage extends Page
+{
+    public function capability(): string
+    {
+        return 'manage_options';
+    }
+
+    public function csrf(): bool
+    {
+        return false;
+    }
+
+    public function render()
+    {
+        return $this->plugin->view('dashboard.connect_return');
+    }
+}
+```
+
+Without the nonce, the page has to check the request itself, a signature or a secret for instance.
+
 ---
 <DocsBoilerplateDemo slug="routes" />
