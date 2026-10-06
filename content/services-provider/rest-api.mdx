@@ -97,10 +97,32 @@ use WPKirk\WPBones\Routing\API\Route;
 
 Route::get('/example', function () {
     return 'Hello World!';
-});
+}, ['permission_callback' => '__return_true']);
 ```
 
 You may use your browser to test `/wp-json/vendor/v1/example` route.
+
+### Who can call a route
+
+WordPress asks every REST route for a `permission_callback`, a function that answers whether the current request may run it. Pass `'__return_true'` for a route that is public on purpose, as above, or a check of your own:
+
+```php filename="api/vendor/v1/route.php" copy
+use WPKirk\WPBones\Routing\API\Route;
+
+Route::post('/settings', '\WPKirk\API\SettingsController@update', [
+    'permission_callback' => function () {
+        return current_user_can('manage_options');
+    },
+]);
+```
+
+A route without one is public: anyone can call it, logged in or not. Since `v2.1.2` WP Bones says so with a `_doing_it_wrong()` notice that names the route. During a REST request WordPress sends the notice as an `X-WP-DoingItWrong` response header, with `WP_DEBUG` on; when the REST server starts inside another request, the block editor's for example, it goes to `debug.log`.
+
+<Callout type="warning">
+Up to `v2.1.1` a route without a `permission_callback` was made public with no notice at all. From WP Bones 3.0 a route without one will not be public. To keep a route public, declare `'__return_true'` now.
+</Callout>
+
+The examples on the rest of this page leave the option out to stay short.
 
 ### HTTP Methods
 

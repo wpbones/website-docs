@@ -35,7 +35,7 @@ return [
 
   'custom_page' => [
     'title'      => 'Title of page',
-    'capability' => 'read',
+    'capability' => 'manage_options',
     'route'      => [
       'get' => 'Dashboard\DashboardController@customPage'
     ]
@@ -51,6 +51,16 @@ $url = $plugin->getPageUrl( 'custom_page');
 // you'll get something like
 // http://domain.com/wp-admin/admin.php?page=custom_page
 ```
+
+### Who can open the page
+
+A page route has no menu entry, and WordPress lets any logged-in user open a page like that, subscribers included. WP Bones checks the `capability` key for it: a user without that capability gets WordPress's own *"Sorry, you are not allowed to access this page."*, with a 403 status, before any `load` callback or controller method runs, whatever the HTTP verb.
+
+Without the key, the page asks for `read`, which every logged-in user has. Give an admin page `manage_options`, or the capability that fits the task.
+
+<Callout type="warning">
+Before `v2.1.2` the `capability` key was not read: every page route opened for any logged-in user. Update the framework with `composer update wpbones/wpbones`.
+</Callout>
 
 ## Custom Admin Pages folder
 
@@ -69,6 +79,12 @@ class CustomPage extends Page
         return "Hello, Custom Page!";
     }
 
+    // Who can open the page. Leave it out and the page asks for `read`.
+    public function capability()
+    {
+        return 'manage_options';
+    }
+
     public function render()
     {
         return $this->plugin->view('dashboard.custom_page');
@@ -79,6 +95,8 @@ class CustomPage extends Page
 <Callout >
 The class name is not important. You can use any name you want. The most important thing is the name of the file. In this case, the file name is `custom_page.php`. This means that the slug of the page will be `custom_page`.
 </Callout>
+
+A page in the `pages` folder has no menu entry either, so it gets the same check as a page route: the `capability()` method says which capability opens it (since `v2.1.2`). Without the method, the page asks for `read`.
 
 You will be able to get the URL of the custom page by using `$plugin->getPageUrl` method. For example, to get the URL of the above custom page, please use:
 
