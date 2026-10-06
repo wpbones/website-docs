@@ -99,12 +99,20 @@ not the author's personal one).
   layout's CSS and every docs page blocked its first paint on them (measured: docs LCP 2.0 s on `main`,
   2.2 s with the home's CSS, 2.0 s again without). A dynamic `import()` did not help. Hence also no
   `index` key in `app/_meta.tsx`: it refers to a page the map no longer sees, and fails the build.
-  `next.config.mjs` adds `cssChunking: 'graph'` where `TURBOPACK` is set: the default chunking merged
-  the home's CSS back into the shared chunks. To check: the `<link rel="stylesheet">` tags of `/docs`
-  must not name any `Home/` module.
+  The default CSS chunking still merges the home's CSS into the shared chunks, so the docs load it.
+- **Never `cssChunking: 'graph'` while Mantine's CSS is unlayered.** It kept the home's CSS off the docs,
+  and it shipped (#75), but it ORDERS the chunks by its own cost model: Mantine's core stylesheet came
+  after the component modules, and every module rule that overrides a Mantine component at the same
+  specificity lost. In production the chat launcher was `position: relative` at the foot of the page,
+  20 px off its left edge, instead of fixed bottom right, and the docs' GitHub buttons had Mantine's
+  border, not ours (measured with `getComputedStyle` on wpbones.com, then reverted). Moving Mantine to
+  `styles.layer.css` would make the order irrelevant, but the layer order would then put Nextra's
+  preflight above Mantine: settle that first, and check `getComputedStyle` of the launcher, a tab pill
+  and a GitHub button on a production build, not in `next dev`, which does not chunk.
 - **Measured before/after (2026-10-05, local `next start`, Lighthouse mobile, 4 passes home, 2 docs)**:
   home perf 95–96 → 92–93, LCP 1.73–2.04 → 2.11–2.15 s, TBT ~160 → ~225 ms, CLS 0.041 → 0.002, 1271 →
-  965 KiB; docs LCP 2.0 → 2.0 s; at rest 716 → 80 ms of main-thread work and 601 → 54 style recalcs.
+  965 KiB; docs LCP 2.0 → 2.0 s with `graph` (2.2 s without it, the home's CSS on the docs again, ~9 KB
+  gzip: the price of the revert above); at rest 716 → 80 ms of main-thread work and 601 → 54 style recalcs.
   The home's code is compacted to one-letter classes (`highlight.ts`) and the sprite is one path per
   colour (`sprite.ts`, `paths`), because both are served twice, in the HTML and the RSC payload.
 - **Not ours, measured on `main` too**: two React "unique key" warnings from Nextra's `ConfigProvider`
