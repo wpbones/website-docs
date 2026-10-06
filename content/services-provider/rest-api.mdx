@@ -116,7 +116,7 @@ Route::post('/settings', '\WPKirk\API\SettingsController@update', [
 ]);
 ```
 
-A route without one is public: anyone can call it, logged in or not. Since `v2.1.2` WP Bones says so with a `_doing_it_wrong()` notice that names the route. During a REST request WordPress sends the notice as an `X-WP-DoingItWrong` response header, with `WP_DEBUG` on; when the REST server starts inside another request, the block editor's for example, it goes to `debug.log`.
+A route without one is public: anyone can call it, logged in or not. Since `v2.1.2` WP Bones says so with a `_doing_it_wrong()` notice that names the route. With `WP_DEBUG` on, WordPress sends the notice as an `X-WP-DoingItWrong` response header during a REST request (one header, the last notice, when several routes lack the option); when the REST server starts inside another request, the block editor's for example, it goes to `debug.log`.
 
 <Callout type="warning">
 Up to `v2.1.1` a route without a `permission_callback` was made public with no notice at all. From WP Bones 3.0 a route without one will not be public. To keep a route public, declare `'__return_true'` now.
