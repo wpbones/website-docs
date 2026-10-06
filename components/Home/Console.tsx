@@ -8,7 +8,7 @@ import classes from './Console.module.css';
 /**
  * `php bones` as it answers with no arguments: the command list, word for
  * word, from the CLI's own help (WPBones/src/Console/bin/bones, lines
- * 1695-1721, at 2.1.0). Grouped as the CLI groups them.
+ * 1701-1731, at v3.0.0). Grouped as the CLI groups them.
  */
 const GROUPS: { name: string | null; commands: [string, string][] }[] = [
   {
@@ -28,8 +28,11 @@ const GROUPS: { name: string | null; commands: [string, string][] }[] = [
   {
     name: 'migrate',
     commands: [
+      ['migrate', 'Run the migrations that have not run on this site'],
       ['migrate:create', 'Create a new Migration'],
+      ['migrate:status', 'List the migrations and whether each one ran'],
       ['migrate:to-v2', 'Migrate gulp-based plugin to v2 webpack infrastructure'],
+      ['migrate:to-v3', 'Convert a 2.x plugin to the breaking changes of WP Bones 3'],
     ],
   },
   {
