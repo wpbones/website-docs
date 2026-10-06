@@ -201,7 +201,7 @@ export function WhatsNew() {
               })}
             </div>
             <figcaption className={classes.caption}>
-              The suite at each release that grew it.{' '}
+              The suite at the four releases that grew it most.{' '}
               <a
                 href="https://github.com/wpbones/WPBones/blob/master/.github/workflows/tests.yml"
                 target="_blank"
