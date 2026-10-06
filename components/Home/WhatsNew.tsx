@@ -31,13 +31,15 @@ const RELEASE = (tag: string) => `https://github.com/wpbones/WPBones/releases/ta
 /** v2.0.0 to v2.1.1, as `gh release list -R wpbones/WPBones` lists them. */
 const RELEASES = 15;
 
-/** The suite at each tag that grew it, by `phpunit --list-tests` on the tag's tree. */
+/**
+ * The suite at the four tags that grew it most, by `phpunit --list-tests` on the tag's tree. The
+ * chart is laid out for four bars (`.bars`); v2.1.1 added one test, and shows in TESTS.
+ */
 const GROWTH: [string, number][] = [
   ['v2.0.4', 67],
   ['v2.0.6', 89],
   ['v2.0.10', 148],
   ['v2.1.0', 174],
-  ['v2.1.1', 175],
 ];
 const TESTS = 175;
 const ASSERTIONS = 472;
