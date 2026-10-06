@@ -18,6 +18,7 @@ export default {
   'core-classes': 'Core Classes',
   'core-plugin-files': 'Core Plugin Files',
   'boilerplates': 'Boilerplates',
+  'migrating-to-v3': '⬆️ Migrating to v3',
   'migrating-to-v2': '⬆️ Migrating to v2',
   '###': {
     type: 'separator',

@@ -1,0 +1,348 @@
+import { Steps } from 'nextra/components'
+
+# Migrating from v2.x to v3.0
+
+WP Bones **v3.0** changes what the framework does when you say nothing. Database migrations run once per site, and seeders become migrations. Admin pages, menus and REST routes that declare no permission are for administrators. Requests that change something on an admin page, and logged-in Ajax actions, carry a nonce. The files the framework generates leave the plugin folder. This guide walks you through the upgrade.
+
+PHP stays at 8.1 or later, and React stays at 18, from `@wordpress/element`. The build does not change.
+
+## TL;DR
+
+```sh copy
+composer require "wpbones/wpbones:^3.0"
+php bones migrate:to-v3
+```
+
+The command converts your migrations and seeders, then prints a list under *Review manually*: every page, menu, REST route, form and Ajax provider that behaves differently on 3.0. Go through that list with the sections below, then test the plugin on a site that ran its 2.x version.
+
+## What changed
+
+| | 2.x | 3.0 | To keep the 2.x behaviour |
+| --- | --- | --- | --- |
+| [Migrations](#migrations-run-once-per-site) | Every one, on each activation and dashboard update | Each one once per site: on activation, or when the plugin's version changes | Not possible |
+| [Seeders](#seeders-do-not-run) | On each activation and dashboard update | Never: seed data is a migration | `migrate:to-v3` converts them |
+| [Page or menu without a capability](#pages-and-menus-that-declare-no-capability) | `read`, any logged-in user | `manage_options` | `'capability' => 'read'` |
+| [REST route without a `permission_callback`](#rest-routes-without-a-permission_callback) | Public | Refuses every request | `'permission_callback' => '__return_true'` |
+| [`POST` to an admin page](#admin-forms-carry-a-nonce) | Accepted | Needs `$plugin->csrfField()` in the form | `'csrf' => false` on the route |
+| [Logged Ajax action, no `$nonceHash`](#logged-ajax-actions-need-a-nonce) | Runs for any request | Refuses every request | Not possible: set `$nonceHash` |
+| [`useHTTPPost()`](#usehttppost-returns-unslashed-values) | Values with WordPress's slashes | Values without slashes | `wp_slash()` on the values |
+| [`single` and `daily` logs](#generated-files-leave-the-plugin-folder) | `<plugin>/storage/logs/` | `uploads/wpbones/<plugin folder>/logs/` | A `logging.path` of your own |
+| [Compiled Blade views](#generated-files-leave-the-plugin-folder) | `<plugin>/.cache/` | `uploads/wpbones/<plugin folder>/views/` | Not possible |
+
+## Running the migrator
+
+<Steps>
+### Commit your work
+
+The migrator rewrites and deletes files in `database/`. Starting from a clean git state makes the review and the rollback trivial.
+
+```sh copy
+git status
+git commit -am "snapshot before v3 migration"
+```
+
+### Bump the framework constraint
+
+Edit `composer.json`:
+
+```json copy {3}
+"require": {
+  "php": ">=8.1",
+  "wpbones/wpbones": "^3.0"
+}
+```
+
+### Update dependencies
+
+```sh copy
+composer update wpbones/wpbones
+```
+
+The `post-autoload-dump` script of your `composer.json` copies the new `bones` from the framework into your plugin, so the next command is the 3.0 one.
+
+### Run the migrator
+
+Run it in the plugin's source folder, not in a deployed copy:
+
+```sh copy
+php bones migrate:to-v3
+```
+
+You'll see a `y/N` prompt summarising what it will touch. Say `y`. It then:
+
+- rewrites the `use` line of every file in `database/migrations/` to the 3.0 base class;
+- turns every file in `database/seeders/` into a migration, and deletes the seeder once its migration parses;
+- lists under *Review manually* what it does not rewrite: the pages, menus and REST routes that 3.0 gives to administrators only, the `POST` forms without `$plugin->csrfField()`, the Ajax providers without a nonce, and any seeder it could not convert.
+
+Running it again changes nothing that is already converted.
+
+### Go through the list
+
+Each line names a file, and the section of this guide it belongs to. `git diff` shows what the migrator changed; `php -l` on the new migrations checks that they parse.
+
+### Test on a site that ran 2.x
+
+Install the plugin on a test site that runs its 2.x version, and update it there the way your users will. Then, from the plugin's folder on that site:
+
+```sh copy
+php bones migrate:status
+```
+
+Every migration should be marked as run. Open each admin page as an administrator and as a user with less power, submit every form, call every Ajax action and REST route, and keep `wp-content/debug.log` open: a new notice is a finding.
+</Steps>
+
+## Migrations run once per site
+
+**What 2.x did.** On each activation, and on each update made from the dashboard, the plugin included every file in `database/migrations/`, and creating the migration object ran `up()`. The update ran through `upgrader_post_install`, in the request that installed the update, with the old code still loaded; an update by ZIP upload, FTP, git or Composer never ran the migrations.
+
+**What 3.0 does.** Each migration runs once per site, in file name order, and its file name is recorded in an option. The pending migrations run when the plugin is activated, on the first request after the plugin's `Version` header changes (whichever way the update arrived), and when you run `php bones migrate`. A migration that fails stops the run, and administrators see a notice until it runs. See [Migrations](/docs/database-orm/migrations).
+
+**What to do:**
+
+- **Bump the `Version` header** in every release that adds a migration: the version change is what makes the sites run it. While developing, run `php bones migrate`, or deactivate and activate the plugin.
+- **Make the migrations you already ship safe to repeat.** A site that ran 2.x has no record of what ran, so its first request on 3.0 runs every migration once more. `create()` is safe to repeat. A migration that inserts rows checks `isEmpty()` first.
+- **Leave the new base class in place.** `migrate:to-v3` changes `use WPKirk\WPBones\Database\Migrations\Migration;` to `use WPKirk\WPBones\Database\Migration;`. The old name still loads, deprecated. The new one matters for the update that brings your users onto 3.0: that update is run by the 2.x code still in memory, which includes every migration file, and a file on the new class is not run by it.
+- **Check `plugin/updated.php`.** It now runs on the first request after the update, in the new code, after the migrations, and it gets the version the update came from in `$previousVersion` (`null` on the first 3.0 request of a site updated from 2.x). It does not run on a first activation. In 2.x it ran in the update request, with the old code, and only for dashboard updates. The options delta moved with it.
+- **Forget the record in `uninstall.php`** if it drops your tables, or a new installation creates nothing. See [Uninstall](/docs/database-orm/migrations#uninstall).
+
+## Seeders do not run
+
+**What 2.x did.** After the migrations, on each activation and dashboard update, every file in `database/seeders/` ran. A seeder with `$runOnce` skipped a table that already had rows.
+
+**What 3.0 does.** Nothing reads `database/seeders/`: seed data is a migration, and runs once per site in order with the migration that creates its table. The `Seeder` class still exists, so an old file loads without a fatal error, but it does nothing. While the folder holds a seeder, WP Bones writes a line to the PHP error log each time it runs the migrations.
+
+**What to do:** `migrate:to-v3` converts each seeder into a migration named after it, with a timestamp after your latest migration, as 2.x ran the seeders after all of them. This 2.x seeder:
+
+```php filename="database/seeders/ProductSeeder.php"
+<?php
+
+use WPKirk\WPBones\Database\Seeder;
+
+return new class extends Seeder {
+  protected $tablename = 'my_plugin_products';
+
+  protected $runOnce = true;
+
+  public function run()
+  {
+    $this->insert("(name, price) VALUES ('iMac', 100000), ('iPhone', 20000)");
+  }
+};
+```
+
+becomes:
+
+```php filename="database/migrations/2026_10_06_143602_product_seeder.php"
+<?php
+
+if (!defined('ABSPATH')) {
+  exit();
+}
+
+use WPKirk\WPBones\Database\Migration;
+
+/*
+ * Converted from database/seeders/ProductSeeder.php by php bones migrate:to-v3.
+ */
+return new class extends Migration {
+  public function up()
+  {
+    // The seeder had $runOnce: it seeded the table only while it was empty, and so does this.
+    if (!$this->isEmpty('my_plugin_products')) {
+      return;
+    }
+
+    $this->insert('my_plugin_products', "(name, price) VALUES ('iMac', 100000), ('iPhone', 20000)");
+  }
+};
+```
+
+A seeder without `$runOnce` refreshed its data on every activation and update; it now runs once, and the migrator says so in its list. When that data changes in a later release, write a new migration that refreshes it. A seeder the migrator cannot convert, one with methods besides `run()` for instance, stays in place and is listed: convert it by hand. See [Seeding](/docs/database-orm/seeding).
+
+## Pages and menus that declare no capability
+
+**What 2.x did.** A page route in `config/routes.php` or a page in `pages/` without a capability asked for `read` (since `v2.1.2`), and so did a menu in `config/menus.php`: any logged-in user, subscribers included, could open it.
+
+**What 3.0 does.** They ask for `manage_options`: only administrators can open them.
+
+**What to do:** declare a capability on each one `migrate:to-v3` lists. To keep the 2.x behaviour, declare `read`:
+
+```php filename="config/routes.php" copy {4}
+return [
+  'custom_page' => [
+    'title'      => 'Title of page',
+    'capability' => 'read',
+    'route'      => [
+      'get' => 'Dashboard\DashboardController@customPage'
+    ]
+  ]
+];
+```
+
+For a menu, set it on the menu itself, not only on its items: with `read` on an item under a menu that asks for `manage_options`, a subscriber sees the menu but cannot open its first page. A page in `pages/` returns it from a public `capability()` method:
+
+```php copy
+public function capability(): string
+{
+    return 'read';
+}
+```
+
+The migrator cannot see a `capability()` that a page inherits from a base class of yours: ignore its line for such a page. See [Pages Routing](/docs/core-concepts/pages-routing#who-can-open-the-page) and [Menus](/docs/core-concepts/menus#default-values).
+
+## REST routes without a `permission_callback`
+
+**What 2.x did.** A route without a `permission_callback` was public: anyone could call it, with a `_doing_it_wrong()` notice since `v2.1.2`.
+
+**What 3.0 does.** It refuses every request with WordPress's `rest_forbidden` error (401 for a visitor, 403 for a logged-in user), and the notice says so.
+
+**What to do:** give each route `migrate:to-v3` lists a `permission_callback`. For a route that is public on purpose, keep the 2.x behaviour with `'__return_true'`; for any other, check the request:
+
+```php filename="api/vendor/v1/route.php" copy
+use WPKirk\WPBones\Routing\API\Route;
+
+Route::get('/example', function () {
+    return 'Hello World!';
+}, ['permission_callback' => '__return_true']);
+
+Route::post('/settings', '\WPKirk\API\SettingsController@update', [
+    'permission_callback' => function () {
+        return current_user_can('manage_options');
+    },
+]);
+```
+
+The migrator reads the folder `config/api.php` names in `custom.path` (`api/` by default), and lists, for you to check by hand, a route whose options it cannot read. See [REST API](/docs/services-provider/rest-api#who-can-call-a-route).
+
+## Admin forms carry a nonce
+
+**What 2.x did.** A WP Bones admin page called `store()`, `update()` or `destroy()`, and ran its `load` callbacks, for any request: a form on another site could post to it with an administrator's cookies.
+
+**What 3.0 does.** Every request to a WP Bones admin page (menu items, page routes, `pages/`) that is not a `GET` or a `HEAD` must carry the plugin's nonce, in a `_wpbones_nonce` field. Without it, or with a stale one, WordPress answers *"The link you followed has expired."* with a 403, before any `load` callback or controller method runs.
+
+**What to do:** print the field in every form `migrate:to-v3` lists:
+
+```php copy {2}
+<form action="" method="post">
+  <?php echo $plugin->csrfField(); ?>
+
+  <button class="button">Save</button>
+</form>
+```
+
+In a Blade view, `{!! $plugin->csrfField() !!}`. A script that posts to an admin page sends `wp_create_nonce($plugin->csrfAction())` in a `_wpbones_nonce` field. The migrator reads the markup of your views: a form it cannot see, built by code or by a JavaScript app, is yours to check.
+
+A page that takes requests from elsewhere, and checks them itself, keeps the 2.x behaviour with `'csrf' => false` in its `route`, or a public `csrf()` method that returns `false` on a `pages/` class. A `wp_nonce_field()` of your own keeps working beside `csrfField()`, and `$this->request->verifyNonce()` now answers `false`, instead of raising a notice, when the `_wpnonce` field is missing. See [Forms and the nonce](/docs/core-concepts/menus-routing#forms-and-the-nonce).
+
+## Logged Ajax actions need a nonce
+
+**What 2.x did.** A provider without `$nonceHash` ran its `logged` actions for any request: a page on another site could call them with the cookies of a logged-in user.
+
+**What 3.0 does.** A `logged` action always checks the nonce. A provider without `$nonceHash` (or `$nonceKey`) refuses every request to its `logged` actions with a 403, and a `_doing_it_wrong()` notice names it. `trusted` and `notLogged` actions are public by design, and unchanged.
+
+**What to do:** set `$nonceHash` in every provider `migrate:to-v3` lists, and send the nonce with each request in the POST field `$nonceKey` names (`nonce` by default):
+
+```php filename="plugin/Ajax/MyAjax.php" copy {10}
+<?php
+namespace WPKirk\Ajax;
+
+use WPKirk\WPBones\Foundation\WordPressAjaxServiceProvider;
+
+class MyAjax extends WordPressAjaxServiceProvider
+{
+  protected $logged = ['logged'];
+
+  protected $nonceHash = 'wp_kirk_my_ajax';
+
+  public function logged()
+  {
+    wp_send_json_success('You have clicked Ajax Logged');
+  }
+}
+```
+
+The page that calls it creates the nonce for the script, in its controller:
+
+```php copy {4}
+return WPKirk()
+  ->view('dashboard.index')
+  ->withLocalizeScript('app', 'WPKirkNonce', [
+    'nonce' => wp_create_nonce('wp_kirk_my_ajax'),
+  ])
+  ->withAdminAppsScript('app', true);
+```
+
+There is no switch back for `logged` actions: an action that must answer without a nonce belongs in `trusted` or `notLogged`, and checks inside whatever needs checking. The migrator lists the providers that extend `WordPressAjaxServiceProvider` directly; one that inherits `$nonceHash` from a base class of yours is not listed. The class `make:ajax` writes has an empty `$nonceHash`: set it. See [Ajax](/docs/services-provider/ajax#nonce).
+
+## `useHTTPPost()` returns unslashed values
+
+**What 2.x did.** `useHTTPPost()` returned the raw `$_POST` values, with the slashes WordPress adds to every request value: `O'Brien` came back as `O\'Brien`.
+
+**What 3.0 does.** It returns them through `wp_unslash()`: `O'Brien`.
+
+**What to do:** drop the `wp_unslash()` or `stripslashes()` you applied to its values: a second one strips a backslash the user typed. WordPress functions that expect slashed data, such as `wp_insert_post()` and `update_post_meta()`, now need the value through `wp_slash()`, which also keeps the 2.x behaviour where you need it:
+
+```php copy
+[$postId, $subtitle] = $this->useHTTPPost('post_id', 'subtitle');
+
+update_post_meta((int) $postId, 'subtitle', wp_slash($subtitle));
+```
+
+`$this->request->get()` is unchanged: it still returns the values as they are in `$_REQUEST`, with the slashes.
+
+## Generated files leave the plugin folder
+
+**What 2.x did.** Every view made a `.cache/` folder in the plugin folder, where Blade compiled its templates, and the `single` and `daily` logs went to `storage/logs/` there, as `debug.log` and `<date>.log`. The web server serves the plugin folder: `v2.1.3` added an `.htaccess`, which nginx does not read.
+
+**What 3.0 does.** Both go to the uploads directory of the current site, in `wpbones/<plugin folder>/`, closed to the web with an `index.php` at every level and a deny-all `.htaccess`:
+
+- compiled views in `views/`, made the first time a Blade view renders;
+- logs in `logs/`, as `debug-<hash>.log` and `<date>-<hash>.log`, with a hash keyed with the site's `AUTH_SALT` so that the name cannot be guessed.
+
+`errorlog`, the default, still writes only to `error_log()`. A `logging.path` you set is used as before, with the 2.x file names.
+
+**What to do:**
+
+- Delete `.cache/` and `storage/logs/` from your plugin, and from the sites that ran it: 3.0 neither uses nor removes them.
+- A script that reads the log by name finds it under `wp-content/uploads/wpbones/<plugin folder>/logs/` now, or set `logging.path` to a folder outside the web root.
+- The uploads directory must be writable. When it is not, a Blade view throws a `RuntimeException`, and `single` and `daily` fall back to `error_log()`.
+
+See [Logging](/docs/core-concepts/logging) and [Blade Template](/docs/views-template/blade-template#compiled-views).
+
+## Troubleshooting
+
+### "The link you followed has expired." when a form is saved
+
+The form has no `$plugin->csrfField()`, or the page was open long enough for the nonce to expire. Add the field, or reload the page.
+
+### A REST route answers `rest_forbidden`
+
+It has no `permission_callback`. Add one.
+
+### Subscribers or editors lost a page or a menu
+
+It declares no capability, so it asks for `manage_options`. Declare the capability it needs, `read` for every logged-in user.
+
+### An Ajax action answers 403, "The nonce is missing."
+
+The provider has no `$nonceHash`, or the request does not send the nonce in the `$nonceKey` field of the POST body.
+
+### "WP Bones cannot compile Blade views"
+
+WP Bones cannot write `wp-content/uploads`, or a `wp-content/uploads/wpbones/.htaccess` that is already there does not deny access. Fix the permissions, or the file.
+
+### A notice says a database migration failed
+
+Fix the cause the notice names, then reload the page as an administrator, or run `php bones migrate`.
+
+## Rollback
+
+If something doesn't work, roll back via git and bring 2.x back:
+
+```sh copy
+git reset --hard HEAD
+git clean -f database/migrations
+composer update wpbones/wpbones
+```
+
+`git reset` restores `composer.json`, the migrations and the seeders; `git clean` deletes the migrations made from the seeders, which git does not track yet (`git clean -n database/migrations` shows them first). The options 3.0 wrote on a site (`{slug}_db_version` and the other three) do nothing on 2.x. Then open an issue with the error output and we'll help.
