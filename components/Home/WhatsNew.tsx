@@ -20,29 +20,30 @@ import classes from './WhatsNew.module.css';
  * l'accento sulle nuove feature che abbiamo introdotto nelle ultime versioni
  * -- scava a fondo -- tipo ad esempio i test"). Every line is the release
  * notes' or the docs' own (github.com/wpbones/WPBones/releases, v2.0.0 to
- * v2.1.1) and every figure was measured, not read off a note: the test counts
- * by running PHPUnit at each tag (`--list-tests`) and at v2.1.1 in full
- * ("OK (175 tests, 472 assertions)": 85 unit, 90 console), as on CI. They are
- * figures AT v2.1.1, said so on the page, so a later release does not make
+ * v2.1.2) and every figure was measured, not read off a note: the test counts
+ * by running PHPUnit at each tag (`--list-tests`) and at v2.1.2 in full
+ * ("OK (200 tests, 521 assertions)": 110 unit, 90 console), as on CI. They are
+ * figures AT v2.1.2, said so on the page, so a later release does not make
  * them false.
  */
 const RELEASE = (tag: string) => `https://github.com/wpbones/WPBones/releases/tag/${tag}`;
 
-/** v2.0.0 to v2.1.1, as `gh release list -R wpbones/WPBones` lists them. */
-const RELEASES = 15;
+/** v2.0.0 to v2.1.2, as `gh release list -R wpbones/WPBones` lists them. */
+const RELEASES = 16;
 
 /**
  * The suite at the four tags that grew it most, by `phpunit --list-tests` on the tag's tree. The
- * chart is laid out for four bars (`.bars`); v2.1.1 added one test, and shows in TESTS.
+ * chart is laid out for four bars (`.bars`). Growth per tag, measured at v2.1.2: v2.0.4 +67,
+ * v2.0.10 +48, v2.1.2 +25, v2.0.6 +22, v2.1.0 +16 (in the chart until v2.1.2), the rest +9 or less.
  */
 const GROWTH: [string, number][] = [
   ['v2.0.4', 67],
   ['v2.0.6', 89],
   ['v2.0.10', 148],
-  ['v2.1.0', 174],
+  ['v2.1.2', 200],
 ];
-const TESTS = 175;
-const ASSERTIONS = 472;
+const TESTS = 200;
+const ASSERTIONS = 521;
 /** .github/workflows/tests.yml's matrix. */
 const PHP = ['8.1', '8.2', '8.3', '8.4'];
 
@@ -152,15 +153,15 @@ export function WhatsNew() {
           </div>
           <h3 className={home.h3}>Tested on every pull request</h3>
           <p className={home.body}>
-            85 unit tests check the SQL the framework builds, with no WordPress and no database. 90
-            more run the real <code className={home.code}>bones</code> file against throwaway
-            plugins. Every pull request and every push to master runs them on PHP 8.1 to 8.4, and a
-            deprecation fails the build.
+            110 unit tests check the SQL the framework builds and who may open its pages, with no
+            WordPress and no database. 90 more run the real <code className={home.code}>bones</code>{' '}
+            file against throwaway plugins. Every pull request and every push to master runs them on
+            PHP 8.1 to 8.4, and a deprecation fails the build.
           </p>
 
           <dl className={classes.stats}>
             <div>
-              <dt>tests at v2.1.1</dt>
+              <dt>tests at v2.1.2</dt>
               <dd>
                 <ScrollNumber value={TESTS} />
               </dd>
