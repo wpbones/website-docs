@@ -126,11 +126,11 @@ You may avoid inserting the following array items:
 ```
 icon         : blank
 page_title   : menu_title
-capability   : read
+capability   : manage_options
 position     : null
 ```    
 
-The `capability` key is optional for both menu and submenu items. The default value of the key `capability` in the root menu is `read` when it is not set. The default value of the key `capability` in the submenu remains the same as the root menu when it is not set. For example:
+The `capability` key is optional for both menu and submenu items. The default value of the key `capability` in the root menu is `manage_options` when it is not set: only administrators see the menu. The default value of the key `capability` in the submenu remains the same as the root menu when it is not set. For example:
 
 ```php filename="config/menus.php" copy
 if (!defined('ABSPATH')) {
@@ -166,6 +166,12 @@ return [
 ```
 
 The submenu "Main View" capability will be set to `manage_options`.
+
+To open a menu to every logged-in user, set `'capability' => 'read'` on the menu itself, as in the first example on this page. With `read` on an item only, under a menu that asks for `manage_options`, a subscriber sees the menu but cannot open its first page.
+
+<Callout type="warning">
+Since `v3.0.0` a menu without a `capability` asks for `manage_options`. Up to 2.x it asked for `read`: every logged-in user, subscribers included, saw it and could open its pages. `php bones migrate:to-v3` lists the menus that declare no capability. See [Migrating to v3](/docs/migrating-to-v3).
+</Callout>
 
 ## Icon
 

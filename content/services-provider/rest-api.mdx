@@ -116,13 +116,19 @@ Route::post('/settings', '\WPKirk\API\SettingsController@update', [
 ]);
 ```
 
-A route without one is public: anyone can call it, logged in or not. Since `v2.1.2` WP Bones says so with a `_doing_it_wrong()` notice that names the route. With `WP_DEBUG` on, WordPress sends the notice as an `X-WP-DoingItWrong` response header during a REST request (one header, the last notice, when several routes lack the option); when the REST server starts inside another request, the block editor's for example, it goes to `debug.log`.
+Since `v3.0.0` a route without one refuses every request: it answers WordPress's own `rest_forbidden` error, with a `401` status to a visitor and a `403` to a logged-in user, and its callback never runs.
+
+```json
+{"code":"rest_forbidden","message":"Sorry, you are not allowed to do that.","data":{"status":401}}
+```
+
+WP Bones also says so with a `_doing_it_wrong()` notice that names the route. With `WP_DEBUG` on, WordPress sends the notice as an `X-WP-DoingItWrong` response header during a REST request (one header, the last notice, when several routes lack the option); when the REST server starts inside another request, the block editor's for example, it goes to `debug.log`.
 
 <Callout type="warning">
-Up to `v2.1.1` a route without a `permission_callback` was made public with no notice at all. From WP Bones 3.0 a route without one will not be public. To keep a route public, declare `'__return_true'` now.
+Up to 2.x a route without a `permission_callback` was public: anyone could call it, with no notice at all up to `v2.1.1` and with the notice since `v2.1.2`. Since `v3.0.0` it refuses every request. To keep a route public, declare `'permission_callback' => '__return_true'`. `php bones migrate:to-v3` lists the routes that have none. See [Migrating to v3](/docs/migrating-to-v3).
 </Callout>
 
-The examples on the rest of this page leave the option out to stay short.
+The examples on the rest of this page are public, with `'__return_true'`, to stay short.
 
 ### HTTP Methods
 
@@ -135,7 +141,7 @@ use WPKirk\WPBones\Routing\API\Route;
 
 Route::post('/example', function () {
     return 'Hello World!';
-});
+}, ['permission_callback' => '__return_true']);
 ```
 
 Instead of using the static method `Route::get()`, `Route::post()`, and so on, you can use `::request()` instead. You will be able to use multiple HTTP verbs at the same time.
@@ -145,22 +151,22 @@ use WPKirk\WPBones\Routing\API\Route;
 
 Route::request('get', '/get_request', function () {
     return 'Hello World!';
-});
+}, ['permission_callback' => '__return_true']);
 
 // HTTP verb is case insensitive
 Route::request('GET', '/get_request', function () {
     return 'Hello World!';
-});
+}, ['permission_callback' => '__return_true']);
 
 // you may use both strings and arrays
 Route::request(['get'], '/get_request', function () {
     return 'Hello World!';
-});
+}, ['permission_callback' => '__return_true']);
 
 // you may use multiple HTTP verbs
 Route::request(['get', 'POST'], '/multiple', function () {
     return 'Hello World!';
-});
+}, ['permission_callback' => '__return_true']);
 ```
 
 ### WP_REST_Request injection
@@ -195,7 +201,7 @@ Route::get('/example_args', function (\WP_REST_Request $request) {
      */
 
     return 'Hello World!';
-});
+}, ['permission_callback' => '__return_true']);
 ```
 
 ### JSON Response
@@ -208,7 +214,7 @@ use WPKirk\WPBones\Routing\API\Route;
 // JSON response
 Route::get('/example_json', function () {
     wp_send_json(["tag" => "v1.0.0"]);
-});
+}, ['permission_callback' => '__return_true']);
 ```
 
 You may also use the `response()` static method provided by the `Route` class.
@@ -219,7 +225,7 @@ use WPKirk\WPBones\Routing\API\Route;
 // The correct way to use a simple response
 Route::get('/example_response', function () {
     return Route::response(["tag" => "v1.0.0"]);
-});
+}, ['permission_callback' => '__return_true']);
 ```
 
 ### Error Response
@@ -232,7 +238,7 @@ use WPKirk\WPBones\Routing\API\Route;
 // invalid example
 Route::get('/invalid', function () {
     return new \WP_Error('no_author', 'Invalid author', [ 'status' => 404 ]);
-});
+}, ['permission_callback' => '__return_true']);
 ```
 
 Also in this case, you may use the `responseError()` static method provided by the `Route` class.
@@ -242,8 +248,8 @@ use WPKirk\WPBones\Routing\API\Route;
 
 // right way to use an error response
 Route::get('/error', function () {
-    return Route::responseError('no_author', 'Invalid author', [ 'status' => 404 ]);
-});
+    return Route::responseError('no_author', 'Invalid author', 404);
+}, ['permission_callback' => '__return_true']);
 ```
 
 ### RestController
@@ -275,7 +281,7 @@ Now, in the `route.php` file, you may use the `WPKirkV1Controller`.
 use WPKirk\WPBones\Routing\API\Route;
 
 // may use the same route for different methods
-Route::get('/version', '\WPKirk\API\WPKirkV1Controller@version');
+Route::get('/version', '\WPKirk\API\WPKirkV1Controller@version', ['permission_callback' => '__return_true']);
 ```
 
 ### WP_REST_Request and vendor injection
