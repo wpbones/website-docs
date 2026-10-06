@@ -204,6 +204,14 @@ The `single` channel driver will create a single log file in `/storage/logs/debu
 
 The `daily` channel driver will create a daily log file in `/storage/logs/20180401.log`.
 
+`errorlog` writes no file of its own: since `v2.1.3` it only calls `error_log()`.
+
+<Callout type="warning">
+The plugin folder is served by the web server, so a log file there can be read by anyone who guesses its name, along with every message and its context. Since `v2.1.3` the `storage/logs` folder gets an `index.php` and a deny-all `.htaccess`. Apache reads that file; nginx does not. On a production site, keep `errorlog`, or set `path` to a folder outside the web root.
+
+Up to `v2.1.2`, `errorlog` also appended every message to `/storage/logs/<date>.log`. Delete the files it left there: the update does not remove log files.
+</Callout>
+
 ### Configuring the log path
 
 Of course, you can change the log path in the `config/plugin.php` file. By default, the log path is set to `{$plugin->basePath}/storage/logs/` within your plugin folder.
