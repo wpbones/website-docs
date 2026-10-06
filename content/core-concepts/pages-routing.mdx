@@ -122,7 +122,7 @@ You will be able to get the URL of the custom page by using `$plugin->getPageUrl
 
 Since `v3.0.0` a request to a page route, or to a page in the `pages` folder, that is not a `GET` or a `HEAD` must carry the plugin's nonce, as for a menu item: print `$plugin->csrfField()` in the form. See [Forms and the nonce](menus-routing#forms-and-the-nonce).
 
-A page that takes requests from elsewhere, another service posting back to it for instance, turns the check off. A page route does it with `'csrf' => false` in its `route`:
+A page that receives a form posted from another site through the user's browser, a payment or sign-in provider returning to it for instance, turns the check off and checks the request itself. A page route does it with `'csrf' => false` in its `route`:
 
 ```php copy filename="config/routes.php" {8}
 return [

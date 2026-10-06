@@ -50,9 +50,9 @@ In a Blade view, print it unescaped:
 </form>
 ```
 
-`csrfField()` returns the hidden fields of [`wp_nonce_field()`](https://developer.wordpress.org/reference/functions/wp_nonce_field/): the nonce, in a field named `_wpbones_nonce`, and the referer. The name is not `_wpnonce`, so a form can keep a `wp_nonce_field()` of its own beside it. The nonce action is `$plugin->csrfAction()`, the plugin's slug followed by `_csrf`: a script that posts to the page itself sends `wp_create_nonce($plugin->csrfAction())` in a `_wpbones_nonce` POST field.
+`csrfField()` returns the hidden fields of [`wp_nonce_field()`](https://developer.wordpress.org/reference/functions/wp_nonce_field/): the nonce, in a field named `_wpbones_nonce`, and the referer. The name is not `_wpnonce`, so a form can keep a `wp_nonce_field()` of its own beside it. The nonce action is `$plugin->csrfAction()`, the plugin's slug followed by `_csrf`. A script that posts to the page itself sends `wp_create_nonce($plugin->csrfAction())` in a `_wpbones_nonce` field, in the query string, or, for a `fetch()` with a JSON body, in an `X-WPBones-Nonce` header.
 
-WP Bones checks the nonce on the page's `load-{hook}` action, before any `load` callback, and again before the page renders. A request without it, or with a wrong or expired one, gets WordPress's own *"The link you followed has expired."* page, with a 403 status: neither the `load` callbacks nor the controller method run.
+WP Bones checks the nonce on the page's `load-{hook}` action, before any `load` callback, and again before the page renders. A request without it, or with a wrong or expired one, gets WordPress's own *"The link you followed has expired."* page, with a 403 status: neither the `load` callbacks nor the controller method run. WordPress's own forms that post to the page they are on carry a nonce of their own and go through: Screen Options and the filesystem credentials form.
 
 <Callout type="warning">
 Up to 2.x a WP Bones admin page called `store()`, `update()` or `destroy()`, and ran its `load` callbacks, for any request: a form on another site could post to it with the cookies of a logged-in administrator. `php bones migrate:to-v3` lists the POST forms that do not print `csrfField()`. See [Migrating to v3](/docs/migrating-to-v3).
@@ -60,7 +60,7 @@ Up to 2.x a WP Bones admin page called `store()`, `update()` or `destroy()`, and
 
 ### Turning the check off
 
-A page that takes requests from elsewhere, another service posting back to it for instance, cannot print the field. Turn the check off for that page only, with `'csrf' => false` in its `route`, in `config/menus.php` or `config/routes.php`:
+A page that receives a form posted from another site through the user's browser, a payment or sign-in provider returning to it for instance, cannot print the field. Turn the check off for that page only, with `'csrf' => false` in its `route`, in `config/menus.php` or `config/routes.php`:
 
 ```php copy {4}
   'route' => [
@@ -70,7 +70,7 @@ A page that takes requests from elsewhere, another service posting back to it fo
   ],
 ```
 
-A page in the `pages` folder turns it off with a public `csrf()` method that returns `false`: see [Pages Routing](pages-routing#forms). The page must then check the request itself, a signature or a secret for instance.
+A page in the `pages` folder turns it off with a public `csrf()` method, without arguments, that returns `false`: see [Pages Routing](pages-routing#forms). The page must then check the request itself, a signature for instance. A webhook, a call from another server, never reaches an admin page whatever this says: wp-admin asks for a logged-in browser first. Give it a [REST route](/docs/services-provider/rest-api).
 
 ## Form Method Spoofing
 

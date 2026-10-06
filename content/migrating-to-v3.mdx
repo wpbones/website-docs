@@ -230,9 +230,9 @@ The migrator reads the folder `config/api.php` names in `custom.path` (`api/` by
 </form>
 ```
 
-In a Blade view, `{!! $plugin->csrfField() !!}`. A script that posts to an admin page sends `wp_create_nonce($plugin->csrfAction())` in a `_wpbones_nonce` field. The migrator reads the markup of your views: a form it cannot see, built by code or by a JavaScript app, is yours to check.
+In a Blade view, `{!! $plugin->csrfField() !!}`. A script that posts to an admin page sends `wp_create_nonce($plugin->csrfAction())` in a `_wpbones_nonce` field, in the query string, or in an `X-WPBones-Nonce` header for a JSON body. WordPress's own Screen Options and filesystem credentials forms carry a nonce of their own and go through. The migrator reads the markup of your views and of `pages/` classes, form by form: a form it cannot see, built by code or by a JavaScript app, is yours to check.
 
-A page that takes requests from elsewhere, and checks them itself, keeps the 2.x behaviour with `'csrf' => false` in its `route`, or a public `csrf()` method that returns `false` on a `pages/` class. A `wp_nonce_field()` of your own keeps working beside `csrfField()`, and `$this->request->verifyNonce()` now answers `false`, instead of raising a notice, when the `_wpnonce` field is missing. See [Forms and the nonce](/docs/core-concepts/menus-routing#forms-and-the-nonce).
+A page that receives a form posted from another site through the user's browser, and checks it itself (a payment or sign-in provider returning to it, with a signature), keeps the 2.x behaviour with `'csrf' => false` in its `route`, or a public `csrf()` method, without arguments, that returns `false` on a `pages/` class. A webhook from another server never reaches an admin page: wp-admin asks for a logged-in browser first. A `wp_nonce_field()` of your own keeps working beside `csrfField()`, and `$this->request->verifyNonce()` now answers `false`, instead of raising a notice, when the `_wpnonce` field is missing. See [Forms and the nonce](/docs/core-concepts/menus-routing#forms-and-the-nonce).
 
 ## Logged Ajax actions need a nonce
 
@@ -240,7 +240,7 @@ A page that takes requests from elsewhere, and checks them itself, keeps the 2.x
 
 **What 3.0 does.** A `logged` action always checks the nonce. A provider without `$nonceHash` (or `$nonceKey`) refuses every request to its `logged` actions with a 403, and a `_doing_it_wrong()` notice names it. `trusted` and `notLogged` actions are public by design, and unchanged.
 
-**What to do:** set `$nonceHash` in every provider `migrate:to-v3` lists, and send the nonce with each request in the POST field `$nonceKey` names (`nonce` by default):
+**What to do:** set `$nonceHash` in every provider `migrate:to-v3` lists, and send the nonce with each request in the field `$nonceKey` names (`nonce` by default), in the form data or the query string:
 
 ```php filename="plugin/Ajax/MyAjax.php" copy {10}
 <?php
@@ -272,7 +272,7 @@ return WPKirk()
   ->withAdminAppsScript('app', true);
 ```
 
-There is no switch back for `logged` actions: an action that must answer without a nonce belongs in `trusted` or `notLogged`, and checks inside whatever needs checking. The migrator lists the providers that extend `WordPressAjaxServiceProvider` directly; one that inherits `$nonceHash` from a base class of yours is not listed. The class `make:ajax` writes has an empty `$nonceHash`: set it. See [Ajax](/docs/services-provider/ajax#nonce).
+There is no switch back for `logged` actions: an action that must answer without a nonce belongs in `trusted` or `notLogged`, and checks inside whatever needs checking. The migrator lists the providers that extend `WordPressAjaxServiceProvider` directly, under its name or the one a `use … as` gives it; one that inherits `$nonceHash` from a base class of yours is not listed. Since 3.0 the class `make:ajax` writes sets `$nonceHash` to its own name. See [Ajax](/docs/services-provider/ajax#nonce).
 
 ## `useHTTPPost()` returns unslashed values
 
@@ -280,7 +280,7 @@ There is no switch back for `logged` actions: an action that must answer without
 
 **What 3.0 does.** It returns them through `wp_unslash()`: `O'Brien`.
 
-**What to do:** drop the `wp_unslash()` or `stripslashes()` you applied to its values: a second one strips a backslash the user typed. WordPress functions that expect slashed data, such as `wp_insert_post()` and `update_post_meta()`, now need the value through `wp_slash()`, which also keeps the 2.x behaviour where you need it:
+**What to do:** drop the `wp_unslash()` or `stripslashes()` you applied to its values: a second one strips a backslash the user typed, and turns JSON with a quote in it into `null`. `migrate:to-v3` lists every such call in a file that calls `useHTTPPost()`. WordPress functions that expect slashed data, such as `wp_insert_post()` and `update_post_meta()`, now need the value through `wp_slash()`, which also keeps the 2.x behaviour where you need it:
 
 ```php copy
 [$postId, $subtitle] = $this->useHTTPPost('post_id', 'subtitle');
@@ -305,7 +305,9 @@ update_post_meta((int) $postId, 'subtitle', wp_slash($subtitle));
 
 - Delete `.cache/` and `storage/logs/` from your plugin, and from the sites that ran it: 3.0 neither uses nor removes them.
 - A script that reads the log by name finds it under `wp-content/uploads/wpbones/<plugin folder>/logs/` now, or set `logging.path` to a folder outside the web root.
-- The uploads directory must be writable. When it is not, a Blade view throws a `RuntimeException`, and `single` and `daily` fall back to `error_log()`.
+- The uploads directory must be writable by the web server. When it is not, a Blade view throws a `RuntimeException`, and `single` and `daily` fall back to `error_log()`. Run WP-CLI as the web server's user: a folder WP-CLI makes as `root` is one PHP cannot write to.
+- On a multisite network each site has its own uploads directory, so its own `wpbones/` folder.
+- Remove the folder in your `uninstall.php` with `\WPKirk\WPBones\Support\Storage::delete(basename(__DIR__))` (with your plugin's namespace).
 
 See [Logging](/docs/core-concepts/logging) and [Blade Template](/docs/views-template/blade-template#compiled-views).
 
@@ -325,7 +327,7 @@ It declares no capability, so it asks for `manage_options`. Declare the capabili
 
 ### An Ajax action answers 403, "The nonce is missing."
 
-The provider has no `$nonceHash`, or the request does not send the nonce in the `$nonceKey` field of the POST body.
+The provider has no `$nonceHash`, or the request does not send the nonce in the `$nonceKey` field, in the form data or the query string.
 
 ### "WP Bones cannot compile Blade views"
 

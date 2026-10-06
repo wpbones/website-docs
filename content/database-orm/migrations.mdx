@@ -256,7 +256,7 @@ foreach (['_db_version', '_migrations', '_migrations_failure', '_migrations.lock
 }
 ```
 
-Where the framework is loaded, `\WPKirk\WPBones\Database\Migrations\OptionRepository::forget('wp_kirk_slug')` deletes the same four options.
+Where the framework is loaded, `\WPKirk\WPBones\Database\Migrations\OptionRepository::forget('wp_kirk_slug')` deletes the same four options, and `\WPKirk\WPBones\Support\Storage::delete(basename(__DIR__))` the plugin's logs and compiled views in the uploads directory.
 
 ---
 <DocsBoilerplateDemo slug="database" />

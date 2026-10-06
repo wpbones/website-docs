@@ -68,7 +68,7 @@ Blade compiles every template into a PHP file the first time it renders, and aga
 The plugin folder is never written, so a plugin whose folder is read-only, as on many managed hosts, still renders its Blade views. Views that are plain `.php` files are not compiled, and need no folder.
 
 <Callout type="warning">
-When the uploads directory cannot be written, or a `wpbones/.htaccess` that is already there does not deny, a Blade view does not render: it throws a `RuntimeException`, *"WP Bones cannot compile Blade views: the uploads directory, where they go since 3.0, cannot be written."* Fix the permissions of `wp-content/uploads`.
+When the uploads directory cannot be written, or a `wpbones/.htaccess` that is already there does not deny, a Blade view does not render: it throws a `RuntimeException`, *"WP Bones cannot compile Blade views: the uploads directory, where they go since 3.0, cannot be written."* Fix the permissions of `wp-content/uploads`, and run WP-CLI as the web server's user: a folder WP-CLI makes as `root` is one PHP cannot write to.
 </Callout>
 
 <Callout type="info">

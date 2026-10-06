@@ -72,7 +72,7 @@ class MyAjax extends WordPressAjaxServiceProvider
 ```
 
 <Callout type="warning">
-The class `make:ajax` writes has an empty `$nonceHash`. Since `v3.0.0` set it before you use the `logged` actions: without it they refuse every request. See [Nonce](#nonce).
+Since `v3.0.0` the class `make:ajax` writes sets `$nonceHash` to its own name, and the requests to its `logged` actions send `wp_create_nonce()` of that name: without a `$nonceHash` they refuse every request. See [Nonce](#nonce).
 </Callout>
 
 
@@ -217,7 +217,7 @@ You can set the capability property in the class to protect the `logged` actions
 
 ### Nonce
 
-Set the `$nonceHash` property, the action the nonce is created for, and send the nonce with every request in the POST field that `$nonceKey` names (`nonce` by default):
+Set the `$nonceHash` property, the action the nonce is created for, and send the nonce with every request in the field that `$nonceKey` names (`nonce` by default):
 
 ```php copy
 /**
@@ -239,7 +239,7 @@ protected $nonceHash = "wp_kirk_my_ajax";
 The `$nonceKey` property is the name of the post variable that will be sent to the server. The `$nonceHash` property is the string used to generate the nonce.
 </Callout>
 
-A request without the nonce, or with an invalid one, gets a 403 JSON error, and the action does not run. The nonce is read from the POST body only: send the request as form data (`application/x-www-form-urlencoded` or `multipart/form-data`), as the examples below do, not as JSON.
+A request without the nonce, or with an invalid one, gets a 403 JSON error, and the action does not run. The nonce is read from the request, as `check_ajax_referer()` reads it: the form data (`application/x-www-form-urlencoded` or `multipart/form-data`), as the examples below send it, or the query string. A JSON body is not read: with one, put the nonce in the URL.
 
 <Callout type="warning">
 Since `v3.0.0` a provider with `logged` actions and an empty `$nonceHash` (or `$nonceKey`) refuses every request to them with a 403, and raises a `_doing_it_wrong()` notice that names the provider. Up to 2.x such a provider checked no nonce at all, so a page on another site could call its actions with the cookies of a logged-in user. `php bones migrate:to-v3` lists the providers that extend `WordPressAjaxServiceProvider` directly with `logged` actions and no `$nonceHash`; one that inherits it from a base class of your own is not listed. See [Migrating to v3](/docs/migrating-to-v3).
