@@ -61,17 +61,17 @@ return [
      * Usually, this is located in the wp-content/debug.log file.
      *
      * - "single", the log will be saved in a single file in the log_path directory.
-     * Default: [plugin-path]/storage/logs/debug.log
+     * Default: [uploads]/wpbones/[plugin-folder]/logs/debug-[hash].log
      *
      * - "daily", the log will be saved in a daily file in the log_path directory.
-     * Default: [plugin-path]/storage/logs/[Y-m-d].log
-     * Example: [plugin-path]/storage/logs/2024-10-09.log
+     * Default: [uploads]/wpbones/[plugin-folder]/logs/[Y-m-d]-[hash].log
+     * Example: [uploads]/wpbones/[plugin-folder]/logs/2024-10-09-[hash].log
      */
     "type" => "errorlog",
 
     /**
      * The path where the log will be saved.
-     * Default: [plugin-path]/storage/logs/
+     * Default: [uploads]/wpbones/[plugin-folder]/logs/
      */
     //"path" => '',
 
@@ -94,7 +94,7 @@ return [
 ### Configuration options
 
 - **`type`**: The type of log. You can set it to `errorlog`, `single`, or `daily`.
-- **`path`**: The path where the log will be saved. By default, it is set to `[plugin-path]/storage/logs/`.
+- **`path`**: The path where the log will be saved. By default, it is set to `wpbones/<plugin folder>/logs/` in the uploads directory (since `v3.0.0`).
 - **`daily_format`**: The daily format for the log file. By default, it is set to `Y-m-d`.
 - **`timestamp_format`**: The timestamp format used in the log. By default, it is set to `d-M-Y H:i:s T`.
 
@@ -178,7 +178,7 @@ wpbones_logger()->debug('Hello, World', [ 'context' => 'any' ]);
 
 ## Save log files
 
-Instead of using <Badge component="span" color="tomato" size="lg">only</Badge> the default WordPress log file, you can store the WP Bones logs into a file in the `/storage/logs/` folder within your plugin folder. You can configure the log file type in the `config/plugin.php` file.
+Instead of using <Badge component="span" color="tomato" size="lg">only</Badge> the default WordPress log file, you can store the WP Bones logs into a file of their own. You can configure the log file type in the `config/plugin.php` file.
 
 <Callout type="info" emoji="👆">
 If you decide to change the `type` setting to `single` or `daily`, you still will be able to see the log messages in the WordPress log file. The WP Bones logger will write the log messages to the file and in the `error_log` channel as well.
@@ -189,7 +189,7 @@ If you decide to change the `type` setting to `single` or `daily`, you still wil
 
 ### Configuring the logging type
 
-By default, the channel driver is set to `errorlog`. This means that you'll find the WP Bones log in the default WordPress log file, usually `/wp-content/debug.log`. You may use the `single` or `daily` driver as well. In this case, you'll find the log file in the `/storage/logs/` folder within your plugin folder.
+By default, the channel driver is set to `errorlog`. This means that you'll find the WP Bones log in the default WordPress log file, usually `/wp-content/debug.log`. You may use the `single` or `daily` driver as well. In this case, you'll find the log file in the uploads directory of the site, in `wp-content/uploads/wpbones/<plugin folder>/logs/`.
 
 ```php copy filename="config/plugin.php"
 "logging" => [
@@ -200,26 +200,29 @@ By default, the channel driver is set to `errorlog`. This means that you'll find
 ],
 ```
 
-The `single` channel driver will create a single log file in `/storage/logs/debug.log`.
+The `single` channel driver will create a single log file, `debug-<hash>.log`.
 
-The `daily` channel driver will create a daily log file in `/storage/logs/20180401.log`.
+The `daily` channel driver will create a daily log file, `<date>-<hash>.log`: `2024-10-09-<hash>.log` with the default `daily_format`.
 
 `errorlog` writes no file of its own: since `v2.1.3` it only calls `error_log()`.
 
-<Callout type="warning">
-The plugin folder is served by the web server, so a log file there can be read by anyone who guesses its name, along with every message and its context. Since `v2.1.3` the `storage/logs` folder gets an `index.php` and a deny-all `.htaccess`. Apache reads that file; nginx does not. On a production site, keep `errorlog`, or set `path` to a folder outside the web root.
+Since `v3.0.0` the folder is `wpbones/<plugin folder>/logs/` in the uploads directory of the current site, `wp-content/uploads/wpbones/my-plugin/logs/` for a plugin in `wp-content/plugins/my-plugin`. On a multisite network each site has its own uploads directory, so its own logs. WP Bones makes the folder with WordPress's permissions, puts an `index.php` at every level, and a deny-all `.htaccess` in `wpbones/`. The `<hash>` in the file name is 12 characters keyed with the site's `AUTH_SALT`, so the name cannot be guessed on a server that does not read `.htaccess` files, such as nginx.
 
-Up to `v2.1.2`, `errorlog` also appended every message to `/storage/logs/<date>.log`. Delete the files it left there: the update does not remove log files.
+When the folder cannot be had, because the uploads directory cannot be written, or because a `wpbones/.htaccess` that is already there does not deny, `single` and `daily` fall back to `errorlog`: the messages go to `error_log()` only.
+
+<Callout type="warning">
+Up to 2.x the default folder was `storage/logs/` inside the plugin folder, which the web server serves: a log file there could be read by anyone who guessed its name (`debug.log`, `<date>.log`), along with every message and its context. `v2.1.3` added an `index.php` and a deny-all `.htaccess`, which Apache reads and nginx does not. WP Bones 3.0 does not delete the old folder: remove `storage/logs/` from your plugin, and from the sites that ran it. Up to `v2.1.2`, `errorlog` also appended every message to `storage/logs/<date>.log`.
 </Callout>
 
 ### Configuring the log path
 
-Of course, you can change the log path in the `config/plugin.php` file. By default, the log path is set to `{$plugin->basePath}/storage/logs/` within your plugin folder.
+Of course, you can change the log path in the `config/plugin.php` file. By default, the log path is `wpbones/<plugin folder>/logs/` in the uploads directory. A `path` you set works as it did in 2.x: WP Bones makes the folder if it is missing, and writes `debug.log` or `<date>.log` there, with no hash in the name. Put it outside the web root.
 
 ```php copy filename="config/plugin.php"
 "logging" => [
   "type" => "single",
-  "path" => "../logs/",
+  // a folder next to the WordPress folder, outside the web root
+  "path" => dirname(ABSPATH) . '/logs/',
   "daily_format" => 'Y-m-d',
   "timestamp_format" => 'd-M-Y H:i:s T',
 ],
@@ -273,4 +276,4 @@ You may also add a prefix by using the `|` pipe character. For example, if you w
   "timestamp_format" => 'd-M-Y H:i:s T',
 ],
 ```
-You will get the log file with the name `my-log-2024-10-09.log`.
+You will get the log file with the name `my-log-2024-10-09-<hash>.log` in the default folder, or `my-log-2024-10-09.log` in a `path` of your own.

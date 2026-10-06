@@ -61,6 +61,20 @@ In the `resources/views/blade/demo.blade.php` file, you can use the data passed 
 </div>  
 ```
 
+## Compiled views
+
+Blade compiles every template into a PHP file the first time it renders, and again when the template changes. Since `v3.0.0` the compiled files go to the uploads directory of the current site, in `wpbones/<plugin folder>/views/`: `wp-content/uploads/wpbones/my-plugin/views/` for a plugin in `wp-content/plugins/my-plugin`. WP Bones makes the folder the first time a Blade view renders, with an `index.php` at every level and a deny-all `.htaccess` in `wpbones/`. A compiled view is a `.php` file, so a direct request for it runs it out of context instead of showing its code.
+
+The plugin folder is never written, so a plugin whose folder is read-only, as on many managed hosts, still renders its Blade views. Views that are plain `.php` files are not compiled, and need no folder.
+
+<Callout type="warning">
+When the uploads directory cannot be written, or a `wpbones/.htaccess` that is already there does not deny, a Blade view does not render: it throws a `RuntimeException`, *"WP Bones cannot compile Blade views: the uploads directory, where they go since 3.0, cannot be written."* Fix the permissions of `wp-content/uploads`.
+</Callout>
+
+<Callout type="info">
+Up to 2.x every view, Blade or not, made a `.cache` folder inside the plugin folder, which the web server serves, and compiled the Blade views there: as `.bladec` files, readable as text, up to `v2.1.2`, and as `.php` files behind an `.htaccess` in `v2.1.3`. WP Bones 3.0 does not use that folder any more, nor delete it: remove `.cache/` from your plugin, and from the sites that ran it.
+</Callout>
+
 ## BladeOne Composer Package
 
 <img style={{float: "left", margin: "1rem 1rem 0 0"}} alt="BladeOne logo" src="https://raw.githubusercontent.com/EFTEC/BladeOne/gh-pages/images/bladelogo.png" />

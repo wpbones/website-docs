@@ -1,5 +1,9 @@
 import { Callout, FileTree, Tabs } from 'nextra/components'
 
+## `>= v3.0.0`
+
+The keys are the same as in 2.x. What changes is where the `single` and `daily` logs go when `logging.path` is not set: `wpbones/<plugin folder>/logs/` in the uploads directory, in files named `debug-<hash>.log` and `<date>-<hash>.log`, instead of `storage/logs/` in the plugin folder. A `path` you set is used as before. See [Logging](/docs/core-concepts/logging#configuring-the-logging-type).
+
 ## `>= v1.9.5`
 
 ```php copy filename="config/plugin.php - New starting from v1.9.5" {17-22}
