@@ -3,7 +3,7 @@ import { Callout, FileTree } from 'nextra/components';
 
 # Migrations
 
-This document explains the implementation of migrations in WP Bones. It covers creating a migration file using the `php bones migrate:create` command, which generates a new file in the `database/migrations/` folder. The document provides an example of editing the migration file to create a table, demonstrating how to define the table structure and columns. This implementation is similar to Laravel migrations but tailored for WP Bones.
+This document explains how migrations work in WP Bones. A migration is a file in `database/migrations/` that changes the database: it creates a table, adds a column, inserts the rows a plugin needs. Since `v3.0.0` each migration runs once per site, in file name order, and WP Bones records which ones ran. The document covers `php bones migrate:create`, when migrations run, what happens when one fails, the `migrate` and `migrate:status` commands, and multisite.
 
 ---
 <DocsBoilerplateDemo slug="database" />
@@ -11,60 +11,193 @@ This document explains the implementation of migrations in WP Bones. It covers c
 
 ## Overview
 
-WP Bones provides a simple implementation of the migration. Of course, this implementation is a little bit different from Laravel migration. First of all, you can use `php bones migrate:create` to create a migration file:
+A migration file returns an object that extends `Migration` and has an `up()` method. WP Bones includes the file, calls `up()` once, and records the file name, so that the migration never runs again on that site.
 
-```sh copy
-php bones migrate:create MyTable
-```
-
-You'll see a new file in `database/migrations/` folder, resembling `database/migrations/2016_01_28_131206_create_mytable_table.php`. This file contains your class migration:
-
-```php copy
-use WPKirk\WPBones\Database\Migrations\Migration;
-
-return new class extends Migration
-{
-
-  public function up()
-  {
-    // Create your table
-  }
-
-}
-```
-
-For example, if you want a _products_ table, please use:
+Create one with `php bones migrate:create`, giving it the table name:
 
 ```sh copy
 php bones migrate:create Products
 ```
 
-Edit the migration file like this:
+You'll see a new file in the `database/migrations/` folder, named after the time you created it and the table, such as `database/migrations/2026_10_06_142824_create_products_table.php`:
 
-```php copy
-use WPKirk\WPBones\Database\Migrations\Migration;
+```php copy filename="database/migrations/2026_10_06_142824_create_products_table.php"
+<?php
 
-return new class extends Migration {
+if (! defined('ABSPATH')) {
+    exit;
+}
+
+use WPKirk\WPBones\Database\Migration;
+
+/*
+ * Runs once on every site, in file name order, the first time the plugin loads after it
+ * arrives (php bones migrate runs it on this site now). Once released, leave it as it is:
+ * a change to the table goes in a new migration.
+ */
+return new class extends Migration
+{
 
   public function up()
   {
+    // Create your table, for example:
 
-    $this->create('products', "(
-              log_id bigint(20) unsigned NOT NULL auto_increment,
-              user_id bigint(20) unsigned NOT NULL default '0',
-              activity varchar(20) NOT NULL default 'updated',
-              object_id bigint(20) unsigned NOT NULL default '0',
-              object_type varchar(20) NOT NULL default 'post',
-              activity_date datetime NOT NULL default '0000-00-00 00:00:00',
-              PRIMARY KEY  (log_id),
-              KEY user_id (user_id)
-         ) {$this->charsetCollate};" );
-
+    $this->create("Products",
+      "(
+         id bigint(20) unsigned NOT NULL auto_increment,
+         user_id bigint(20) unsigned NOT NULL default '0',
+         name varchar(20) NOT NULL default '',
+         description varchar(20) NOT NULL default '',
+         price bigint(20) unsigned NOT NULL default '0',
+         created_at datetime NOT NULL default '0000-00-00 00:00:00',
+         updated_at datetime NOT NULL default '0000-00-00 00:00:00',
+         PRIMARY KEY  (id),
+         KEY user_id (user_id)
+         ) {$this->charsetCollate};");
   }
 };
 ```
 
-Remember that the migrations files will be executed when a plugin is activated. You'll see in the database a table named `wp_products`.
+Edit the schema to the table you need. The table name goes through the same conversion as a model's: `Products` becomes `products`, `MyTable` becomes `my_table`, and WP Bones adds the WordPress prefix. You'll see a table named `wp_products` in the database.
+
+`create()` runs the WordPress [`dbDelta()`](https://developer.wordpress.org/reference/functions/dbdelta/) function, so the rules of `dbDelta()` apply: one column per line, and two spaces after `PRIMARY KEY`.
+
+<Callout type="warning">
+Since `v3.0.0` the base class is `WPKirk\WPBones\Database\Migration`. The 2.x name, `WPKirk\WPBones\Database\Migrations\Migration`, still loads and behaves the same, but it is deprecated: `php bones migrate:to-v3` rewrites the `use` line of your migrations. See [Migrating to v3](/docs/migrating-to-v3).
+</Callout>
+
+## When migrations run
+
+Since `v3.0.0` the pending migrations run:
+
+- **When the plugin is activated**, whatever the state.
+- **When the plugin's version changes.** On `init`, at priority `1`, WP Bones compares the `Version` header of your plugin with the version the database was last migrated for. When they differ, the request runs the pending migrations. This covers every way an update arrives: the dashboard, an uploaded ZIP, FTP, git, Composer. Any request can be that request, a public page included.
+- **When you run `php bones migrate`** from the plugin folder.
+
+Two requests never run them together: a lock, kept in the options table, lets one request at a time in. They don't run while WordPress checks a fresh automatic update (the request that carries `wp_scrape_key`), nor while WordPress installs.
+
+Migrations run on `init` at priority `1`, before the plugin's own `init`: the custom post types and taxonomies your plugin registers there, and its text domain, are not loaded yet when a migration runs.
+
+<Callout type="info">
+Up to 2.x every migration ran again on each activation, and on each update made from the dashboard, through `upgrader_post_install`. That hook runs in the request that installs the update, with the old code still loaded, and never runs for a ZIP uploaded over the old version or for files copied by FTP, git or Composer. Creating the migration object ran `up()`, so including the file was the same as running it.
+</Callout>
+
+### Finishing an update
+
+When the version changed and the migrations ran, the same request finishes the update, still under the lock: it aligns the plugin options with `config/options.php`, then includes `plugin/updated.php`. In that file, `$previousVersion` holds the version the update came from:
+
+```php copy filename="plugin/updated.php"
+<?php
+
+if (!defined('ABSPATH')) {
+  exit();
+}
+
+if ($previousVersion !== null && version_compare($previousVersion, '1.2.0', '<')) {
+  // Something only the sites coming from a version before 1.2.0 need.
+}
+```
+
+`$previousVersion` is `null` when the version is unknown: on the first request of a site that ran a 2.x version of your plugin, which kept no version, and on a site of a network where the plugin never ran. A first activation is an installation, not an update: there `plugin/updated.php` does not run.
+
+The stored version moves last. If a migration, or `plugin/updated.php`, throws, the version stays where it was, and the next run finishes the update again.
+
+## The record of what ran
+
+WP Bones keeps its state in four options of the site, named after your plugin's slug. The slug is the plugin name, sanitized, with `-` turned into `_`, plus `_slug`: `wp_kirk_slug` for a plugin named `WP Kirk`.
+
+| Option | What it holds |
+| --- | --- |
+| `{slug}_db_version` | The plugin version the database was last migrated for. Autoloaded, so the check on every request costs no query. |
+| `{slug}_migrations` | The migrations that ran, by file name, each with its batch, the plugin version and the time. |
+| `{slug}_migrations_failure` | The failure that stopped the last run, empty once a run completes. |
+| `{slug}_migrations.lock` | The lock, while a request runs migrations. |
+
+A migration does not belong to a plugin version. The version is only the signal that something may have changed; what runs is every file on disk whose name is not recorded yet. A migration added during development, or backported to an older branch of your plugin, still runs exactly once wherever it is missing.
+
+## Order
+
+Migrations run in file name order. `php bones migrate:create` prefixes every file with a `Y_m_d_His` timestamp, so name order is creation order, as in Laravel. A migration that needs another one is normally written after it, so its name sorts later.
+
+Two branches merged in a different order than their timestamps can bring a site a migration whose name sorts before one that already ran there. It still runs, but WP Bones warns you: the PHP error log gets a `[WP Bones]` line, `php bones migrate` prints a warning, and `php bones migrate:status` marks it. Check that it does not depend on the migrations that ran before it: on a fresh site it runs before them.
+
+## When a migration fails
+
+A run stops at the first migration that throws or leaves a database error behind. That migration is not recorded, the ones after it don't run, and the stored version does not move, so the next run starts again from the failed migration.
+
+- Administrators see an error notice on every admin page, with the migration and the reason, until it runs.
+- The PHP error log gets a `[WP Bones]` line.
+- With the version unchanged, only an administrator's admin page retries it, at most once a minute, so that a broken migration does not run on every page load. `php bones migrate` and a reactivation retry it at once. A new version of the plugin retries it on any request, since it may carry the fix.
+
+`create()` fails, by throwing, when the table or one of the columns it declares is not there afterwards. Anything else `dbDelta()` could not apply to an existing table, a default MySQL refuses to change for instance, is written to the PHP error log and tolerated. The helpers that write (`insert()`, `truncate()`, `query()`) throw when the database refuses the statement.
+
+## Changing a table
+
+Once you release a migration, leave it as it is: a site that already ran it will never run it again. A change to the table goes in a new migration. Since `create()` runs `dbDelta()`, the new migration can give the table its whole new schema, and `dbDelta()` adds what is missing:
+
+```php copy filename="database/migrations/2026_11_02_093000_add_sku_to_products_table.php"
+<?php
+
+use WPKirk\WPBones\Database\Migration;
+
+return new class extends Migration {
+  public function up()
+  {
+    $this->create('products', "(
+              id bigint(20) unsigned NOT NULL auto_increment,
+              user_id bigint(20) unsigned NOT NULL default '0',
+              name varchar(20) NOT NULL default '',
+              description varchar(20) NOT NULL default '',
+              sku varchar(32) NOT NULL default '',
+              price bigint(20) unsigned NOT NULL default '0',
+              created_at datetime NOT NULL default '0000-00-00 00:00:00',
+              updated_at datetime NOT NULL default '0000-00-00 00:00:00',
+              PRIMARY KEY  (id),
+              KEY user_id (user_id)
+         ) {$this->charsetCollate};");
+  }
+};
+```
+
+`dbDelta()` never drops a column or a table. For that, and for anything else, `$this->query()` runs any SQL statement, and `$this->table('products')` gives you the full table name:
+
+```php copy
+$this->query("ALTER TABLE `{$this->table('products')}` DROP COLUMN description");
+```
+
+## Commands
+
+### `php bones migrate`
+
+Runs the migrations that have not run on this site, the same way the plugin does when its version changes, and lists them:
+
+```sh copy
+php bones migrate
+```
+
+During development, a new migration without a version bump does not trigger the check on `init`: run `php bones migrate`, or deactivate and activate the plugin. The command exits with `1` when a migration fails, and prints why.
+
+### `php bones migrate:status`
+
+Lists every migration in `database/migrations/` with its state: ✓ with its batch and plugin version when it ran, `pending` when it did not, and a warning for a pending migration that sorts before one that already ran. It also prints the last failure, if there is one.
+
+```sh copy
+php bones migrate:status
+```
+
+Both commands need the database, so the plugin must sit in the `wp-content/plugins` folder of a WordPress install: they load WordPress and work on the site it loads.
+
+## Multisite
+
+The record is kept in the options of each site, so on a network every site keeps its own and runs its own migrations: when the plugin is activated there, or the first time one of its pages loads after the plugin arrives or is updated. With the WordPress prefix, `create()` makes a table for each site (`wp_2_products` for the second site).
+
+<Callout type="warning">
+A table without the WordPress prefix (see below) is shared by every site of the network, and its migrations still run once on each site. A migration that inserts rows there inserts them once per site: check `isEmpty()` first, as shown in [Seeding](seeding).
+</Callout>
+
+## Seed data
+
+Since `v3.0.0` the rows your plugin needs are inserted by a migration too: seeders do not run any more. See [Seeding](seeding).
 
 ## WordPress prefix
 
@@ -75,7 +208,7 @@ As you know, the real name of the table `products` is `{prefix}_products`. Usual
 Starting from version `1.7.0`, you can remove the WordPress prefix. You may use the `usePrefix` property in the migration class:
 
 ```php copy {5}
-use WPKirk\WPBones\Database\Migrations\Migration;
+use WPKirk\WPBones\Database\Migration;
 
 return new class extends Migration {
 
@@ -99,6 +232,31 @@ return new class extends Migration {
 };
 ```
 In this case the table will be named `products`.
+
+## Uninstall
+
+Migrations have no `down()` step: deactivating a plugin must not lose its data. Remove the tables in your plugin's `uninstall.php`, which WordPress runs when the plugin is deleted.
+
+When `uninstall.php` drops the tables, delete the record of the migrations too. Otherwise a new installation finds every migration recorded, and creates nothing:
+
+```php copy filename="uninstall.php"
+<?php
+
+if (!defined('WP_UNINSTALL_PLUGIN')) {
+  exit();
+}
+
+global $wpdb;
+
+$wpdb->query("DROP TABLE IF EXISTS `{$wpdb->prefix}products`");
+
+// The record of the migrations, so that a new installation creates the tables again.
+foreach (['_db_version', '_migrations', '_migrations_failure', '_migrations.lock'] as $suffix) {
+  delete_option('wp_kirk_slug' . $suffix);
+}
+```
+
+Where the framework is loaded, `\WPKirk\WPBones\Database\Migrations\OptionRepository::forget('wp_kirk_slug')` deletes the same four options.
 
 ---
 <DocsBoilerplateDemo slug="database" />

@@ -192,7 +192,9 @@ $plugin->options->reset();
 
 ### New version of options
 
-When you release a new version of your plugin, you could add, remove, or delete some options. To do so, just edit your options array. When your plugin is updated and activated again, the new options will apply through a delta process.
+When you release a new version of your plugin, you could add, remove, or delete some options. To do so, just edit your options array. The new options apply through a delta process, on activation and when the plugin is updated.
+
+Since `v3.0.0` the update is noticed on the first request after the new version arrives, however it arrived (the dashboard, an uploaded ZIP, FTP, git, Composer): WP Bones compares the plugin's `Version` header with the version it stored, runs the pending [migrations](/docs/database-orm/migrations), then aligns the options. Up to 2.x the delta ran only for an update made from the dashboard, or on the next activation.
 
 ### Display options in a pretty format
 

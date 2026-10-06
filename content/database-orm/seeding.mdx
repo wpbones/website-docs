@@ -1,9 +1,9 @@
 import { DocsBoilerplateDemo } from "@/components";
-import { Callout, FileTree } from 'nextra/components';
+import { Callout } from 'nextra/components';
 
 # Seeding
 
-This document explains how to seed your database with data in WP Bones using seed classes. Seed classes are stored in the `database/seeders` directory and are executed when the plugin is activated. The document provides an example of a seeder class with a `run` method to define the table name and insert data. Currently, there is no way to write seeders using `php bones`, but this feature is being developed.
+This document explains how to fill your tables with the data your plugin needs. Since `v3.0.0` seed data is a migration: it runs once per site, in order with the migration that creates its table. Seeders, the classes in `database/seeders/`, do not run any more, and `php bones migrate:to-v3` turns them into migrations.
 
 ---
 <DocsBoilerplateDemo slug="database" />
@@ -11,129 +11,108 @@ This document explains how to seed your database with data in WP Bones using see
 
 ## Overview
 
-Similarly to Laravel, WP Bones includes the ability to seed your database with data using seed classes. All seed classes are stored in the `database/seeders` directory.
-The seeder classes will be loaded and executed when the plugin is activated.
+A [migration](migrations) can insert rows as well as create tables. `Migration` has the helpers the 2.x `Seeder` had, with the table named in each call:
 
-## Writing Seeders
+| Method | What it does |
+| --- | --- |
+| `insert($table, $sql)` | Runs `INSERT INTO <table> $sql` and returns the number of rows inserted. |
+| `truncate($table)` | Empties the table. |
+| `count($table)` | The number of rows in the table. |
+| `isEmpty($table)` | Whether the table has no rows. |
+| `query($sql)` | Runs any SQL statement. |
+| `table($table)` | The full table name, with the WordPress prefix unless `$usePrefix` is `false`. |
 
-A seeder class only contains one method by default: `run`. You have to define the table name as well.
-Below is an example of a seeder class used in the [wpbones/geolocalizer](https://packagist.org/packages/wpbones/geolocalizer) package.
+The table name is given without the WordPress prefix: WP Bones adds it, as in `create()`. `insert()`, `truncate()` and `query()` throw when the database refuses the statement, and the run stops there, as with any [failed migration](migrations#when-a-migration-fails).
 
-<Callout type="important">
-Currently, there is no way to write seeders using `php bones`. We are working on that.
+<Callout type="warning">
+Up to 2.x every seeder in `database/seeders/` ran on each activation and on each update made from the dashboard, after all the migrations. Since `v3.0.0` that folder is never run: while it holds a seeder, WP Bones writes a line to the PHP error log each time it runs the migrations, and `php bones migrate:status` prints a warning. Run `php bones migrate:to-v3` to convert them, see [below](#converting-2x-seeders).
 </Callout>
 
+## Writing seed data
 
-```php copy
+Put the rows in a migration whose name sorts after the migration that creates the table. Name the file yourself, with a `Y_m_d_His` timestamp first, for example `database/migrations/2026_10_06_150000_seed_countries.php`:
+
+```php copy filename="database/migrations/2026_10_06_150000_seed_countries.php"
 <?php
-// remember that your namespace will be different
-use WPKirk\WPBones\Database\Seeder;
 
-// you have to return an instance of WPKirk\WPBones\Database\Seeder
-return new class extends Seeder {
-  /**
-   * It will be converted to lowercase and with the WordPress prefix.
-   *
-   * @var string The table name.
-   */
-  protected $tablename = "countries";
-
-  // the seeder run method is called automatically
-  // here you can do everything you need to do
-  public function run()
-  {
-      // for example, here we are going to truncate the table
-      $this->truncate();
-
-      // and then we are going to insert some data
-      $this->insert(
-      "(id, zone, country, isocode, currency, symbol, symbol_html, code, tax, continent, status)
-      VALUES
-      	(1,'','Mauritania','MR','Mauritanian Ouguiya','','','MRO',0.00,'africa','publish')");
-  }
+if (!defined('ABSPATH')) {
+  exit();
 }
-```
 
-Currently, the seeder is executed when the plugin is activated. If you want to execute the seeder just one time, you can set the `runOnce` property to `true`.
+use WPKirk\WPBones\Database\Migration;
 
-```php copy
-<?php
-// remember that your namespace will be different
-use WPKirk\WPBones\Database\Seeder;
-
-// you have to return an instance of WPKirk\WPBones\Database\Seeder
-return new class extends Seeder {
-  /**
-   * It will be converted to lowercase and with the WordPress prefix.
-   *
-   * @var string The table name.
-   */
-  protected $tablename = "my_plugin_products";
-
-  // Run the database seeds just once
-  protected $runOnce = true;
-
-  // the seeder run method is called automatically
-  // here you can do everything you need to do
-  public function run()
+return new class extends Migration {
+  public function up()
   {
-      // since the seeder is executed only one time, we can remove the truncate method
-      //$this->truncate();
-
-      // and then we are going to insert some data
-      $this->insert(
+    $this->insert(
+      'countries',
       "(id, zone, country, isocode, currency, symbol, symbol_html, code, tax, continent, status)
       VALUES
-      	(1,'','Mauritania','MR','Mauritanian Ouguiya','','','MRO',0.00,'africa','publish')");
+      	(1,'','Mauritania','MR','Mauritanian Ouguiya','','','MRO',0.00,'africa','publish')"
+    );
   }
 };
 ```
 
-## WordPress prefix
+The migration runs once on each site, so it does not need to empty the table first, as a 2.x seeder that ran on every activation did.
 
-As you know, the real name of the table `my_plugin_products` is `{prefix}_my_plugin_products`. Usually, `{prefix}` is `wp_` for default. Anyway, you don't need to use the WordPress prefix, WP Bones will do that for you.
+### Only on an empty table
 
-### Remove the WordPress prefix
+A migration already runs once per site. Two cases still run a seed migration on a table that has rows:
 
-Starting from version `1.7.0`, you can remove the WordPress prefix. You may use the `usePrefix` property in the migration class:
+- **The first request on WP Bones 3.0** of a site that ran a 2.x version of your plugin runs every migration once more, since 2.x kept no record of what ran.
+- **A table without the WordPress prefix** is shared by the sites of a network, and the migration runs once on each site.
 
-```php copy {18}
+For those, check the table first. This is what the 2.x `$runOnce` property did, and what `php bones migrate:to-v3` writes for a seeder that had it:
+
+```php copy {12-14}
 <?php
-// remember that your namespace will be different
-use WPKirk\WPBones\Database\Seeder;
 
-// you have to return an instance of WPKirk\WPBones\Database\Seeder
-return new class extends Seeder {
-  /**
-   * It will be converted to lowercase and with the WordPress prefix.
-   *
-   * @var string The table name.
-   */
-  protected $tablename = "my_plugin_products";
+if (!defined('ABSPATH')) {
+  exit();
+}
 
-  // Run the database seeds just once
-  protected $runOnce = true;
+use WPKirk\WPBones\Database\Migration;
 
-  // Remove the WordPress prefix
-  protected $usePrefix = false;
-
-  // the seeder run method is called automatically
-  // here you can do everything you need to do
-  public function run()
+return new class extends Migration {
+  public function up()
   {
-      // since the seeder is executed only one time, we can remove the truncate method
-      //$this->truncate();
+    if (!$this->isEmpty('my_plugin_products')) {
+      return;
+    }
 
-      // and then we are going to insert some data
-      $this->insert(
-      "(id, zone, country, isocode, currency, symbol, symbol_html, code, tax, continent, status)
-      VALUES
-      	(1,'','Mauritania','MR','Mauritanian Ouguiya','','','MRO',0.00,'africa','publish')");
+    $this->insert('my_plugin_products', "(name, price) VALUES ('iMac', 100000), ('iPhone', 20000)");
   }
 };
 ```
 
-In this case the table name will be `my_plugin_products`.
+### Refreshing the data
+
+A 2.x seeder without `$runOnce` emptied its table and filled it again on every activation and update. A migration runs once: when the data changes in a new version of your plugin, add a new migration that writes the new data.
+
+```php copy filename="database/migrations/2026_12_01_090000_refresh_countries.php"
+<?php
+
+if (!defined('ABSPATH')) {
+  exit();
+}
+
+use WPKirk\WPBones\Database\Migration;
+
+return new class extends Migration {
+  public function up()
+  {
+    $this->truncate('countries');
+
+    $this->insert(
+      'countries',
+      "(id, zone, country, isocode, currency, symbol, symbol_html, code, tax, continent, status)
+      VALUES
+      	(1,'','Mauritania','MR','Mauritanian Ouguiya','','','MRO',0.00,'africa','publish')"
+    );
+  }
+};
+```
 
 ## Use a model
 
@@ -141,25 +120,23 @@ You can use a model to seed your database.
 
 ```php copy
 <?php
-// remember that your namespace will be different
-use WPKirk\WPBones\Database\Seeder;
+
+if (!defined('ABSPATH')) {
+  exit();
+}
+
+use WPKirk\WPBones\Database\Migration;
 
 // you have to use your model
 use WPKirk\Models\MyPluginProducts;
 
-// you have to return an instance of WPKirk\WPBones\Database\Seeder
-return new class extends Seeder {
-  /**
-   * It will be converted to lowercase and with the WordPress prefix.
-   *
-   * @var string The table name.
-   */
-  protected $tablename = "my_plugin_products";
-
-  // the seeder run method is called automatically
-  // here you can do everything you need to do
-  public function run()
+return new class extends Migration {
+  public function up()
   {
+    if (!$this->isEmpty('my_plugin_products')) {
+      return;
+    }
+
     // insert by using the model class
     MyPluginProducts::insert([
         ['name' => 'iMac', 'price' => '100000'],
@@ -171,34 +148,32 @@ return new class extends Seeder {
   }
 };
 ```
+
+## WordPress prefix
+
+As you know, the real name of the table `my_plugin_products` is `{prefix}_my_plugin_products`. Usually, `{prefix}` is `wp_` for default. Anyway, you don't need to use the WordPress prefix, WP Bones will do that for you.
+
 ### Remove the WordPress prefix
 
-If you want to remove the WordPress prefix, and you are using a model, you have to set the `usePrefix` property to `false` in the seeder class.
+Set the `usePrefix` property to `false` in the migration. The helpers then use the table name as it is:
 
-```php copy {18} filename="The seeder"
+```php copy {9} filename="The migration"
 <?php
-// remember that your namespace will be different
-use WPKirk\WPBones\Database\Seeder;
+
+use WPKirk\WPBones\Database\Migration;
 
 // you have to use your model
 use WPKirk\Models\MyPluginBooks;
 
-// you have to return an instance of WPKirk\WPBones\Database\Seeder
-return new class extends Seeder {
-  /**
-   * It will be converted to lowercase and with the WordPress prefix.
-   *
-   * @var string The table name.
-   */
-  protected $tablename = "my_plugin_books";
-
-  // Remove the WordPress prefix
+return new class extends Migration {
   protected $usePrefix = false;
 
-  // the seeder run method is called automatically
-  // here you can do everything you need to do
-  public function run()
+  public function up()
   {
+    if (!$this->isEmpty('my_plugin_books')) {
+      return;
+    }
+
     // insert by using the model class
     MyPluginBooks::insert([
         ['name' => 'iMac', 'price' => '100000'],
@@ -220,7 +195,7 @@ namespace WPKirk\Models;
 use Illuminate\Database\Eloquent\Model;
 use WPKirk\WPBones\Database\DB;
 
-class EloquentBook extends Model
+class MyPluginBooks extends Model
 {
   /**
    * Disable Illuminate timestamp columns.
@@ -238,6 +213,53 @@ class EloquentBook extends Model
   }
 }
 ```
+
+## Converting 2.x seeders
+
+`php bones migrate:to-v3` turns every file in `database/seeders/` into a migration, and deletes the seeder once its migration is written and parses:
+
+- The migration is named after the seeder, `BookSeeder.php` becoming `<timestamp>_book_seeder.php`, with a timestamp that sorts after every migration you have, since 2.x ran the seeders after all of them.
+- The body of `run()` becomes `up()`. `insert()` gets the seeder's `$tablename` as its first argument, and so do `truncate()` and `count()` when they are called without one.
+- `$usePrefix = false` is kept, and so are `$this->tablename` and `$this->wpdb` when the seeder uses them.
+- A seeder with `$runOnce` gets the `isEmpty()` check shown above.
+
+A seeder it cannot convert stays where it is, and the command lists it with the reason: one that declares methods besides `run()`, or uses its table without a `$tablename`. This is the `BookSeeder` of the [Database boilerplate](https://github.com/wpbones/WPKirk-Database-Boilerplate) after the conversion, without its commented-out code:
+
+```php copy filename="database/migrations/2026_10_06_142813_book_seeder.php"
+<?php
+
+if (!defined('ABSPATH')) {
+  exit();
+}
+
+use WPKirk\WPBones\Database\Migration;
+use WPKirk\Models\MyPluginBooks;
+
+/*
+ * Converted from database/seeders/BookSeeder.php by php bones migrate:to-v3.
+ */
+return new class extends Migration {
+  protected $usePrefix = false;
+
+  public function up()
+  {
+    // The seeder had $runOnce: it seeded the table only while it was empty, and so does this.
+    if (!$this->isEmpty('my_plugin_books')) {
+      return;
+    }
+
+    // insert by using the model class
+    MyPluginBooks::insert([
+      ['name' => 'Book iMac', 'price' => '100000'],
+      ['name' => 'Book iPhone', 'price' => '20000'],
+      ['name' => 'Book iPad', 'price' => '30000'],
+      ['name' => 'Book iPod', 'price' => '10000'],
+    ]);
+  }
+};
+```
+
+The `WPKirk\WPBones\Database\Seeder` class is still there, so that an old seeder file loads without a fatal error, but it is deprecated and does nothing. See [Migrating to v3](/docs/migrating-to-v3).
 
 ---
 <DocsBoilerplateDemo slug="database" />

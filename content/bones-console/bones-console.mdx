@@ -355,6 +355,47 @@ The `--check-header` option is used to check the plugin header. You can use the 
 php bones plugin --check-header
 ```
 
+### `migrate:create`
+
+Creates a migration in `database/migrations/`, named with a `Y_m_d_His` timestamp and the table, from a stub that creates the table you give it:
+
+```sh copy
+php bones migrate:create Products
+# → database/migrations/2026_10_06_142824_create_products_table.php
+```
+
+See [Migrations](/docs/database-orm/migrations).
+
+### `migrate`
+
+New in **v3.0**. Runs the migrations that have not run on this site, in file name order, and lists them. It loads WordPress, so the plugin must sit in `wp-content/plugins` of a WordPress install. It exits with `1` when a migration fails.
+
+```sh copy
+php bones migrate
+```
+
+### `migrate:status`
+
+New in **v3.0**. Lists every migration and whether it ran on this site, with its batch and the plugin version it ran with, and the last failure if there is one.
+
+```sh copy
+php bones migrate:status
+```
+
+### `migrate:to-v3`
+
+New in **v3.0**. Converts a 2.x plugin to the breaking changes of WP Bones 3.0. Run it in the plugin's source folder (not a deployed copy) after `composer update` has brought in WP Bones 3.0. It asks for a `y` first.
+
+```sh copy
+php bones migrate:to-v3
+```
+
+- It rewrites the `use` line of every file in `database/migrations/` to the 3.0 base class, `WPBones\Database\Migration`.
+- It turns every file in `database/seeders/` into a migration, and deletes the seeder once its migration parses. See [Seeding](/docs/database-orm/seeding#converting-2x-seeders).
+- It lists, without changing them, the pages, menus and REST routes that 3.0 gives to administrators only, the POST forms that do not print `$plugin->csrfField()`, and the Ajax providers with logged actions and no `$nonceHash`.
+
+Running it again changes nothing. See the full [Migrating to v3](/docs/migrating-to-v3) guide.
+
 ### `migrate:to-v2`
 
 New in **v2.0**. Converts a v1.x gulp-based plugin to the v2 webpack infrastructure.
