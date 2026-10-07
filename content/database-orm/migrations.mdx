@@ -131,7 +131,7 @@ A run stops at the first migration that throws or leaves a database error behind
 
 `create()` fails, by throwing, when the table or one of the columns it declares is not there afterwards. Anything else `dbDelta()` could not apply to an existing table, a default MySQL refuses to change for instance, is written to the PHP error log and tolerated. The helpers that write (`insert()`, `truncate()`, `query()`) throw when the database refuses the statement.
 
-A retry runs the failed migration again from its first statement, and whatever it changed before it failed is still there: each query WordPress sends is committed as soon as it runs, and MySQL cannot roll back a `CREATE`, `ALTER` or `DROP` even inside a transaction. So write every migration so that it can run twice: `create()` already can, since `dbDelta()` only adds what is missing (see [Changing a table](#changing-a-table)); rows go in behind an `isEmpty()` check, as in [Seeding](seeding); and a statement you write by hand checks first that its change is not there yet.
+A retry runs the failed migration again from its first statement, and whatever it changed before it failed is still there: each query WordPress sends is committed as soon as it runs, and MySQL cannot roll back a `CREATE`, `ALTER` or `DROP` even inside a transaction. So write every migration so that it can run twice: `create()` already can, since `dbDelta()` applies only what differs from the table that is there; rows that must not go in twice go behind a check such as `isEmpty()`, as in [Seeding](seeding#only-on-an-empty-table); and a statement you write by hand checks first that its change is still to be made (see [Changing a table](#changing-a-table)).
 
 ## Changing a table
 
@@ -161,10 +161,16 @@ return new class extends Migration {
 };
 ```
 
-`dbDelta()` never drops a column or a table. For that, and for anything else, `$this->query()` runs any SQL statement, and `$this->table('products')` gives you the full table name:
+`dbDelta()` never drops a column or a table. For that, and for anything else, `$this->query()` runs any SQL statement, and `$this->table('products')` gives you the full table name. Check first that the change is still to be made: if the migration runs again, a plain `DROP COLUMN` fails on a column that is already gone, and MySQL has no `DROP COLUMN IF EXISTS`:
 
 ```php copy
-$this->query("ALTER TABLE `{$this->table('products')}` DROP COLUMN description");
+global $wpdb;
+
+$table = $this->table('products');
+
+if (in_array('description', $wpdb->get_col("DESCRIBE `{$table}`"), true)) {
+  $this->query("ALTER TABLE `{$table}` DROP COLUMN description");
+}
 ```
 
 ## Commands

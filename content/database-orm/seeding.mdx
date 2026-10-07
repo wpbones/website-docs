@@ -58,10 +58,11 @@ The migration runs once on each site, so it does not need to empty the table fir
 
 ### Only on an empty table
 
-A migration already runs once per site. Two cases still run a seed migration on a table that has rows:
+A migration already runs once per site. Three cases still run a seed migration on a table that has rows:
 
 - **The first request on WP Bones 3.0** of a site that ran a 2.x version of your plugin runs every migration once more, since 2.x kept no record of what ran.
 - **A table without the WordPress prefix** is shared by the sites of a network, and the migration runs once on each site.
+- **A retry**: a migration that failed after its rows went in, or that ran in full but could not be recorded, runs again from its first statement (see [When a migration fails](migrations#when-a-migration-fails)).
 
 For those, check the table first. This is what the 2.x `$runOnce` property did, and what `php bones migrate:to-v3` writes for a seeder that had it:
 
