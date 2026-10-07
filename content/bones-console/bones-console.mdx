@@ -484,3 +484,37 @@ handle is already registered by core, `wp_enqueue_script` silently drops
 your bundle and the app never mounts. Pick a distinctive name like
 `admin-ui`, `analytics`, or a plugin-specific prefix.
 </Callout>
+
+### Customizing the stubs
+
+Every creator fills a stub: a template with placeholders such as `{Namespace}` and `{ClassName}`. Since `v3.1.0` a stub in your plugin's `stubs/` folder comes first. `make:controller` reads `stubs/controller.stub` when it is there, and says so (`Using stubs/controller.stub`), and the framework's own otherwise. Start from the framework's:
+
+```sh copy
+php bones stub:publish                   # every stub
+php bones stub:publish controller model  # only these
+```
+
+`stub:publish` never replaces a stub that is already in `stubs/`, since it is usually one you have edited: pass `--force` to take the framework's again, and your changes go. `deploy` leaves the `.stub` files out of the package.
+
+A published stub no longer follows the framework's. After `composer update wpbones/wpbones`, compare yours with `vendor/wpbones/wpbones/src/Console/stubs/`.
+
+| Stub | Written by | Placeholders |
+| --- | --- | --- |
+| `ajax` | `make:ajax` | `{Namespace}`, `{ClassName}`, `{Path}` |
+| `api` | `make:api` | `{Namespace}`, `{ClassName}`, `{Path}` |
+| `app` | `make:app` | `{AppName}`, `{ComponentName}`, `{TextDomain}` |
+| `command` | `make:console` | `{Namespace}`, `{ClassName}`, `{Signature}`, `{CommandName}` |
+| `controller` | `make:controller` | `{Namespace}`, `{ClassName}`, `{Path}` |
+| `cpt` | `make:cpt` | `{Namespace}`, `{ClassName}`, `{Path}`, `{ID}`, `{Name}`, `{Plural}` |
+| `ctt` | `make:ctt` | `{Namespace}`, `{ClassName}`, `{Path}`, `{ID}`, `{Name}`, `{Plural}`, `{ObjectType}` |
+| `eloquent-model` | `make:eloquent-model` | `{Namespace}`, `{ClassName}`, `{Path}`, `{Table}` |
+| `kernel` | `make:console`, when the plugin has no `plugin/Console/Kernel.php` yet | `{Namespace}`, `{ClassName}` |
+| `migrate` | `migrate:create` | `{Namespace}`, `{Tablename}` |
+| `model` | `make:model` | `{Namespace}`, `{ClassName}`, `{Path}` |
+| `provider` | `make:provider` | `{Namespace}`, `{ClassName}`, `{Path}` |
+| `schedule` | `make:schedule` | `{Namespace}`, `{ClassName}`, `{Path}` |
+| `shortcode` | `make:shortcode` | `{Namespace}`, `{ClassName}`, `{Path}` |
+| `widget` | `make:widget` | `{Namespace}`, `{ClassName}`, `{Path}`, `{PluginName}`, `{Slug}`, `{WidgetId}`, `{WidgetName}` |
+| `webpack-config`, `tsconfig`, `jest-config`, `prettierrc`, `prettierignore` | `migrate:to-v2`, for the files a plugin does not have yet | none |
+
+`{Namespace}` is your plugin's namespace, `{ClassName}` the class without its folder, and `{Path}` the sub-namespace of the folder: `\Shop` for `Shop/Cart`, empty for `Cart`.

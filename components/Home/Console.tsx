@@ -8,7 +8,7 @@ import classes from './Console.module.css';
 /**
  * `php bones` as it answers with no arguments: the command list, word for
  * word, from the CLI's own help (WPBones/src/Console/bin/bones, lines
- * 1701-1731, at v3.0.0). Grouped as the CLI groups them.
+ * 1838-1870, at v3.1.0). Grouped as the CLI groups them.
  */
 const GROUPS: { name: string | null; commands: [string, string][] }[] = [
   {
@@ -52,6 +52,10 @@ const GROUPS: { name: string | null; commands: [string, string][] }[] = [
       ['make:provider', 'Create a new service provider class'],
       ['make:widget', 'Create a new Widget service provider class'],
     ],
+  },
+  {
+    name: 'stub',
+    commands: [['stub:publish', 'Copy the stubs into stubs/, where make:* reads them first']],
   },
 ];
 
