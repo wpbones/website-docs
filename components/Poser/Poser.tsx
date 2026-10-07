@@ -29,14 +29,6 @@ export function Poser({ name, contributors = false }: PoserProps) {
 
         <a href={`https://packagist.org/packages/${name}`}>
           <img
-            src={`https://poser.pugx.org/${name}/v/unstable?style=for-the-badge`}
-            alt="Latest Unstable Version"
-            height={28}
-          />
-        </a>
-
-        <a href={`https://packagist.org/packages/${name}`}>
-          <img
             src={`https://poser.pugx.org/${name}/downloads?style=for-the-badge`}
             alt="Total Downloads"
             height={28}
@@ -67,7 +59,7 @@ export function Poser({ name, contributors = false }: PoserProps) {
           />
         </a>
 
-        <a href={`https://github.com/${name}/blob/main/CHANGELOG.md`}>
+        <a href={`https://github.com/${name}/releases`}>
           <img
             src="https://img.shields.io/badge/CHANGELOG-brightgreen?style=for-the-badge&logo=github"
             alt="CHANGELOG"
