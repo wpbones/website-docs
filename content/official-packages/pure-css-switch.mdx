@@ -162,6 +162,23 @@ echo WPKirk\PureCSSSwitch\Html\HtmlTagSwitchButton::name( 'test-switch-8' )
   ->mode( 'select' );
 ```
 
+## Hook
+
+Since pure-css-switch `1.2.0`, `useSwitch()` gives you a switch factory for a view with several switches:
+
+```php copy
+<?php $switch = WPKirk\PureCSSSwitch\Html\HtmlTagSwitchButton::useSwitch(); ?>
+
+<?php echo $switch->name( 'notifications' )
+  ->left_label( 'Notifications' )
+  ->checked( true ); ?>
+
+<?php echo $switch->name( 'newsletter' )
+  ->left_label( 'Newsletter' ); ?>
+```
+
+Each call on `$switch` starts a new switch, so an attribute such as `checked` stays on the switch it was set on. On a switch, `name()` is a setter like the others: a chain may set other attributes first.
+
 ---
 
 <DocsBoilerplateDemo slug="packages" />
