@@ -87,7 +87,7 @@ return new class extends Migration {
 };
 ```
 
-The check tells a seed that ran from one that never did only when its rows go in with one statement. On InnoDB, MySQL's default engine, one `insert()` with every row goes in whole or not at all. Two `insert()` calls can fail between them, and the retry would find the table no longer empty and skip the rows that are missing: so a guarded seed puts all its rows in one `insert()`.
+On a retry the check cannot tell a seed that went in halfway from one that finished: both leave rows. Keep a guarded seed to one `insert()` with every row: on InnoDB, MySQL's default engine, one statement goes in whole or not at all (a MyISAM table keeps the rows before the one that failed). Two `insert()` calls can fail between them, and the retry would skip the rows that are missing.
 
 ### Refreshing the data
 

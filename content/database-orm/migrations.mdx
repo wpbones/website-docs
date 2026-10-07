@@ -161,7 +161,7 @@ return new class extends Migration {
 };
 ```
 
-`dbDelta()` never drops a column or a table. For that, and for anything else, `$this->query()` runs any SQL statement, and `$this->table('products')` gives you the full table name. Check first that the change is still to be made: if the migration runs again, a plain `DROP COLUMN` fails on a column that is already gone, and MySQL has no `DROP COLUMN IF EXISTS`. Ask with `SHOW COLUMNS`, not `DESCRIBE`: WP Bones ignores the errors of a `DESCRIBE`, which `dbDelta()` leaves behind for every new table, so a missing table would go unnoticed and the migration would be recorded as done:
+`dbDelta()` never drops a column or a table. For that, and for anything else, `$this->query()` runs any SQL statement, and `$this->table('products')` gives you the full table name. Check first that the change is still to be made: if the migration runs again, a plain `DROP COLUMN` fails on a column that is already gone, and MySQL has no `DROP COLUMN IF EXISTS`. Ask with `SHOW COLUMNS`, not `DESCRIBE`. On a missing table `DESCRIBE` comes back empty without stopping the migration, which would then be recorded as done: WP Bones ignores its errors on MySQL, since `dbDelta()` leaves one behind for every new table, and on SQLite it raises none. `SHOW COLUMNS` reports the missing table on both, and the migration stops:
 
 ```php copy
 global $wpdb;
