@@ -131,6 +131,8 @@ A run stops at the first migration that throws or leaves a database error behind
 
 `create()` fails, by throwing, when the table or one of the columns it declares is not there afterwards. Anything else `dbDelta()` could not apply to an existing table, a default MySQL refuses to change for instance, is written to the PHP error log and tolerated. The helpers that write (`insert()`, `truncate()`, `query()`) throw when the database refuses the statement.
 
+A retry runs the failed migration again from its first statement, and whatever it changed before it failed is still there: each query WordPress sends is committed as soon as it runs, and MySQL cannot roll back a `CREATE`, `ALTER` or `DROP` even inside a transaction. So write every migration so that it can run twice: `create()` already can, since `dbDelta()` only adds what is missing (see [Changing a table](#changing-a-table)); rows go in behind an `isEmpty()` check, as in [Seeding](seeding); and a statement you write by hand checks first that its change is not there yet.
+
 ## Changing a table
 
 Once you release a migration, leave it as it is: a site that already ran it will never run it again. A change to the table goes in a new migration. Since `create()` runs `dbDelta()`, the new migration can give the table its whole new schema, and `dbDelta()` adds what is missing:
