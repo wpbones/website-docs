@@ -87,6 +87,8 @@ return new class extends Migration {
 };
 ```
 
+The check tells a seed that ran from one that never did only when its rows go in with one statement. On InnoDB, MySQL's default engine, one `insert()` with every row goes in whole or not at all. Two `insert()` calls can fail between them, and the retry would find the table no longer empty and skip the rows that are missing: so a guarded seed puts all its rows in one `insert()`.
+
 ### Refreshing the data
 
 A 2.x seeder without `$runOnce` emptied its table and filled it again on every activation and update. A migration runs once: when the data changes in a new version of your plugin, add a new migration that writes the new data.

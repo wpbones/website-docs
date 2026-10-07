@@ -161,14 +161,14 @@ return new class extends Migration {
 };
 ```
 
-`dbDelta()` never drops a column or a table. For that, and for anything else, `$this->query()` runs any SQL statement, and `$this->table('products')` gives you the full table name. Check first that the change is still to be made: if the migration runs again, a plain `DROP COLUMN` fails on a column that is already gone, and MySQL has no `DROP COLUMN IF EXISTS`:
+`dbDelta()` never drops a column or a table. For that, and for anything else, `$this->query()` runs any SQL statement, and `$this->table('products')` gives you the full table name. Check first that the change is still to be made: if the migration runs again, a plain `DROP COLUMN` fails on a column that is already gone, and MySQL has no `DROP COLUMN IF EXISTS`. Ask with `SHOW COLUMNS`, not `DESCRIBE`: WP Bones ignores the errors of a `DESCRIBE`, which `dbDelta()` leaves behind for every new table, so a missing table would go unnoticed and the migration would be recorded as done:
 
 ```php copy
 global $wpdb;
 
 $table = $this->table('products');
 
-if (in_array('description', $wpdb->get_col("DESCRIBE `{$table}`"), true)) {
+if ($wpdb->get_var("SHOW COLUMNS FROM `{$table}` LIKE 'description'") !== null) {
   $this->query("ALTER TABLE `{$table}` DROP COLUMN description");
 }
 ```
