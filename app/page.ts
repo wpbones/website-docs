@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { createElement } from 'react';
 import { HomePage } from '@/components/Home/HomePage';
+import config from '@/config';
 
 /**
  * The home page. A `.ts` file, not `.tsx`, on purpose: Nextra's page map,
@@ -33,6 +34,14 @@ export const metadata: Metadata = {
   title: { absolute: 'WP Bones: WordPress plugins with Laravel-like bones' },
   description:
     'WP Bones is a framework for WordPress plugins: service providers, Blade views, Eloquent models, migrations, and a bones CLI that scaffolds and deploys.',
+  // The site-wide canonical and og:url are './', resolved against the path
+  // the page is rendered for, and on Vercel the home page's ISR render is
+  // "/index": production served https://wpbones.com/index as both (measured
+  // 2026-10-13; a local `next start` gives the root). An absolute path does
+  // not depend on it. Open Graph is restated whole: a page's `openGraph`
+  // replaces the layout's, it is not merged into it.
+  alternates: { canonical: '/' },
+  openGraph: { ...config.metadata.openGraph, url: '/' },
 };
 
 export default function Page() {
