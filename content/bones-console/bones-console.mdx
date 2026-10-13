@@ -1,3 +1,7 @@
+---
+description: "Commands of the php bones CLI: deploy and its options, rename, update, version, tinker, migrate, migrate:to-v3, the make: creators and stub:publish."
+---
+
 import { PHPBonesCommand } from '@/components';
 import { IconBrandWindows, IconBrandWordpress } from "@tabler/icons-react";
 import { Callout, FileTree } from 'nextra/components';
@@ -104,12 +108,12 @@ Since `v2.0.7`, when `vendor/composer/installed.json` lists dev packages, the de
 <Callout type="warning">
 Also since `v2.0.6`, a production build that fails **stops the deploy**. Before that the build ran through `shell_exec()`, which discards the exit status, so a broken build printed `✅ Build completed` and the command went on to package whatever was already in `public/`.
 </Callout>
-The `--wp` option will create a deploy folder with the necessary files to submit your plugin to the WordPress repository. For further information, see [here](../getting-started/before-submit-to-wordpress-repository).
+The `--wp` option will create a deploy folder with the necessary files to submit your plugin to the WordPress repository. For further information, see [Before submit to WordPress repository](../getting-started/before-submit-to-wordpress-repository).
 
 #### `--wp`
 
 <Callout emoji={<IconBrandWordpress />}>
-Starting from WP Bones `v1.5.0` we added a new option `--wp` to deploy the plugin to the WordPress repository. This option will create a deploy folder with the necessary files to submit your plugin to the WordPress repository. For further information, see [here](../getting-started/before-submit-to-wordpress-repository).
+Starting from WP Bones `v1.5.0` we added a new option `--wp` to deploy the plugin to the WordPress repository. This option will create a deploy folder with the necessary files to submit your plugin to the WordPress repository. For further information, see [Before submit to WordPress repository](../getting-started/before-submit-to-wordpress-repository).
 </Callout>
 
 In the `mydeploy` folder, you will find only the necessary files to run your plugin.

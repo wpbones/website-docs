@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import { createElement } from 'react';
 import { HomePage } from '@/components/Home/HomePage';
 
@@ -20,6 +21,19 @@ import { HomePage } from '@/components/Home/HomePage';
  * equal.
  */
 export const revalidate = 86400;
+
+/**
+ * The home page's own title and description: without them it took the
+ * site-wide defaults, "WP Bones" and the one sentence every docs page also
+ * fell back to. The title is absolute, past the "%s | WP Bones" template, and
+ * the description is the hero's lead in under 160 characters. Open Graph and
+ * Twitter take both from here.
+ */
+export const metadata: Metadata = {
+  title: { absolute: 'WP Bones: WordPress plugins with Laravel-like bones' },
+  description:
+    'WP Bones is a framework for WordPress plugins: service providers, Blade views, Eloquent models, migrations, and a bones CLI that scaffolds and deploys.',
+};
 
 export default function Page() {
   return createElement(HomePage);

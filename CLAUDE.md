@@ -126,6 +126,25 @@ not the author's personal one).
 - **Not ours, measured on `main` too**: two React "unique key" warnings from Nextra's `ConfigProvider`
   in `next dev`, with or without banner, navbar and footer.
 
+## SEO (audited 2026-10-13)
+
+- **Every docs page has its own `description`**, in YAML frontmatter at the top of its `.mdx`
+  (110–155 characters, what the page covers with its concrete names). Without one a page falls back to
+  `config.metadata.description`, and on 2026-10-13 78 of 80 pages shared that one sentence. A page that
+  already exports `metadata` (`release-notes.mdx`) takes `description` inside that object: Nextra
+  refuses frontmatter and `export const metadata` in one file. A new page gets one too.
+- **One `#` heading per page**: it is the page's `<h1>` and, without a frontmatter `title`, its `<title>`.
+  A Mantine `<Title order={1}>` in MDX is an `<h1>` as well.
+- **`app/sitemap.ts`** lists `/` and every docs route, from the same Nextra helper the docs page is
+  generated with; `public/robots.txt` ends with its `Sitemap:` line. No `lastModified` (see the file).
+- **The home page** sets its own title and description (`app/page.ts`) and carries JSON-LD (`WebSite`,
+  `SoftwareSourceCode`, in `HomePage.tsx`). Open Graph and Twitter tags follow the title and description
+  on every page; the image is `app/opengraph-image.jpg`.
+- **How it was checked**: `seo.py <url> --sitemap` from `~/Lavoro/GitHub/claude-global/scripts/site-audit`
+  (h1, description length, canonical, link text, sitemap), plus a pass over every sitemap URL for
+  duplicate titles and descriptions, Open Graph and Twitter tags, images without `alt`, JSON-LD and broken
+  internal links.
+
 ## Tooling
 
 - **Formatter**: oxfmt (`.oxfmtrc.json`) — 100 char width, single quotes, trailing comma es5, with import sorting.

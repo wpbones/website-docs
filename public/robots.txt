@@ -215,3 +215,6 @@ Disallow: /
 # ─────────────────────────────────────────────────────────────
 User-agent: *
 Allow: /
+
+# Every page a search engine should know about.
+Sitemap: https://wpbones.com/sitemap.xml
