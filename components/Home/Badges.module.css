@@ -1,0 +1,96 @@
+/*
+ * The hero's badges: GitHub's stars and Product Hunt's, one row, one height.
+ * Product Hunt's is its own 250x54 image (white, a 1px border in its coral,
+ * 10px corners); the GitHub badge is drawn to the same box in the page's ink,
+ * so the two read as a pair. They wrap under each other on a phone.
+ */
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: rem(12px);
+  margin-top: rem(20px);
+}
+
+.stars,
+.ph {
+  display: inline-flex;
+  border-radius: rem(10px);
+  text-decoration: none;
+  transition: transform 150ms ease;
+
+  &:hover {
+    transform: translateY(-1px);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--wpb-sky);
+    outline-offset: 2px;
+  }
+}
+
+.stars {
+  align-items: center;
+  gap: rem(10px);
+  box-sizing: border-box;
+  height: rem(54px);
+  padding: 0 rem(14px) 0 rem(12px);
+  border: 1px solid var(--wpb-ink);
+  background: var(--wpb-page);
+  color: var(--wpb-ink);
+}
+
+.mark {
+  flex: none;
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  gap: rem(3px);
+  line-height: 1;
+}
+
+.kicker {
+  font-size: rem(9px);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.name {
+  font-size: rem(21px);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+/* The count under its star, as Product Hunt's sits under its arrow. */
+.count {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: rem(30px);
+  margin-left: rem(6px);
+  font-size: rem(16px);
+  font-weight: 700;
+  line-height: 1.2;
+
+  & svg {
+    color: var(--wpb-amber);
+  }
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.ph img {
+  display: block;
+  width: rem(250px);
+  height: rem(54px);
+}

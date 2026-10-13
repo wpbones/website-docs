@@ -13,6 +13,14 @@ import { HomePage } from '@/components/Home/HomePage';
  * upgrade adds `ts` to that glob, nothing breaks: the docs pages just load
  * the home page's CSS again, which a look at their <link> tags shows.
  */
+/**
+ * Rendered again at most once a day, for the hero's GitHub stars
+ * (components/Home/github-stars.ts, STARS_REVALIDATE). A literal, because Next
+ * reads it without running the module; github-stars.test.ts holds the two
+ * equal.
+ */
+export const revalidate = 86400;
+
 export default function Page() {
   return createElement(HomePage);
 }

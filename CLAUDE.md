@@ -87,6 +87,14 @@ not the author's personal one).
   `--at` fractions, `--frames N --every MS`, `--eval`, `--no-wake` (without it the page is scrolled once
   first, which fires every one-shot reveal before the first frame). A `next dev` rewrites `CLAUDE.md` and
   `next-env.d.ts`: restore them before committing.
+- **The hero's badges (2026-10-13)**: the framework's GitHub stars, rolling up on `ScrollNumber`, and
+  Product Hunt's own badge image, side by side (`components/Home/Badges.tsx`). The stars are fetched on
+  the server (`github-stars.ts`), so the home page is ISR: `app/page.ts` has `revalidate = 86400`, one
+  regeneration a day at most, and the build log shows `/` with `1d`. With no count from GitHub (rate
+  limit, outage) the badge shows none, never a made-up one; build locally with
+  `GITHUB_TOKEN=$(gh auth token)` or the anonymous limit decides. The Product Hunt badge is the 2024
+  launch's (post 476081, featured, #30 of the day), not the 2026-10-07 relaunch's (1272305), which
+  Product Hunt did not feature and whose badge reads "Find us on".
 - **"New in WP Bones 2" (`components/Home/WhatsNew.tsx`) carries measured figures, each labelled with
   its tag**: 14 releases (v2.0.0 to v2.1.0), 174 tests and 470 assertions at v2.1.0 (PHPUnit run at the
   tag and on CI, all four PHP jobs), the growth 67 → 89 → 148 → 174 by `phpunit --list-tests` at v2.0.4,
