@@ -44,11 +44,11 @@ html {
 
   /*
    * The surfaces. One token each, so everything that has to dissolve INTO the
-   * page (the marquee's fade, a section's wash, Nextra's own chrome) names
-   * the colour the body is painted with. Declared on :root, not on the body:
-   * a var() inside a custom property resolves where it is declared, so a
-   * token Nextra reads from html would keep the root's value whatever the
-   * body said (measured on netfox.app).
+   * page (a section's wash, Nextra's own chrome) names the colour the body is
+   * painted with. Declared on :root, not on the body: a var() inside a custom
+   * property resolves where it is declared, so a token Nextra reads from html
+   * would keep the root's value whatever the body said (measured on
+   * netfox.app).
    *
    * - `--wpb-page`    white, the page: the bone's own colour.
    * - `--wpb-mist`    the sky at 3%, a band the eye reads as a section.
@@ -315,10 +315,6 @@ html:root[data-mantine-color-scheme='light'] {
   --mantine-color-default-border: var(--wpb-rule);
   /* bones-7: links at 6.10:1 on white, where the filled shade is 4.62:1. */
   --mantine-color-anchor: var(--mantine-color-bones-7);
-}
-
-* {
-  --marquee-fade-edge-color: var(--wpb-page);
 }
 
 body {
