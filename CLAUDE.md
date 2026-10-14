@@ -37,7 +37,7 @@ Package manager: **Yarn 4** (do not use npm). Node version: see `.nvmrc`.
 - **Nextra** handles doc routing, search, sidebar, and MDX rendering. Configured in `next.config.mjs` with `contentDirBasePath: '/docs'`.
 - **Mantine** is the design system. CSS imports use `.layer.css` for proper cascade. PostCSS is configured with `postcss-preset-mantine`.
 - **Pagefind** generates a static search index at build time (`yarn build:pagefind`), served from `public/_pagefind/`.
-- Custom Mantine extensions: `@gfazioli/mantine-marquee`, `@gfazioli/mantine-parallax`, `@gfazioli/mantine-text-animate`.
+- Custom Mantine extensions: `@gfazioli/mantine-parallax`, `@gfazioli/mantine-text-animate`.
 
 ## The home page and the site's look (2026-10-05 redesign)
 
