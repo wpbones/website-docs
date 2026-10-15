@@ -20,16 +20,16 @@ import classes from './WhatsNew.module.css';
  * l'accento sulle nuove feature che abbiamo introdotto nelle ultime versioni
  * -- scava a fondo -- tipo ad esempio i test"). Every line is the release
  * notes' or the docs' own (github.com/wpbones/WPBones/releases, v2.0.0 to
- * v3.1.0) and every figure was measured, not read off a note: the test counts
- * by running PHPUnit at each tag (`--list-tests`) and at v3.1.0 in full
- * ("OK (360 tests, 993 assertions)": 224 unit, 136 console), as on CI. They are
- * figures AT v3.1.0, said so on the page, so a later release does not make
+ * v3.2.0) and every figure was measured, not read off a note: the test counts
+ * by running PHPUnit at each tag (`--list-tests`) and at v3.2.0 in full
+ * ("OK (366 tests, 1020 assertions)": 224 unit, 142 console), as on CI. They are
+ * figures AT v3.2.0, said so on the page, so a later release does not make
  * them false.
  */
 const RELEASE = (tag: string) => `https://github.com/wpbones/WPBones/releases/tag/${tag}`;
 
-/** v2.0.0 to v3.1.0, as `gh release list -R wpbones/WPBones` lists them. */
-const RELEASES = 19;
+/** v2.0.0 to v3.2.0, as `gh release list -R wpbones/WPBones` lists them. */
+const RELEASES = 20;
 
 /**
  * The suite at the four tags that grew it most, by `phpunit --list-tests` on the tag's tree. The
@@ -43,8 +43,8 @@ const GROWTH: [string, number][] = [
   ['v2.1.2', 200],
   ['v3.0.0', 350],
 ];
-const TESTS = 360;
-const ASSERTIONS = 993;
+const TESTS = 366;
+const ASSERTIONS = 1020;
 /** .github/workflows/tests.yml's matrix. */
 const PHP = ['8.1', '8.2', '8.3', '8.4'];
 
@@ -80,8 +80,8 @@ const CARDS = [
   {
     icon: IconPackageExport,
     title: 'Packages ready for WordPress.org',
-    tags: ['v2.0.6', 'v2.0.7'],
-    body: 'A broken build stops the deploy. What git ignores and Composer’s dev packages stay out of the package, and your working copy is never touched.',
+    tags: ['v2.0.6', 'v2.0.7', 'v3.2.0'],
+    body: 'A broken build stops the deploy. What git ignores, Composer’s dev packages and your test suites stay out of the package, and your working copy is never touched.',
     href: '/docs/bones-console/bones-console#what-the-deploy-leaves-out',
   },
   {
@@ -155,7 +155,7 @@ export function WhatsNew() {
           <h3 className={home.h3}>Tested on every pull request</h3>
           <p className={home.body}>
             224 unit tests check the SQL the framework builds and who may open its pages, with no
-            WordPress and no database. 136 more run the real{' '}
+            WordPress and no database. 142 more run the real{' '}
             <code className={home.code}>bones</code> file against throwaway plugins. Every pull
             request and every push to master runs them on PHP 8.1 to 8.4, and a deprecation fails
             the build.
@@ -163,7 +163,7 @@ export function WhatsNew() {
 
           <dl className={classes.stats}>
             <div>
-              <dt>tests at v3.1.0</dt>
+              <dt>tests at v3.2.0</dt>
               <dd>
                 <ScrollNumber value={TESTS} />
               </dd>
