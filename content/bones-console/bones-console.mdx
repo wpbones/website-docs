@@ -105,9 +105,11 @@ Since `v3.2.0` the deploy leaves your plugin's tests out of the package:
 
 - the PHP suite, where PHPUnit looks for it: `tests/`, `phpunit.xml`, `phpunit.xml.dist` and `phpunit.dist.xml`;
 - `jest.config.js` and `jest.config.json`;
-- every `__tests__` folder, and every `*.test.*` or `*.spec.*` script (`.ts`, `.tsx`, `.js`, `.jsx`) outside `vendor/` and `node_modules/`: the files the `jest.config.js` written by `migrate:to-v2` runs.
+- every `__tests__` folder, and every `*.test.*` or `*.spec.*` script (`.ts`, `.tsx`, `.js`, `.jsx`) outside `vendor/` and `node_modules/`: the files the `jest.config.js` written by `migrate:to-v2` runs, together with the `__snapshots__` and `__mocks__` folders Jest keeps beside them.
 
 The last ones matter with `--wp`, which keeps `resources/assets`: up to `v3.1.0` every Jest test in there went to WordPress.org with the scripts beside it, unless your `deploy.php` listed it. The cache PHPUnit writes, `.phpunit.cache`, never shipped, because the deploy skips every file and folder whose name starts with a dot. PHPUnit itself and the rest of your `require-dev` tree are removed as the next section explains.
+
+If your `composer.json` loads a file from `tests/` through `autoload-dev`'s `files`, the deploy stops and names it, rather than produce a plugin that fails as it loads. That only happens when the development autoloader reaches the package, with `--keep-dev` or with no `require-dev` package installed: move the file out of `autoload-dev`, or keep it in the package.
 
 If your plugin really ships one of these paths, take it out of the default list in `deploy.php`:
 
