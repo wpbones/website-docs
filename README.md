@@ -2,6 +2,11 @@
   <img src="https://github.com/wpbones/WPBones/assets/432181/13e0e825-9b0d-44c2-a77d-1baad88a1070" alt="WP Bones Logo" />
 </p>
 
+<div align="center">
+  <p><img src="https://raw.githubusercontent.com/wpbones/.github/main/glancecard/website-docs.svg" width="880" alt="The WP Bones website at a glance, refreshed daily: commits, releases, stars, issues and pull requests, a year of commit activity, the weekly rhythm, languages, latest commits and releases, contributors" /><br>
+  <sub>Made with <a href="https://github.com/gfazioli/glancecard">glancecard</a> · refreshed daily</sub></p>
+</div>
+
 ## Overview
 
 This is the main Website Documentation for the [WP Bones](https://github.com/wpbones/WPBones) Framework. You can see this Website Documentation live at [wpbones.com](https://wpbones.com/).
