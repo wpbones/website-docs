@@ -99,6 +99,24 @@ Three directories are never consulted, because your repository's ignore rules do
 
 Use `--keep-ignored` when an ignored file really does belong in the package. If the plugin is not a git repository, nothing is filtered.
 
+#### Test suites
+
+Since `v3.2.0` the deploy leaves your plugin's tests out of the package:
+
+- the PHP suite, where PHPUnit looks for it: `tests/`, `phpunit.xml`, `phpunit.xml.dist` and `phpunit.dist.xml`;
+- `jest.config.js` and `jest.config.json`;
+- every `__tests__` folder, and every `*.test.*` or `*.spec.*` script (`.ts`, `.tsx`, `.js`, `.jsx`) outside `vendor/` and `node_modules/`: the files the `jest.config.js` written by `migrate:to-v2` runs.
+
+The last ones matter with `--wp`, which keeps `resources/assets`: up to `v3.1.0` every Jest test in there went to WordPress.org with the scripts beside it, unless your `deploy.php` listed it. The cache PHPUnit writes, `.phpunit.cache`, never shipped, because the deploy skips every file and folder whose name starts with a dot. PHPUnit itself and the rest of your `require-dev` tree are removed as the next section explains.
+
+If your plugin really ships one of these paths, take it out of the default list in `deploy.php`:
+
+```php copy
+add_filter('wpbones_console_deploy_default_skip_files_folders', function ($skip) {
+    return array_values(array_diff($skip, ['/tests']));
+});
+```
+
 #### Composer dev packages
 
 The deploy copies `vendor/` as it is on disk, and a working copy normally has the `require-dev` tree installed — PHPUnit, Brain Monkey and the like. Up to `v2.0.6` all of it went into the package, WordPress.org included, unless your `deploy.php` ran `composer install --no-dev` itself.
