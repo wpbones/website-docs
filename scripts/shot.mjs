@@ -146,6 +146,7 @@ const chrome = spawn(
   CHROME,
   [
     '--headless=new',
+    '--use-mock-keychain',
     '--disable-gpu',
     '--no-first-run',
     '--no-default-browser-check',
