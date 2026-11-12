@@ -26,6 +26,7 @@ import {
 } from '@mantine/core';
 import config from '@/config';
 import { AnimateBadge } from '../AnimateBadge';
+import { FooterWordmark } from './FooterWordmark';
 import wpBonesLogo from '../wpbones-logo.png';
 import { ecosystem, highlights, resources, sponsors } from './links';
 import NextraLogo from './nextra.svg';
@@ -286,6 +287,8 @@ export const Footer: React.FC<FooterProps> = ({ year }) => {
           </Text>
         </div>
       </Container>
+
+      <FooterWordmark name="WP Bones" />
     </footer>
   );
 };

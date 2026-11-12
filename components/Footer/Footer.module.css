@@ -4,7 +4,10 @@
  * from the page, fading in from it; the sponsor wall as a card whose edges do
  * the separating; the colophon and the publisher line at the bottom.
  */
+/* `clip`: the wordmark rises from below and its tight tracking can reach a
+   pixel past the edge; neither may make the page scroll sideways. */
 .contentFooter {
+  overflow-x: clip;
   padding-top: 96px;
   background: linear-gradient(to bottom, var(--wpb-page) 0, var(--wpb-footer) 140px);
 }
