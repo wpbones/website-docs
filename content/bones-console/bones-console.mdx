@@ -119,6 +119,18 @@ add_filter('wpbones_console_deploy_default_skip_files_folders', function ($skip)
 });
 ```
 
+#### Agent instructions
+
+Since `v3.3.0` the deploy leaves out the files coding agents read from a repository, wherever they are, `vendor/` included:
+
+- `AGENTS.md` and `AGENTS.override.md`, read by Codex, Cursor, Copilot and most other agents, and `AGENT.md`;
+- `CLAUDE.md` and `CLAUDE.local.md`, Claude Code's, a `CLAUDE.md` that links to `AGENTS.md` included;
+- `GEMINI.md`, Gemini CLI's.
+
+Up to `v3.2.0` they shipped. A web server hands out a plugin's files as they are, so a `CLAUDE.md` in the package, with whatever it says about your code, could be read at `wp-content/plugins/<your-plugin>/CLAUDE.md` on every site that installed the plugin. A `deploy.php` filter was no remedy when the package is built without WordPress, in a Docker build or a CI job, because `deploy.php` only runs when WordPress is loaded.
+
+Their folders, `.claude/`, `.codex/`, `.cursor/`, `.github/` and the like, never shipped: the deploy skips every file and folder whose name starts with a dot.
+
 #### Composer dev packages
 
 The deploy copies `vendor/` as it is on disk, and a working copy normally has the `require-dev` tree installed — PHPUnit, Brain Monkey and the like. Up to `v2.0.6` all of it went into the package, WordPress.org included, unless your `deploy.php` ran `composer install --no-dev` itself.
