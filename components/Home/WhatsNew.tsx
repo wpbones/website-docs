@@ -20,16 +20,16 @@ import classes from './WhatsNew.module.css';
  * l'accento sulle nuove feature che abbiamo introdotto nelle ultime versioni
  * -- scava a fondo -- tipo ad esempio i test"). Every line is the release
  * notes' or the docs' own (github.com/wpbones/WPBones/releases, v2.0.0 to
- * v3.3.0) and every figure was measured, not read off a note: the test counts
- * by running PHPUnit at each tag (`--list-tests`) and at v3.3.0 in full
- * (368 tests, 1024 assertions: 224 unit, 144 console), as on CI. They are
- * figures AT v3.3.0, said so on the page, so a later release does not make
+ * v3.3.1) and every figure was measured, not read off a note: the test counts
+ * by running PHPUnit at each tag (`--list-tests`) and at v3.3.1 in full
+ * (386 tests, 1083 assertions: 229 unit, 157 console), as on CI. They are
+ * figures AT v3.3.1, said so on the page, so a later release does not make
  * them false.
  */
 const RELEASE = (tag: string) => `https://github.com/wpbones/WPBones/releases/tag/${tag}`;
 
-/** v2.0.0 to v3.3.0, as `gh release list -R wpbones/WPBones` lists them. */
-const RELEASES = 21;
+/** v2.0.0 to v3.3.1, as `gh release list -R wpbones/WPBones` lists them. */
+const RELEASES = 22;
 
 /**
  * The suite at the four tags that grew it most, by `phpunit --list-tests` on the tag's tree. The
@@ -43,8 +43,8 @@ const GROWTH: [string, number][] = [
   ['v2.1.2', 200],
   ['v3.0.0', 350],
 ];
-const TESTS = 368;
-const ASSERTIONS = 1024;
+const TESTS = 386;
+const ASSERTIONS = 1083;
 /** .github/workflows/tests.yml's matrix. */
 const PHP = ['8.1', '8.2', '8.3', '8.4'];
 
@@ -163,7 +163,7 @@ export function WhatsNew() {
 
           <dl className={classes.stats}>
             <div>
-              <dt>tests at v3.3.0</dt>
+              <dt>tests at v3.3.1</dt>
               <dd>
                 <ScrollNumber value={TESTS} />
               </dd>
