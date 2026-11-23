@@ -43,7 +43,10 @@ const GROWTH: [string, number][] = [
   ['v2.1.2', 200],
   ['v3.0.0', 350],
 ];
-const TESTS = 386;
+/** `composer test --testsuite unit` and `--testsuite console`, the two halves the card names. */
+const UNIT_TESTS = 229;
+const CONSOLE_TESTS = 157;
+const TESTS = UNIT_TESTS + CONSOLE_TESTS;
 const ASSERTIONS = 1083;
 /** .github/workflows/tests.yml's matrix. */
 const PHP = ['8.1', '8.2', '8.3', '8.4'];
@@ -154,8 +157,8 @@ export function WhatsNew() {
           </div>
           <h3 className={home.h3}>Tested on every pull request</h3>
           <p className={home.body}>
-            224 unit tests check the SQL the framework builds and who may open its pages, with no
-            WordPress and no database. 144 more run the real{' '}
+            {UNIT_TESTS} unit tests check the SQL the framework builds and who may open its pages,
+            with no WordPress and no database. {CONSOLE_TESTS} more run the real{' '}
             <code className={home.code}>bones</code> file against throwaway plugins. Every pull
             request and every push to master runs them on PHP 8.1 to 8.4, and a deprecation fails
             the build.
