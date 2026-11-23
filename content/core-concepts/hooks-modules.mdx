@@ -127,7 +127,7 @@ my_simple_function(); // Hello, I'm a simple function!
 ```
 
 <Callout type="warning">
-Before WP Bones 3.3.1, a module whose name ends with `p` or `h`, such as `shop` or `graph`, could not be loaded: the name lost its last letters before `.php` was added. Run `composer update wpbones/wpbones` to get the fix.
+Before WP Bones 3.3.1, a module whose name ends with `p` or `h`, such as `shop` or `graph`, could not be loaded: the name lost its last letters before `.php` was added. With a `^3.0` constraint in your `composer.json`, `composer update wpbones/wpbones` brings the fix; a plugin still on 1.x or 2.x needs the [migration to v3](/docs/migrating-to-v3) first.
 </Callout>
 
 <Callout type="info" emoji="💡">
