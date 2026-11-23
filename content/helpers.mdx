@@ -25,8 +25,8 @@ WP Bones includes a variety of "helper" PHP functions, many of which are used by
 * [wpbones_env()](#wpbones_env)
 * [wpbones_flatten_and_uniquify()](#wpbones_flatten_and_uniquify)
 * [wpbones_is_true()](#wpbones_is_true)
-* <AnimateBadge /> [wpbones_module()](#wpbones_module)
 * [wpbones_logger()](#wpbones_logger)
+* <AnimateBadge /> [wpbones_modules()](#wpbones_modules)
 * [wpbones_provider()](#wpbones_provider)
 * [wpbones_selected()](#wpbones_selected)
 * [wpbones_value()](#wpbones_value)
@@ -50,7 +50,7 @@ function import($module)
 
 > Since this function is not using the prefix `wpbones_` you should be careful to use it in your code. In fact, if you have another plugin or theme that uses the same function, you will have a conflict. 
 
-See [`wpbones_module()`](#wpbones_module) for a safer way to get the logger instance.
+See [`wpbones_modules()`](#wpbones_modules), the same loader with the `wpbones_` prefix.
 
 
 ---------------------------------------------------------------------------------------------
@@ -287,25 +287,6 @@ if ( wpbones_is_true('true') ) {
 ```
 ---------------------------------------------------------------------------------------------
 
-### `wpbones_module()`
-
-#### Synopsis
-
-```php copy
-/**
- * Import a file from the `/plugin/modules` directory.
- *
- * @param string $module The module name.
- *
- * @return mixed
- */
-function wpbones_module($module)
-```
-
-
-
----------------------------------------------------------------------------------------------
-
 ### `wpbones_logger()`
 
 #### Synopsis
@@ -326,6 +307,31 @@ That's a shortcut to get the instance of the logger. You may use also
 ```php copy
 $logger = WPKirk()->log();
 ```
+---------------------------------------------------------------------------------------------
+
+### `wpbones_modules()`
+
+#### Synopsis
+
+```php copy
+/**
+ * Import a file from the `/plugin/modules` directory.
+ *
+ * @param string $file The module name, with or without the `.php` extension.
+ *
+ * @return mixed What the module file returns.
+ */
+function wpbones_modules($file)
+```
+
+#### Usage
+
+```php copy
+$config = wpbones_modules('config'); // requires plugin/modules/config.php
+```
+
+See [Hooks and Modules](/docs/core-concepts/hooks-modules#modules) for more examples.
+
 ---------------------------------------------------------------------------------------------
 
 ### `wpbones_provider()`

@@ -1,5 +1,5 @@
 ---
-description: "Files in plugin/hooks load when the plugin starts; plugin/modules files load on demand with wpbones_module() and can return functions, arrays or objects."
+description: "Files in plugin/hooks load when the plugin starts; plugin/modules files load on demand with wpbones_modules() and can return functions, arrays or objects."
 ---
 
 import { DocsBoilerplateDemo, FileTreeLabel } from '@/components';
@@ -106,7 +106,7 @@ $value = $setValue('new value');
 
 Modules are similar to hooks, but unlike hooks, they must be explicitly loaded. Modules are also PHP files and must be located within the folder: `/plugin/modules/`.
 
-To load a module, you can use the `wpbones_module()` function. For example, you can create a file named `my-module.php` and add the following code:
+To load a module, you can use the `wpbones_modules()` function. For example, you can create a file named `my-module.php` and add the following code:
 
 ```php copy filename="plugin/modules/my-module.php"
 <?php
@@ -121,13 +121,17 @@ and then load it using:
 
 ```php copy
 // NOTE that you don't need to use the .php extension or the path
-wpbones_module('my-module');
+wpbones_modules('my-module');
 
 my_simple_function(); // Hello, I'm a simple function!
 ```
 
+<Callout type="warning">
+Before WP Bones 3.3.1, a module whose name ends with `p` or `h`, such as `shop` or `graph`, could not be loaded: the name lost its last letters before `.php` was added. Run `composer update wpbones/wpbones` to get the fix.
+</Callout>
+
 <Callout type="info" emoji="💡">
-> WP Bones also provides the `import` function to load modules. Since this might be a common function, it is generally better to use `wpbones_module()`. However, if you wish to use `import`, you can do so.
+> WP Bones also provides the `import` function to load modules. Since this might be a common function, it is generally better to use `wpbones_modules()`. However, if you wish to use `import`, you can do so.
 ```php copy
 // NOTE that you don't need to use the .php extension or the path
 import('my-module');
@@ -151,7 +155,7 @@ return function () {
 and then load it using:
 
 ```php copy
-$awesome_function = wpbones_module('my-awesome-function');
+$awesome_function = wpbones_modules('my-awesome-function');
 $awesome_function(); // Hello, I'm an awesome function!
 ```
 
@@ -172,14 +176,14 @@ return [
 and then load it using:
 
 ```php copy
-$config = wpbones_module('config');
+$config = wpbones_modules('config');
 echo $config['controller']; // WPKirk\Http\Controllers\Examples\ExampleController
 echo $config['mul'](2, 3); // 6
 ```
 you may also use a different syntax:
 
 ```php copy
-['controller' => $controller, 'mul' => $mul] = wpbones_module('config');
+['controller' => $controller, 'mul' => $mul] = wpbones_modules('config');
 echo $controller; // WPKirk\Http\Controllers\Examples\ExampleController
 echo $mul(2, 3); // 6
 ```
@@ -208,7 +212,7 @@ return new MyClass();
 and then load it using:
 
 ```php copy
-$my_class = wpbones_module('my-class');
+$my_class = wpbones_modules('my-class');
 // Hello, I'm a class!
 $my_class->myMethod(); // Hello, I'm a method!
 ```

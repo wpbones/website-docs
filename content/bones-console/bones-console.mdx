@@ -87,6 +87,12 @@ The deploy deletes the destination folder and fills it again, so since `v2.0.10`
 - an existing folder is replaced only when it is empty or holds a previous deploy of this plugin, that is its main file with the same `Plugin Name`;
 - anything else is left alone, and the deploy stops and says so. Pass `--force` if that folder really is yours to replace.
 
+Since `v3.3.1` a destination whose parent folders do not exist yet gets them, as `mkdir -p` would, once those checks have passed. A folder or file the deploy cannot write stops it with `Deploy failed: could not write '<path>'` and exit status `1`.
+
+<Callout type="warning">
+Up to `v3.3.0` a deploy to `/tmp/missing-parent/my-plugin` copied nothing: every write failed with a PHP warning, and the deploy still printed `✅ Deploy completed!` and exited with `0`.
+</Callout>
+
 <Callout type="warning">
 Up to `v2.0.9` an existing destination was deleted after a five-second pause and nothing else: `php bones deploy ..` removed every plugin beside yours and the plugin itself, and `php bones deploy build` copied the plugin into `build/build/build/…` until the path was too long.
 </Callout>
