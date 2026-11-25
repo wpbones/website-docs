@@ -24,7 +24,9 @@ export async function GET(request: Request) {
     // If the token is invalid/expired (401) or rejected by org policy (403, e.g.
     // fine-grained tokens with too-long lifetime), retry unauthenticated instead
     // of failing — public releases are readable without auth.
-    const fetchOptions = { next: { revalidate: 3600 } };
+    // No data cache: Next serves an expired entry once more while it refetches, and on a quiet
+    // site that entry is days old, which the CDN then kept. The CDN entry below is the only cache.
+    const fetchOptions = { cache: 'no-store' as const };
     let response: Response;
     if (process.env.GITHUB_TOKEN) {
       response = await fetch(url, {
@@ -63,7 +65,9 @@ export async function GET(request: Request) {
       { releases, status: 'ok' },
       {
         headers: {
-          'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=86400',
+          // One CDN entry for every visitor, ten minutes old at most (no Vary: the bot check
+          // answers 403s, which are never cached).
+          'Cache-Control': 'public, s-maxage=600, stale-while-revalidate=60',
         },
       }
     );
