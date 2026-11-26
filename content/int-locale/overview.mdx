@@ -63,7 +63,7 @@ Anyway, you can still change the folder name used for the translations in the ma
 ```
 </Callout>
 
-Under the hood WP bones uses the `load_plugin_textdomain()` function to load the translations.
+Under the hood WP bones uses the `load_plugin_textdomain()` function to load the translations. Since WP Bones `3.4.1` it loads the `Text Domain` your main plugin file declares, from the folder named by `Domain Path` (`languages` when the header has none; a leading slash, as WordPress documents it, is fine). Up to `3.4.0` it loaded the domain `bones rename` had derived from the plugin name, so a plugin whose `Text Domain` differs from it had to call `load_plugin_textdomain()` itself.
 
 Starting from WP Bones `1.6.0` you will be able to use the internationalization process to translate the React components and the Blocks. The plugin uses the [`make-pot`](https://developer.wordpress.org/cli/commands/i18n/make-pot/) and [`make-json`](https://developer.wordpress.org/cli/commands/i18n/make-json/) scripts to generate the `.pot` and `.json` files.
 
