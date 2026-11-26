@@ -51,11 +51,12 @@ const STRUCTURED_DATA = {
  * feature tour), the command line that writes that code, where to start (the
  * boilerplates), what comes with it (the ecosystem), who ships with it (the
  * showcase), and the way in again. A server component: only the islands that
- * move or react are client code.
+ * move or react are client code. It renders no `<main>`: the shell's
+ * `AppShell.Main` is the page's one.
  */
 export function HomePage() {
   return (
-    <main className={classes.page}>
+    <div className={classes.page}>
       <script
         type="application/ld+json"
         // `<` escaped, so no value can ever close the script element.
@@ -86,6 +87,6 @@ export function HomePage() {
       <ScrollGuide
         tips={FEATURES.map(({ label, blurb }) => ({ title: label, description: blurb }))}
       />
-    </main>
+    </div>
   );
 }
