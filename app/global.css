@@ -6,6 +6,13 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Raw <code>, <pre> and <samp> (the home page's) in Fira Code, as the docs' code is. */
+code,
+pre,
+samp {
+  font-family: var(--font-fira-code), 'Fira Code', Monaco, monospace;
+}
+
 /* The release banner in the logo's deep blue, not the engine's gradient. */
 :root {
   --site-banner-background: var(--mantine-color-bones-8);

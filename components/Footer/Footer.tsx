@@ -76,7 +76,8 @@ const VerticalLinks = ({ list }: { list: VerticalLink[] }) => {
 export const Footer: React.FC<FooterProps> = ({ year }) => {
   const { legal } = config;
   return (
-    <footer className={classes.contentFooter}>
+    // The shell draws the footer inside <main>, where a bare <footer> is no landmark: say what it is.
+    <footer role="contentinfo" className={classes.contentFooter}>
       <Container className={classes.footer} size="lg">
         <Grid grow>
           <Grid.Col span={{ base: 12, sm: 4 }}>

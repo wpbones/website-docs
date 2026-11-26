@@ -10,7 +10,7 @@ import '@/theme/global.css';
 import { Analytics } from '@vercel/analytics/react';
 import type { Viewport } from 'next';
 import { Fira_Code, Poppins } from 'next/font/google';
-import { ColorSchemeScript, mantineHtmlProps, MantineProvider } from '@mantine/core';
+import { Box, ColorSchemeScript, mantineHtmlProps, MantineProvider } from '@mantine/core';
 // !! End of important imports !!
 
 import { ChatLauncher, Footer } from '@/components';
@@ -98,9 +98,19 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             siteFooter={footer}
             banner={
               <Banner storageKey={`release-notes-${pack.version}`}>
+                {/* Shorter on a phone, where the banner is one line wide: "v3.4.0 is out! Release
+                    Notes →". */}
                 <span>
-                  WP Bones v{pack.version} is out!{' '}
-                  <Link href="/docs/release-notes">Check the Release Notes →</Link>
+                  <Box component="span" visibleFrom="sm">
+                    WP Bones{' '}
+                  </Box>
+                  v{pack.version} is out!{' '}
+                  <Link href="/docs/release-notes">
+                    <Box component="span" visibleFrom="sm">
+                      Check the{' '}
+                    </Box>
+                    Release Notes →
+                  </Link>
                 </span>
               </Banner>
             }
