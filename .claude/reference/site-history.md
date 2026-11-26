@@ -109,7 +109,7 @@ not the author's personal one).
   v2.0.6, v2.0.10, v2.1.0. A release that changes the suite or adds a feature worth a card updates
   `RELEASES`, `TESTS`, `ASSERTIONS`, `GROWTH` and the cards in the same docs cascade. Never on it: coverage
   (CI runs with `coverage: none`), "tested on WordPress" (no integration suite exists), "audited/secure".
-- **The home page is `app/page.ts`, not `.tsx`, and that is load-bearing.** Nextra's page map, which the
+- **(Nextra era, superseded on 2026-11-26: the home is `app/page.tsx` now, and `app/_meta.tsx` may carry any key.) The home page was `app/page.ts`, not `.tsx`, and that was load-bearing.** Nextra's page map, which the
   root layout reads on every page, imports every app page it finds as a namespace (for its metadata),
   and its glob is `page.{js,jsx,jsx,tsx,md,mdx}`. Found, the home page put all its stylesheets into the
   layout's CSS and every docs page blocked its first paint on them (measured: docs LCP 2.0 s on `main`,
@@ -160,3 +160,11 @@ not the author's personal one).
 - **TypeScript**: 6.x
 - **Package Manager**: Yarn 4 (Berry). Do not use npm or pnpm.
 - Path alias: `@/*` maps to project root (e.g., `@/components`, `@/config`).
+
+## 2026-11-26: Nextra out, the docs engine in
+
+The user asked *"migra il sito wp bones con le docs da nextra al nostro nuovo template nextjs+docs"*, one goal being to drop Nextra, which pinned `zod` (an open high Dependabot alert). The site now runs on the docs engine of `next-app-mantine-docs-template` (v1.0.6 plus its PR #9): `nextra`, `nextra-theme-docs` and `zod` are out of the lockfile, and so are `dompurify` and `lodash-es`, which only Nextra pulled in. The Nextra-era notes above are history; `CLAUDE.md`, *The docs engine*, is current.
+
+- **Parity**: the 80 URLs of the production sitemap answer 200 with the same title, description, canonical, `og:*`, `twitter:*`, h1 and heading ids. Only differences: every h1 now has an id (`rehype-slug`), and two headings that began with a quote now open with the right one (Nextra's smartypants closed it).
+- **What Nextra did that the engine did not, found by comparing every page's text against production** (all four now live in the template, PR #9): curly quotes and ellipses (`remark-smartypants`), relative Markdown images served by the bundler, Shiki's `ansi` language for terminal output, and a switch-less sidebar for a one-scheme site (`config.docs.colorSchemeControl: false`).
+- **Header, footer, banner, release notes**: the template's header (`MantineNavBar`, with the WP Bones logo, the sponsor and coffee buttons, no colour-scheme control), the site's own `Footer` under every page, the engine's `Banner` in `--site-banner-background: bones-8`, the template's `ReleaseNotes` with the "full changelog" button. The release notes' table of contents is built by the page from the fetched releases, not by a build-time fetch.

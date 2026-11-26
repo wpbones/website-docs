@@ -1,7 +1,7 @@
 // 'use client';
 
 import { IconBrandGithub } from '@tabler/icons-react';
-import { Cards } from 'nextra/components';
+import { Cards } from '@/components/docs';
 import { Badge, Button, Group } from '@mantine/core';
 import { AnimateBadge } from '@/components';
 import { DemoButton } from './DemoButton';

@@ -1,93 +1,52 @@
-import { useEffect, useState } from 'react';
-import { compileMdx } from 'nextra/compile';
+'use client';
+
 import useSWR from 'swr';
+import config from '@/config';
 
-export interface Author {
-  login: string;
+export type GitHubRelease = {
   id: number;
-  node_id: string;
-  avatar_url: string;
-  gravatar_id: string;
-  url: string;
-  html_url: string;
-  followers_url: string;
-  following_url: string;
-  gists_url: string;
-  starred_url: string;
-  subscriptions_url: string;
-  organizations_url: string;
-  repos_url: string;
-  events_url: string;
-  received_events_url: string;
-  type: string;
-  user_view_type: string;
-  site_admin: boolean;
-}
-
-export interface Release {
-  url: string;
-  assets_url: string;
-  upload_url: string;
-  html_url: string;
-  id: number;
-  author: Author;
-  node_id: string;
+  name: string | null;
   tag_name: string;
-  target_commitish: string;
-  name: string;
-  draft: boolean;
-  prerelease: boolean;
-  created_at: string;
+  html_url: string;
   published_at: string;
-  assets: any[];
-  tarball_url: string;
-  zipball_url: string;
-  body: string;
+  prerelease: boolean;
+  body: string | null;
+};
+
+const isStaticExport = process.env.NEXT_PUBLIC_STATIC_EXPORT === '1';
+
+/**
+ * Releases data source:
+ * - server deployments: the bundled /api/github-releases proxy
+ *   (optional GITHUB_TOKEN, bot filtering, 1h cache)
+ * - static export (GitHub Pages): direct browser fetch to the GitHub API
+ *   (CORS-enabled; 60 unauthenticated requests/hour per visitor IP)
+ */
+const endpoint = isStaticExport
+  ? `${config.gitHub.releasesUrl}?per_page=${config.releaseNotes.maxReleases}`
+  : '/api/github-releases';
+
+async function fetcher(url: string): Promise<GitHubRelease[]> {
+  const response = await fetch(
+    url,
+    isStaticExport ? { headers: { Accept: 'application/vnd.github+json' } } : undefined
+  );
+  if (!response.ok) {
+    throw new Error(`Failed to fetch releases (${response.status})`);
+  }
+  const data = await response.json();
+  // The /api/github-releases proxy answers `{ releases, status }`; GitHub itself, the array.
+  const releases = Array.isArray(data) ? data : data?.releases;
+  if (!Array.isArray(releases)) {
+    throw new Error('Unexpected response from the releases endpoint');
+  }
+  return releases as GitHubRelease[];
 }
 
 export function useReleaseNotes() {
-  const fetcher = (url: string) => fetch(url).then((res) => res.json());
+  const { data, error, isLoading } = useSWR(endpoint, fetcher, {
+    revalidateOnFocus: false,
+  });
 
-  const [compiledReleases, setCompiledReleases] = useState<Release[]>([]);
-  const [error, setError] = useState<string | null>(null);
-
-  const {
-    data,
-    error: swrError,
-    isLoading,
-  } = useSWR<{
-    releases: Release[];
-  }>('/api/github-releases', fetcher);
-
-  useEffect(() => {
-    if (data && !isLoading && !error) {
-      if (data.toString() === 'rate limit exceeded') {
-        setError('Rate limit exceeded. Please try again later. Or check your API key.');
-        return;
-      }
-
-      if (!data.releases || !Array.isArray(data.releases)) {
-        setError('Unexpected response from /api/github-releases. Check the server logs.');
-        return;
-      }
-
-      const fetchReleases = async () => {
-        const releases = await Promise.all(
-          data.releases.map(async (release) => ({
-            ...release,
-            created_at: new Date(release.created_at).toLocaleDateString('en-US', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
-            }),
-            body: await compileMdx(release.body),
-          }))
-        );
-        setCompiledReleases(releases);
-      };
-      fetchReleases();
-    }
-  }, [data, isLoading, error]);
-
-  return { data: compiledReleases, error: error || swrError, isLoading } as const;
+  return { releases: data ?? [], error, isLoading };
 }

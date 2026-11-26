@@ -1,26 +1,36 @@
 import '@mantine/core/styles.css';
 // !! The order of these imports is important !!
+import '@mantine/code-highlight/styles.css';
+import '@mantine/spotlight/styles.css';
 import '@gfazioli/mantine-parallax/styles.css';
 import '@gfazioli/mantine-text-animate/styles.css';
 // Mantine theme overrides (palette tokens, springs, body background, etc.)
 import '@/theme/global.css';
 
 import { Analytics } from '@vercel/analytics/react';
+import type { Viewport } from 'next';
 import { Fira_Code, Poppins } from 'next/font/google';
-import { Layout } from 'nextra-theme-docs';
-import { Banner, Head } from 'nextra/components';
-import { getPageMap } from 'nextra/page-map';
 import { ColorSchemeScript, mantineHtmlProps, MantineProvider } from '@mantine/core';
 // !! End of important imports !!
 
-import { ChatLauncher, Footer, MantineNavBar } from '@/components';
+import { ChatLauncher, Footer } from '@/components';
+import { Link } from '@/components/Link/Link';
+import { Banner } from '@/components/shell/Banner/Banner';
+import { DocsSearch } from '@/components/shell/DocsSearch/DocsSearch';
+import { SiteShell } from '@/components/shell/SiteShell/SiteShell';
 import config from '@/config';
+import { getDocs } from '@/lib/docs/content';
+import { SIDEBAR_COLLAPSED_SCRIPT } from '@/lib/docs/sidebar';
+import { getTopNav } from '@/lib/docs/top-nav';
 import pack from '../package.json';
 import { theme } from '../theme';
 
 import './global.css';
 
 export const metadata = config.metadata;
+
+// The browser's own chrome on a phone takes the page's white.
+export const viewport: Viewport = { themeColor: '#ffffff' };
 
 // Served from this site: next/font downloads the files at build time, so a
 // visitor's browser never asks Google for them. Poppins in three weights: the
@@ -47,9 +57,10 @@ const firaCode = Fira_Code({
 });
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const pageMap = await getPageMap();
-
-  const { nextraLayout, head } = config;
+  const { tree } = await getDocs();
+  const { head } = config;
+  // One footer for every page, docs included, as on the Nextra site.
+  const footer = <Footer year={new Date().getFullYear()} />;
 
   return (
     // `data-scroll-behavior`: app/global.css makes <html> scroll smoothly (for
@@ -66,18 +77,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       className={`${poppins.variable} ${firaCode.variable}`}
       {...mantineHtmlProps}
     >
-      {/*
-        Nextra's primary colour, which its links, active sidebar row and table
-        of contents are all cut from: bones-6 (#1c7ea1, the logo's sky taken
-        down until white on it reads 4.62:1) as HSL, at the lightness its
-        links are drawn with. The background is --wpb-page, given here as well
-        because Nextra also writes it into the theme-color meta, which tints
-        the browser's own chrome on a phone.
-      */}
-      <Head
-        color={{ hue: 196, saturation: 70, lightness: 34 }}
-        backgroundColor={{ dark: '#ffffff', light: '#ffffff' }}
-      >
+      <head>
         {/*
           Forced, not defaulted: the site is light, with no switch
           (theme/global.css). `forceColorScheme` makes the pre-hydration
@@ -87,34 +87,27 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         */}
         <ColorSchemeScript nonce={head.mantine.nonce} forceColorScheme="light" />
         <link rel="shortcut icon" href="/favicon.svg" />
-      </Head>
+        <script dangerouslySetInnerHTML={{ __html: SIDEBAR_COLLAPSED_SCRIPT }} />
+      </head>
       <body>
         <MantineProvider theme={theme} forceColorScheme="light">
-          <Layout
+          <SiteShell
+            tree={tree}
+            nav={getTopNav()}
+            docsFooter={footer}
+            siteFooter={footer}
             banner={
               <Banner storageKey={`release-notes-${pack.version}`}>
                 <span>
                   WP Bones v{pack.version} is out!{' '}
-                  <a href="/docs/release-notes">Check the Release Notes →</a>
+                  <Link href="/docs/release-notes">Check the Release Notes →</Link>
                 </span>
               </Banner>
             }
-            navbar={<MantineNavBar />}
-            pageMap={pageMap}
-            docsRepositoryBase={nextraLayout.docsRepositoryBase}
-            footer={<Footer year={new Date().getFullYear()} />}
-            sidebar={nextraLayout.sidebar}
-            editLink={null}
-            /*
-              Nextra's LIGHT theme, forced, with no switch in its sidebar: the
-              same scheme as Mantine above, so its tables, callouts and code
-              blocks are drawn for the ground they sit on.
-            */
-            darkMode={false}
-            nextThemes={{ defaultTheme: 'light', forcedTheme: 'light' }}
           >
             {children}
-          </Layout>
+          </SiteShell>
+          <DocsSearch />
           <ChatLauncher />
           <Analytics />
         </MantineProvider>

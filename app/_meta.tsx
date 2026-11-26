@@ -1,9 +1,8 @@
 import { Group } from '@mantine/core';
 import { IconCoffee, IconHeartFilled } from '@tabler/icons-react';
 
-// No `index` key: the home page is app/page.ts, which Nextra's page map does
-// not see (see there), so there is no entry to hide and a key for it fails the
-// build ("refers to a page that cannot be found").
+// The header's links, in Nextra's format (lib/docs/top-nav.ts reads this file). No `index` key:
+// the home page is app/page.tsx, not a docs page.
 export default {
   docs: {
     type: 'page',
@@ -33,7 +32,7 @@ export default {
     type: 'menu',
     items: {
       // Scrolls to the on-page Sponsors section (footer) — internal anchor,
-      // so Nextra shows no external arrow.
+      // so no external arrow is drawn.
       sponsor: {
         title: (
           <Group component="span" gap={8} wrap="nowrap" align="center">
@@ -43,7 +42,7 @@ export default {
         ),
         href: '#sponsors',
       },
-      // External donation link — Nextra keeps the ↗ external indicator.
+      // External donation link — the menu keeps the ↗ external indicator.
       coffee: {
         title: (
           <Group component="span" gap={8} wrap="nowrap" align="center">

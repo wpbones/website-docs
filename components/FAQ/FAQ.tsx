@@ -6,8 +6,8 @@ import {
   IconCode,
   IconQuestionMark,
 } from '@tabler/icons-react';
-import { Pre } from 'nextra/components';
 import { IconHeartFilled } from '@tabler/icons-react';
+import { CodeHighlight } from '@mantine/code-highlight';
 import { Accordion, Anchor, Box, Button } from '@mantine/core';
 import classes from './FAQ.module.css';
 
@@ -138,10 +138,7 @@ const faqs: FAQsProps[] = [
         You can update your WP Bones plugin by running the following command in your plugin
         directory:
         <Box my={8}>
-          <Pre data-language="sh" data-copy="">
-            {' '}
-            php bones update
-          </Pre>{' '}
+          <CodeHighlight code="php bones update" language="sh" />
         </Box>
         and check the <Anchor href="/docs/core-plugin-files/overview">Core Plugin Files</Anchor>.
       </>

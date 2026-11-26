@@ -11,7 +11,7 @@
 
 This is the main Website Documentation for the [WP Bones](https://github.com/wpbones/WPBones) Framework. You can see this Website Documentation live at [wpbones.com](https://wpbones.com/).
 
-Built with [Next.js](https://nextjs.org/), [Nextra](https://nextra.site/), and [Mantine](https://mantine.dev/).
+Built with [Next.js](https://nextjs.org/) and [Mantine](https://mantine.dev/), on the docs engine of [next-app-mantine-docs-template](https://github.com/gfazioli/next-app-mantine-docs-template) (MDX in `content/`, Pagefind search).
 
 ## Getting Started
 

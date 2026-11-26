@@ -1,7 +1,7 @@
 export default {
   /**
-   * Nextra metadata configuration
-   * @see https://nextra.vercel.app/docs/metadata
+   * Site metadata, merged into every page's own
+   * @see https://nextjs.org/docs/app/api-reference/functions/generate-metadata
    */
   metadata: {
     title: {
@@ -22,7 +22,6 @@ export default {
       'WordPress tools',
       'WordPress plugins',
       'Mantine',
-      'Nextra',
       'Next.js',
       'React',
       'JavaScript',
@@ -57,13 +56,22 @@ export default {
     },
   },
   /**
-   * Nextra Layout component configuration
+   * Docs layout
    */
-  nextraLayout: {
-    docsRepositoryBase: 'https://github.com/wpbones/website-docs',
+  docs: {
+    /**
+     * Base of each page's "Edit this page on GitHub" link: the page's path under `content/` is
+     * appended. Set it to an empty string to hide the link.
+     */
+    editUrlBase: '',
     sidebar: {
+      /** Folders deeper than this open only when they hold the current page */
       defaultMenuCollapseLevel: 1,
+      /** The collapse button at the foot of the sidebar, as it was on Nextra */
+      toggle: 'sidebar' as 'header' | 'sidebar',
     },
+    /** No colour-scheme switch: the site is light only (app/layout.tsx) */
+    colorSchemeControl: false,
   },
   /**
    * Main Layout head configuration
@@ -72,9 +80,24 @@ export default {
     // The colour scheme is not configured: the site is light only, forced in
     // app/layout.tsx.
     mantine: {
+      defaultColorScheme: 'light',
       nonce: '8IBTHwOdqNKAWeKl7plt8g==',
     },
   },
+  /**
+   * Links shared by the header, the sidebar and the footer
+   */
+  links: {
+    discord: 'https://discord.gg/5bdVyycU8F',
+    /** The Discord link's tooltip and accessible name, in the header and the sidebar */
+    discordLabel: 'WP Bones Discord server',
+    /** The GitHub icon in the header and at the foot of the sidebar */
+    github: 'https://github.com/wpbones/wpbones',
+    /** WP Bones' own GitHub Sponsors profile, not the author's personal one */
+    sponsor: 'https://github.com/sponsors/wpbones',
+    coffee: 'https://donate.stripe.com/fZu4gy4Tn3b1dgudGx0co00',
+  },
+
   /**
    * GitHub API configuration
    * @see https://docs.github.com/en/rest/reference/repos#releases

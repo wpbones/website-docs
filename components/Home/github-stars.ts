@@ -3,7 +3,7 @@ import config from '@/config';
 /**
  * How often the home page asks GitHub again, in seconds: once a day. The page
  * is rendered once and served from Vercel's cache; this is its `revalidate`
- * (app/page.ts), so a star shows up within a day, and each regeneration is
+ * (app/page.tsx), so a star shows up within a day, and each regeneration is
  * one page write, not one per visit.
  */
 export const STARS_REVALIDATE = 86400;

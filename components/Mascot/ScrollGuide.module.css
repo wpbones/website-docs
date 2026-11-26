@@ -91,7 +91,7 @@
 
 /*
  * In the corner of the window, above the page's sections and below anything
- * that opens over them: Nextra's menu on a phone and Mantine's overlays. Left
+ * that opens over them: the phone's navigation sheet and Mantine's overlays. Left
  * of the chat button, which owns the very corner.
  */
 .corner {

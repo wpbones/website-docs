@@ -50,9 +50,15 @@ describe('ScrollNumber', () => {
   });
 
   it('is never parked at zero where nothing can observe it scrolling in', () => {
-    // jsdom has no IntersectionObserver: a reveal that cannot fire must not
-    // arm the number, or it would read 0 for good.
-    const { container } = render(<ScrollNumber value="5" />);
-    expect(container.querySelector('[data-armed]')).toBeNull();
+    // A reveal that cannot fire must not arm the number, or it would read 0 for good. jest.setup
+    // gives jsdom an IntersectionObserver (the engine's tests need one): take it away here.
+    const observer = window.IntersectionObserver;
+    window.IntersectionObserver = undefined as unknown as typeof IntersectionObserver;
+    try {
+      const { container } = render(<ScrollNumber value="5" />);
+      expect(container.querySelector('[data-armed]')).toBeNull();
+    } finally {
+      window.IntersectionObserver = observer;
+    }
   });
 });

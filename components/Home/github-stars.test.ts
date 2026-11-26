@@ -49,7 +49,7 @@ describe('fetchStars', () => {
       expect.any(String),
       expect.objectContaining({ next: { revalidate: STARS_REVALIDATE } }),
     ]);
-    const page = readFileSync(join(__dirname, '../../app/page.ts'), 'utf8');
+    const page = readFileSync(join(__dirname, '../../app/page.tsx'), 'utf8');
     expect(page).toContain(`export const revalidate = ${STARS_REVALIDATE};`);
   });
 

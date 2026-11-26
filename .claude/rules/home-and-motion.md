@@ -1,6 +1,6 @@
 ---
 paths:
-  - "app/page.ts"
+  - "app/page.tsx"
   - "app/layout.tsx"
   - "components/Home/**"
   - "components/Motion/**"
@@ -18,7 +18,8 @@ paths:
   `#4f93b0`, white. `theme.ts` has the `bones` ladder (4 is the sky; filled
   buttons 6, white on it 4.62:1; links 7) and greys from the logo's navy
   (`dimmed` 5.50:1). Page tokens are `--wpb-*` on `:root` in
-  `theme/global.css`; Nextra's primary is set once, as HSL, on its `Head`.
+  `theme/global.css`; the docs chrome (links, active sidebar row, table of
+  contents) takes `theme.primaryColor` (`bones`).
 - The home page is server components (`components/Home/`) with client
   islands only where something moves or reacts (`RevealScope`/`Reveal`,
   `ScrollNumber`, `FeatureTabs`, `InstallLine`, `ScrollGuide`).
@@ -59,10 +60,8 @@ paths:
   sprite is one path per colour (`sprite.ts` `paths`): both are served
   twice, in the HTML and the RSC payload.
 - Moving Mantine to `styles.layer.css` would make chunk order irrelevant,
-  but would put Nextra's preflight above Mantine: settle that first.
+  but would reorder every unlayered module rule against it: settle that first.
 - `scripts/shot.mjs` films a page through Chrome DevTools: `--at`
   fractions, `--frames N --every MS`, `--eval`, `--no-wake` (without it the
   page scrolls once first, firing every one-shot reveal). It stores `dark`
   and emulates a dark OS on purpose, the worst case.
-- Two React "unique key" warnings from Nextra's `ConfigProvider` in
-  `next dev` are upstream, present on `main` too.

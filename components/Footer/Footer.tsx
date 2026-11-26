@@ -2,6 +2,7 @@
 
 import NextImage from 'next/image';
 import {
+  IconBook2,
   IconBrandDiscordFilled,
   IconBrandGithubFilled,
   IconBrandMantine,
@@ -29,7 +30,6 @@ import { AnimateBadge } from '../AnimateBadge';
 import { FooterWordmark } from './FooterWordmark';
 import wpBonesLogo from '../wpbones-logo.png';
 import { ecosystem, highlights, resources, sponsors } from './links';
-import NextraLogo from './nextra.svg';
 import classes from './Footer.module.css';
 
 type FooterProps = { year: number };
@@ -261,9 +261,13 @@ export const Footer: React.FC<FooterProps> = ({ year }) => {
             <Anchor fz={12} href="https://mantine.dev/" className={classes.brand}>
               <IconBrandMantine size={13} /> Mantine
             </Anchor>{' '}
-            and{' '}
-            <Anchor fz={12} href="https://nextra.site/" className={classes.brand}>
-              <NextImage src={NextraLogo} width={13} height={13} alt="" /> Nextra
+            and the{' '}
+            <Anchor
+              fz={12}
+              href="https://github.com/gfazioli/next-app-mantine-docs-template"
+              className={classes.brand}
+            >
+              <IconBook2 size={13} /> docs template
             </Anchor>
           </Text>
 

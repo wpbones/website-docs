@@ -6,7 +6,6 @@ export { FAQs } from './FAQ';
 export { FileTreeLabel } from './FileTreeLabel';
 export { Footer } from './Footer';
 export { Logo } from './Logo/Logo';
-export { MantineFooter } from './MantineFooter/MantineFooter';
 export { MantineNavBar } from './MantineNavBar/MantineNavBar';
 export { PHPBonesCommand } from './PHPBonesCommand/';
 export { Poser } from './Poser';
