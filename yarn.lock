@@ -3266,18 +3266,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@next/third-parties@npm:^16.4.6":
-  version: 16.4.6
-  resolution: "@next/third-parties@npm:16.4.6"
-  dependencies:
-    third-party-capital: "npm:1.0.20"
-  peerDependencies:
-    next: ^13.0.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
-    react: ^18.2.0 || 19.0.0-rc-de68d2f4-20241204 || ^19.0.0
-  checksum: 10c0/2c34b50e30d47a7338bc517de46601ad50e0ddaa15ada3febc1869806e6e1585e8ce14c0f05dc64a7a581e7a998f70643c04977f85644e2007a5c0eb05c62222
-  languageName: node
-  linkType: hard
-
 "@nodelib/fs.scandir@npm:2.1.5":
   version: 2.1.5
   resolution: "@nodelib/fs.scandir@npm:2.1.5"
@@ -14532,13 +14520,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"third-party-capital@npm:1.0.20":
-  version: 1.0.20
-  resolution: "third-party-capital@npm:1.0.20"
-  checksum: 10c0/7f45ff156ec9d7e2957a5b39061be22b780ffbd2d93c127252d908e2bff6cdd09f827a95909d457c8096e036f155006a38e355a06ee11cb6d63c7f4b150bbfb0
-  languageName: node
-  linkType: hard
-
 "timers-browserify@npm:^2.0.12":
   version: 2.0.12
   resolution: "timers-browserify@npm:2.0.12"
@@ -15467,7 +15448,6 @@ __metadata:
     "@mdx-js/react": "npm:^3.1.1"
     "@next/bundle-analyzer": "npm:^16.4.6"
     "@next/mdx": "npm:16.4.6"
-    "@next/third-parties": "npm:^16.4.6"
     "@shikijs/transformers": "npm:^4.6.0"
     "@storybook/addon-themes": "npm:^10.6.8"
     "@storybook/nextjs": "npm:^10.6.8"

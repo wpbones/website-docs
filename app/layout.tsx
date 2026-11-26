@@ -49,11 +49,17 @@ const poppins = Poppins({
 // preloaded font competes with the stylesheet for the first bytes. Measured
 // on 2026-10-05 with five font files preloaded: the first paint came 0.5 s
 // later than main's, on the docs as well as the home page.
+// The fallback is a real monospace stack, with no size-adjust: next/font's
+// generated one is Arial scaled by 134.59%, and inline code in a paragraph is
+// wider in it than in any monospace face, so lines wrapped once more until
+// Fira arrived (CLS 0.136 on /docs/core-concepts/logging).
 const firaCode = Fira_Code({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-fira-code',
   preload: false,
+  adjustFontFallback: false,
+  fallback: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
 });
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
