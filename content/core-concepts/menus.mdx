@@ -179,11 +179,34 @@ Since `v3.0.0` a menu without a `capability` asks for `manage_options`. Up to 2.
 
 ## Icon
 
-If you set the icon key to something like `dashicons-admin-plugins`, the official icon font of the WordPress admin will be used. Otherwise, if the value doesn't start with `dashicons-`, it will be used as an image filename in the `public/images/` folder.
+The `icon` key takes what `add_menu_page()` takes, plus the images of your plugin:
+
+| Value | Example | What WordPress draws |
+| --- | --- | --- |
+| A Dashicons class | `dashicons-admin-plugins` | the Dashicons glyph (on WordPress 7.2, its SVG counterpart when there is one) |
+| An icon name, WordPress 7.2+ | `core-admin/pin` | the registered SVG icon |
+| A `data:` URI | `data:image/svg+xml;base64,…` | your SVG, colored by the admin scheme |
+| An absolute URL | `https://cdn.example.com/menu.png` | that image |
+| `none` | `none` | nothing: you add the icon with CSS on `div.wp-menu-image` |
+| Anything else | `wpbones-logo-menu.png` | an image of your plugin's `public/images/` folder |
 
 ```php filename="config/menus.php" copy
 'icon' => 'wpbones-logo-menu.png', // /public/images/wpbones-logo-menu.png
 ```
+
+### SVG icons on WordPress 7.2
+
+WordPress 7.2 draws the admin menu with inline SVG icons, and a menu can name a registered icon: one of core's `core-admin` collection, or one you register with `wp_register_icon()`. Before 7.2 an icon name means nothing to WordPress, and WP Bones reads it as a file name, so gate it to keep a Dashicon on earlier versions:
+
+```php filename="config/menus.php" copy
+'icon' => function_exists('wp_is_valid_icon_name') ? 'core-admin/pin' : 'dashicons-admin-post',
+```
+
+On 7.2 a lowercase `folder/name` with no extension is read as an icon name, so keep an extension on the image files you put in subfolders of `public/images/`.
+
+<Callout type="info">
+Since `v3.4.0`. Up to v3.3.1 an icon name, `none` and an absolute URL were all read as file names of `public/images/`, and drew a broken image.
+</Callout>
 
 ## Custom Post Type attachment
 
