@@ -111,7 +111,9 @@
     padding-top: 0;
   }
 
-  @media (max-width: $mantine-breakpoint-sm) {
+  /* Phones, and the narrow right column just above md: links under the text. */
+  @media (max-width: $mantine-breakpoint-sm),
+    (min-width: $mantine-breakpoint-md) and (max-width: $mantine-breakpoint-lg) {
     grid-template-columns: minmax(0, 1fr);
   }
 }
